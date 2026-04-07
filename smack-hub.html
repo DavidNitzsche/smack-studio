@@ -8,6 +8,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
+    @font-face {
+      font-family: 'Funtastic';
+      src: url('Funtastic-Regular.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -64,22 +71,9 @@
       margin-bottom: 18px;
     }
 
-    .hero-mark {
-      height: 38px;
+    .hero-lockup {
+      height: 48px;
       width: auto;
-      flex-shrink: 0;
-    }
-
-    .hero-wordmark {
-      font-size: 42px;
-      font-weight: 900;
-      color: #ffffff;
-      letter-spacing: -0.03em;
-      line-height: 1;
-    }
-
-    .hero-wordmark span {
-      color: var(--pink);
     }
 
     .hero-subtitle {
@@ -287,6 +281,63 @@
       font-size: 13px;
       color: var(--muted);
       line-height: 1.5;
+    }
+
+    /* ─── ARCHIVE TOGGLE ───────────────────────────────────── */
+    .archive-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 7px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      margin-bottom: 28px;
+      transition: border-color 0.15s, color 0.15s;
+      font-family: inherit;
+    }
+
+    .archive-toggle:hover {
+      border-color: rgba(224,120,104,0.4);
+      color: var(--text);
+    }
+
+    .archive-toggle-arrow {
+      display: inline-block;
+      transition: transform 0.2s ease;
+      font-size: 10px;
+    }
+
+    .archive-toggle.open .archive-toggle-arrow {
+      transform: rotate(90deg);
+    }
+
+    .archive-section {
+      display: none;
+      margin-bottom: 40px;
+    }
+
+    .archive-section.open {
+      display: block;
+    }
+
+    .archive-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .archive-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
     }
 
     .del-file {
@@ -549,19 +600,10 @@
       gap: 10px;
     }
 
-    .footer-mark {
-      height: 22px;
+    .footer-lockup {
+      height: 18px;
       width: auto;
     }
-
-    .footer-wordmark {
-      font-size: 16px;
-      font-weight: 900;
-      color: var(--text);
-      letter-spacing: -0.02em;
-    }
-
-    .footer-wordmark span { color: var(--pink); }
 
     .footer-meta {
       font-size: 13px;
@@ -600,16 +642,16 @@
     <div class="hero-inner">
       <div class="hero-label">Command Center</div>
       <div class="hero-brand">
-        <svg class="hero-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 62" fill="none" role="img" aria-label="Smack jellyfish mark">
-          <path d="M3 28 A21 24 0 0 0 45 28 C47 33 36 40 24 40 C12 40 1 33 3 28Z" fill="#e07868"/>
-          <path d="M10 22 Q24 10 38 22" stroke="rgba(255,255,255,0.22)" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M11 39 C13 49 9 54 11 62" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round"/>
-          <path d="M18 40 C16 51 20 56 18 62" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round"/>
-          <path d="M24 40 C26 51 22 56 24 62" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round"/>
-          <path d="M30 40 C28 51 32 56 30 62" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round"/>
-          <path d="M37 39 C39 49 35 54 37 62" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round"/>
+        <svg class="hero-lockup" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1537.58 458" role="img" aria-label="Smack">
+          <defs><style>.hl1{fill:none;stroke:#fff;stroke-linecap:round;stroke-miterlimit:16;stroke-width:8px}.hl2{fill:#fff}.hl3{font-family:Funtastic-Regular,Funtastic;font-size:390.45px}</style></defs>
+          <text class="hl3" fill="#fff" transform="translate(322.49 331.88)"><tspan x="0" y="0">smack</tspan><tspan x="1132.7" y="0">.</tspan></text>
+          <path class="hl2" d="M10.95,161.7c-6.54,0-11.6-5.43-10.88-11.63C6.14,97.29,53.04,56.22,110,56.22s103.86,41.07,109.93,93.85c.71,6.2-4.35,11.63-10.88,11.63H10.95Z"/>
+          <path class="hl1" d="M36.27,161.7c-9.22,61.53,9.22,105.48,0,175.8"/>
+          <path class="hl1" d="M68.53,161.7c-9.22,61.53,9.22,105.48,0,175.8"/>
+          <path class="hl1" d="M110,161.7c-9.22,61.53,9.22,105.48,0,175.8"/>
+          <path class="hl1" d="M151.47,161.7c-9.22,61.53,9.22,105.48,0,175.8"/>
+          <path class="hl1" d="M183.73,161.7c-9.22,61.53,9.22,105.48,0,175.8"/>
         </svg>
-        <div class="hero-wordmark">smack<span>.</span></div>
       </div>
       <div class="hero-subtitle">Everything Smack. All in one place.</div>
       <div class="hero-status">
@@ -650,7 +692,7 @@
       <div class="section-title">Everything built so far</div>
       <div class="deliverables-grid">
 
-        <a class="del-card" href="https://davidnitzsche.github.io/smack-studio/smack-report.html" target="_blank">
+        <a class="del-card" href="smack-report.html" target="_blank">
           <div class="del-card-top">
             <div class="del-icon">📊</div>
             <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
@@ -660,47 +702,7 @@
           <div class="del-file">smack-report.html</div>
         </a>
 
-        <a class="del-card" href="https://davidnitzsche.github.io/smack-studio/smack-logo-exploration.html" target="_blank">
-          <div class="del-card-top">
-            <div class="del-icon">🪼</div>
-            <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
-          </div>
-          <div class="del-title">Logo Exploration v1</div>
-          <div class="del-desc">13 logo directions — jellyfish marks, wordmarks, and combinations on light and dark.</div>
-          <div class="del-file">smack-logo-exploration.html</div>
-        </a>
-
-        <a class="del-card" href="https://davidnitzsche.github.io/smack-studio/smack-logo-exploration-v2.html" target="_blank">
-          <div class="del-card-top">
-            <div class="del-icon">🪼</div>
-            <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
-          </div>
-          <div class="del-title">Logo Exploration v2</div>
-          <div class="del-desc">Gumdrop refinement — flat-bottom dome in 3 proportions, outline and filled.</div>
-          <div class="del-file">smack-logo-exploration-v2.html</div>
-        </a>
-
-        <a class="del-card" href="https://davidnitzsche.github.io/smack-studio/smack-logo-exploration-v3.html" target="_blank">
-          <div class="del-card-top">
-            <div class="del-icon">🪼</div>
-            <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
-          </div>
-          <div class="del-title">Logo Exploration v3</div>
-          <div class="del-desc">Jellyfish-as-period — wordmark system where the "." becomes the brand mark.</div>
-          <div class="del-file">smack-logo-exploration-v3.html</div>
-        </a>
-
-        <a class="del-card" href="https://davidnitzsche.github.io/smack-studio/smack-logo-exploration-v4.html" target="_blank">
-          <div class="del-card-top">
-            <div class="del-icon">🪼</div>
-            <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
-          </div>
-          <div class="del-title">Logo Exploration v4</div>
-          <div class="del-desc">Graphic/flat treatments — 21 marks, outline/fill/negative space/badge. Base form locked.</div>
-          <div class="del-file">smack-logo-exploration-v4.html</div>
-        </a>
-
-        <a class="del-card" href="https://davidnitzsche.github.io/smack-studio/smack-brand-system.html" target="_blank">
+        <a class="del-card" href="smack-brand-system.html" target="_blank">
           <div class="del-card-top">
             <div class="del-icon">🎨</div>
             <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
@@ -710,37 +712,7 @@
           <div class="del-file">smack-brand-system.html</div>
         </a>
 
-        <a class="del-card" href="https://davidnitzsche.github.io/smack-studio/smack-logo-exploration-v5.html" target="_blank">
-          <div class="del-card-top">
-            <div class="del-icon">🪼</div>
-            <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
-          </div>
-          <div class="del-title">Logo Exploration v5</div>
-          <div class="del-desc">8 hand-crafted 2D jellyfish marks with S-curve tentacles, outline, filled, silhouette, two-tone.</div>
-          <div class="del-file">smack-logo-exploration-v5.html</div>
-        </a>
-
-        <a class="del-card" href="https://davidnitzsche.github.io/smack-studio/smack-logo-exploration-v6.html" target="_blank">
-          <div class="del-card-top">
-            <div class="del-icon">🪼</div>
-            <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
-          </div>
-          <div class="del-title">Logo Exploration v6</div>
-          <div class="del-desc">12 wide-open directions — flying saucer, tall bell, asymmetric, dot tentacles, letterform, stack mark.</div>
-          <div class="del-file">smack-logo-exploration-v6.html</div>
-        </a>
-
-        <a class="del-card" href="https://davidnitzsche.github.io/smack-studio/smack-logo-exploration-v7.html" target="_blank">
-          <div class="del-card-top">
-            <div class="del-icon">🪼</div>
-            <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
-          </div>
-          <div class="del-title">Logo Exploration v7</div>
-          <div class="del-desc">Weight series (B1–B4), wiggle characters (B5–B8), 6 font pairings — sinusoidal tentacles throughout.</div>
-          <div class="del-file">smack-logo-exploration-v7.html</div>
-        </a>
-
-        <a class="del-card" href="https://davidnitzsche.github.io/smack-studio/smack-design-exploration.html" target="_blank">
+        <a class="del-card" href="smack-design-exploration.html" target="_blank">
           <div class="del-card-top">
             <div class="del-icon">🎨</div>
             <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
@@ -750,7 +722,7 @@
           <div class="del-file">smack-design-exploration.html</div>
         </a>
 
-        <a class="del-card" href="https://davidnitzsche.github.io/smack-studio/smack-website-exploration.html" target="_blank">
+        <a class="del-card" href="smack-website-exploration.html" target="_blank">
           <div class="del-card-top">
             <div class="del-icon">🌐</div>
             <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
@@ -760,7 +732,7 @@
           <div class="del-file">smack-website-exploration.html</div>
         </a>
 
-        <a class="del-card" href="https://davidnitzsche.github.io/smack-studio/smack-one-pager.html" target="_blank">
+        <a class="del-card" href="smack-one-pager.html" target="_blank">
           <div class="del-card-top">
             <div class="del-icon">📄</div>
             <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
@@ -770,7 +742,7 @@
           <div class="del-file">smack-one-pager.html</div>
         </a>
 
-        <a class="del-card" href="https://davidnitzsche.github.io/smack-studio/smack-email-templates.html" target="_blank">
+        <a class="del-card" href="smack-email-templates.html" target="_blank">
           <div class="del-card-top">
             <div class="del-icon">✉️</div>
             <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
@@ -780,7 +752,7 @@
           <div class="del-file">smack-email-templates.html</div>
         </a>
 
-        <a class="del-card" href="https://davidnitzsche.github.io/smack-studio/smack-onboarding-flow.html" target="_blank">
+        <a class="del-card" href="smack-onboarding-flow.html" target="_blank">
           <div class="del-card-top">
             <div class="del-icon">🚀</div>
             <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
@@ -790,7 +762,7 @@
           <div class="del-file">smack-onboarding-flow.html</div>
         </a>
 
-        <a class="del-card" href="https://davidnitzsche.github.io/smack-studio/smack-product-audit.html" target="_blank">
+        <a class="del-card" href="smack-product-audit.html" target="_blank">
           <div class="del-card-top">
             <div class="del-icon">🔍</div>
             <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
@@ -801,6 +773,80 @@
         </a>
 
       </div>
+
+      <!-- Logo exploration archive -->
+      <button class="archive-toggle" onclick="this.classList.toggle('open'); document.getElementById('logo-archive').classList.toggle('open')">
+        <span class="archive-toggle-arrow">▶</span> Logo explorations — 7 rounds archived
+      </button>
+      <div class="archive-section" id="logo-archive">
+        <div class="archive-label">Logo Explorations — archived</div>
+        <div class="archive-grid">
+          <a class="del-card" href="smack-logo-exploration.html" target="_blank">
+            <div class="del-card-top">
+              <div class="del-icon">🪼</div>
+              <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
+            </div>
+            <div class="del-title">Logo Exploration v1</div>
+            <div class="del-desc">13 logo directions — jellyfish marks, wordmarks, and combinations on light and dark.</div>
+            <div class="del-file">smack-logo-exploration.html</div>
+          </a>
+          <a class="del-card" href="smack-logo-exploration-v2.html" target="_blank">
+            <div class="del-card-top">
+              <div class="del-icon">🪼</div>
+              <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
+            </div>
+            <div class="del-title">Logo Exploration v2</div>
+            <div class="del-desc">Gumdrop refinement — flat-bottom dome in 3 proportions, outline and filled.</div>
+            <div class="del-file">smack-logo-exploration-v2.html</div>
+          </a>
+          <a class="del-card" href="smack-logo-exploration-v3.html" target="_blank">
+            <div class="del-card-top">
+              <div class="del-icon">🪼</div>
+              <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
+            </div>
+            <div class="del-title">Logo Exploration v3</div>
+            <div class="del-desc">Jellyfish-as-period — wordmark system where the "." becomes the brand mark.</div>
+            <div class="del-file">smack-logo-exploration-v3.html</div>
+          </a>
+          <a class="del-card" href="smack-logo-exploration-v4.html" target="_blank">
+            <div class="del-card-top">
+              <div class="del-icon">🪼</div>
+              <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
+            </div>
+            <div class="del-title">Logo Exploration v4</div>
+            <div class="del-desc">Graphic/flat treatments — 21 marks, outline/fill/negative space/badge. Base form locked.</div>
+            <div class="del-file">smack-logo-exploration-v4.html</div>
+          </a>
+          <a class="del-card" href="smack-logo-exploration-v5.html" target="_blank">
+            <div class="del-card-top">
+              <div class="del-icon">🪼</div>
+              <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
+            </div>
+            <div class="del-title">Logo Exploration v5</div>
+            <div class="del-desc">8 hand-crafted 2D jellyfish marks with S-curve tentacles, outline, filled, silhouette, two-tone.</div>
+            <div class="del-file">smack-logo-exploration-v5.html</div>
+          </a>
+          <a class="del-card" href="smack-logo-exploration-v6.html" target="_blank">
+            <div class="del-card-top">
+              <div class="del-icon">🪼</div>
+              <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
+            </div>
+            <div class="del-title">Logo Exploration v6</div>
+            <div class="del-desc">12 wide-open directions — flying saucer, tall bell, asymmetric, dot tentacles, letterform, stack mark.</div>
+            <div class="del-file">smack-logo-exploration-v6.html</div>
+          </a>
+          <a class="del-card" href="smack-logo-exploration-v7.html" target="_blank">
+            <div class="del-card-top">
+              <div class="del-icon">🪼</div>
+              <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
+            </div>
+            <div class="del-title">Logo Exploration v7</div>
+            <div class="del-desc">Weight series (B1–B4), wiggle characters (B5–B8), 6 font pairings — sinusoidal tentacles throughout.</div>
+            <div class="del-file">smack-logo-exploration-v7.html</div>
+          </a>
+        </div>
+      </div>
+
     </section>
 
     <!-- Build Phases -->
@@ -940,6 +986,21 @@
             <td class="td-decision">Business email</td>
             <td class="td-choice">Google Workspace (@smack.studio)</td>
             <td class="td-rationale">Sign up at workspace.google.com, update MX records in GoDaddy DNS. ~$6/user/mo. Resend stays for transactional email (invoices, invites, etc).</td>
+          </tr>
+          <tr>
+            <td class="td-decision">Brand color palette</td>
+            <td class="td-choice">01 Coral Studio (light) + 05 Dark Mode Native (dark)</td>
+            <td class="td-rationale">Coral Studio is the default. Dark Mode Native as the alternate — users can switch. Both use the same salmon accent.</td>
+          </tr>
+          <tr>
+            <td class="td-decision">UI typography</td>
+            <td class="td-choice">Type A — Inter</td>
+            <td class="td-rationale">Already in use, versatile, excellent rendering. Funtastic for wordmark only.</td>
+          </tr>
+          <tr>
+            <td class="td-decision">UI components</td>
+            <td class="td-choice">Status badges: treatment 2 · Menu: light card · Notifications: bordered card · Info callouts: navy dark · Sidebar nav: warm grey</td>
+            <td class="td-rationale">Selections from brand system exploration (3A–3E). Accent themes confirmed for Phase 2 (6 curated presets).</td>
             <td class="td-date">2026-04-07</td>
           </tr>
         </tbody>
@@ -966,13 +1027,13 @@
           </tr>
           <tr>
             <td class="td-decision">Logo mark</td>
-            <td class="td-rationale">Variation B (perfect semicircle gumdrop) is the base. Graphic/flat treatments in exploration. Mark not yet locked.</td>
-            <td><span style="display:inline-block;padding:3px 10px;border-radius:999px;background:rgba(217,119,6,0.1);color:#d97706;font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;">In Progress</span></td>
+            <td class="td-rationale">Locked: Variation B perfect semicircle dome + 5 S-curve tentacles. Real artwork from jelly.svg. White on navy, salmon on light.</td>
+            <td><span style="display:inline-block;padding:3px 10px;border-radius:999px;background:rgba(5,150,105,0.1);color:#059669;font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;">Locked</span></td>
           </tr>
           <tr>
             <td class="td-decision">Studio color theming</td>
-            <td class="td-rationale">Do studios upload their own palette or pick a preset? Recommendation: 6 curated accent themes (Phase 2). No full custom — too fragile for the UI.</td>
-            <td><span style="display:inline-block;padding:3px 10px;border-radius:999px;background:rgba(224,120,104,0.1);color:#c85d4a;font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;">Recommended</span></td>
+            <td class="td-rationale">6 curated accent presets in Phase 2. No full custom upload — too fragile for the UI.</td>
+            <td><span style="display:inline-block;padding:3px 10px;border-radius:999px;background:rgba(5,150,105,0.1);color:#059669;font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;">Locked</span></td>
           </tr>
           <tr>
             <td class="td-decision">Workprint migration</td>
@@ -1118,16 +1179,16 @@
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <svg class="footer-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 62" fill="none" role="img" aria-label="Smack jellyfish mark">
-          <path d="M3 28 A21 24 0 0 0 45 28 C47 33 36 40 24 40 C12 40 1 33 3 28Z" fill="#e07868"/>
-          <path d="M10 22 Q24 10 38 22" stroke="rgba(255,255,255,0.22)" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M11 39 C13 49 9 54 11 62" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round"/>
-          <path d="M18 40 C16 51 20 56 18 62" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round"/>
-          <path d="M24 40 C26 51 22 56 24 62" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round"/>
-          <path d="M30 40 C28 51 32 56 30 62" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round"/>
-          <path d="M37 39 C39 49 35 54 37 62" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round"/>
+        <svg class="footer-lockup" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1537.58 458" role="img" aria-label="Smack">
+          <defs><style>.fl1{fill:none;stroke:#e07868;stroke-linecap:round;stroke-miterlimit:16;stroke-width:8px}.fl2{fill:#e07868}.fl3{font-family:Funtastic-Regular,Funtastic;font-size:390.45px}</style></defs>
+          <text class="fl3" fill="#e07868" transform="translate(322.49 331.88)"><tspan x="0" y="0">smack</tspan><tspan x="1132.7" y="0">.</tspan></text>
+          <path class="fl2" d="M10.95,161.7c-6.54,0-11.6-5.43-10.88-11.63C6.14,97.29,53.04,56.22,110,56.22s103.86,41.07,109.93,93.85c.71,6.2-4.35,11.63-10.88,11.63H10.95Z"/>
+          <path class="fl1" d="M36.27,161.7c-9.22,61.53,9.22,105.48,0,175.8"/>
+          <path class="fl1" d="M68.53,161.7c-9.22,61.53,9.22,105.48,0,175.8"/>
+          <path class="fl1" d="M110,161.7c-9.22,61.53,9.22,105.48,0,175.8"/>
+          <path class="fl1" d="M151.47,161.7c-9.22,61.53,9.22,105.48,0,175.8"/>
+          <path class="fl1" d="M183.73,161.7c-9.22,61.53,9.22,105.48,0,175.8"/>
         </svg>
-        <div class="footer-wordmark">smack<span>.</span></div>
       </div>
       <div class="footer-meta">For production studios. &nbsp;·&nbsp; <a href="https://smack.studio">smack.studio</a></div>
     </div>
