@@ -118,6 +118,17 @@
   .panel-section { margin-bottom: 28px; }
   .panel-section-title { font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
 
+  /* Context badge — WHERE to do this task */
+  .task-context { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; padding: 6px 12px; border-radius: 8px; margin-bottom: 16px; }
+  .task-context.ctx-vscode { background: rgba(0,122,204,0.08); color: #0078d4; border: 1px solid rgba(0,122,204,0.15); }
+  .task-context.ctx-stripe { background: rgba(99,91,255,0.07); color: #6858ff; border: 1px solid rgba(99,91,255,0.15); }
+  .task-context.ctx-clerk { background: rgba(124,58,237,0.07); color: #7c3aed; border: 1px solid rgba(124,58,237,0.15); }
+  .task-context.ctx-railway { background: rgba(220,38,38,0.06); color: #b91c1c; border: 1px solid rgba(220,38,38,0.12); }
+  .task-context.ctx-godaddy { background: rgba(21,128,61,0.07); color: #15803d; border: 1px solid rgba(21,128,61,0.15); }
+  .task-context.ctx-resend { background: rgba(30,58,95,0.07); color: var(--navy); border: 1px solid rgba(30,58,95,0.15); }
+  .task-context.ctx-mixed { background: var(--subtle); color: var(--muted); border: 1px solid var(--border); }
+  .task-context.ctx-browser { background: rgba(5,150,105,0.07); color: #065f46; border: 1px solid rgba(5,150,105,0.15); }
+
   /* Why */
   .panel-why { font-size: 13px; color: var(--text); line-height: 1.65; background: rgba(30,58,95,0.04); border-left: 3px solid var(--navy); border-radius: 0 8px 8px 0; padding: 12px 14px; }
 
@@ -133,9 +144,15 @@
   .step-item:hover { border-color: rgba(224,120,104,0.3); }
   .step-item.step-done { opacity: 0.55; }
   .step-item.step-done .step-text { text-decoration: line-through; color: var(--muted); }
-  .step-num { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; background: var(--subtle); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; color: var(--muted); transition: all 0.15s; margin-top: 0; }
+  .step-num { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; background: var(--subtle); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; color: var(--muted); transition: all 0.15s; margin-top: 1px; }
   .step-item.step-done .step-num { background: var(--green); border-color: var(--green); color: #fff; }
-  .step-text { font-size: 13px; color: var(--text); line-height: 1.5; flex: 1; }
+  .step-text { font-size: 13px; color: var(--text); line-height: 1.6; flex: 1; }
+  /* Inline code in steps */
+  .step-text code { font-family: 'SF Mono', 'Fira Code', 'Menlo', monospace; font-size: 11.5px; background: rgba(30,58,95,0.07); border: 1px solid rgba(30,58,95,0.12); border-radius: 4px; padding: 1px 5px; color: #1e3a5f; word-break: break-all; }
+  /* Code block in steps */
+  .step-text .code-block { display: block; background: #0f1d30; color: #c9d8f0; border-radius: 8px; padding: 11px 14px; font-family: 'SF Mono', 'Fira Code', 'Menlo', monospace; font-size: 11px; line-height: 1.75; margin: 8px 0 2px; white-space: pre; overflow-x: auto; }
+  .step-text b { font-weight: 700; color: var(--text); }
+  .step-text .loc { font-size: 10px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--pink); margin-bottom: 2px; display: block; }
 
   /* Fields */
   .fields-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
@@ -193,7 +210,7 @@
     <div class="page-header">
       <div class="page-eyebrow">Smack Studio</div>
       <div class="page-title">Master Checklist</div>
-      <div class="page-subtitle">Click a task to see steps, details, and store credentials. Check the box to mark done.</div>
+      <div class="page-subtitle">Click a task to see exactly where to go and what to do. Check the box when done.</div>
     </div>
     <div class="overall-progress">
       <div class="op-label">Overall Progress</div>
@@ -221,18 +238,30 @@
 <script>
 // ─── DATA ────────────────────────────────────────────────────────────────────
 
+const CTX = {
+  vscode:  { cls: 'ctx-vscode',  icon: '🖥️',  label: 'VS Code — your Railway project codebase' },
+  stripe:  { cls: 'ctx-stripe',  icon: '💳',  label: 'Stripe Dashboard — stripe.com' },
+  clerk:   { cls: 'ctx-clerk',   icon: '🔑',  label: 'Clerk Dashboard — dashboard.clerk.com' },
+  railway: { cls: 'ctx-railway', icon: '🚂',  label: 'Railway Dashboard — railway.app' },
+  godaddy: { cls: 'ctx-godaddy', icon: '🌐',  label: 'GoDaddy — godaddy.com' },
+  resend:  { cls: 'ctx-resend',  icon: '📧',  label: 'Resend Dashboard — resend.com' },
+  mixed:   { cls: 'ctx-mixed',   icon: '🔀',  label: 'Multiple places — details in steps below' },
+  browser: { cls: 'ctx-browser', icon: '🧪',  label: 'Browser / test environment' },
+};
+
 const SECTIONS = [
   {
     id: 'business', icon: '🏢', label: 'Business Setup', title: 'Accounts & Infrastructure',
     tasks: [
       {
         id: 'domain', title: 'smack.studio domain (GoDaddy)', priority: 'done',
+        context: 'godaddy',
         desc: 'Domain purchased and active. Renews yearly.',
         why: 'Your primary domain. Everything hangs off this — email, website, Railway deploy URL, Stripe webhook callbacks.',
         steps: [
-          'Log in to GoDaddy and confirm smack.studio is active and auto-renew is on',
-          'Note the renewal date so it doesn\'t expire unexpectedly',
-          'Set your nameservers if needed (default GoDaddy nameservers are fine)',
+          'Go to <b>godaddy.com</b> → sign in → My Products → find smack.studio',
+          'Confirm auto-renew is ON (there\'s a toggle on the domain row). If it\'s off, turn it on now.',
+          'Note the renewal date so it doesn\'t expire unexpectedly.',
         ],
         fields: [
           { id: 'login-url', label: 'GoDaddy Login', type: 'url', placeholder: 'https://godaddy.com' },
@@ -243,19 +272,19 @@ const SECTIONS = [
       },
       {
         id: 'google-workspace', title: 'Google Workspace (@smack.studio)', priority: 'now',
+        context: 'mixed',
         desc: 'Business email at your domain. ~$6/user/mo.',
-        why: 'You need a professional @smack.studio email before you start reaching out to studios, setting up accounts, and doing anything public. This is also your Google account for Docs, Drive, Calendar.',
+        why: 'You need a professional @smack.studio email before you start reaching out to studios or setting up any accounts. This is also your Google Docs, Drive, and Calendar.',
         note: { type: 'info', text: '~$6/user/month. Free 14-day trial. You only need 1 user seat to start.' },
         steps: [
-          'Go to workspace.google.com → click Get started',
-          'Enter smack.studio when asked about your domain',
-          'Create your admin account: e.g. david@smack.studio',
-          'Google will ask you to verify domain ownership — they give you a TXT record to add',
-          'In GoDaddy DNS → Manage DNS → Add Record → type: TXT, paste the value Google gives you',
-          'Back in Google Workspace, click Verify — can take a few minutes',
-          'Once verified, replace your existing MX records in GoDaddy with Google\'s 5 mail servers (Google shows you exactly what to add)',
-          'Wait 15–60 min for DNS to propagate',
-          'Send a test email to david@smack.studio to confirm it\'s working',
+          '<span class="loc">Google Workspace</span>Go to <b>workspace.google.com</b> → click "Get started" → enter smack.studio when asked for your domain.',
+          'Create your admin account — e.g. <code>david@smack.studio</code>.',
+          'Google will ask you to verify domain ownership. They\'ll give you a <b>TXT record</b> to add. Copy it.',
+          '<span class="loc">GoDaddy</span>Log in to GoDaddy → My Products → smack.studio → DNS → Manage DNS → Add Record → Type: <code>TXT</code> → paste the value Google gave you → Save.',
+          '<span class="loc">Google Workspace</span>Back in the setup flow, click "Verify" — can take a few minutes. Refresh if needed.',
+          '<span class="loc">GoDaddy</span>Once verified, Google shows you 5 MX records to add. Delete any existing MX records in GoDaddy DNS, then add Google\'s 5 MX records exactly as shown.',
+          'Wait 15–60 minutes for DNS to propagate worldwide.',
+          'Send a test email <b>to</b> david@smack.studio from a personal Gmail to confirm it arrives.',
         ],
         fields: [
           { id: 'admin-email', label: 'Admin Email', type: 'email', placeholder: 'david@smack.studio' },
@@ -265,14 +294,18 @@ const SECTIONS = [
       },
       {
         id: 'github', title: 'GitHub repo set up', priority: 'now',
+        context: 'mixed',
         desc: 'Private repo connected to Railway for auto-deploy.',
-        why: 'Railway deploys directly from GitHub. Every push to main auto-deploys. You need the repo set up before you can connect Railway.',
+        why: 'Railway deploys directly from GitHub. Every time you push code, Railway automatically re-deploys. The repo must exist before you can connect Railway.',
         steps: [
-          'Go to github.com/new → create a new private repo (e.g. smack-studio)',
-          'Clone it locally: git clone [url]',
-          'Copy your Workprint codebase into it, or initialize fresh',
-          'Push to main: git add . && git commit -m "init" && git push',
-          'Confirm the repo is visible at github.com/[you]/smack-studio',
+          '<span class="loc">github.com</span>Go to <b>github.com/new</b> → Name it <code>smack-studio</code> → set to Private → click "Create repository".',
+          '<span class="loc">Your Mac — Terminal</span>Clone it to your computer: <code class="code-block">git clone https://github.com/YOUR-USERNAME/smack-studio.git
+cd smack-studio</code>',
+          'Copy your Workprint project files into this folder. Or start fresh with <code>npm init</code> if building from scratch.',
+          'Push to GitHub:<code class="code-block">git add .
+git commit -m "initial commit"
+git push origin main</code>',
+          'Confirm the files appear at github.com/YOUR-USERNAME/smack-studio.',
         ],
         fields: [
           { id: 'repo-url', label: 'Repo URL', type: 'url', placeholder: 'https://github.com/you/smack-studio' },
@@ -280,40 +313,41 @@ const SECTIONS = [
       },
       {
         id: 'railway', title: 'Railway project configured', priority: 'now',
+        context: 'mixed',
         desc: 'Hosting, env vars, custom domain, auto-deploy from GitHub.',
-        why: 'Railway is where Smack runs. It handles the server, database files, environment variables, and deploys every time you push to GitHub. Nothing else needs to change for new studios — it all happens here.',
-        note: { type: 'warn', text: 'Do not commit .env files or secrets to GitHub. Add all sensitive values as Railway environment variables instead.' },
+        why: 'Railway is where Smack runs 24/7. It handles the server, stores your database files, and auto-deploys every time you push to GitHub. You configure it once, then forget about it.',
+        note: { type: 'warn', text: 'Never commit .env files or API keys to GitHub. Store all secrets in Railway environment variables instead.' },
         steps: [
-          'Go to railway.app → New Project → Deploy from GitHub repo',
-          'Select your smack-studio repo and choose the main branch',
-          'Railway auto-detects your framework and sets up the build',
-          'Go to Variables tab → add all your environment variables (DB path, Clerk keys, Stripe keys, Resend key, etc.)',
-          'Go to Settings → Networking → Add domain → type smack.studio',
-          'In GoDaddy DNS, add a CNAME record pointing smack.studio to Railway\'s deployment URL (Railway shows you exactly what to set)',
-          'Enable auto-deploy: Settings → Source → Deploy on push to main → on',
-          'Push a test commit and confirm it deploys automatically',
+          '<span class="loc">railway.app</span>Log in → click "New Project" → "Deploy from GitHub repo" → select your smack-studio repo → choose the <code>main</code> branch.',
+          'Railway auto-detects your framework (Node.js, etc.) and starts the first build. Watch the logs to confirm it deploys without errors.',
+          '<span class="loc">Railway — Variables tab</span>Click your project → Variables → add each environment variable: Clerk keys, Stripe keys, Resend key, database path, etc. These replace your local <code>.env</code> file.',
+          '<span class="loc">Railway — Volumes tab</span>Add a Persistent Volume and mount it at <code>/data</code>. This is where SQLite database files live. Without this, files are wiped on every deploy.',
+          '<span class="loc">Railway — Settings → Networking</span>Click "Add Custom Domain" → type <code>smack.studio</code>. Railway gives you a CNAME record to add.',
+          '<span class="loc">GoDaddy DNS</span>Add a CNAME record: Name = <code>@</code> (or <code>smack.studio</code>), Value = the Railway URL they gave you.',
+          '<span class="loc">Railway — Settings → Source</span>Confirm "Deploy on push" is enabled — this is what auto-deploys when you push to GitHub.',
+          'Test: push a small change to GitHub and watch Railway auto-deploy it within 1–2 minutes.',
         ],
         fields: [
           { id: 'project-url', label: 'Railway Project URL', type: 'url', placeholder: 'https://railway.app/project/...' },
           { id: 'deploy-url', label: 'Live Deploy URL', type: 'url', placeholder: 'https://smack.studio' },
-          { id: 'env-notes', label: 'Env Var Notes', type: 'textarea', placeholder: 'Any notes about variables set...' },
+          { id: 'env-notes', label: 'Env Var Notes', type: 'textarea', placeholder: 'Variables added, any notes...' },
         ]
       },
       {
         id: 'clerk', title: 'Clerk.com auth configured', priority: 'now',
+        context: 'mixed',
         desc: 'Multi-tenant auth. Each studio is a Clerk Organization.',
-        why: 'Clerk handles login, sessions, and multi-tenancy so you don\'t have to build any of that. Critically, Clerk Organizations maps perfectly to your studio model — each Organization is one studio, and members can only see their own org\'s data.',
-        note: { type: 'info', text: 'Use Clerk Organizations for multi-tenancy. Each studio = one Organization. This is the clean architecture that prevents data bleed between tenants.' },
+        why: 'Clerk handles login, sessions, and multi-tenancy so you don\'t have to build any of it from scratch. Each studio = one Clerk Organization. Members can only see their own org\'s data.',
+        note: { type: 'info', text: 'You MUST enable Organizations in Clerk. This is what makes multi-tenancy work — each studio is one Organization.' },
         steps: [
-          'Create account at clerk.com',
-          'New Application → name it Smack → enable Email + Password sign-in',
-          'Enable Organizations: Dashboard → Organizations → Enable',
-          'Set organization limit: 1 org per user (each user belongs to one studio)',
-          'Under API Keys, copy your Publishable Key and Secret Key',
-          'Install in your app: npm install @clerk/nextjs (or your framework)',
-          'Add CLERK_PUBLISHABLE_KEY and CLERK_SECRET_KEY to Railway environment variables',
-          'Wrap your app with <ClerkProvider> and add Clerk middleware to protect routes',
-          'Test: create a test user → create an organization → confirm they can only see that org\'s data',
+          '<span class="loc">clerk.com</span>Create an account → New Application → name it "Smack Studio" → enable Email + Password sign-in → Create.',
+          '<span class="loc">Clerk Dashboard</span>In the left sidebar → Organizations → toggle "Enable Organizations" to ON. Set max organizations per user to 1 (each user belongs to one studio).',
+          '<span class="loc">Clerk Dashboard → API Keys</span>Copy your <b>Publishable Key</b> (starts with <code>pk_live_</code>) and <b>Secret Key</b> (starts with <code>sk_live_</code>).',
+          '<span class="loc">Railway — Variables</span>Add both keys as env vars: <code>CLERK_PUBLISHABLE_KEY</code> and <code>CLERK_SECRET_KEY</code>.',
+          '<span class="loc">VS Code</span>Install Clerk in your project: <code class="code-block">npm install @clerk/express</code>',
+          '<span class="loc">VS Code</span>In your main app file (<code>app.js</code> or <code>server.js</code>), add Clerk middleware to protect all routes that require login:<code class="code-block">const { clerkMiddleware } = require('@clerk/express');
+app.use(clerkMiddleware());</code>',
+          'Test: visit your app, try to access a protected page — you should be redirected to a login screen. Create a test account and confirm you can log in.',
         ],
         fields: [
           { id: 'pub-key', label: 'Publishable Key', type: 'text', sensitive: true, placeholder: 'pk_live_...' },
@@ -323,18 +357,17 @@ const SECTIONS = [
       },
       {
         id: 'stripe-platform', title: 'Stripe platform account (Smack billing)', priority: 'soon',
-        desc: 'Separate Stripe account for billing studios. Not Workprint\'s Stripe.',
-        why: 'This is the Stripe account that charges studios for their Smack subscription. It\'s separate from Workprint so finances stay clean. You\'ll also use this account for Connect — processing contractor payouts on behalf of studios.',
-        note: { type: 'warn', text: 'Create a completely separate Stripe account. Do not use your Workprint Stripe account. Log out of Stripe or use a different browser/incognito window.' },
+        context: 'stripe',
+        desc: 'Separate Stripe account just for Smack. Not Workprint\'s Stripe.',
+        why: 'This Stripe account is what charges studios for their Smack subscriptions. It\'s also the "platform" account that handles contractor payouts via Stripe Connect. Keeping it separate from Workprint means the finances never mix.',
+        note: { type: 'warn', text: 'Create a brand new Stripe account. Do NOT use your existing Workprint Stripe account. Use an incognito window or log out first.' },
         steps: [
-          'Go to stripe.com → create a new account (use david@smack.studio email)',
-          'Complete business verification: legal name, address, EIN or SSN, bank account for payouts',
-          'Under Developers → API Keys → copy Publishable Key and Secret Key',
-          'Enable Connect: Dashboard → Connect → Get started → configure your platform settings',
-          'Create a webhook endpoint: Developers → Webhooks → Add endpoint',
-          'Set endpoint URL to: https://smack.studio/api/webhooks/stripe',
-          'Select events: customer.subscription.created, customer.subscription.deleted, invoice.paid, invoice.payment_failed, account.updated',
-          'Copy the Webhook Signing Secret and add all keys to Railway env vars',
+          'Go to <b>stripe.com</b> → click "Start now" → use <code>david@smack.studio</code> as the email.',
+          'Complete business verification: legal name, business address, EIN or SSN, and a bank account for Smack payouts. Stripe needs this before you can charge real money.',
+          '<span class="loc">Stripe Dashboard → Developers → API Keys</span>Copy your Publishable Key and Secret Key. Add both to Railway environment variables as <code>STRIPE_PUBLISHABLE_KEY</code> and <code>STRIPE_SECRET_KEY</code>.',
+          '<span class="loc">Stripe Dashboard → Connect</span>Click Connect in the left nav → "Get started" → fill in your platform details. This enables you to create Express accounts for contractors.',
+          '<span class="loc">Stripe Dashboard → Developers → Webhooks</span>Click "Add endpoint" → URL: <code>https://smack.studio/api/webhooks/stripe</code> → select events: <code>invoice.paid</code>, <code>invoice.payment_failed</code>, <code>customer.subscription.created</code>, <code>customer.subscription.deleted</code>, <code>account.updated</code>, <code>charge.succeeded</code>, <code>charge.failed</code>.',
+          'After creating the webhook, click on it → copy the <b>Signing Secret</b> (starts with <code>whsec_</code>) → add to Railway as <code>STRIPE_WEBHOOK_SECRET</code>.',
         ],
         fields: [
           { id: 'account-id', label: 'Account ID', type: 'text', placeholder: 'acct_...' },
@@ -345,18 +378,18 @@ const SECTIONS = [
       },
       {
         id: 'resend', title: 'Resend configured @smack.studio', priority: 'soon',
+        context: 'mixed',
         desc: 'Transactional email for invoices, invites, and notifications.',
-        why: 'All automated emails (invoice sent, studio invite, contractor payout notification, monthly billing summary) go through Resend. It\'s already in use for Workprint — just needs the @smack.studio domain verified.',
+        why: 'All automated emails from Smack — invoice sent, studio invite, contractor payout notification, monthly billing summary — go through Resend. You need to verify the smack.studio domain so emails don\'t land in spam.',
         steps: [
-          'Log in to resend.com',
-          'Domains → Add Domain → enter smack.studio',
-          'Resend gives you DNS records to add (TXT for SPF, CNAME for DKIM)',
-          'Add those records in GoDaddy DNS → Manage DNS → Add Record',
-          'Click Verify in Resend — usually takes under 10 minutes',
-          'API Keys → Create API Key → name it smack-production → copy the key',
-          'Add RESEND_API_KEY to Railway environment variables',
-          'Set your default from address to hello@smack.studio or noreply@smack.studio in your code',
-          'Send a test email from the Resend dashboard to confirm delivery',
+          '<span class="loc">resend.com</span>Log in → Domains → click "Add Domain" → type <code>smack.studio</code> → Add.',
+          'Resend gives you DNS records to add (usually 1 TXT record for SPF and 2 CNAME records for DKIM). Copy all of them.',
+          '<span class="loc">GoDaddy DNS</span>For each record Resend gave you: Manage DNS → Add Record → fill in the Type, Name, and Value exactly as shown. Save each one.',
+          '<span class="loc">Resend</span>Click "Verify Domain" — this usually completes within 5–10 minutes. Refresh if it\'s still pending.',
+          '<span class="loc">Resend → API Keys</span>Create API Key → name it <code>smack-production</code> → copy the key (starts with <code>re_</code>).',
+          '<span class="loc">Railway — Variables</span>Add <code>RESEND_API_KEY</code> with the key you copied.',
+          '<span class="loc">VS Code</span>Install Resend in your project: <code class="code-block">npm install resend</code>',
+          '<span class="loc">Resend Dashboard</span>Send yourself a test email from the dashboard to confirm delivery.',
         ],
         fields: [
           { id: 'api-key', label: 'API Key', type: 'password', sensitive: true, placeholder: 're_...' },
@@ -375,46 +408,49 @@ const SECTIONS = [
       { id: 'components-locked', title: 'UI component decisions locked', priority: 'done', desc: 'Status badges T2 · Menu light card · Notifications bordered · Info navy dark · Sidebar warm grey.', why: 'All UI component directions chosen from the brand system exploration. Accent themes (6 presets) confirmed for Phase 2.' },
       {
         id: 'website-direction', title: 'Website direction chosen', priority: 'soon',
+        context: 'browser',
         desc: 'Pick one direction from website exploration to build from.',
-        why: 'The website exploration has 4 hero concepts, 3 feature sections, 2 pricing layouts. You need to pick a direction before anything gets built. One decision unlocks the whole build.',
+        why: 'The website exploration has 4 hero concepts, 3 feature sections, 2 pricing layouts. One decision unlocks the whole build. Don\'t overthink it — you can refine later.',
         steps: [
-          'Open smack-website-exploration.html and review all options',
-          'Pick a hero concept (1–4)',
-          'Pick a feature section treatment',
-          'Pick a pricing layout',
-          'Note any specific elements you want to keep from each',
-          'Record your decision in the notes field',
+          'Open <b>smack-website-exploration.html</b> in your browser (it\'s in this same folder).',
+          'Pick a hero concept (1–4). Which one gives the right first impression?',
+          'Pick a feature section treatment. Which communicates the product best?',
+          'Pick a pricing layout. Which is clearest?',
+          'Note any specific elements you want to mix between them.',
+          'Record your choice in the fields below.',
         ],
         fields: [
           { id: 'hero', label: 'Hero Concept', type: 'text', placeholder: 'e.g. Concept 2' },
           { id: 'features', label: 'Feature Section', type: 'text', placeholder: 'e.g. Section B' },
           { id: 'pricing', label: 'Pricing Layout', type: 'text', placeholder: 'e.g. Layout 1' },
-          { id: 'notes', label: 'Notes', type: 'textarea', placeholder: 'Specific elements to keep, changes to make...' },
+          { id: 'notes', label: 'Notes', type: 'textarea', placeholder: 'Specific elements to keep or change...' },
         ]
       },
       {
         id: 'website-build', title: 'Marketing website built', priority: 'soon',
+        context: 'vscode',
         desc: 'smack.studio homepage, pricing, waitlist CTA.',
-        why: 'The public face of Smack. Needs to be live before you do any outreach. Studios will check the site before responding to your pitch.',
+        why: 'The public face of Smack. Needs to be live before you do any outreach — studios will check the site before replying to your pitch.',
         steps: [
-          'Finalize copy: headline, subheadline, feature bullets, pricing table, CTA',
-          'Build from the chosen direction in website exploration',
-          'Pages needed: home (/), pricing (/pricing), waitlist (/waitlist)',
-          'Mobile-responsive — most people will view it on phone first',
-          'Connect waitlist form to collect email + studio name → store in DB',
-          'Send confirmation email via Resend when someone joins waitlist',
-          'Deploy and verify live at smack.studio',
+          '<span class="loc">VS Code</span>Create 3 pages in your project: <code>/</code> (homepage), <code>/pricing</code>, and <code>/waitlist</code>.',
+          'Use the direction you chose in the website exploration. Copy any elements directly from <code>smack-website-exploration.html</code>.',
+          'Finalize copy: headline, sub-headline, 3–5 feature bullets, pricing table, and a clear CTA button.',
+          'Connect the waitlist form to a database table (<code>waitlist_signups</code>) — collect email + studio name.',
+          'When someone submits the waitlist form, send a confirmation email via Resend: "You\'re on the list. We\'ll reach out when your invite is ready."',
+          'Push to Railway and test the live URL at smack.studio.',
+          'Check it on your phone (iPhone Safari) — most first views will be mobile.',
         ]
       },
       {
         id: 'one-pager-final', title: 'One-pager finalized for outreach', priority: 'soon',
+        context: 'browser',
         desc: 'Print-ready PDF. Used for pitching founding studios.',
-        why: 'When you reach out to the first 10 studios you\'ll want something to attach. The one-pager exists in smack-one-pager.html — it just needs to be exported as a clean PDF.',
+        why: 'When you reach out to the first 10 studios you\'ll want something polished to attach. The one-pager exists in smack-one-pager.html — it just needs a PDF export.',
         steps: [
-          'Review smack-one-pager.html and update any numbers or copy that has changed',
-          'Open in Chrome → Print → Save as PDF (set to no headers/footers, background graphics on)',
-          'Review the PDF — check layout, fonts, spacing at letter size',
-          'Save as "Smack Studio — Founding Offer.pdf"',
+          'Open <b>smack-one-pager.html</b> in Chrome. Update any numbers or copy that has changed.',
+          'Print it: <b>Chrome menu → Print</b> (or Cmd+P) → change "Destination" to "Save as PDF".',
+          'In print settings: turn OFF headers/footers, turn ON "Background graphics" so colors print correctly.',
+          'Save as "Smack Studio — Founding Offer.pdf". Check the PDF looks right.',
         ]
       },
     ]
@@ -424,72 +460,134 @@ const SECTIONS = [
     tasks: [
       {
         id: 'sqlite-isolation', title: 'Per-studio SQLite database isolation', priority: 'now',
+        context: 'vscode',
         desc: 'Each studio gets its own SQLite file. Zero data bleed.',
-        why: 'This is the foundation of multi-tenancy. If every studio shares one database and you have a bug in a query, you could return one studio\'s data to another. Separate SQLite files per studio makes that physically impossible.',
-        note: { type: 'info', text: 'File naming convention: /data/studios/{studio-slug}.db — Each file is completely isolated. Backup = copy the file.' },
+        why: 'This is the foundation of multi-tenancy. If every studio shares one database and there\'s a bug in a query, you could accidentally return one studio\'s data to another. Separate files per studio make that physically impossible — the data doesn\'t even live in the same file.',
+        note: { type: 'info', text: 'SQLite creates the file automatically the first time you open it. You don\'t need to "create" files manually — just open them by path and they appear.' },
         steps: [
-          'Define a studio slug format (e.g. "workprint", "blue-marble-films")',
-          'On studio creation, provision a new SQLite file at /data/studios/{slug}.db',
-          'Run migrations on the new file to set up the schema',
-          'Every request: resolve the current studio from the session → get the correct DB path → open that connection',
-          'Never pass a DB connection between studios — each request opens and closes its own connection',
-          'Test: create two test studios, add data to each, verify neither can see the other\'s data',
+          '<span class="loc">VS Code — your Railway project</span>Create a new file: <code>src/lib/db.js</code>. This will be the only place in your entire app that opens a database connection.',
+          'Paste this into <code>db.js</code>:<code class="code-block">const Database = require(\'better-sqlite3\');
+
+function getDB(studioSlug) {
+  const path = `/data/studios/${studioSlug}.db`;
+  return new Database(path);
+}
+
+module.exports = { getDB };</code>This opens a different file for each studio. If the file doesn\'t exist, SQLite creates it automatically.',
+          'If you don\'t have <code>better-sqlite3</code> installed yet: <code class="code-block">npm install better-sqlite3</code>',
+          '<span class="loc">Railway Dashboard → your project → Volumes</span>Add a Persistent Volume → mount path: <code>/data</code>. This is critical — without it, all SQLite files are deleted every time your app redeploys.',
+          '<span class="loc">VS Code</span>In every route file that queries the database, replace the hardcoded DB open with: <code>const db = getDB(req.studio.slug);</code> — you\'ll set up <code>req.studio.slug</code> in the auth middleware (next task).',
+          'When a new studio signs up, their DB is provisioned by calling <code>getDB(newSlug)</code> and then running all your schema SQL (<code>CREATE TABLE</code> statements) on that connection. SQLite creates the file in the same call.',
+          'Push your changes: <code class="code-block">git add . && git commit -m "per-studio db isolation" && git push</code>',
+          '<span class="loc">Test</span>Log in as two different test users in different browsers. Add a project in Studio A. Log in as Studio B — you should see zero projects.',
         ]
       },
       {
         id: 'studio-creation', title: 'Studio creation flow', priority: 'now',
+        context: 'mixed',
         desc: 'Sign up → provision DB → create Clerk org → assign slug.',
-        why: 'This is the onboarding entry point for every new studio. Get it right and the rest is self-serve. Get it wrong and you\'ll be manually setting up studios forever.',
+        why: 'This is the onboarding entry point for every new studio. Get it right and the rest is completely self-serve — no manual setup needed per studio.',
         steps: [
-          'New studio signs up via Clerk (email + password)',
-          'On sign-up, prompt for studio name → generate slug (e.g. "Blue Marble Films" → "blue-marble-films")',
-          'Create a Clerk Organization with the studio name',
-          'Add the user as an admin of that Organization',
-          'Provision a new SQLite DB file for that slug',
-          'Run schema migrations on the new DB',
-          'Create a studio record in a master directory DB (not the studio DB) with slug, name, plan, created_at',
-          'Redirect to the studio onboarding flow',
+          '<span class="loc">VS Code</span>Your sign-up form needs 4 fields: first name, last name, email, studio name. Password is handled by Clerk.',
+          '<span class="loc">VS Code — your sign-up API route (e.g. <code>POST /api/signup</code>)</span>After Clerk creates the user account, your server runs this sequence automatically:<code class="code-block">// 1. Generate a URL-safe slug from the studio name
+// "Blue Marble Films" → "blue-marble-films"
+const slug = studioName.toLowerCase()
+  .replace(/[^a-z0-9]+/g, \'-\')
+  .replace(/^-|-$/g, \'\');
+
+// 2. Create a Clerk Organization
+const org = await clerkClient.organizations.createOrganization({
+  name: studioName, createdBy: userId
+});
+
+// 3. Add user as admin of that org
+await clerkClient.organizations.createOrganizationMembership({
+  organizationId: org.id,
+  userId, role: \'admin\'
+});
+
+// 4. Provision the studio\'s SQLite database
+const db = getDB(slug);
+runSchemaMigrations(db); // creates all tables
+
+// 5. Save a record in your master directory
+masterDB.prepare(\`INSERT INTO studios (slug, name, clerk_org_id, plan, created_at)
+  VALUES (?, ?, ?, \'starter\', ?)\`)
+  .run(slug, studioName, org.id, Date.now());</code>',
+          '<span class="loc">VS Code</span>The "master directory" is a separate SQLite file — <code>/data/smack-master.db</code>. It\'s the one DB that\'s NOT per-studio. It just maps <code>clerk_org_id → studio slug</code> so you know which studio to open.',
+          'After the sign-up sequence, redirect the user to <code>/onboarding</code>.',
+          '<span class="loc">Clerk Dashboard</span>After testing a sign-up, go to dashboard.clerk.com → your app → Organizations → confirm the new org appears with the user as a member.',
         ]
       },
       {
         id: 'auth-clerk', title: 'Auth working with Clerk + studio scoping', priority: 'now',
+        context: 'vscode',
         desc: 'Every request is scoped to the correct studio via Clerk org.',
-        why: 'Clerk Organizations gives you the session context. From the session you get the org ID → look up the studio slug → open the right DB. This happens on every single request.',
+        why: 'This middleware runs on every single request. It reads the Clerk session, finds which studio the user belongs to, and attaches the studio context to the request. Without this, there\'s no way to know which database to open.',
         steps: [
-          'In your middleware, get the Clerk session on every request',
-          'Extract the active Organization ID from the session',
-          'Look up the studio slug for that org ID from your master directory',
-          'Attach the studio context (slug, DB path, plan) to the request object',
-          'All route handlers use req.studio.db for queries — never a hardcoded DB path',
-          'If no org found for the session, redirect to studio creation or 404',
-          'Test by logging in as User A (Studio 1) and confirming you cannot access Studio 2\'s routes',
+          '<span class="loc">VS Code</span>Create a new file: <code>src/middleware/studioContext.js</code>.',
+          'Paste this middleware:<code class="code-block">const { getAuth } = require(\'@clerk/express\');
+const masterDB = require(\'../lib/masterDB\');
+const { getDB } = require(\'../lib/db\');
+
+function studioContext(req, res, next) {
+  const { orgId } = getAuth(req);
+  if (!orgId) return res.redirect(\'/sign-in\');
+
+  const studio = masterDB
+    .prepare(\'SELECT * FROM studios WHERE clerk_org_id = ?\')
+    .get(orgId);
+
+  if (!studio) return res.redirect(\'/setup\');
+
+  req.studio = studio;
+  // Now req.studio.slug, req.studio.plan, etc. are available
+  next();
+}
+
+module.exports = studioContext;</code>',
+          '<span class="loc">VS Code — <code>app.js</code> or <code>server.js</code></span>Apply this middleware to every route that needs studio data:<code class="code-block">const studioContext = require(\'./middleware/studioContext\');
+app.use(\'/dashboard\', studioContext, dashboardRouter);
+app.use(\'/projects\', studioContext, projectsRouter);
+// ...etc for each section of the app</code>',
+          'In every route handler, open the studio DB like this:<code class="code-block">const { getDB } = require(\'../lib/db\');
+
+app.get(\'/projects\', studioContext, (req, res) => {
+  const db = getDB(req.studio.slug);
+  const projects = db.prepare(\'SELECT * FROM projects\').all();
+  res.json(projects);
+});</code>',
+          '<span class="loc">Railway Dashboard → Logs</span>Push your code, trigger a request, and confirm <code>req.studio</code> has your studio\'s data in the logs.',
+          'Test: log in as two different users in different studios. Both hit <code>/projects</code>. They should see completely different results.',
         ]
       },
       {
         id: 'routing', title: 'Per-studio routing resolved', priority: 'now',
-        desc: 'Studio context resolved from session on every request.',
-        why: 'You\'re using path-based routing (not subdomains) — the studio is identified from the user\'s Clerk session, not the URL. This keeps the URL clean (smack.studio/dashboard) while still isolating data.',
+        context: 'vscode',
+        desc: 'Studio context comes from the session, not the URL.',
+        why: 'Smack uses path-based routing — everyone goes to smack.studio/dashboard, not workprint.smack.studio. The studio is identified from the logged-in user\'s Clerk session, not the URL. This means zero DNS setup per studio.',
         steps: [
-          'Confirm path-based routing approach (vs subdomain)',
-          'All authenticated routes resolve studio context from session (see auth task above)',
-          'Studio slug is attached to the session, not hardcoded in URLs',
-          'Test: same URL (/dashboard) shows different data depending on which studio is logged in',
+          '<span class="loc">VS Code</span>Confirm you are using path-based routing (not subdomain routing). Everyone uses the same domain: <code>smack.studio/dashboard</code>. There\'s no studio name in the URL.',
+          'The studio is identified entirely from the user\'s session. The <code>studioContext</code> middleware (from the previous task) handles this on every request.',
+          'Your routes do NOT need a studio ID: <code>GET /projects</code> works for every studio — it just uses <code>req.studio.slug</code> to open the right database.',
+          'Make sure you never write something like <code>app.get(\'/:studioSlug/projects\')</code> — the slug comes from the session, not the URL.',
+          '<span class="loc">Test</span>Open two browsers. Log into Studio A in one, Studio B in the other. Both go to the same URL (<code>/projects</code>). They should see different data.',
         ]
       },
       {
         id: 'workprint-migration', title: 'Workprint migrated as Studio 1', priority: 'soon',
+        context: 'vscode',
         desc: 'Workprint becomes the first tenant. Parallel run for at least 1 week.',
-        why: 'Workprint is your dogfood studio. It should be the first tenant on Smack, running in parallel with the existing Workprint setup for at least a week before you let external studios in. This is your validation run.',
-        note: { type: 'warn', text: 'Do not decommission the Workprint setup until Smack has been running without issues for at least 1 week. Keep both running in parallel.' },
+        why: 'Workprint is your dogfood studio. Running it as the first Smack tenant proves the architecture works with real data before you invite anyone else.',
+        note: { type: 'warn', text: 'Keep Workprint\'s old setup running in parallel. Do NOT turn it off until Smack has run for at least 1 week without issues.' },
         steps: [
-          'Export all Workprint data (projects, clients, contractors, payments)',
-          'Write a migration script to import into the new Smack per-studio SQLite schema',
-          'Create the Workprint studio in Smack with slug "workprint"',
-          'Run the migration, verify all data imported correctly',
-          'Run Smack and Workprint in parallel for 1 week minimum',
-          'Validate: invoices work, contractor payouts work, project tracking works',
-          'After clean parallel run: officially move to Smack, archive old Workprint',
-          'Workprint pays $149/mo as Studio 1',
+          '<span class="loc">Your Mac — Terminal</span>Export a backup of the current Workprint database before touching anything:<code class="code-block">cp /path/to/workprint.db workprint-backup-$(date +%F).db</code>',
+          '<span class="loc">VS Code</span>Create a one-time migration script: <code>scripts/migrate-workprint.js</code>.',
+          'In the script, open the old Workprint database and read each table (projects, clients, contractors, payments, invoices). Then write each row into the new Smack-format schema at <code>/data/studios/workprint.db</code>.',
+          'Run the script locally first to confirm it works before deploying:<code class="code-block">node scripts/migrate-workprint.js</code>Check the output — verify row counts match between old and new.',
+          'Create the Workprint studio record in the Smack master DB: slug = <code>workprint</code>, plan = <code>growth</code>.',
+          'Push to Railway. Run both Workprint and Smack in parallel for 7 days. Use Smack for all real Workprint work — log any issues you find.',
+          'After 7 clean days with no issues: Workprint is officially on Smack. Remove the old Workprint deployment from Railway.',
         ]
       },
     ]
@@ -499,62 +597,105 @@ const SECTIONS = [
     tasks: [
       {
         id: 'settings-ui', title: 'Studio settings UI', priority: 'soon',
+        context: 'vscode',
         desc: 'Self-serve config. No Railway touch needed for any studio.',
-        why: 'This is what makes Smack a real SaaS. Every studio should be able to configure themselves completely through the app — billing, team members, bank account for payouts, branding. You should never have to touch Railway to onboard a new studio.',
+        why: 'This is what makes Smack a real SaaS. Every studio should configure everything through the app — billing, team, bank account. You should never have to touch Railway to set up a new studio.',
         steps: [
-          'Settings sections needed: Studio Profile, Billing, Team Members, Notifications, Integrations (bank account for payouts)',
-          'Studio Profile: name, logo, address, timezone',
-          'Billing: current plan, upgrade/downgrade, invoices, cancel',
-          'Team Members: invite by email, roles (admin / member), remove',
-          'Integrations: connect bank account via Stripe (for contractor payment funding), connect Stripe Express (for contractor payouts)',
-          'All changes write to the studio\'s own DB record',
-          'No Railway env vars are involved in any of this',
+          '<span class="loc">VS Code</span>Create a settings section with 4 sub-pages. Add these routes to your app:<code class="code-block">GET /settings          → redirect to /settings/profile
+GET /settings/profile  → studio name, logo, address, timezone
+GET /settings/team     → team members, invite by email
+GET /settings/billing  → current plan, invoices
+GET /settings/integrations → bank account connection</code>',
+          '<b>Studio Profile page:</b> A form with studio name, logo upload, address, and timezone. On submit, update the studio record in the studio\'s own DB.',
+          '<b>Team Members page:</b> Use the Clerk API to list org members and send invites:<code class="code-block">// List current members
+const members = await clerkClient.organizations.getOrganizationMembershipList({
+  organizationId: req.studio.clerk_org_id
+});
+
+// Invite new member by email
+await clerkClient.organizations.createOrganizationInvitation({
+  organizationId: req.studio.clerk_org_id,
+  emailAddress: inviteEmail,
+  role: \'basic_member\'
+});</code>',
+          '<b>Billing page:</b> Show <code>req.studio.plan</code>. For billing management, use the Stripe Customer Portal — one API call and Stripe hosts the entire billing UI for you:<code class="code-block">const session = await stripe.billingPortal.sessions.create({
+  customer: req.studio.stripe_customer_id,
+  return_url: \'https://smack.studio/settings/billing\'
+});
+res.redirect(session.url); // Stripe handles everything from here</code>',
+          '<b>Integrations page:</b> "Connect Bank Account" button for contractor payments. Only show this if <code>req.studio.contractor_payments_active</code> is true.',
+          'None of this involves Railway env vars — all data is per-studio in their own DB or in Clerk.',
         ]
       },
       {
         id: 'onboarding', title: 'Studio onboarding flow', priority: 'soon',
+        context: 'vscode',
         desc: '7 steps. Target: under 5 min to first value.',
-        why: 'Documented in smack-onboarding-flow.html. The first-run experience determines whether a studio sticks. Get them to their first project or invoice as fast as possible.',
+        why: 'The first-run experience determines whether a studio sticks. Get them to their first project or invoice as fast as possible. Detailed spec is in smack-onboarding-flow.html.',
         steps: [
-          'Review smack-onboarding-flow.html for the 7-step spec',
-          'Step 1: Studio name + logo',
-          'Step 2: Invite first team member (optional, skippable)',
-          'Step 3: Create first client',
-          'Step 4: Create first project',
-          'Step 5: Set rate / add first milestone or invoice',
-          'Step 6: Preview invoice',
-          'Step 7: Completion screen with next actions',
-          'Each step should be independently skippable',
-          'Progress saved after each step — if they close and come back, pick up where they left off',
+          '<span class="loc">VS Code</span>Create an <code>onboarding_step</code> integer column in your studio DB. Default = 1. Each step completion increments it.',
+          'Add a redirect in your main middleware: if <code>studio.onboarding_step &lt; 8</code>, redirect to <code>/onboarding/step/${studio.onboarding_step}</code> instead of the dashboard.',
+          'Create 7 route handlers:<code class="code-block">GET/POST /onboarding/1  → Studio name + logo
+GET/POST /onboarding/2  → Invite team member (skippable)
+GET/POST /onboarding/3  → Create first client
+GET/POST /onboarding/4  → Create first project
+GET/POST /onboarding/5  → Set rate / add invoice milestone
+GET/POST /onboarding/6  → Preview invoice
+GET     /onboarding/7  → Completion screen → redirect to /dashboard</code>',
+          'Each step: on POST (form submit), save the data, increment <code>onboarding_step</code>, then redirect to the next step.',
+          'Each step needs a "Skip" link (except step 1) that just increments the step without saving.',
+          'Step 7 sets <code>onboarding_step = 8</code> (meaning complete). After this, the middleware no longer intercepts and sends them to the normal dashboard.',
+          '<span class="loc">Test</span>Create a new test studio and go through all 7 steps. Confirm skipping works. Confirm closing the browser mid-way and coming back resumes at the correct step.',
         ]
       },
       {
         id: 'billing-sub', title: 'Stripe subscription billing per studio', priority: 'soon',
+        context: 'mixed',
         desc: 'Studios pay monthly via saved card. $79 / $149 / $299.',
-        why: 'This is how Smack makes money. Every studio on a plan is charged monthly via the platform Stripe account. Needs to be working before any external studios are invited.',
+        why: 'This is how Smack makes money. Every studio on a plan is charged monthly via the Smack Stripe account.',
         steps: [
-          'Create products and prices in your Smack Stripe account: Starter ($79), Growth ($149), Studio ($299)',
-          'On studio creation, create a Stripe Customer for the studio',
-          'Store stripe_customer_id in the master directory DB',
-          'During onboarding, collect payment method (card) via Stripe Elements',
-          'Create a Stripe Subscription for the studio on their chosen plan',
-          'Handle webhooks: invoice.paid → mark studio as active, invoice.payment_failed → send warning email, customer.subscription.deleted → downgrade access',
-          'Add subscription status check to middleware — if expired, show renewal screen',
-          'Founding studio discount: create a Stripe coupon for 50% off, apply on checkout',
+          '<span class="loc">Stripe Dashboard → Products</span>Create 3 products: "Smack Studio — Starter" ($79/mo), "Smack Studio — Growth" ($149/mo), "Smack Studio — Studio" ($299/mo). Copy each <b>Price ID</b> (starts with <code>price_</code>) and save them as Railway env vars.',
+          '<span class="loc">VS Code</span>During the sign-up flow, after creating the studio, create a Stripe Customer:<code class="code-block">const customer = await stripe.customers.create({
+  email: studioEmail,
+  name: studioName,
+  metadata: { smack_slug: studioSlug }
+});
+// Save customer.id to your master DB
+masterDB.prepare(\'UPDATE studios SET stripe_customer_id = ? WHERE slug = ?\')
+  .run(customer.id, studioSlug);</code>',
+          '<span class="loc">VS Code</span>During onboarding, show a plan selection + card form (use Stripe Elements for the card input). On plan select:<code class="code-block">const subscription = await stripe.subscriptions.create({
+  customer: customerId,
+  items: [{ price: priceId }],
+  payment_behavior: \'default_incomplete\',
+  expand: [\'latest_invoice.payment_intent\']
+});</code>',
+          '<span class="loc">VS Code — <code>routes/webhooks/stripe.js</code></span>Handle these Stripe webhook events:<code class="code-block">invoice.paid           → set studio.subscription_status = \'active\'
+invoice.payment_failed → send warning email via Resend
+customer.subscription.deleted → set studio.subscription_status = \'inactive\'</code>',
+          '<span class="loc">VS Code — middleware</span>Add a subscription check: if <code>studio.subscription_status !== \'active\'</code>, redirect to a payment/renewal screen instead of the dashboard.',
+          '<span class="loc">Stripe Dashboard → Coupons</span>Create a coupon: 50% off, duration = "forever", name it "FOUNDING50". Apply it for founding studios: <code>stripe.subscriptions.create({ ..., coupon: \'FOUNDING50\' })</code>.',
         ]
       },
       {
         id: 'invite-waitlist', title: 'Invite-only waitlist page', priority: 'soon',
+        context: 'vscode',
         desc: 'Collect email + studio name. Founding studio offer for first 10.',
-        why: 'Velvet rope approach. Controls quality, builds anticipation, and lets you personally review the first 10 studios. The founding studio offer (50% off for life) gives people a reason to sign up now.',
+        why: 'Velvet rope approach — controls quality and builds anticipation. The founding studio offer (50% off for life) gives people a reason to sign up now.',
         steps: [
-          'Build waitlist page at smack.studio/waitlist',
-          'Fields: first name, studio name, email, brief note (optional)',
-          'On submit: store in DB, send confirmation email via Resend',
-          'Confirmation email: "You\'re on the list. We\'ll be in touch when your invite is ready." Include founding studio offer details.',
-          'Admin view: see all waitlist signups, manually approve with one click',
-          'On approval: send invite email with a unique sign-up link',
-          'First 10 approved → tagged as founding studios → 50% lifetime discount applied at checkout',
+          '<span class="loc">VS Code</span>Create a waitlist page at <code>/waitlist</code> with these fields: first name, studio name, email, optional note. No password needed — they\'re just expressing interest.',
+          'Create a <code>waitlist_signups</code> table in your master DB:<code class="code-block">CREATE TABLE IF NOT EXISTS waitlist_signups (
+  id INTEGER PRIMARY KEY,
+  first_name TEXT,
+  studio_name TEXT,
+  email TEXT UNIQUE,
+  note TEXT,
+  status TEXT DEFAULT \'pending\', -- \'pending\' | \'approved\' | \'rejected\'
+  created_at INTEGER
+);</code>',
+          'On form submit: save to DB, send a confirmation email via Resend: subject "You\'re on the list — Smack Studio", body: you\'re on the list, we\'ll reach out when your invite is ready, include the founding studio offer details.',
+          'Build a simple admin view at <code>/admin/waitlist</code> (protect it with a hardcoded admin password for now): show all signups, with an "Approve" button per row.',
+          'On approval: send an invite email with a unique sign-up link. Mark them in the DB as <code>status = \'approved\'</code>.',
+          'First 10 approved studios get tagged as founding studios — apply the FOUNDING50 Stripe coupon when they subscribe.',
         ],
         fields: [
           { id: 'waitlist-url', label: 'Waitlist URL', type: 'url', placeholder: 'https://smack.studio/waitlist' },
@@ -564,16 +705,18 @@ const SECTIONS = [
       },
       {
         id: 'founding-studios', title: 'First 10 founding studios identified', priority: 'soon',
+        context: 'mixed',
         desc: '50% off for life. Personal outreach. Attach one-pager.',
-        why: 'The founding studio cohort validates the product and gives you real feedback before opening up. They get a great deal, you get your first real users. 50% off for life is a compelling offer that costs you little at this stage.',
+        why: 'The founding studio cohort validates the product and gives you real feedback before opening up. Personal relationships convert far better than cold outreach.',
         steps: [
-          'List 10 studios you know or have a connection to',
-          'Prioritize: studios you\'ve worked with, studios that use tools like Workprint, freelance studios that are big enough to need this',
-          'Finalize the one-pager PDF (see brand section)',
-          'Write a personal outreach message — not a mass email, individual and specific',
-          'Send with one-pager attached, mention founding studio offer',
-          'Follow up once after 5 days if no response',
-          'When 3 studios commit, that\'s enough to open the waitlist publicly',
+          'Write down 10 studios you already know or have a connection to. Prioritize studios you\'ve worked with directly or that are already using tools like Workprint.',
+          'Finalize the one-pager PDF (see Brand section → "One-pager finalized").',
+          'Write a message template, but customize the first 1–2 sentences for each studio — mention something specific about their work.',
+          'Keep each message short: what problem it solves, what the offer is, one CTA sentence. 4 sentences max.',
+          'Send from <code>david@smack.studio</code> — establishes legitimacy.',
+          'Track responses here in the fields below.',
+          'Follow up once after 5 days for anyone who didn\'t reply.',
+          'When 3 studios commit, open the waitlist publicly.',
         ],
         fields: [
           { id: 's1', label: 'Studio 1', type: 'text', placeholder: 'Name — status' },
@@ -590,16 +733,29 @@ const SECTIONS = [
       },
       {
         id: 'pwa', title: 'PWA / mobile verified', priority: 'soon',
+        context: 'vscode',
         desc: 'Installable from Safari on iPhone. No App Store needed.',
-        why: 'Most studio owners will check Smack from their phone on set. PWA lets them install it from Safari like an app, with offline-capable pages and a home screen icon. Much faster than building a native app.',
+        why: 'Most studio owners will check Smack from their phone on set. PWA lets them install it from Safari like a native app, with a home screen icon. Much faster than building a real app.',
         steps: [
-          'Add a web app manifest: /public/manifest.json with name, icons, theme_color, display: standalone',
-          'Add <link rel="manifest"> to your HTML head',
-          'Add meta tags: apple-mobile-web-app-capable, apple-mobile-web-app-status-bar-style',
-          'Create app icons: 180×180px (apple-touch-icon) and 512×512px PNG',
-          'On an iPhone: open smack.studio in Safari → Share → Add to Home Screen → confirm it launches standalone',
-          'Test key flows on mobile: create invoice, check project status, view dashboard',
-          'Fix any layout issues at 390px viewport width',
+          '<span class="loc">VS Code</span>Create <code>public/manifest.json</code>:<code class="code-block">{
+  "name": "Smack Studio",
+  "short_name": "Smack",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "background_color": "#fafaf9",
+  "theme_color": "#e07868",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}</code>',
+          'Create app icons: a 192×192px and 512×512px PNG of the Smack jellyfish mark. Save them in <code>public/icons/</code>.',
+          '<span class="loc">VS Code — your HTML layout template</span>Add to the <code>&lt;head&gt;</code>:<code class="code-block">&lt;link rel="manifest" href="/manifest.json"&gt;
+&lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;
+&lt;meta name="apple-mobile-web-app-status-bar-style" content="default"&gt;
+&lt;link rel="apple-touch-icon" href="/icons/icon-192.png"&gt;</code>',
+          'Push to Railway. On iPhone: open smack.studio in Safari → tap the Share button → "Add to Home Screen" → confirm. It should launch fullscreen without the browser bar.',
+          'Test the main flows on mobile: create invoice, check project, view dashboard. Fix any layout issues at 390px width.',
         ]
       },
     ]
@@ -609,6 +765,7 @@ const SECTIONS = [
     tasks: [
       {
         id: 'stripe-connect-workprint', title: 'Stripe Connect Express set up (Workprint)', priority: 'done',
+        context: 'stripe',
         desc: 'Express accounts, ACH funding, transfer flow — live in Workprint.',
         why: 'Already done in Workprint. Stripe Connect Express handles KYC for contractors. ACH debit from studio bank → transfer to contractor. Platform absorbs all fees.',
         note: { type: 'good', text: 'Verified: Myles Mantzaris connected as a test Express account. Payouts and Transfers capabilities active. SSN/DOB collection deferred until $3k volume.' },
@@ -619,111 +776,196 @@ const SECTIONS = [
       },
       {
         id: 'ach-transfer-verified', title: 'ACH → transfer flow verified end to end', priority: 'now',
+        context: 'mixed',
         desc: 'Funds don\'t move until ACH clears. Test with return scenario.',
-        why: 'This is the critical guardrail. If you transfer to a contractor before the studio\'s ACH pull clears, and the ACH returns, you\'ve fronted the money. The source_transaction link prevents this.',
-        note: { type: 'warn', text: 'Use Stripe test bank numbers to simulate both successful ACH and ACH returns. Do not test with real money until both scenarios pass.' },
+        why: 'This is the critical money guardrail. If you transfer to a contractor before the studio\'s ACH pull clears, and the ACH returns (bounces), you\'ve fronted the money out of your own Stripe balance. The source_transaction link prevents this — Stripe holds the transfer until the charge actually clears.',
+        note: { type: 'warn', text: 'Do ALL testing in Stripe test mode first. Toggle "Test mode" in the top-right of Stripe Dashboard before running any of these steps.' },
         steps: [
-          'Create a test ACH charge using Stripe\'s test bank account numbers (routing: 110000000, account: 000123456789)',
-          'Confirm the charge is created with status: pending',
-          'Attempt to create a transfer using source_transaction: [charge_id] — it should be blocked until pending clears',
-          'Simulate charge success (use Stripe test clock or wait in test mode)',
-          'Confirm transfer executes automatically when charge.succeeded fires',
-          'Test ACH return: use test account number 000111111113 (simulates return)',
-          'Confirm transfer does NOT execute when the charge returns/fails',
-          'Log both scenarios and confirm behavior is correct',
+          '<span class="loc">Stripe Dashboard — confirm you are in TEST MODE (toggle top-right)</span>Go to Customers → create a test customer with a test ACH bank account. Use these test credentials: routing <code>110000000</code>, account <code>000123456789</code>.',
+          '<span class="loc">VS Code</span>Create an ACH charge for this test customer. In test mode, it comes back with <code>status: "pending"</code> — this simulates the real 3–5 business day ACH clearing window.',
+          'Attempt to create a transfer to a test contractor Express account, linking it to the ACH charge:<code class="code-block">const transfer = await stripe.transfers.create({
+  amount: 500000, // $5000 in cents
+  currency: \'usd\',
+  destination: \'acct_CONTRACTOR_EXPRESS_ID\',
+  source_transaction: charge.id // THIS is the guardrail
+});</code>Stripe will hold the transfer until the charge clears. This is correct behavior.',
+          '<span class="loc">Stripe Test Clock (Dashboard → Test clocks)</span>Create a test clock, advance it past the ACH clearing window. Confirm the transfer executes automatically when the charge succeeds.',
+          '<span class="loc">VS Code — webhook handler</span>Test ACH return: use test account number <code>000111111113</code>. When this account "returns" (like a bounced check), confirm your <code>charge.failed</code> webhook fires and that NO transfer was sent.',
+          '<span class="loc">Railway Dashboard → Logs</span>Check your Railway logs during these tests — confirm your webhook endpoint is receiving and logging each event correctly.',
+          'When both scenarios pass (success and return), this task is complete. Do not test with real money until this is green.',
         ]
       },
       {
         id: 'prior-payments-field', title: 'Prior payments field per contractor', priority: 'now',
+        context: 'vscode',
         desc: '"Payments made outside Smack in 2026" — adds to 1099 total.',
-        why: 'The $600 1099-NEC threshold applies to total payments from your business to that contractor across ALL platforms. Without this field, you\'ll underreport if the studio paid that contractor elsewhere earlier in the year.',
+        why: 'The IRS $600 1099-NEC threshold is based on TOTAL payments to a contractor from your business across ALL platforms. If a studio paid a contractor $500 by check before joining Smack, then $200 via Smack, that\'s $700 total and a 1099 is required. Without this field, you\'d only see $200 and miss the filing.',
         steps: [
-          'Add a "Prior 2026 payments" field to the contractor record in the DB',
-          'Show it in the contractor profile UI: label "Payments made outside Smack in 2026 (e.g. checks, wire, other platforms)"',
-          'Number input (dollars), optional notes field for source',
-          'When calculating 1099 totals, add prior_payments to the sum of platform payments',
-          'Show breakdown in the 1099 checklist: "$3,200 via Smack + $1,800 prior = $5,000 total"',
-          'Test: add $500 prior, send $200 via platform, confirm 1099 checklist shows $700 total',
+          '<span class="loc">VS Code — your schema SQL</span>Add two columns to the contractors table:<code class="code-block">ALTER TABLE contractors ADD COLUMN prior_payments_2026 INTEGER DEFAULT 0;
+ALTER TABLE contractors ADD COLUMN prior_payments_source TEXT;</code>',
+          '<span class="loc">VS Code — contractor profile page UI</span>Add a number input field labeled: <b>"Payments made outside Smack in 2026"</b> with a note below it: "e.g. checks, wire, Gusto, or any other platform". Maps to <code>prior_payments_2026</code>.',
+          'Below that, add an optional text field: <b>"Source (optional)"</b> — maps to <code>prior_payments_source</code>.',
+          '<span class="loc">VS Code — 1099 total calculation</span>Wherever you calculate the 1099 total, add the prior payments:<code class="code-block">const smackTotal = db.prepare(
+  \'SELECT SUM(amount) FROM payments WHERE contractor_id = ? AND year = ?\')
+  .get(contractorId, 2026);
+const total1099 = smackTotal + contractor.prior_payments_2026;</code>',
+          '<span class="loc">VS Code — 1099 checklist UI</span>Show the breakdown to the studio owner: <b>"$3,200 via Smack + $1,800 prior = $5,000 total"</b>',
+          '<span class="loc">Test</span>Add a contractor, set prior payments to $500, pay them $200 via the platform. Confirm the 1099 checklist shows $700 total (not $200).',
         ]
       },
       {
         id: 'de542-checkbox', title: 'DE 542 checkbox per contractor', priority: 'now',
+        context: 'vscode',
         desc: '"Already reported to CA EDD" — prevents duplicate filings.',
-        why: 'CA requires you to report new independent contractors to CA EDD (DE 542) within 20 days of first payment over $600. If they were already reported by the same studio elsewhere, you don\'t need to re-file. The checkbox tracks this.',
+        why: 'California requires you to report new independent contractors to the CA Employment Development Department (DE 542 form) within 20 days of the first payment over $600. If the contractor was already reported through a prior platform, you don\'t need to re-file. This checkbox tracks that.',
         steps: [
-          'Add a boolean field to contractor record: de542_filed (default: false)',
-          'In contractor profile: checkbox "Already reported to CA EDD (DE 542 filed)"',
-          'In the 1099 compliance checklist: show DE 542 status per contractor',
-          'If de542_filed = false AND total payments > $600 AND contractor is CA-based: show "DE 542 required" warning',
-          'On first payout over $600: if not filed, show reminder to file DE 542',
-          'Link to the CA EDD online filing portal in the reminder',
+          '<span class="loc">VS Code — schema SQL</span>Add to contractors table:<code class="code-block">ALTER TABLE contractors ADD COLUMN de542_filed BOOLEAN DEFAULT 0;</code>',
+          '<span class="loc">VS Code — contractor profile UI</span>Add a checkbox: <b>"Already reported to California EDD (DE 542 form filed)"</b>. Maps to <code>de542_filed</code>. Show this field only if the contractor\'s state is California.',
+          '<span class="loc">VS Code — 1099 compliance checklist</span>For each contractor where: state = CA AND total payments ≥ $600 AND <code>de542_filed = false</code>, show a warning: <b>"DE 542 filing required"</b> in red.',
+          'Include a link to the CA EDD online filing portal in the warning: <code>https://eddservices.edd.ca.gov</code> — studios click that link to file directly.',
+          'If a contractor was already reported elsewhere (e.g. a prior platform before switching to Smack), the studio checks the box and the warning disappears.',
+          '<span class="loc">Note for yourself</span>You only file DE 542 once per contractor per studio relationship. After the first filing, you never need to file again for that contractor unless the relationship restarts after a gap.',
         ]
       },
       {
         id: '1099-generation', title: '1099-NEC generation', priority: 'now',
+        context: 'mixed',
         desc: 'Stripe auto-generates. You need to enable it and handle TINs.',
-        why: 'Stripe Connect automatically generates 1099-NEC forms for connected accounts that hit the threshold. You don\'t build this — you just enable it and make sure every contractor has a valid TIN on file.',
-        note: { type: 'info', text: 'Current IRS threshold: $600 total payments in a calendar year. Stripe files automatically if tax reporting is enabled in Connect settings.' },
+        why: 'Stripe Connect automatically generates and delivers 1099-NEC forms for Express accounts that hit the $600 threshold. You don\'t build any of this yourself — you just flip the switch and make sure every contractor has a valid TIN (SSN or EIN) on file.',
+        note: { type: 'info', text: 'IRS threshold: $600 total in a calendar year. Stripe files automatically. Deadline: January 31 of the following year.' },
         steps: [
-          'In your Stripe Connect Dashboard → Settings → Tax reporting → Enable 1099 generation',
-          'Ensure every contractor Express account has a verified TIN (SSN or EIN) — Stripe collects this during onboarding',
-          'In your app, show a 1099 filing checklist to each studio: list contractors above $600, their TIN status, total paid',
-          'Combined total = platform payments + prior payments field',
-          'Filing deadline: January 31 each year. Stripe sends forms directly to contractors.',
-          'Test: create a test contractor, push them above $600 in test payments, confirm 1099 checklist shows them',
+          '<span class="loc">Stripe Dashboard → Connect → Settings</span>Scroll down to "Tax reporting" → enable "1099 generation". This tells Stripe to auto-generate forms for all connected Express accounts above threshold.',
+          'Stripe collects the contractor\'s TIN (SSN or EIN) during the Express onboarding flow. If it\'s missing, the contractor\'s Stripe Express account will show a warning — they need to complete their profile.',
+          '<span class="loc">VS Code — 1099 checklist UI</span>Build a compliance screen in the app. For each contractor, show:<code class="code-block">- Contractor name
+- Total paid (Smack payments + prior payments field)
+- Is threshold met? (>= $600)
+- TIN status (pull from Stripe: stripe.accounts.retrieve(acct_id)
+  → check requirements.currently_due for \'individual.id_number\')
+- DE 542 status (from your DB checkbox)</code>',
+          '<span class="loc">Important deadline</span>Check this checklist every December. Any contractor missing a TIN needs to update their Stripe Express profile before January 31. Stripe sends the 1099 directly to contractors — you don\'t mail anything.',
+          '<span class="loc">Test</span>In Stripe test mode, create a test contractor, push their payment total above $600. Confirm they appear in your 1099 checklist.',
         ]
       },
       {
         id: 'contractor-payments-smack', title: 'Contractor Payments ported to Smack', priority: 'soon',
+        context: 'vscode',
         desc: 'Same flow as Workprint, per-studio, add-on gated.',
-        why: 'Once Workprint\'s contractor payment flow is solid, port it to Smack. Each studio connects their own bank account and their own contractors get their own Express accounts. The platform Stripe account handles all of it.',
+        why: 'Once the Workprint contractor payment flow is solid, port it to Smack so every studio can use it. The architecture is the same — just scoped per studio.',
         steps: [
-          'Port the Stripe Connect Express onboarding link generation to Smack',
-          'Store contractor acct_id per studio in their studio DB',
-          'Per-studio bank account verification via Stripe instant verification (Plaid)',
-          'ACH debit and transfer flow scoped per studio',
-          'Add Contractor Payments section to Studio Settings',
-          'Gate all of this behind the add-on subscription check',
+          '<span class="loc">VS Code — studio DB schema</span>Add a contractors table to every studio\'s DB schema SQL:<code class="code-block">CREATE TABLE IF NOT EXISTS contractors (
+  id INTEGER PRIMARY KEY,
+  name TEXT NOT NULL,
+  email TEXT UNIQUE,
+  stripe_acct_id TEXT,        -- their Express account ID (acct_...)
+  de542_filed BOOLEAN DEFAULT 0,
+  prior_payments_2026 INTEGER DEFAULT 0,
+  prior_payments_source TEXT,
+  created_at INTEGER
+);</code>',
+          'The Stripe Connect Express onboarding flow is the same as Workprint. The key difference: save the generated <code>acct_id</code> to <b>that studio\'s DB</b> (not a shared location):<code class="code-block">const db = getDB(req.studio.slug); // studio-specific DB
+db.prepare(\'UPDATE contractors SET stripe_acct_id = ? WHERE id = ?\')
+  .run(expressAccountId, contractorId);</code>',
+          '<span class="loc">VS Code — Studio Settings → Integrations</span>Add a "Connect Bank Account" button. This opens Stripe\'s bank verification flow so the studio can fund ACH payments. Store the bank source ID in the studio\'s DB record.',
+          'Wrap every contractor payments route with an add-on check:<code class="code-block">if (!req.studio.contractor_payments_active) {
+  return res.redirect(\'/settings/contractor-payments/upsell\');
+}</code>',
+          '<span class="loc">Stripe Dashboard</span>Confirm that when a new contractor onboards through any studio, a new Express account appears in your Connect dashboard. You should see separate accounts for each contractor across all studios.',
         ]
       },
       {
         id: 'addon-gating', title: 'Contractor Payments add-on gating', priority: 'soon',
+        context: 'mixed',
         desc: 'Show upsell if not subscribed. Full access if active.',
-        why: 'The add-on is a separate monthly charge on top of the base subscription. Studios opt in. If they haven\'t opted in, they should see an upsell screen instead of the contractor payment features.',
+        why: 'The add-on is a separate monthly charge on top of the base subscription. Studios opt in. If they haven\'t, they see an upsell screen instead of the feature.',
         steps: [
-          'Create a separate Stripe product for the Contractor Payments add-on',
-          'Store contractor_payments_active: bool in studio settings',
-          'On any contractor payments route: check contractor_payments_active — if false, show upsell screen',
-          'Upsell screen: explain the feature, pricing (volume-based), "Enable Contractor Payments" button',
-          'On enable: start the add-on subscription in Stripe, update contractor_payments_active',
-          'On cancel: disable access, stop billing',
+          '<span class="loc">VS Code — master DB schema</span>Add two columns to the studios table:<code class="code-block">ALTER TABLE studios ADD COLUMN contractor_payments_active BOOLEAN DEFAULT 0;
+ALTER TABLE studios ADD COLUMN contractor_payments_since DATE;</code>',
+          '<span class="loc">VS Code — <code>studioContext</code> middleware</span>When you load the studio record, these fields come along automatically in <code>req.studio</code>.',
+          '<span class="loc">VS Code</span>In every contractor payments route, add this check at the top:<code class="code-block">if (!req.studio.contractor_payments_active) {
+  return res.redirect(\'/contractor-payments/upsell\');
+}</code>',
+          '<span class="loc">VS Code — <code>views/upsell-contractor-payments.html</code></span>Build the upsell page: explain what the feature does, show the 4 pricing tiers ($29/$79/$149/$299 based on monthly payout volume), and an "Enable Contractor Payments" button.',
+          'When the studio enables it: set <code>contractor_payments_active = 1</code> and save <code>contractor_payments_since</code> in the master DB. No Stripe subscription needed — billing is handled by the monthly cron job.',
+          '<span class="loc">Test</span>Create a test studio without the add-on. Try accessing <code>/contractor-payments</code> — you should land on the upsell page. Enable it, try again — you should see the feature.',
         ]
       },
       {
         id: 'volume-billing', title: 'Monthly volume billing in arrears', priority: 'soon',
+        context: 'vscode',
         desc: 'Cron on 1st of month. Tally volume → charge tier fee.',
-        why: 'This is how Contractor Payments is priced. At the end of each month, tally the total contractor payout volume for each studio and charge the appropriate tier: $29 / $79 / $149 / $299.',
+        why: 'How Contractor Payments is priced — tallied at end of each month, charged on the 1st of the next. Studios only pay for the volume tier they actually hit.',
         steps: [
-          'Set up a cron job that runs at 12:01am on the 1st of each month',
-          'For each studio with contractor_payments_active = true: sum all contractor payouts in the previous calendar month',
-          'Determine tier: up to $5k → $29, $5k–$25k → $79, $25k–$75k → $149, $75k–$200k → $299, $200k+ → flag for custom',
-          'Create a Stripe Invoice for the studio with the tier amount',
-          'Charge the invoice immediately to their saved payment method',
-          'Store billing record in studio DB: month, volume, tier, amount_charged',
-          'Handle payment failure: send email, retry after 3 days, pause payout access after 2nd failure',
+          '<span class="loc">VS Code</span>Install a job scheduler: <code class="code-block">npm install node-cron</code>',
+          'Create <code>src/jobs/monthly-billing.js</code>. Set up the cron to run at 12:01am on the 1st of every month:<code class="code-block">const cron = require(\'node-cron\');
+
+cron.schedule(\'1 0 1 * *\', runMonthlyBilling);
+
+async function runMonthlyBilling() {
+  const studios = masterDB.prepare(
+    \'SELECT * FROM studios WHERE contractor_payments_active = 1\'
+  ).all();
+  for (const studio of studios) {
+    await billStudio(studio);
+  }
+}</code>',
+          'Write the <code>billStudio(studio)</code> function:<code class="code-block">async function billStudio(studio) {
+  const db = getDB(studio.slug);
+  const lastMonth = getPreviousMonth(); // e.g. { year: 2026, month: 3 }
+
+  const { volume } = db.prepare(
+    \'SELECT SUM(amount) as volume FROM contractor_payments WHERE month = ?\')
+    .get(lastMonth);
+
+  const fee = getTierFee(volume);
+  // $0-5k → $29 | $5k-25k → $79 | $25k-75k → $149 | $75k-200k → $299
+
+  const invoice = await stripe.invoices.create({
+    customer: studio.stripe_customer_id,
+    description: `Contractor Payments — ${lastMonth.year}/${lastMonth.month} ($${volume} volume)`,
+    auto_advance: true
+  });
+  await stripe.invoiceItems.create({
+    customer: studio.stripe_customer_id,
+    invoice: invoice.id,
+    amount: fee * 100, // cents
+    currency: \'usd\'
+  });
+  await stripe.invoices.pay(invoice.id);
+}</code>',
+          '<span class="loc">VS Code</span>Log the billing result to the studio DB:<code class="code-block">db.prepare(\'INSERT INTO billing_history (month, volume, fee, status) VALUES (?, ?, ?, ?)\')
+  .run(lastMonth, volume, fee, \'paid\');</code>',
+          'Handle payment failure: if <code>stripe.invoices.pay()</code> throws, send a warning email via Resend and set a flag to pause contractor payouts after 2 consecutive failures.',
+          '<span class="loc">Import this cron job in your main app file</span>Add <code>require(\'./jobs/monthly-billing\')</code> to <code>app.js</code> so it registers when the app starts.',
         ]
       },
       {
         id: 'summary-email', title: 'End-of-month summary email', priority: 'soon',
+        context: 'mixed',
         desc: '"Your fee on the 1st will be $X." Sent a few days before billing.',
-        why: 'Nobody likes surprise charges. A heads-up email 3 days before billing builds trust and reduces disputes. Simple to build, high trust value.',
+        why: 'Nobody likes surprise charges. A 3-day heads-up email builds trust and reduces payment disputes. Simple to build, high trust value.',
         steps: [
-          'Cron job runs on the 27th–28th of each month',
-          'For each studio with contractor_payments_active = true: calculate current month\'s payout volume so far',
-          'Determine likely tier based on current volume',
-          'Send email via Resend: "This month you\'ve processed $X in contractor payments. Your Contractor Payments fee on the 1st will be $Y."',
-          'Include a link to their payout history in the app',
-          'Build a Resend email template for this — match Smack brand',
+          '<span class="loc">VS Code — <code>src/jobs/monthly-billing.js</code></span>Add a second cron that runs on the 27th of each month at 9am:<code class="code-block">cron.schedule(\'0 9 27 * *\', runSummaryEmails);</code>',
+          'Write <code>runSummaryEmails()</code>: loop through all studios with contractor payments active, sum month-to-date volume from their studio DB:<code class="code-block">async function runSummaryEmails() {
+  const studios = masterDB.prepare(
+    \'SELECT * FROM studios WHERE contractor_payments_active = 1\'
+  ).all();
+  for (const studio of studios) {
+    const db = getDB(studio.slug);
+    const { volume } = db.prepare(
+      \'SELECT SUM(amount) as volume FROM contractor_payments WHERE year = ? AND month = ?\')
+      .get(thisYear, thisMonth);
+    const projectedFee = getTierFee(volume);
+    await sendSummaryEmail(studio, volume, projectedFee);
+  }
+}</code>',
+          '<span class="loc">Resend Dashboard — resend.com</span>Create an email template. Match Smack brand (salmon accent, Inter font). Variables: <code>studioName</code>, <code>monthVolume</code>, <code>projectedFee</code>, <code>billingDate</code>.',
+          '<span class="loc">VS Code</span>Send the email via Resend:<code class="code-block">await resend.emails.send({
+  from: \'billing@smack.studio\',
+  to: studio.email,
+  subject: \'Your Contractor Payments fee on the 1st\',
+  html: buildSummaryEmailHTML({ studioName, monthVolume, projectedFee })
+});</code>',
+          '<span class="loc">Test</span>Trigger the function manually in development (<code>node -e "require(\'./src/jobs/monthly-billing\').runSummaryEmails()"</code>). Confirm the email arrives and the numbers are correct.',
         ]
       },
     ]
@@ -733,52 +975,56 @@ const SECTIONS = [
     tasks: [
       {
         id: 'website-live', title: 'smack.studio website live', priority: 'soon',
+        context: 'browser',
         desc: 'Homepage, pricing, waitlist. Deployed to production.',
-        why: 'The website needs to be live before you do any outreach. Studios will google you. Make sure it loads fast, looks right on mobile, and the waitlist form works.',
+        why: 'The website needs to be live before you do any outreach. Studios will Google you. Make sure it loads fast and the waitlist form works.',
         steps: [
-          'Confirm homepage, pricing page, and waitlist page are all live',
-          'Test on mobile (iPhone Safari) — most first views will be mobile',
-          'Test waitlist form end to end: submit → confirmation email received',
-          'Check page load speed (Chrome DevTools → Lighthouse)',
-          'Set up basic analytics (Plausible or similar — privacy-friendly)',
-          'Confirm SSL is working (https://smack.studio shows padlock)',
+          'Confirm all 3 pages are live: smack.studio, smack.studio/pricing, smack.studio/waitlist.',
+          '<span class="loc">iPhone Safari</span>Open smack.studio on your phone. Check layout, readability, and that buttons are tappable. Most first views will be mobile.',
+          'Test the waitlist form end to end: fill it out → submit → confirm you receive a confirmation email.',
+          '<span class="loc">Chrome DevTools</span>Open the site in Chrome → F12 → Lighthouse tab → Generate report. Aim for 90+ performance score.',
+          'Confirm HTTPS: the URL should show a padlock in the browser bar. If not, check your Railway SSL settings.',
+          'Add basic analytics — Plausible.io is privacy-friendly and simple ($9/mo). Add one script tag to your HTML.',
         ]
       },
       {
         id: 'waitlist-open', title: 'Waitlist open and collecting', priority: 'soon',
-        desc: 'Form live. Confirmation email working. Founding studio slots visible.',
+        context: 'browser',
+        desc: 'Form live. Confirmation email working. Founding studio offer visible.',
         steps: [
-          'Waitlist page live at smack.studio/waitlist',
-          'Submit test entry — confirm you receive the signup in your admin view',
-          'Confirm confirmation email arrives (check spam too)',
-          'Make the founding studio offer clear: "First 10 studios get 50% off for life"',
-          'Set up a simple admin notification when someone signs up (Resend → your email)',
+          'Visit smack.studio/waitlist — fill in the form yourself as a test.',
+          'Confirm the signup appears in your admin view at <code>/admin/waitlist</code>.',
+          'Confirm you receive the confirmation email (check spam folder too).',
+          'The founding studio offer should be clearly visible on the page: "First 10 studios get 50% off for life."',
+          'Set up a Resend notification so YOU get an email every time someone signs up.',
         ]
       },
       {
         id: 'founding-outreach', title: 'Personal outreach to 10 studios', priority: 'soon',
+        context: 'mixed',
         desc: 'Individual messages. Not a mass email. One-pager attached.',
-        why: 'The first studios come from personal relationships, not marketing. These need to be individual, specific messages — mention their work, why Smack fits them, what the founding offer means. Mass email gets ignored.',
+        why: 'The first studios come from personal relationships, not marketing. Individual messages convert far better than mass email. These need to feel personal.',
         steps: [
-          'Finalize your list of 10 studios (see "founding studios" task)',
-          'Write a template but customize each message with something specific about that studio',
-          'Keep it short: problem, solution, offer, CTA — 4 sentences max',
-          'Attach the one-pager PDF',
-          'Send via your @smack.studio email (establishes legitimacy)',
-          'Track responses: reply, no reply, interested, not interested',
-          'Follow up once after 5 days for non-replies',
+          'Finalize your list of 10 studios from the "founding studios" task.',
+          'Write a template but customize the first 1–2 lines for each studio — mention something specific about their work or situation.',
+          'Keep it short: problem → solution → offer → CTA. 4 sentences max. Attach the one-pager PDF.',
+          'Send from <code>david@smack.studio</code>.',
+          'Track responses in the founding studios fields.',
+          'Follow up once after 5 days for non-replies.',
+          'When 3 studios commit, open the waitlist publicly.',
         ]
       },
       {
         id: 'launch-date', title: 'Launch date set', priority: 'soon',
+        context: 'mixed',
         desc: 'Pick a date. Work everything backwards from it.',
-        why: 'Without a date everything is "soon." Pick a specific date and use it to sequence the remaining tasks. The date can move but it needs to exist.',
+        why: 'Without a date, everything stays "soon." Pick a specific date and use it to sequence the remaining tasks. The date can move — but it needs to exist.',
         steps: [
-          'List all remaining tasks that must be done before launch',
-          'Estimate time for each honestly',
-          'Count backwards from today and pick a realistic date',
-          'Put it on the calendar',
-          'Share it with anyone who needs to know',
+          'List all remaining tasks that must be done before launch.',
+          'Estimate time for each honestly. Double the estimates.',
+          'Count backwards from today and pick a realistic date.',
+          'Put it on your calendar as a hard deadline.',
+          'Tell at least one other person — accountability helps.',
         ],
         fields: [
           { id: 'date', label: 'Target Launch Date', type: 'text', placeholder: 'e.g. June 1, 2026' },
@@ -787,26 +1033,28 @@ const SECTIONS = [
       },
       {
         id: 'workprint-parallel', title: 'Workprint parallel run complete', priority: 'later',
+        context: 'vscode',
         desc: 'Workprint on Smack for 1 week with no issues before external studios.',
-        why: 'You are the harshest critic of your own product. Run Workprint on Smack for a week. If you find issues, fix them. Only then invite external studios.',
+        why: 'You are the harshest critic of your own product. A week of real usage on Workprint will surface every rough edge before an external studio hits it.',
         steps: [
-          'Workprint data migrated to Smack (see multi-tenancy section)',
-          'Run all normal Workprint operations through Smack for 7 days',
-          'Log any issues, fix them',
-          'After 7 clean days: consider Workprint officially on Smack',
-          'Archive the old Workprint deployment',
+          'Workprint data migrated to Smack (see multi-tenancy section).',
+          'Run all normal Workprint operations through Smack for 7 full days.',
+          'Log every bug, friction point, or missing feature you notice.',
+          'Fix the critical ones. Create issues in GitHub for the rest.',
+          'After 7 clean days with no data issues: officially move to Smack. Archive the old Workprint deployment in Railway.',
         ]
       },
       {
         id: 'first-external', title: 'First external studio onboarded', priority: 'later',
+        context: 'mixed',
         desc: 'First paying studio outside Workprint. Invite-only.',
-        why: 'The first external studio validates everything: onboarding, billing, the settings UI, email flows. Pick someone you trust who will give you honest feedback.',
+        why: 'The first external studio validates everything: onboarding, billing, settings UI, email flows. Pick someone you trust who will give you honest, direct feedback.',
         steps: [
-          'Pick the most engaged studio from your waitlist or outreach',
-          'Send a personal invite link',
-          'Be available during their onboarding in case anything breaks',
-          'Ask for feedback after 48 hours',
-          'Fix any issues before opening to more studios',
+          'Pick the most engaged studio from your waitlist — someone you have a real relationship with.',
+          'Send a personal invite link (generated from your admin view).',
+          'Be available on Slack or iMessage during their first hour. Watch Railway logs for any errors.',
+          'Ask for feedback after 48 hours. Be specific: "What confused you? What\'s missing?"',
+          'Fix critical issues before inviting the next studio.',
         ]
       },
     ]
@@ -817,7 +1065,7 @@ const SECTIONS = [
       { id: 'csv-import', title: 'CSV Import add-on', priority: 'later', desc: 'Let studios import project/client data from spreadsheets. Separate paid add-on.', why: 'Studios migrating from spreadsheets will want to import years of history. Scope this as a separate add-on so it doesn\'t block launch.' },
       { id: 'accent-themes-build', title: 'Studio accent themes (6 presets)', priority: 'later', desc: 'Let studios pick their color from 6 curated presets. Phase 2 only.', why: 'Confirmed in brand system decisions. 6 presets, no full custom. Gives studios personality without breaking the UI.' },
       { id: 'stripe-volume-negotiation', title: 'Stripe volume pricing negotiation', priority: 'later', desc: 'At $2M+ annual Connect volume, negotiate custom rates.', why: '20–40% off Stripe\'s published rates is achievable at volume. Track Connect volume from day one so you know when you hit the threshold.' },
-      { id: 'international-contractors', title: 'International contractor payments', priority: 'later', desc: 'Expand beyond US-only. FX pass-through or premium tier.', why: 'US-only for launch. International adds FX complexity and risk. Add this when studios ask for it and you have data on demand.' },
+      { id: 'international-contractors', title: 'International contractor payments', priority: 'later', desc: 'Expand beyond US-only. FX pass-through or premium tier.', why: 'US-only for launch. International adds FX complexity and risk. Add this when studios ask for it and you have demand data.' },
       { id: 'native-app', title: 'Native iOS app', priority: 'later', desc: 'PWA first. Build native only if studios ask for it post-launch.', why: 'PWA covers the mobile use case. Native app is only worth building if studios consistently report the PWA doesn\'t meet their needs.' },
     ]
   },
@@ -887,7 +1135,7 @@ function renderTask(task) {
         </div>
         <div class="task-right">
           ${task.steps ? `<span class="task-step-progress ${allStepsDone ? 'all-done' : ''}">${stepLabel} steps</span>` : ''}
-          ${hasData ? `<span class="task-step-progress all-done">● saved</span>` : ''}
+          ${hasData ? `<span class="task-step-progress all-done saved-indicator">● saved</span>` : ''}
           <span class="task-priority ${priorityClass(task.priority)}">${task.priority === 'done' ? 'Done' : task.priority === 'now' ? 'Now' : task.priority === 'soon' ? 'Soon' : 'Later'}</span>
           <button class="task-open-btn" onclick="openPanel('${task.id}')" title="Open details">›</button>
         </div>
@@ -938,6 +1186,12 @@ function openPanel(id) {
   document.getElementById('panel-desc').textContent = task.desc;
 
   let html = '';
+
+  // Context badge — WHERE to do this
+  if (task.context && CTX[task.context]) {
+    const c = CTX[task.context];
+    html += `<div class="task-context ${c.cls}">${c.icon} ${c.label}</div>`;
+  }
 
   // Why
   if (task.why) {
@@ -1037,7 +1291,6 @@ function toggleTask(id, event) {
   el.setAttribute('data-completed', !was ? '1' : '0');
   applyFilter(currentFilter);
   updateProgress();
-  // Update panel button if open
   if (openTaskId === id) {
     const btn = document.getElementById('panel-complete-btn');
     if (btn) {
@@ -1051,23 +1304,17 @@ function toggleStep(taskId, idx) {
   const key = `${taskId}:${idx}`;
   stepState[key] = !stepState[key];
   save(STORAGE_STEPS, stepState);
-  // Update step UI in panel
   const stepEl = document.getElementById(`step-${taskId}-${idx}`);
   if (stepEl) {
     stepEl.classList.toggle('step-done', !!stepState[key]);
     stepEl.querySelector('.step-num').textContent = stepState[key] ? '✓' : idx + 1;
-    stepEl.querySelector('.step-text').style.textDecoration = stepState[key] ? 'line-through' : '';
   }
-  // Update step count in panel title
   const task = getTask(taskId);
   if (task && task.steps) {
     const done = stepsDone(taskId, task.steps);
-    const titleEl = document.querySelector(`#panel-body .panel-section-title`);
-    // find steps section title
     document.querySelectorAll('#panel-body .panel-section-title').forEach(el => {
       if (el.textContent.includes('Steps')) el.textContent = `Steps — ${done} of ${task.steps.length} done`;
     });
-    // Update step progress in main list
     const taskEl = document.getElementById(`task-${taskId}`);
     if (taskEl) {
       const sp = taskEl.querySelector('.task-step-progress');
@@ -1082,14 +1329,11 @@ function toggleStep(taskId, idx) {
 function saveField(key, value) {
   fieldData[key] = value;
   save(STORAGE_FIELDS, fieldData);
-  // Update saved indicator in task row
   const taskId = key.split(':')[0];
   const taskEl = document.getElementById(`task-${taskId}`);
   if (taskEl) {
     const task = getTask(taskId);
     const hasData = hasFieldData(taskId, task?.fields);
-    const indicators = taskEl.querySelectorAll('.task-step-progress');
-    // find or add saved indicator
     let savedEl = taskEl.querySelector('.saved-indicator');
     if (hasData && !savedEl) {
       const rightEl = taskEl.querySelector('.task-right');
