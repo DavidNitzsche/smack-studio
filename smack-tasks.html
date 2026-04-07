@@ -9,127 +9,166 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --pink: #e07868; --pink-dark: #c85d4a; --navy: #1e3a5f;
+    --pink: #e07868; --navy: #1e3a5f;
     --canvas: #fafaf9; --surface: #ffffff; --text: #111827;
     --muted: #6b7280; --border: #e5e7eb; --subtle: #f3f4f6;
     --green: #059669; --amber: #d97706; --red: #dc2626;
   }
   html { scroll-behavior: smooth; }
-  body { font-family: 'Inter', sans-serif; background: var(--canvas); color: var(--text); font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  body { font-family: 'Inter', sans-serif; background: var(--canvas); color: var(--text); font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 
   /* ─── LAYOUT ─── */
   .app { display: flex; min-height: 100vh; }
-  .sidebar { width: 260px; flex-shrink: 0; background: var(--surface); border-right: 1px solid var(--border); position: sticky; top: 0; height: 100vh; overflow-y: auto; display: flex; flex-direction: column; }
-  .main { flex: 1; min-width: 0; padding: 48px 56px 100px; }
+  .sidebar { width: 240px; flex-shrink: 0; background: var(--surface); border-right: 1px solid var(--border); position: sticky; top: 0; height: 100vh; overflow-y: auto; display: flex; flex-direction: column; }
+  .main { flex: 1; min-width: 0; padding: 40px 48px 100px; }
 
   /* ─── SIDEBAR ─── */
-  .sidebar-header { padding: 24px 20px 16px; border-bottom: 1px solid var(--border); }
-  .sidebar-back { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--muted); text-decoration: none; margin-bottom: 16px; }
+  .sidebar-header { padding: 20px 18px 14px; border-bottom: 1px solid var(--border); }
+  .sidebar-back { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--muted); text-decoration: none; margin-bottom: 14px; }
   .sidebar-back:hover { color: var(--text); }
-  .sidebar-title { font-size: 13px; font-weight: 800; color: var(--text); letter-spacing: -0.01em; margin-bottom: 8px; }
-  .sidebar-progress-bar { height: 6px; background: var(--subtle); border-radius: 99px; overflow: hidden; margin-bottom: 4px; }
+  .sidebar-title { font-size: 13px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+  .sidebar-progress-bar { height: 5px; background: var(--subtle); border-radius: 99px; overflow: hidden; margin-bottom: 4px; }
   .sidebar-progress-fill { height: 100%; background: var(--green); border-radius: 99px; transition: width 0.4s ease; }
   .sidebar-progress-label { font-size: 11px; color: var(--muted); font-weight: 600; }
-
-  .sidebar-nav { padding: 12px 12px; flex: 1; }
-  .nav-item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 8px; cursor: pointer; text-decoration: none; margin-bottom: 2px; transition: background 0.1s; }
+  .sidebar-nav { padding: 10px 10px; flex: 1; }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: 7px 10px; border-radius: 8px; cursor: pointer; text-decoration: none; margin-bottom: 1px; transition: background 0.1s; }
   .nav-item:hover { background: var(--subtle); }
-  .nav-item.active { background: rgba(224,120,104,0.08); }
-  .nav-item-icon { font-size: 16px; flex-shrink: 0; width: 20px; text-align: center; }
+  .nav-item-icon { font-size: 15px; flex-shrink: 0; width: 18px; text-align: center; }
   .nav-item-text { flex: 1; min-width: 0; }
   .nav-item-label { font-size: 12px; font-weight: 700; color: var(--text); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .nav-item.active .nav-item-label { color: var(--pink); }
-  .nav-mini-bar { height: 3px; background: var(--subtle); border-radius: 99px; overflow: hidden; margin-top: 3px; }
+  .nav-mini-bar { height: 2px; background: var(--subtle); border-radius: 99px; overflow: hidden; margin-top: 3px; }
   .nav-mini-fill { height: 100%; background: var(--green); border-radius: 99px; transition: width 0.4s ease; }
-
-  .sidebar-filter { padding: 12px 20px; border-top: 1px solid var(--border); }
-  .filter-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .sidebar-filter { padding: 10px 18px; border-top: 1px solid var(--border); }
+  .filter-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
   .filter-btns { display: flex; gap: 4px; }
   .filter-btn { flex: 1; padding: 5px 0; border: 1px solid var(--border); background: var(--surface); border-radius: 6px; font-size: 11px; font-weight: 700; color: var(--muted); cursor: pointer; transition: all 0.1s; font-family: inherit; }
   .filter-btn:hover { border-color: var(--pink); color: var(--pink); }
   .filter-btn.active { background: var(--pink); border-color: var(--pink); color: #fff; }
 
-  /* ─── MAIN HEADER ─── */
-  .page-header { margin-bottom: 48px; }
-  .page-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--pink); margin-bottom: 8px; }
-  .page-title { font-size: 32px; font-weight: 900; letter-spacing: -0.03em; color: var(--text); margin-bottom: 8px; }
-  .page-subtitle { font-size: 14px; color: var(--muted); }
+  /* ─── PAGE HEADER ─── */
+  .page-header { margin-bottom: 36px; }
+  .page-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--pink); margin-bottom: 6px; }
+  .page-title { font-size: 28px; font-weight: 900; letter-spacing: -0.03em; color: var(--text); margin-bottom: 6px; }
+  .page-subtitle { font-size: 13px; color: var(--muted); }
 
   /* ─── OVERALL PROGRESS ─── */
-  .overall-progress { background: linear-gradient(135deg, #0f1d30, #1e3a5f); border-radius: 20px; padding: 28px 32px; margin-bottom: 48px; }
-  .op-label { font-size: 10px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--pink); margin-bottom: 12px; }
-  .op-row { display: flex; align-items: center; gap: 16px; }
-  .op-bar { flex: 1; height: 8px; background: rgba(255,255,255,0.1); border-radius: 99px; overflow: hidden; }
+  .overall-progress { background: linear-gradient(135deg, #0f1d30, #1e3a5f); border-radius: 16px; padding: 24px 28px; margin-bottom: 40px; }
+  .op-label { font-size: 10px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--pink); margin-bottom: 10px; }
+  .op-row { display: flex; align-items: center; gap: 14px; }
+  .op-bar { flex: 1; height: 7px; background: rgba(255,255,255,0.1); border-radius: 99px; overflow: hidden; }
   .op-fill { height: 100%; background: var(--green); border-radius: 99px; transition: width 0.4s ease; }
-  .op-count { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.7); white-space: nowrap; }
+  .op-count { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.65); white-space: nowrap; }
   .op-count span { color: #fff; }
 
   /* ─── SECTION ─── */
-  .section { margin-bottom: 56px; scroll-margin-top: 32px; }
-  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
-  .section-icon { font-size: 22px; }
+  .section { margin-bottom: 48px; scroll-margin-top: 24px; }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .section-icon { font-size: 20px; }
   .section-meta { flex: 1; }
-  .section-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--pink); margin-bottom: 2px; }
-  .section-title { font-size: 20px; font-weight: 900; letter-spacing: -0.02em; color: var(--text); }
-  .section-badge { font-size: 11px; font-weight: 700; color: var(--muted); background: var(--subtle); padding: 4px 10px; border-radius: 99px; white-space: nowrap; }
+  .section-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--pink); margin-bottom: 1px; }
+  .section-title { font-size: 18px; font-weight: 900; letter-spacing: -0.02em; color: var(--text); }
+  .section-badge { font-size: 11px; font-weight: 700; color: var(--muted); background: var(--subtle); padding: 3px 10px; border-radius: 99px; }
   .section-badge.done { background: rgba(5,150,105,0.1); color: var(--green); }
 
-  /* ─── TASK ─── */
-  .task { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; margin-bottom: 8px; overflow: hidden; transition: border-color 0.15s, box-shadow 0.15s; }
-  .task:hover { border-color: rgba(224,120,104,0.3); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-  .task.completed { opacity: 0.55; }
+  /* ─── TASK ROW ─── */
+  .task { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 6px; overflow: hidden; transition: border-color 0.15s, box-shadow 0.15s; }
+  .task:hover { border-color: rgba(224,120,104,0.35); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+  .task.completed { opacity: 0.5; }
   .task.completed .task-title { text-decoration: line-through; color: var(--muted); }
   .task.hidden { display: none; }
-
-  .task-row { display: flex; align-items: flex-start; gap: 14px; padding: 16px 20px; cursor: pointer; }
-  .task-check { flex-shrink: 0; width: 20px; height: 20px; border-radius: 6px; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; transition: all 0.15s; margin-top: 1px; }
+  .task-row { display: flex; align-items: center; gap: 12px; padding: 14px 18px; }
+  .task-check { flex-shrink: 0; width: 19px; height: 19px; border-radius: 5px; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; transition: all 0.15s; cursor: pointer; }
+  .task-check:hover { border-color: var(--green); }
   .task.completed .task-check { background: var(--green); border-color: var(--green); }
-  .task-check-icon { display: none; color: #fff; font-size: 11px; font-weight: 900; }
+  .task-check-icon { display: none; color: #fff; font-size: 10px; font-weight: 900; }
   .task.completed .task-check-icon { display: block; }
-  .task-body { flex: 1; min-width: 0; }
-  .task-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
-  .task-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
-  .task-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; margin-top: 1px; }
-  .task-priority { font-size: 10px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; }
+  .task-body { flex: 1; min-width: 0; cursor: pointer; }
+  .task-title { font-size: 13px; font-weight: 700; color: var(--text); }
+  .task-desc { font-size: 12px; color: var(--muted); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .task-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .task-priority { font-size: 10px; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; }
   .priority-now { background: rgba(220,38,38,0.1); color: var(--red); }
   .priority-soon { background: rgba(217,119,6,0.1); color: var(--amber); }
   .priority-later { background: var(--subtle); color: var(--muted); }
   .priority-done { background: rgba(5,150,105,0.1); color: var(--green); }
+  .task-open-btn { background: none; border: none; font-size: 16px; color: var(--border); cursor: pointer; padding: 2px 4px; transition: color 0.1s; line-height: 1; }
+  .task-open-btn:hover { color: var(--pink); }
+  .task-step-progress { font-size: 10px; font-weight: 700; color: var(--muted); white-space: nowrap; }
+  .task-step-progress.all-done { color: var(--green); }
 
-  .task-info-btn { background: none; border: 1px solid var(--border); border-radius: 6px; padding: 3px 10px; font-size: 11px; font-weight: 600; color: var(--muted); cursor: pointer; font-family: inherit; transition: all 0.1s; white-space: nowrap; }
-  .task-info-btn:hover { border-color: var(--pink); color: var(--pink); }
-  .task-info-btn.has-data { border-color: rgba(5,150,105,0.4); color: var(--green); background: rgba(5,150,105,0.05); }
+  /* ─── OVERLAY ─── */
+  .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 100; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
+  .overlay.visible { opacity: 1; pointer-events: all; }
 
-  /* ─── INFO DRAWER ─── */
-  .task-drawer { display: none; border-top: 1px solid var(--border); background: var(--subtle); padding: 20px 24px; }
-  .task-drawer.open { display: block; }
-  .drawer-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-  .drawer-grid.cols-1 { grid-template-columns: 1fr; }
+  /* ─── SLIDE-OUT PANEL ─── */
+  .panel { position: fixed; top: 0; right: 0; width: 520px; max-width: 95vw; height: 100vh; background: var(--surface); box-shadow: -8px 0 40px rgba(0,0,0,0.12); z-index: 101; transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); display: flex; flex-direction: column; overflow: hidden; }
+  .panel.open { transform: translateX(0); }
+
+  .panel-header { padding: 24px 24px 0; flex-shrink: 0; }
+  .panel-close { display: flex; align-items: center; justify-content: flex-end; margin-bottom: 16px; }
+  .panel-close-btn { background: var(--subtle); border: none; border-radius: 8px; width: 30px; height: 30px; cursor: pointer; font-size: 16px; color: var(--muted); display: flex; align-items: center; justify-content: center; transition: background 0.1s; }
+  .panel-close-btn:hover { background: var(--border); }
+  .panel-priority { font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+  .panel-title { font-size: 20px; font-weight: 900; letter-spacing: -0.02em; color: var(--text); margin-bottom: 10px; line-height: 1.2; }
+  .panel-desc { font-size: 13px; color: var(--muted); line-height: 1.6; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+
+  .panel-body { flex: 1; overflow-y: auto; padding: 20px 24px 40px; }
+
+  /* Panel sections */
+  .panel-section { margin-bottom: 28px; }
+  .panel-section-title { font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+
+  /* Why */
+  .panel-why { font-size: 13px; color: var(--text); line-height: 1.65; background: rgba(30,58,95,0.04); border-left: 3px solid var(--navy); border-radius: 0 8px 8px 0; padding: 12px 14px; }
+
+  /* Note/warning */
+  .panel-note { font-size: 12px; line-height: 1.6; border-radius: 8px; padding: 10px 14px; margin-top: 10px; }
+  .panel-note.warn { background: rgba(217,119,6,0.08); color: #78350f; border: 1px solid rgba(217,119,6,0.2); }
+  .panel-note.info { background: rgba(30,58,95,0.06); color: var(--navy); border: 1px solid rgba(30,58,95,0.15); }
+  .panel-note.good { background: rgba(5,150,105,0.06); color: #065f46; border: 1px solid rgba(5,150,105,0.2); }
+
+  /* Steps */
+  .step-list { display: flex; flex-direction: column; gap: 6px; }
+  .step-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); cursor: pointer; transition: border-color 0.1s; }
+  .step-item:hover { border-color: rgba(224,120,104,0.3); }
+  .step-item.step-done { opacity: 0.55; }
+  .step-item.step-done .step-text { text-decoration: line-through; color: var(--muted); }
+  .step-num { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; background: var(--subtle); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; color: var(--muted); transition: all 0.15s; margin-top: 0; }
+  .step-item.step-done .step-num { background: var(--green); border-color: var(--green); color: #fff; }
+  .step-text { font-size: 13px; color: var(--text); line-height: 1.5; flex: 1; }
+
+  /* Fields */
+  .fields-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .fields-grid.cols-1 { grid-template-columns: 1fr; }
   .field-group { display: flex; flex-direction: column; gap: 4px; }
   .field-label { font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
   .field-input-wrap { position: relative; }
-  .field-input { width: 100%; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; font-family: inherit; background: var(--surface); color: var(--text); transition: border-color 0.15s; outline: none; }
-  .field-input:focus { border-color: var(--pink); }
-  .field-input.sensitive { padding-right: 36px; font-family: monospace; letter-spacing: 0.05em; }
-  .field-toggle { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 13px; color: var(--muted); padding: 2px; }
-  .field-copy { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 11px; color: var(--muted); padding: 2px; font-family: inherit; font-weight: 700; }
-  .field-copy:hover { color: var(--pink); }
-  .drawer-note { font-size: 12px; color: var(--muted); margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); line-height: 1.6; }
-  .drawer-note strong { color: var(--text); }
+  .field-input { width: 100%; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; font-family: inherit; background: var(--canvas); color: var(--text); outline: none; transition: border-color 0.15s; }
+  .field-input:focus { border-color: var(--pink); background: var(--surface); }
+  .field-input.sensitive { padding-right: 38px; font-family: monospace; }
+  .field-toggle { position: absolute; right: 9px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 13px; color: var(--muted); padding: 2px; }
+  .field-copy-btn { position: absolute; right: 9px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 11px; font-weight: 700; color: var(--muted); font-family: inherit; padding: 2px 4px; }
+  .field-copy-btn:hover { color: var(--pink); }
+  textarea.field-input { resize: vertical; min-height: 72px; padding-right: 12px; }
+  .fields-note { font-size: 11px; color: var(--muted); margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
 
-  /* ─── EMPTY STATE ─── */
-  .empty-section { text-align: center; padding: 40px; color: var(--muted); font-size: 13px; background: var(--surface); border: 1px dashed var(--border); border-radius: 14px; }
+  /* Panel complete btn */
+  .panel-complete-btn { display: flex; align-items: center; gap: 8px; width: 100%; padding: 12px 16px; border-radius: 10px; border: 2px solid var(--border); background: var(--surface); font-size: 13px; font-weight: 700; color: var(--muted); cursor: pointer; font-family: inherit; transition: all 0.15s; margin-top: 8px; }
+  .panel-complete-btn:hover { border-color: var(--green); color: var(--green); }
+  .panel-complete-btn.is-done { border-color: var(--green); background: rgba(5,150,105,0.06); color: var(--green); }
+  .panel-complete-btn .btn-icon { font-size: 16px; }
 
   @media (max-width: 768px) {
     .sidebar { display: none; }
-    .main { padding: 32px 24px 80px; }
-    .drawer-grid { grid-template-columns: 1fr; }
+    .main { padding: 28px 20px 80px; }
+    .panel { width: 100vw; }
+    .fields-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
-
 <div class="app">
+
   <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="sidebar-header">
@@ -154,289 +193,668 @@
     <div class="page-header">
       <div class="page-eyebrow">Smack Studio</div>
       <div class="page-title">Master Checklist</div>
-      <div class="page-subtitle">Every task, in order. Click to complete. Store credentials and links inline.</div>
+      <div class="page-subtitle">Click a task to see steps, details, and store credentials. Check the box to mark done.</div>
     </div>
-
     <div class="overall-progress">
       <div class="op-label">Overall Progress</div>
       <div class="op-row">
         <div class="op-bar"><div class="op-fill" id="overall-fill"></div></div>
-        <div class="op-count" id="overall-count"><span>0</span> / 0 tasks complete</div>
+        <div class="op-count" id="overall-count"><span>0</span> / 0 complete</div>
       </div>
     </div>
-
     <div id="sections-container"></div>
   </main>
 </div>
 
+<!-- OVERLAY + PANEL -->
+<div class="overlay" id="overlay" onclick="closePanel()"></div>
+<div class="panel" id="panel">
+  <div class="panel-header">
+    <div class="panel-close"><button class="panel-close-btn" onclick="closePanel()">✕</button></div>
+    <div class="panel-priority" id="panel-priority"></div>
+    <div class="panel-title" id="panel-title"></div>
+    <div class="panel-desc" id="panel-desc"></div>
+  </div>
+  <div class="panel-body" id="panel-body"></div>
+</div>
+
 <script>
-// ─── DATA ───────────────────────────────────────────────────────────────────
+// ─── DATA ────────────────────────────────────────────────────────────────────
 
 const SECTIONS = [
   {
-    id: 'business',
-    icon: '🏢',
-    label: 'Business Setup',
-    title: 'Accounts & Infrastructure',
+    id: 'business', icon: '🏢', label: 'Business Setup', title: 'Accounts & Infrastructure',
     tasks: [
       {
-        id: 'domain',
-        title: 'smack.studio domain (GoDaddy)',
-        desc: 'Domain purchased and active. Store login details.',
-        priority: 'done',
+        id: 'domain', title: 'smack.studio domain (GoDaddy)', priority: 'done',
+        desc: 'Domain purchased and active. Renews yearly.',
+        why: 'Your primary domain. Everything hangs off this — email, website, Railway deploy URL, Stripe webhook callbacks.',
+        steps: [
+          'Log in to GoDaddy and confirm smack.studio is active and auto-renew is on',
+          'Note the renewal date so it doesn\'t expire unexpectedly',
+          'Set your nameservers if needed (default GoDaddy nameservers are fine)',
+        ],
         fields: [
-          { id: 'url', label: 'Registrar URL', type: 'url', placeholder: 'https://godaddy.com' },
+          { id: 'login-url', label: 'GoDaddy Login', type: 'url', placeholder: 'https://godaddy.com' },
           { id: 'email', label: 'Account Email', type: 'email', placeholder: 'you@email.com' },
           { id: 'password', label: 'Password', type: 'password', sensitive: true },
           { id: 'expiry', label: 'Renewal Date', type: 'text', placeholder: 'Apr 2027' },
         ]
       },
       {
-        id: 'google-workspace',
-        title: 'Google Workspace (@smack.studio)',
-        desc: 'Sign up at workspace.google.com. Set up MX records in GoDaddy DNS. ~$6/user/mo.',
-        priority: 'now',
+        id: 'google-workspace', title: 'Google Workspace (@smack.studio)', priority: 'now',
+        desc: 'Business email at your domain. ~$6/user/mo.',
+        why: 'You need a professional @smack.studio email before you start reaching out to studios, setting up accounts, and doing anything public. This is also your Google account for Docs, Drive, Calendar.',
+        note: { type: 'info', text: '~$6/user/month. Free 14-day trial. You only need 1 user seat to start.' },
+        steps: [
+          'Go to workspace.google.com → click Get started',
+          'Enter smack.studio when asked about your domain',
+          'Create your admin account: e.g. david@smack.studio',
+          'Google will ask you to verify domain ownership — they give you a TXT record to add',
+          'In GoDaddy DNS → Manage DNS → Add Record → type: TXT, paste the value Google gives you',
+          'Back in Google Workspace, click Verify — can take a few minutes',
+          'Once verified, replace your existing MX records in GoDaddy with Google\'s 5 mail servers (Google shows you exactly what to add)',
+          'Wait 15–60 min for DNS to propagate',
+          'Send a test email to david@smack.studio to confirm it\'s working',
+        ],
         fields: [
-          { id: 'admin-email', label: 'Admin Email', type: 'email', placeholder: 'you@smack.studio' },
+          { id: 'admin-email', label: 'Admin Email', type: 'email', placeholder: 'david@smack.studio' },
           { id: 'password', label: 'Password', type: 'password', sensitive: true },
-          { id: 'mx-status', label: 'MX Records Status', type: 'text', placeholder: 'Configured / Pending' },
+          { id: 'mx-status', label: 'MX Records Status', type: 'text', placeholder: 'Configured' },
         ]
       },
       {
-        id: 'railway',
-        title: 'Railway project configured',
-        desc: 'Project set up, GitHub repo connected, environment variables added.',
-        priority: 'now',
+        id: 'github', title: 'GitHub repo set up', priority: 'now',
+        desc: 'Private repo connected to Railway for auto-deploy.',
+        why: 'Railway deploys directly from GitHub. Every push to main auto-deploys. You need the repo set up before you can connect Railway.',
+        steps: [
+          'Go to github.com/new → create a new private repo (e.g. smack-studio)',
+          'Clone it locally: git clone [url]',
+          'Copy your Workprint codebase into it, or initialize fresh',
+          'Push to main: git add . && git commit -m "init" && git push',
+          'Confirm the repo is visible at github.com/[you]/smack-studio',
+        ],
         fields: [
-          { id: 'project-url', label: 'Project URL', type: 'url', placeholder: 'https://railway.app/project/...' },
-          { id: 'env', label: 'Environment', type: 'text', placeholder: 'production' },
-          { id: 'deploy-url', label: 'Deploy URL', type: 'url', placeholder: 'https://smack.studio' },
+          { id: 'repo-url', label: 'Repo URL', type: 'url', placeholder: 'https://github.com/you/smack-studio' },
         ]
       },
       {
-        id: 'github',
-        title: 'GitHub repo set up',
-        desc: 'Private repo, connected to Railway for auto-deploy.',
-        priority: 'now',
+        id: 'railway', title: 'Railway project configured', priority: 'now',
+        desc: 'Hosting, env vars, custom domain, auto-deploy from GitHub.',
+        why: 'Railway is where Smack runs. It handles the server, database files, environment variables, and deploys every time you push to GitHub. Nothing else needs to change for new studios — it all happens here.',
+        note: { type: 'warn', text: 'Do not commit .env files or secrets to GitHub. Add all sensitive values as Railway environment variables instead.' },
+        steps: [
+          'Go to railway.app → New Project → Deploy from GitHub repo',
+          'Select your smack-studio repo and choose the main branch',
+          'Railway auto-detects your framework and sets up the build',
+          'Go to Variables tab → add all your environment variables (DB path, Clerk keys, Stripe keys, Resend key, etc.)',
+          'Go to Settings → Networking → Add domain → type smack.studio',
+          'In GoDaddy DNS, add a CNAME record pointing smack.studio to Railway\'s deployment URL (Railway shows you exactly what to set)',
+          'Enable auto-deploy: Settings → Source → Deploy on push to main → on',
+          'Push a test commit and confirm it deploys automatically',
+        ],
         fields: [
-          { id: 'repo-url', label: 'Repo URL', type: 'url', placeholder: 'https://github.com/...' },
+          { id: 'project-url', label: 'Railway Project URL', type: 'url', placeholder: 'https://railway.app/project/...' },
+          { id: 'deploy-url', label: 'Live Deploy URL', type: 'url', placeholder: 'https://smack.studio' },
+          { id: 'env-notes', label: 'Env Var Notes', type: 'textarea', placeholder: 'Any notes about variables set...' },
         ]
       },
       {
-        id: 'stripe-platform',
-        title: 'Stripe platform account (Smack billing)',
-        desc: 'Separate from Workprint Stripe. This account bills studios for Smack subscriptions.',
-        priority: 'soon',
+        id: 'clerk', title: 'Clerk.com auth configured', priority: 'now',
+        desc: 'Multi-tenant auth. Each studio is a Clerk Organization.',
+        why: 'Clerk handles login, sessions, and multi-tenancy so you don\'t have to build any of that. Critically, Clerk Organizations maps perfectly to your studio model — each Organization is one studio, and members can only see their own org\'s data.',
+        note: { type: 'info', text: 'Use Clerk Organizations for multi-tenancy. Each studio = one Organization. This is the clean architecture that prevents data bleed between tenants.' },
+        steps: [
+          'Create account at clerk.com',
+          'New Application → name it Smack → enable Email + Password sign-in',
+          'Enable Organizations: Dashboard → Organizations → Enable',
+          'Set organization limit: 1 org per user (each user belongs to one studio)',
+          'Under API Keys, copy your Publishable Key and Secret Key',
+          'Install in your app: npm install @clerk/nextjs (or your framework)',
+          'Add CLERK_PUBLISHABLE_KEY and CLERK_SECRET_KEY to Railway environment variables',
+          'Wrap your app with <ClerkProvider> and add Clerk middleware to protect routes',
+          'Test: create a test user → create an organization → confirm they can only see that org\'s data',
+        ],
+        fields: [
+          { id: 'pub-key', label: 'Publishable Key', type: 'text', sensitive: true, placeholder: 'pk_live_...' },
+          { id: 'secret-key', label: 'Secret Key', type: 'password', sensitive: true, placeholder: 'sk_live_...' },
+          { id: 'dashboard', label: 'Dashboard URL', type: 'url', placeholder: 'https://dashboard.clerk.com/apps/...' },
+        ]
+      },
+      {
+        id: 'stripe-platform', title: 'Stripe platform account (Smack billing)', priority: 'soon',
+        desc: 'Separate Stripe account for billing studios. Not Workprint\'s Stripe.',
+        why: 'This is the Stripe account that charges studios for their Smack subscription. It\'s separate from Workprint so finances stay clean. You\'ll also use this account for Connect — processing contractor payouts on behalf of studios.',
+        note: { type: 'warn', text: 'Create a completely separate Stripe account. Do not use your Workprint Stripe account. Log out of Stripe or use a different browser/incognito window.' },
+        steps: [
+          'Go to stripe.com → create a new account (use david@smack.studio email)',
+          'Complete business verification: legal name, address, EIN or SSN, bank account for payouts',
+          'Under Developers → API Keys → copy Publishable Key and Secret Key',
+          'Enable Connect: Dashboard → Connect → Get started → configure your platform settings',
+          'Create a webhook endpoint: Developers → Webhooks → Add endpoint',
+          'Set endpoint URL to: https://smack.studio/api/webhooks/stripe',
+          'Select events: customer.subscription.created, customer.subscription.deleted, invoice.paid, invoice.payment_failed, account.updated',
+          'Copy the Webhook Signing Secret and add all keys to Railway env vars',
+        ],
         fields: [
           { id: 'account-id', label: 'Account ID', type: 'text', placeholder: 'acct_...' },
           { id: 'pub-key', label: 'Publishable Key', type: 'text', sensitive: true, placeholder: 'pk_live_...' },
           { id: 'secret-key', label: 'Secret Key', type: 'password', sensitive: true, placeholder: 'sk_live_...' },
-          { id: 'webhook-secret', label: 'Webhook Secret', type: 'password', sensitive: true, placeholder: 'whsec_...' },
+          { id: 'webhook-secret', label: 'Webhook Signing Secret', type: 'password', sensitive: true, placeholder: 'whsec_...' },
         ]
       },
       {
-        id: 'clerk',
-        title: 'Clerk.com auth configured',
-        desc: 'Multi-tenant auth. Replaces any Google Workspace login dependency.',
-        priority: 'now',
-        fields: [
-          { id: 'pub-key', label: 'Publishable Key', type: 'text', sensitive: true, placeholder: 'pk_live_...' },
-          { id: 'secret-key', label: 'Secret Key', type: 'password', sensitive: true, placeholder: 'sk_live_...' },
-          { id: 'dashboard', label: 'Dashboard URL', type: 'url', placeholder: 'https://dashboard.clerk.com/...' },
-        ]
-      },
-      {
-        id: 'resend',
-        title: 'Resend configured @smack.studio',
-        desc: 'Transactional email (invoices, invites, notifications). Domain verified.',
-        priority: 'soon',
+        id: 'resend', title: 'Resend configured @smack.studio', priority: 'soon',
+        desc: 'Transactional email for invoices, invites, and notifications.',
+        why: 'All automated emails (invoice sent, studio invite, contractor payout notification, monthly billing summary) go through Resend. It\'s already in use for Workprint — just needs the @smack.studio domain verified.',
+        steps: [
+          'Log in to resend.com',
+          'Domains → Add Domain → enter smack.studio',
+          'Resend gives you DNS records to add (TXT for SPF, CNAME for DKIM)',
+          'Add those records in GoDaddy DNS → Manage DNS → Add Record',
+          'Click Verify in Resend — usually takes under 10 minutes',
+          'API Keys → Create API Key → name it smack-production → copy the key',
+          'Add RESEND_API_KEY to Railway environment variables',
+          'Set your default from address to hello@smack.studio or noreply@smack.studio in your code',
+          'Send a test email from the Resend dashboard to confirm delivery',
+        ],
         fields: [
           { id: 'api-key', label: 'API Key', type: 'password', sensitive: true, placeholder: 're_...' },
           { id: 'from-email', label: 'From Address', type: 'email', placeholder: 'hello@smack.studio' },
-          { id: 'domain-status', label: 'Domain Verification', type: 'text', placeholder: 'Verified' },
+          { id: 'domain-status', label: 'Domain Status', type: 'text', placeholder: 'Verified' },
         ]
       },
     ]
   },
   {
-    id: 'brand',
-    icon: '🎨',
-    label: 'Brand',
-    title: 'Brand & Design',
+    id: 'brand', icon: '🎨', label: 'Brand', title: 'Brand & Design',
     tasks: [
-      { id: 'logo-locked', title: 'Logo mark locked', desc: 'Variation B — perfect semicircle dome, 5 S-curve tentacles. Real artwork from jelly.svg.', priority: 'done' },
-      { id: 'colors-locked', title: 'Brand colors locked', desc: 'Coral Studio (light default) + Dark Mode Native (user-switchable). Salmon #e07868 throughout.', priority: 'done' },
-      { id: 'type-locked', title: 'Typography locked', desc: 'Inter for UI (Type A). Funtastic Regular for wordmark only.', priority: 'done' },
-      { id: 'components-locked', title: 'UI component decisions locked', desc: 'Status badges: T2 · Menu: light card · Notifications: bordered · Info: navy dark · Sidebar: warm grey.', priority: 'done' },
-      { id: 'accent-themes', title: 'Studio accent themes designed', desc: '6 curated presets for Phase 2 studio color theming. Not required for launch.', priority: 'later' },
+      { id: 'logo-locked', title: 'Logo mark locked', priority: 'done', desc: 'Variation B — semicircle dome, 5 S-curve tentacles. Real artwork from jelly.svg.', why: 'The mark is finalized. Dome is a perfect semicircle. Tentacles are the real jelly.svg paths. White on dark, salmon (#e07868) on light. No mixed colors.' },
+      { id: 'colors-locked', title: 'Brand colors locked', priority: 'done', desc: 'Coral Studio (light) + Dark Mode Native (dark). Salmon #e07868 throughout.', why: 'Two modes confirmed: Coral Studio as the default light mode, Dark Mode Native as the user-switchable dark. Both use the same salmon accent.' },
+      { id: 'type-locked', title: 'Typography locked', priority: 'done', desc: 'Inter for all UI. Funtastic Regular for wordmark only.', why: 'Inter (Type A) for all product UI. Funtastic Regular only for the "smack." wordmark. Don\'t use Funtastic anywhere else.' },
+      { id: 'components-locked', title: 'UI component decisions locked', priority: 'done', desc: 'Status badges T2 · Menu light card · Notifications bordered · Info navy dark · Sidebar warm grey.', why: 'All UI component directions chosen from the brand system exploration. Accent themes (6 presets) confirmed for Phase 2.' },
       {
-        id: 'website-direction',
-        title: 'Website direction chosen',
-        desc: 'Pick one direction from smack-website-exploration.html to build from.',
-        priority: 'soon',
+        id: 'website-direction', title: 'Website direction chosen', priority: 'soon',
+        desc: 'Pick one direction from website exploration to build from.',
+        why: 'The website exploration has 4 hero concepts, 3 feature sections, 2 pricing layouts. You need to pick a direction before anything gets built. One decision unlocks the whole build.',
+        steps: [
+          'Open smack-website-exploration.html and review all options',
+          'Pick a hero concept (1–4)',
+          'Pick a feature section treatment',
+          'Pick a pricing layout',
+          'Note any specific elements you want to keep from each',
+          'Record your decision in the notes field',
+        ],
         fields: [
-          { id: 'direction', label: 'Chosen Direction', type: 'text', placeholder: 'e.g. Hero concept 2' },
-          { id: 'notes', label: 'Notes', type: 'textarea', placeholder: 'Key decisions, things to keep...' },
+          { id: 'hero', label: 'Hero Concept', type: 'text', placeholder: 'e.g. Concept 2' },
+          { id: 'features', label: 'Feature Section', type: 'text', placeholder: 'e.g. Section B' },
+          { id: 'pricing', label: 'Pricing Layout', type: 'text', placeholder: 'e.g. Layout 1' },
+          { id: 'notes', label: 'Notes', type: 'textarea', placeholder: 'Specific elements to keep, changes to make...' },
         ]
       },
-      { id: 'website-build', title: 'Marketing website built', desc: 'smack.studio homepage, pricing page, waitlist CTA.', priority: 'soon' },
-      { id: 'one-pager-final', title: 'One-pager finalized', desc: 'Print-ready PDF version of smack-one-pager.html. Used for outreach to founding studios.', priority: 'soon' },
-    ]
-  },
-  {
-    id: 'multitenancy',
-    icon: '🏗️',
-    label: 'Multi-tenancy',
-    title: 'Multi-tenancy (Active Build)',
-    tasks: [
-      { id: 'sqlite-isolation', title: 'Per-studio SQLite database isolation', desc: 'Each studio gets its own SQLite file. Zero data bleed between tenants.', priority: 'now' },
-      { id: 'studio-creation', title: 'Studio creation flow', desc: 'When a new studio signs up, provision their DB, create their account, assign subdomain or path routing.', priority: 'now' },
-      { id: 'auth-clerk', title: 'Auth working with Clerk.com', desc: 'Login, session management, studio-scoped access. User can only see their own studio data.', priority: 'now' },
-      { id: 'routing', title: 'Per-studio routing', desc: 'Subdomain routing (studio.smack.studio) or path routing (/s/studio-slug). Consistent across all requests.', priority: 'now' },
-      { id: 'studio-switching', title: 'Studio context in all queries', desc: 'Every DB query is scoped to the current studio. No cross-tenant data leakage possible.', priority: 'now' },
-      { id: 'workprint-migration', title: 'Workprint migrated as Studio 1', desc: 'Workprint becomes the first tenant. Parallel run minimum 1 week before external studios.', priority: 'soon' },
-    ]
-  },
-  {
-    id: 'core',
-    icon: '⚙️',
-    label: 'Core Product',
-    title: 'Core Product — Pre-Launch',
-    tasks: [
-      { id: 'settings-ui', title: 'Studio settings UI', desc: 'Self-serve configuration: business info, billing, team members, bank account for payouts. No Railway needed for any of this.', priority: 'soon' },
-      { id: 'onboarding', title: 'Studio onboarding flow', desc: '7-step first-run UX (designed in smack-onboarding-flow.html). <5 min to first value.', priority: 'soon' },
       {
-        id: 'invite-waitlist',
-        title: 'Invite-only waitlist page',
-        desc: 'Velvet rope. Collect email + studio name. Founding studio pricing offer for first 10.',
-        priority: 'soon',
+        id: 'website-build', title: 'Marketing website built', priority: 'soon',
+        desc: 'smack.studio homepage, pricing, waitlist CTA.',
+        why: 'The public face of Smack. Needs to be live before you do any outreach. Studios will check the site before responding to your pitch.',
+        steps: [
+          'Finalize copy: headline, subheadline, feature bullets, pricing table, CTA',
+          'Build from the chosen direction in website exploration',
+          'Pages needed: home (/), pricing (/pricing), waitlist (/waitlist)',
+          'Mobile-responsive — most people will view it on phone first',
+          'Connect waitlist form to collect email + studio name → store in DB',
+          'Send confirmation email via Resend when someone joins waitlist',
+          'Deploy and verify live at smack.studio',
+        ]
+      },
+      {
+        id: 'one-pager-final', title: 'One-pager finalized for outreach', priority: 'soon',
+        desc: 'Print-ready PDF. Used for pitching founding studios.',
+        why: 'When you reach out to the first 10 studios you\'ll want something to attach. The one-pager exists in smack-one-pager.html — it just needs to be exported as a clean PDF.',
+        steps: [
+          'Review smack-one-pager.html and update any numbers or copy that has changed',
+          'Open in Chrome → Print → Save as PDF (set to no headers/footers, background graphics on)',
+          'Review the PDF — check layout, fonts, spacing at letter size',
+          'Save as "Smack Studio — Founding Offer.pdf"',
+        ]
+      },
+    ]
+  },
+  {
+    id: 'multitenancy', icon: '🏗️', label: 'Multi-tenancy', title: 'Multi-tenancy (Active Build)',
+    tasks: [
+      {
+        id: 'sqlite-isolation', title: 'Per-studio SQLite database isolation', priority: 'now',
+        desc: 'Each studio gets its own SQLite file. Zero data bleed.',
+        why: 'This is the foundation of multi-tenancy. If every studio shares one database and you have a bug in a query, you could return one studio\'s data to another. Separate SQLite files per studio makes that physically impossible.',
+        note: { type: 'info', text: 'File naming convention: /data/studios/{studio-slug}.db — Each file is completely isolated. Backup = copy the file.' },
+        steps: [
+          'Define a studio slug format (e.g. "workprint", "blue-marble-films")',
+          'On studio creation, provision a new SQLite file at /data/studios/{slug}.db',
+          'Run migrations on the new file to set up the schema',
+          'Every request: resolve the current studio from the session → get the correct DB path → open that connection',
+          'Never pass a DB connection between studios — each request opens and closes its own connection',
+          'Test: create two test studios, add data to each, verify neither can see the other\'s data',
+        ]
+      },
+      {
+        id: 'studio-creation', title: 'Studio creation flow', priority: 'now',
+        desc: 'Sign up → provision DB → create Clerk org → assign slug.',
+        why: 'This is the onboarding entry point for every new studio. Get it right and the rest is self-serve. Get it wrong and you\'ll be manually setting up studios forever.',
+        steps: [
+          'New studio signs up via Clerk (email + password)',
+          'On sign-up, prompt for studio name → generate slug (e.g. "Blue Marble Films" → "blue-marble-films")',
+          'Create a Clerk Organization with the studio name',
+          'Add the user as an admin of that Organization',
+          'Provision a new SQLite DB file for that slug',
+          'Run schema migrations on the new DB',
+          'Create a studio record in a master directory DB (not the studio DB) with slug, name, plan, created_at',
+          'Redirect to the studio onboarding flow',
+        ]
+      },
+      {
+        id: 'auth-clerk', title: 'Auth working with Clerk + studio scoping', priority: 'now',
+        desc: 'Every request is scoped to the correct studio via Clerk org.',
+        why: 'Clerk Organizations gives you the session context. From the session you get the org ID → look up the studio slug → open the right DB. This happens on every single request.',
+        steps: [
+          'In your middleware, get the Clerk session on every request',
+          'Extract the active Organization ID from the session',
+          'Look up the studio slug for that org ID from your master directory',
+          'Attach the studio context (slug, DB path, plan) to the request object',
+          'All route handlers use req.studio.db for queries — never a hardcoded DB path',
+          'If no org found for the session, redirect to studio creation or 404',
+          'Test by logging in as User A (Studio 1) and confirming you cannot access Studio 2\'s routes',
+        ]
+      },
+      {
+        id: 'routing', title: 'Per-studio routing resolved', priority: 'now',
+        desc: 'Studio context resolved from session on every request.',
+        why: 'You\'re using path-based routing (not subdomains) — the studio is identified from the user\'s Clerk session, not the URL. This keeps the URL clean (smack.studio/dashboard) while still isolating data.',
+        steps: [
+          'Confirm path-based routing approach (vs subdomain)',
+          'All authenticated routes resolve studio context from session (see auth task above)',
+          'Studio slug is attached to the session, not hardcoded in URLs',
+          'Test: same URL (/dashboard) shows different data depending on which studio is logged in',
+        ]
+      },
+      {
+        id: 'workprint-migration', title: 'Workprint migrated as Studio 1', priority: 'soon',
+        desc: 'Workprint becomes the first tenant. Parallel run for at least 1 week.',
+        why: 'Workprint is your dogfood studio. It should be the first tenant on Smack, running in parallel with the existing Workprint setup for at least a week before you let external studios in. This is your validation run.',
+        note: { type: 'warn', text: 'Do not decommission the Workprint setup until Smack has been running without issues for at least 1 week. Keep both running in parallel.' },
+        steps: [
+          'Export all Workprint data (projects, clients, contractors, payments)',
+          'Write a migration script to import into the new Smack per-studio SQLite schema',
+          'Create the Workprint studio in Smack with slug "workprint"',
+          'Run the migration, verify all data imported correctly',
+          'Run Smack and Workprint in parallel for 1 week minimum',
+          'Validate: invoices work, contractor payouts work, project tracking works',
+          'After clean parallel run: officially move to Smack, archive old Workprint',
+          'Workprint pays $149/mo as Studio 1',
+        ]
+      },
+    ]
+  },
+  {
+    id: 'core', icon: '⚙️', label: 'Core Product', title: 'Core Product — Pre-Launch',
+    tasks: [
+      {
+        id: 'settings-ui', title: 'Studio settings UI', priority: 'soon',
+        desc: 'Self-serve config. No Railway touch needed for any studio.',
+        why: 'This is what makes Smack a real SaaS. Every studio should be able to configure themselves completely through the app — billing, team members, bank account for payouts, branding. You should never have to touch Railway to onboard a new studio.',
+        steps: [
+          'Settings sections needed: Studio Profile, Billing, Team Members, Notifications, Integrations (bank account for payouts)',
+          'Studio Profile: name, logo, address, timezone',
+          'Billing: current plan, upgrade/downgrade, invoices, cancel',
+          'Team Members: invite by email, roles (admin / member), remove',
+          'Integrations: connect bank account via Stripe (for contractor payment funding), connect Stripe Express (for contractor payouts)',
+          'All changes write to the studio\'s own DB record',
+          'No Railway env vars are involved in any of this',
+        ]
+      },
+      {
+        id: 'onboarding', title: 'Studio onboarding flow', priority: 'soon',
+        desc: '7 steps. Target: under 5 min to first value.',
+        why: 'Documented in smack-onboarding-flow.html. The first-run experience determines whether a studio sticks. Get them to their first project or invoice as fast as possible.',
+        steps: [
+          'Review smack-onboarding-flow.html for the 7-step spec',
+          'Step 1: Studio name + logo',
+          'Step 2: Invite first team member (optional, skippable)',
+          'Step 3: Create first client',
+          'Step 4: Create first project',
+          'Step 5: Set rate / add first milestone or invoice',
+          'Step 6: Preview invoice',
+          'Step 7: Completion screen with next actions',
+          'Each step should be independently skippable',
+          'Progress saved after each step — if they close and come back, pick up where they left off',
+        ]
+      },
+      {
+        id: 'billing-sub', title: 'Stripe subscription billing per studio', priority: 'soon',
+        desc: 'Studios pay monthly via saved card. $79 / $149 / $299.',
+        why: 'This is how Smack makes money. Every studio on a plan is charged monthly via the platform Stripe account. Needs to be working before any external studios are invited.',
+        steps: [
+          'Create products and prices in your Smack Stripe account: Starter ($79), Growth ($149), Studio ($299)',
+          'On studio creation, create a Stripe Customer for the studio',
+          'Store stripe_customer_id in the master directory DB',
+          'During onboarding, collect payment method (card) via Stripe Elements',
+          'Create a Stripe Subscription for the studio on their chosen plan',
+          'Handle webhooks: invoice.paid → mark studio as active, invoice.payment_failed → send warning email, customer.subscription.deleted → downgrade access',
+          'Add subscription status check to middleware — if expired, show renewal screen',
+          'Founding studio discount: create a Stripe coupon for 50% off, apply on checkout',
+        ]
+      },
+      {
+        id: 'invite-waitlist', title: 'Invite-only waitlist page', priority: 'soon',
+        desc: 'Collect email + studio name. Founding studio offer for first 10.',
+        why: 'Velvet rope approach. Controls quality, builds anticipation, and lets you personally review the first 10 studios. The founding studio offer (50% off for life) gives people a reason to sign up now.',
+        steps: [
+          'Build waitlist page at smack.studio/waitlist',
+          'Fields: first name, studio name, email, brief note (optional)',
+          'On submit: store in DB, send confirmation email via Resend',
+          'Confirmation email: "You\'re on the list. We\'ll be in touch when your invite is ready." Include founding studio offer details.',
+          'Admin view: see all waitlist signups, manually approve with one click',
+          'On approval: send invite email with a unique sign-up link',
+          'First 10 approved → tagged as founding studios → 50% lifetime discount applied at checkout',
+        ],
         fields: [
           { id: 'waitlist-url', label: 'Waitlist URL', type: 'url', placeholder: 'https://smack.studio/waitlist' },
           { id: 'signups', label: 'Current Signups', type: 'text', placeholder: '0' },
+          { id: 'approved', label: 'Founding Studios Approved', type: 'text', placeholder: '0 / 10' },
         ]
       },
-      { id: 'billing-sub', title: 'Stripe subscription billing per studio', desc: 'Studio pays monthly via saved card. Flat per-studio pricing ($79 / $149 / $299). Handled by Smack platform Stripe account.', priority: 'soon' },
       {
-        id: 'founding-studios',
-        title: 'First 10 founding studios identified',
-        desc: '50% off for life. Personal outreach. Use one-pager for pitch.',
-        priority: 'soon',
+        id: 'founding-studios', title: 'First 10 founding studios identified', priority: 'soon',
+        desc: '50% off for life. Personal outreach. Attach one-pager.',
+        why: 'The founding studio cohort validates the product and gives you real feedback before opening up. They get a great deal, you get your first real users. 50% off for life is a compelling offer that costs you little at this stage.',
+        steps: [
+          'List 10 studios you know or have a connection to',
+          'Prioritize: studios you\'ve worked with, studios that use tools like Workprint, freelance studios that are big enough to need this',
+          'Finalize the one-pager PDF (see brand section)',
+          'Write a personal outreach message — not a mass email, individual and specific',
+          'Send with one-pager attached, mention founding studio offer',
+          'Follow up once after 5 days if no response',
+          'When 3 studios commit, that\'s enough to open the waitlist publicly',
+        ],
         fields: [
-          { id: 'studio-1', label: 'Studio 1', type: 'text', placeholder: 'Name + contact' },
-          { id: 'studio-2', label: 'Studio 2', type: 'text', placeholder: 'Name + contact' },
-          { id: 'studio-3', label: 'Studio 3', type: 'text', placeholder: 'Name + contact' },
-          { id: 'studio-4', label: 'Studio 4', type: 'text', placeholder: 'Name + contact' },
-          { id: 'studio-5', label: 'Studio 5', type: 'text', placeholder: 'Name + contact' },
-          { id: 'studio-6', label: 'Studio 6', type: 'text', placeholder: 'Name + contact' },
-          { id: 'studio-7', label: 'Studio 7', type: 'text', placeholder: 'Name + contact' },
-          { id: 'studio-8', label: 'Studio 8', type: 'text', placeholder: 'Name + contact' },
-          { id: 'studio-9', label: 'Studio 9', type: 'text', placeholder: 'Name + contact' },
-          { id: 'studio-10', label: 'Studio 10', type: 'text', placeholder: 'Name + contact' },
+          { id: 's1', label: 'Studio 1', type: 'text', placeholder: 'Name — status' },
+          { id: 's2', label: 'Studio 2', type: 'text', placeholder: 'Name — status' },
+          { id: 's3', label: 'Studio 3', type: 'text', placeholder: 'Name — status' },
+          { id: 's4', label: 'Studio 4', type: 'text', placeholder: 'Name — status' },
+          { id: 's5', label: 'Studio 5', type: 'text', placeholder: 'Name — status' },
+          { id: 's6', label: 'Studio 6', type: 'text', placeholder: 'Name — status' },
+          { id: 's7', label: 'Studio 7', type: 'text', placeholder: 'Name — status' },
+          { id: 's8', label: 'Studio 8', type: 'text', placeholder: 'Name — status' },
+          { id: 's9', label: 'Studio 9', type: 'text', placeholder: 'Name — status' },
+          { id: 's10', label: 'Studio 10', type: 'text', placeholder: 'Name — status' },
         ]
       },
-      { id: 'pwa', title: 'PWA / mobile-responsive verified', desc: 'Installable from Safari on iOS. No App Store. Test on iPhone before launch.', priority: 'soon' },
+      {
+        id: 'pwa', title: 'PWA / mobile verified', priority: 'soon',
+        desc: 'Installable from Safari on iPhone. No App Store needed.',
+        why: 'Most studio owners will check Smack from their phone on set. PWA lets them install it from Safari like an app, with offline-capable pages and a home screen icon. Much faster than building a native app.',
+        steps: [
+          'Add a web app manifest: /public/manifest.json with name, icons, theme_color, display: standalone',
+          'Add <link rel="manifest"> to your HTML head',
+          'Add meta tags: apple-mobile-web-app-capable, apple-mobile-web-app-status-bar-style',
+          'Create app icons: 180×180px (apple-touch-icon) and 512×512px PNG',
+          'On an iPhone: open smack.studio in Safari → Share → Add to Home Screen → confirm it launches standalone',
+          'Test key flows on mobile: create invoice, check project status, view dashboard',
+          'Fix any layout issues at 390px viewport width',
+        ]
+      },
     ]
   },
   {
-    id: 'contractor-payments',
-    icon: '💸',
-    label: 'Contractor Payments',
-    title: 'Contractor Payments Add-on',
+    id: 'contractor-payments', icon: '💸', label: 'Contractor Payments', title: 'Contractor Payments Add-on',
     tasks: [
       {
-        id: 'stripe-connect-workprint',
-        title: 'Stripe Connect Express set up (Workprint)',
-        desc: 'Express accounts, ACH funding, transfer flow. Tested end to end in test mode.',
-        priority: 'done',
+        id: 'stripe-connect-workprint', title: 'Stripe Connect Express set up (Workprint)', priority: 'done',
+        desc: 'Express accounts, ACH funding, transfer flow — live in Workprint.',
+        why: 'Already done in Workprint. Stripe Connect Express handles KYC for contractors. ACH debit from studio bank → transfer to contractor. Platform absorbs all fees.',
+        note: { type: 'good', text: 'Verified: Myles Mantzaris connected as a test Express account. Payouts and Transfers capabilities active. SSN/DOB collection deferred until $3k volume.' },
         fields: [
-          { id: 'connect-status', label: 'Status', type: 'text', placeholder: 'Live / Test' },
+          { id: 'connect-status', label: 'Status', type: 'text', placeholder: 'Live' },
           { id: 'test-account', label: 'Test Connected Account', type: 'text', placeholder: 'acct_...' },
         ]
       },
-      { id: 'prior-payments-field', title: 'Prior payments field built', desc: '"Payments made outside Smack in 2026" — per contractor, adds to 1099 total. Notes field for source.', priority: 'now' },
-      { id: 'de542-checkbox', title: 'DE 542 checkbox per contractor', desc: '"Already reported to CA EDD" — marks DE 542 as satisfied, no duplicate filing triggered.', priority: 'now' },
-      { id: '1099-generation', title: '1099-NEC generation', desc: 'Enable in Stripe Connect Dashboard. Combined total (platform + prior payments). $600 threshold. Auto-generate at year end.', priority: 'now' },
-      { id: 'verify-acch-transfer', title: 'ACH → transfer flow verified end to end', desc: 'Test: ACH pull → pending → charge.succeeded → transfer executes. Test ACH return → transfer blocked.', priority: 'now' },
-      { id: 'contractor-payments-smack', title: 'Contractor Payments ported to Smack', desc: 'Same flow, gated behind the add-on subscription. Per-studio Stripe Connect setup in Studio Settings.', priority: 'soon' },
-      { id: 'addon-gating', title: 'Add-on subscription gating', desc: 'If add-on not active, show upsell screen. If active, full access. Tied to Smack platform billing.', priority: 'soon' },
-      { id: 'volume-billing', title: 'Monthly volume billing in arrears', desc: 'Cron job on 1st of month. Tally payout volume per studio → charge tier fee. $29 / $79 / $149 / $299 / Custom.', priority: 'soon' },
-      { id: 'summary-email', title: 'End-of-month summary email', desc: '"You processed $X this month, your fee on the 1st will be $Y." Sent a few days before billing. Via Resend.', priority: 'soon' },
-    ]
-  },
-  {
-    id: 'launch',
-    icon: '🚀',
-    label: 'Launch',
-    title: 'Launch',
-    tasks: [
-      { id: 'website-live', title: 'smack.studio website live', desc: 'Homepage, pricing, waitlist. Deployed to production.', priority: 'soon' },
-      { id: 'waitlist-open', title: 'Waitlist open and collecting', desc: 'Form live. Confirmation email via Resend. First 10 slots marked as founding studios.', priority: 'soon' },
-      { id: 'founding-outreach', title: 'Personal outreach to founding studios', desc: '10 studios, personal message, one-pager attached. 50% off for life offer.', priority: 'soon' },
       {
-        id: 'launch-date',
-        title: 'Launch date set',
-        desc: 'Pick a date and work backwards. Anchor everything to it.',
-        priority: 'soon',
-        fields: [
-          { id: 'date', label: 'Target Launch Date', type: 'text', placeholder: 'e.g. June 1, 2026' },
-          { id: 'notes', label: 'Notes', type: 'textarea', placeholder: 'Constraints, blockers, milestones...' },
+        id: 'ach-transfer-verified', title: 'ACH → transfer flow verified end to end', priority: 'now',
+        desc: 'Funds don\'t move until ACH clears. Test with return scenario.',
+        why: 'This is the critical guardrail. If you transfer to a contractor before the studio\'s ACH pull clears, and the ACH returns, you\'ve fronted the money. The source_transaction link prevents this.',
+        note: { type: 'warn', text: 'Use Stripe test bank numbers to simulate both successful ACH and ACH returns. Do not test with real money until both scenarios pass.' },
+        steps: [
+          'Create a test ACH charge using Stripe\'s test bank account numbers (routing: 110000000, account: 000123456789)',
+          'Confirm the charge is created with status: pending',
+          'Attempt to create a transfer using source_transaction: [charge_id] — it should be blocked until pending clears',
+          'Simulate charge success (use Stripe test clock or wait in test mode)',
+          'Confirm transfer executes automatically when charge.succeeded fires',
+          'Test ACH return: use test account number 000111111113 (simulates return)',
+          'Confirm transfer does NOT execute when the charge returns/fails',
+          'Log both scenarios and confirm behavior is correct',
         ]
       },
-      { id: 'workprint-parallel', title: 'Workprint parallel run complete', desc: 'Workprint running on Smack for at least 1 week without issues before external studios onboard.', priority: 'later' },
-      { id: 'first-external-studio', title: 'First external studio onboarded', desc: 'First paying studio outside Workprint. Invite-only. Validate the onboarding flow.', priority: 'later' },
+      {
+        id: 'prior-payments-field', title: 'Prior payments field per contractor', priority: 'now',
+        desc: '"Payments made outside Smack in 2026" — adds to 1099 total.',
+        why: 'The $600 1099-NEC threshold applies to total payments from your business to that contractor across ALL platforms. Without this field, you\'ll underreport if the studio paid that contractor elsewhere earlier in the year.',
+        steps: [
+          'Add a "Prior 2026 payments" field to the contractor record in the DB',
+          'Show it in the contractor profile UI: label "Payments made outside Smack in 2026 (e.g. checks, wire, other platforms)"',
+          'Number input (dollars), optional notes field for source',
+          'When calculating 1099 totals, add prior_payments to the sum of platform payments',
+          'Show breakdown in the 1099 checklist: "$3,200 via Smack + $1,800 prior = $5,000 total"',
+          'Test: add $500 prior, send $200 via platform, confirm 1099 checklist shows $700 total',
+        ]
+      },
+      {
+        id: 'de542-checkbox', title: 'DE 542 checkbox per contractor', priority: 'now',
+        desc: '"Already reported to CA EDD" — prevents duplicate filings.',
+        why: 'CA requires you to report new independent contractors to CA EDD (DE 542) within 20 days of first payment over $600. If they were already reported by the same studio elsewhere, you don\'t need to re-file. The checkbox tracks this.',
+        steps: [
+          'Add a boolean field to contractor record: de542_filed (default: false)',
+          'In contractor profile: checkbox "Already reported to CA EDD (DE 542 filed)"',
+          'In the 1099 compliance checklist: show DE 542 status per contractor',
+          'If de542_filed = false AND total payments > $600 AND contractor is CA-based: show "DE 542 required" warning',
+          'On first payout over $600: if not filed, show reminder to file DE 542',
+          'Link to the CA EDD online filing portal in the reminder',
+        ]
+      },
+      {
+        id: '1099-generation', title: '1099-NEC generation', priority: 'now',
+        desc: 'Stripe auto-generates. You need to enable it and handle TINs.',
+        why: 'Stripe Connect automatically generates 1099-NEC forms for connected accounts that hit the threshold. You don\'t build this — you just enable it and make sure every contractor has a valid TIN on file.',
+        note: { type: 'info', text: 'Current IRS threshold: $600 total payments in a calendar year. Stripe files automatically if tax reporting is enabled in Connect settings.' },
+        steps: [
+          'In your Stripe Connect Dashboard → Settings → Tax reporting → Enable 1099 generation',
+          'Ensure every contractor Express account has a verified TIN (SSN or EIN) — Stripe collects this during onboarding',
+          'In your app, show a 1099 filing checklist to each studio: list contractors above $600, their TIN status, total paid',
+          'Combined total = platform payments + prior payments field',
+          'Filing deadline: January 31 each year. Stripe sends forms directly to contractors.',
+          'Test: create a test contractor, push them above $600 in test payments, confirm 1099 checklist shows them',
+        ]
+      },
+      {
+        id: 'contractor-payments-smack', title: 'Contractor Payments ported to Smack', priority: 'soon',
+        desc: 'Same flow as Workprint, per-studio, add-on gated.',
+        why: 'Once Workprint\'s contractor payment flow is solid, port it to Smack. Each studio connects their own bank account and their own contractors get their own Express accounts. The platform Stripe account handles all of it.',
+        steps: [
+          'Port the Stripe Connect Express onboarding link generation to Smack',
+          'Store contractor acct_id per studio in their studio DB',
+          'Per-studio bank account verification via Stripe instant verification (Plaid)',
+          'ACH debit and transfer flow scoped per studio',
+          'Add Contractor Payments section to Studio Settings',
+          'Gate all of this behind the add-on subscription check',
+        ]
+      },
+      {
+        id: 'addon-gating', title: 'Contractor Payments add-on gating', priority: 'soon',
+        desc: 'Show upsell if not subscribed. Full access if active.',
+        why: 'The add-on is a separate monthly charge on top of the base subscription. Studios opt in. If they haven\'t opted in, they should see an upsell screen instead of the contractor payment features.',
+        steps: [
+          'Create a separate Stripe product for the Contractor Payments add-on',
+          'Store contractor_payments_active: bool in studio settings',
+          'On any contractor payments route: check contractor_payments_active — if false, show upsell screen',
+          'Upsell screen: explain the feature, pricing (volume-based), "Enable Contractor Payments" button',
+          'On enable: start the add-on subscription in Stripe, update contractor_payments_active',
+          'On cancel: disable access, stop billing',
+        ]
+      },
+      {
+        id: 'volume-billing', title: 'Monthly volume billing in arrears', priority: 'soon',
+        desc: 'Cron on 1st of month. Tally volume → charge tier fee.',
+        why: 'This is how Contractor Payments is priced. At the end of each month, tally the total contractor payout volume for each studio and charge the appropriate tier: $29 / $79 / $149 / $299.',
+        steps: [
+          'Set up a cron job that runs at 12:01am on the 1st of each month',
+          'For each studio with contractor_payments_active = true: sum all contractor payouts in the previous calendar month',
+          'Determine tier: up to $5k → $29, $5k–$25k → $79, $25k–$75k → $149, $75k–$200k → $299, $200k+ → flag for custom',
+          'Create a Stripe Invoice for the studio with the tier amount',
+          'Charge the invoice immediately to their saved payment method',
+          'Store billing record in studio DB: month, volume, tier, amount_charged',
+          'Handle payment failure: send email, retry after 3 days, pause payout access after 2nd failure',
+        ]
+      },
+      {
+        id: 'summary-email', title: 'End-of-month summary email', priority: 'soon',
+        desc: '"Your fee on the 1st will be $X." Sent a few days before billing.',
+        why: 'Nobody likes surprise charges. A heads-up email 3 days before billing builds trust and reduces disputes. Simple to build, high trust value.',
+        steps: [
+          'Cron job runs on the 27th–28th of each month',
+          'For each studio with contractor_payments_active = true: calculate current month\'s payout volume so far',
+          'Determine likely tier based on current volume',
+          'Send email via Resend: "This month you\'ve processed $X in contractor payments. Your Contractor Payments fee on the 1st will be $Y."',
+          'Include a link to their payout history in the app',
+          'Build a Resend email template for this — match Smack brand',
+        ]
+      },
     ]
   },
   {
-    id: 'phase2',
-    icon: '🔮',
-    label: 'Phase 2',
-    title: 'Phase 2 — After Launch',
+    id: 'launch', icon: '🚀', label: 'Launch', title: 'Launch',
     tasks: [
-      { id: 'csv-import', title: 'CSV Import add-on', desc: 'Let studios import project/client data from spreadsheets. Scoped as a separate paid add-on.', priority: 'later' },
-      { id: 'accent-themes-build', title: 'Studio accent themes (6 presets)', desc: 'Let studios pick their color palette from 6 curated options. No full custom — too fragile.', priority: 'later' },
-      { id: 'stripe-volume-negotiation', title: 'Stripe volume pricing negotiation', desc: 'At $2M+ annual Connect volume, negotiate custom rates. 20–40% off published prices possible.', priority: 'later' },
-      { id: 'international-contractors', title: 'International contractor payments', desc: 'Expand beyond US-only. Add FX pass-through or premium tier pricing. Enterprise conversation.', priority: 'later' },
-      { id: 'payroll-api-import', title: 'Payroll platform API import', desc: 'Pull prior payment history via API for studios migrating from other platforms. Build only if studios ask.', priority: 'later' },
-      { id: 'native-app', title: 'Native iOS app', desc: 'PWA first. Build native only if studios ask for it post-launch. Not required at any point soon.', priority: 'later' },
+      {
+        id: 'website-live', title: 'smack.studio website live', priority: 'soon',
+        desc: 'Homepage, pricing, waitlist. Deployed to production.',
+        why: 'The website needs to be live before you do any outreach. Studios will google you. Make sure it loads fast, looks right on mobile, and the waitlist form works.',
+        steps: [
+          'Confirm homepage, pricing page, and waitlist page are all live',
+          'Test on mobile (iPhone Safari) — most first views will be mobile',
+          'Test waitlist form end to end: submit → confirmation email received',
+          'Check page load speed (Chrome DevTools → Lighthouse)',
+          'Set up basic analytics (Plausible or similar — privacy-friendly)',
+          'Confirm SSL is working (https://smack.studio shows padlock)',
+        ]
+      },
+      {
+        id: 'waitlist-open', title: 'Waitlist open and collecting', priority: 'soon',
+        desc: 'Form live. Confirmation email working. Founding studio slots visible.',
+        steps: [
+          'Waitlist page live at smack.studio/waitlist',
+          'Submit test entry — confirm you receive the signup in your admin view',
+          'Confirm confirmation email arrives (check spam too)',
+          'Make the founding studio offer clear: "First 10 studios get 50% off for life"',
+          'Set up a simple admin notification when someone signs up (Resend → your email)',
+        ]
+      },
+      {
+        id: 'founding-outreach', title: 'Personal outreach to 10 studios', priority: 'soon',
+        desc: 'Individual messages. Not a mass email. One-pager attached.',
+        why: 'The first studios come from personal relationships, not marketing. These need to be individual, specific messages — mention their work, why Smack fits them, what the founding offer means. Mass email gets ignored.',
+        steps: [
+          'Finalize your list of 10 studios (see "founding studios" task)',
+          'Write a template but customize each message with something specific about that studio',
+          'Keep it short: problem, solution, offer, CTA — 4 sentences max',
+          'Attach the one-pager PDF',
+          'Send via your @smack.studio email (establishes legitimacy)',
+          'Track responses: reply, no reply, interested, not interested',
+          'Follow up once after 5 days for non-replies',
+        ]
+      },
+      {
+        id: 'launch-date', title: 'Launch date set', priority: 'soon',
+        desc: 'Pick a date. Work everything backwards from it.',
+        why: 'Without a date everything is "soon." Pick a specific date and use it to sequence the remaining tasks. The date can move but it needs to exist.',
+        steps: [
+          'List all remaining tasks that must be done before launch',
+          'Estimate time for each honestly',
+          'Count backwards from today and pick a realistic date',
+          'Put it on the calendar',
+          'Share it with anyone who needs to know',
+        ],
+        fields: [
+          { id: 'date', label: 'Target Launch Date', type: 'text', placeholder: 'e.g. June 1, 2026' },
+          { id: 'blockers', label: 'Known Blockers', type: 'textarea', placeholder: 'What could push this date...' },
+        ]
+      },
+      {
+        id: 'workprint-parallel', title: 'Workprint parallel run complete', priority: 'later',
+        desc: 'Workprint on Smack for 1 week with no issues before external studios.',
+        why: 'You are the harshest critic of your own product. Run Workprint on Smack for a week. If you find issues, fix them. Only then invite external studios.',
+        steps: [
+          'Workprint data migrated to Smack (see multi-tenancy section)',
+          'Run all normal Workprint operations through Smack for 7 days',
+          'Log any issues, fix them',
+          'After 7 clean days: consider Workprint officially on Smack',
+          'Archive the old Workprint deployment',
+        ]
+      },
+      {
+        id: 'first-external', title: 'First external studio onboarded', priority: 'later',
+        desc: 'First paying studio outside Workprint. Invite-only.',
+        why: 'The first external studio validates everything: onboarding, billing, the settings UI, email flows. Pick someone you trust who will give you honest feedback.',
+        steps: [
+          'Pick the most engaged studio from your waitlist or outreach',
+          'Send a personal invite link',
+          'Be available during their onboarding in case anything breaks',
+          'Ask for feedback after 48 hours',
+          'Fix any issues before opening to more studios',
+        ]
+      },
+    ]
+  },
+  {
+    id: 'phase2', icon: '🔮', label: 'Phase 2', title: 'Phase 2 — After Launch',
+    tasks: [
+      { id: 'csv-import', title: 'CSV Import add-on', priority: 'later', desc: 'Let studios import project/client data from spreadsheets. Separate paid add-on.', why: 'Studios migrating from spreadsheets will want to import years of history. Scope this as a separate add-on so it doesn\'t block launch.' },
+      { id: 'accent-themes-build', title: 'Studio accent themes (6 presets)', priority: 'later', desc: 'Let studios pick their color from 6 curated presets. Phase 2 only.', why: 'Confirmed in brand system decisions. 6 presets, no full custom. Gives studios personality without breaking the UI.' },
+      { id: 'stripe-volume-negotiation', title: 'Stripe volume pricing negotiation', priority: 'later', desc: 'At $2M+ annual Connect volume, negotiate custom rates.', why: '20–40% off Stripe\'s published rates is achievable at volume. Track Connect volume from day one so you know when you hit the threshold.' },
+      { id: 'international-contractors', title: 'International contractor payments', priority: 'later', desc: 'Expand beyond US-only. FX pass-through or premium tier.', why: 'US-only for launch. International adds FX complexity and risk. Add this when studios ask for it and you have data on demand.' },
+      { id: 'native-app', title: 'Native iOS app', priority: 'later', desc: 'PWA first. Build native only if studios ask for it post-launch.', why: 'PWA covers the mobile use case. Native app is only worth building if studios consistently report the PWA doesn\'t meet their needs.' },
     ]
   },
 ];
 
-// ─── STATE ──────────────────────────────────────────────────────────────────
+// ─── STATE ────────────────────────────────────────────────────────────────────
 
-const STORAGE_KEY = 'smack_checklist_v1';
-const FIELDS_KEY = 'smack_checklist_fields_v1';
+const STORAGE_TASKS = 'smack_tasks_v2';
+const STORAGE_STEPS = 'smack_steps_v2';
+const STORAGE_FIELDS = 'smack_fields_v2';
 
-function loadState() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; }
-}
-function saveState(state) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-}
-function loadFields() {
-  try { return JSON.parse(localStorage.getItem(FIELDS_KEY) || '{}'); } catch { return {}; }
-}
-function saveFields(fields) {
-  localStorage.setItem(FIELDS_KEY, JSON.stringify(fields));
-}
+function load(key) { try { return JSON.parse(localStorage.getItem(key) || '{}'); } catch { return {}; } }
+function save(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
 
-let state = loadState();
-let fieldData = loadFields();
+let taskState = load(STORAGE_TASKS);
+let stepState = load(STORAGE_STEPS);
+let fieldData = load(STORAGE_FIELDS);
 let currentFilter = 'all';
+let openTaskId = null;
 
 // Pre-mark done tasks
 SECTIONS.forEach(s => s.tasks.forEach(t => {
-  if (t.priority === 'done' && state[t.id] === undefined) {
-    state[t.id] = { completed: true, completedAt: new Date().toISOString() };
-  }
+  if (t.priority === 'done' && taskState[t.id] === undefined)
+    taskState[t.id] = { completed: true };
 }));
-saveState(state);
+save(STORAGE_TASKS, taskState);
 
-// ─── RENDER ─────────────────────────────────────────────────────────────────
+// ─── HELPERS ──────────────────────────────────────────────────────────────────
 
-function priorityLabel(p) {
-  const map = { now: ['Now', 'priority-now'], soon: ['Soon', 'priority-soon'], later: ['Later', 'priority-later'], done: ['Done', 'priority-done'] };
-  return map[p] || map['later'];
+function getTask(id) {
+  for (const s of SECTIONS) { const t = s.tasks.find(t => t.id === id); if (t) return t; }
+  return null;
+}
+
+function stepsDone(taskId, steps) {
+  if (!steps) return 0;
+  return steps.filter((_, i) => stepState[`${taskId}:${i}`]).length;
 }
 
 function hasFieldData(taskId, fields) {
@@ -444,188 +862,257 @@ function hasFieldData(taskId, fields) {
   return fields.some(f => fieldData[`${taskId}:${f.id}`]);
 }
 
-function renderField(taskId, field) {
-  const key = `${taskId}:${field.id}`;
-  const val = fieldData[key] || '';
-  const hasData = !!val;
-
-  if (field.type === 'textarea') {
-    return `
-      <div class="field-group" style="grid-column: 1 / -1;">
-        <div class="field-label">${field.label}</div>
-        <textarea class="field-input" rows="3" placeholder="${field.placeholder || ''}"
-          style="resize: vertical; font-family: inherit;"
-          oninput="saveField('${key}', this.value)">${val}</textarea>
-      </div>`;
-  }
-
-  if (field.sensitive) {
-    return `
-      <div class="field-group">
-        <div class="field-label">${field.label}</div>
-        <div class="field-input-wrap">
-          <input type="password" class="field-input sensitive" id="input-${key}" value="${val}"
-            placeholder="${field.placeholder || ''}"
-            oninput="saveField('${key}', this.value)">
-          <button class="field-toggle" onclick="toggleSensitive('input-${key}', this)" title="Show/hide">👁</button>
-        </div>
-      </div>`;
-  }
-
-  return `
-    <div class="field-group">
-      <div class="field-label">${field.label}</div>
-      <div class="field-input-wrap">
-        <input type="${field.type || 'text'}" class="field-input" id="input-${key}" value="${val}"
-          placeholder="${field.placeholder || ''}"
-          oninput="saveField('${key}', this.value)">
-        ${hasData ? `<button class="field-copy" onclick="copyField('input-${key}', this)">copy</button>` : ''}
-      </div>
-    </div>`;
+function priorityClass(p) {
+  return { now: 'priority-now', soon: 'priority-soon', later: 'priority-later', done: 'priority-done' }[p] || 'priority-later';
 }
 
+// ─── RENDER LIST ──────────────────────────────────────────────────────────────
+
 function renderTask(task) {
-  const completed = state[task.id]?.completed;
-  const hasFields = task.fields && task.fields.length > 0;
+  const done = taskState[task.id]?.completed;
+  const sd = task.steps ? stepsDone(task.id, task.steps) : null;
+  const allStepsDone = task.steps && sd === task.steps.length;
+  const stepLabel = task.steps ? `${sd}/${task.steps.length}` : '';
   const hasData = hasFieldData(task.id, task.fields);
-  const [plabel, pclass] = priorityLabel(task.priority);
-  const cols = task.fields && task.fields.length === 1 ? 'cols-1' : '';
 
   return `
-    <div class="task ${completed ? 'completed' : ''}" id="task-${task.id}" data-completed="${completed ? '1' : '0'}">
-      <div class="task-row" onclick="toggleTask('${task.id}')">
-        <div class="task-check"><span class="task-check-icon">✓</span></div>
-        <div class="task-body">
-          <div class="task-title">${task.title}</div>
-          ${task.desc ? `<div class="task-desc">${task.desc}</div>` : ''}
+    <div class="task ${done ? 'completed' : ''}" id="task-${task.id}" data-completed="${done ? '1' : '0'}">
+      <div class="task-row">
+        <div class="task-check" onclick="toggleTask('${task.id}', event)">
+          <span class="task-check-icon">✓</span>
         </div>
-        <div class="task-actions" onclick="event.stopPropagation()">
-          <span class="task-priority ${pclass}">${plabel}</span>
-          ${hasFields ? `<button class="task-info-btn ${hasData ? 'has-data' : ''}" id="infobtn-${task.id}" onclick="toggleDrawer('${task.id}')">
-            ${hasData ? '● Info saved' : '+ Store info'}
-          </button>` : ''}
+        <div class="task-body" onclick="openPanel('${task.id}')">
+          <div class="task-title">${task.title}</div>
+          <div class="task-desc">${task.desc}</div>
+        </div>
+        <div class="task-right">
+          ${task.steps ? `<span class="task-step-progress ${allStepsDone ? 'all-done' : ''}">${stepLabel} steps</span>` : ''}
+          ${hasData ? `<span class="task-step-progress all-done">● saved</span>` : ''}
+          <span class="task-priority ${priorityClass(task.priority)}">${task.priority === 'done' ? 'Done' : task.priority === 'now' ? 'Now' : task.priority === 'soon' ? 'Soon' : 'Later'}</span>
+          <button class="task-open-btn" onclick="openPanel('${task.id}')" title="Open details">›</button>
         </div>
       </div>
-      ${hasFields ? `
-        <div class="task-drawer" id="drawer-${task.id}">
-          <div class="drawer-grid ${cols}">
-            ${task.fields.map(f => renderField(task.id, f)).join('')}
-          </div>
-          <div class="drawer-note">Saved locally in your browser. <strong>Not synced or shared.</strong> Store credentials, links, and notes here for easy reference.</div>
-        </div>` : ''}
     </div>`;
 }
 
 function renderSections() {
-  const container = document.getElementById('sections-container');
-  container.innerHTML = SECTIONS.map(section => `
-    <div class="section" id="section-${section.id}">
+  document.getElementById('sections-container').innerHTML = SECTIONS.map(s => `
+    <div class="section" id="section-${s.id}">
       <div class="section-header">
-        <div class="section-icon">${section.icon}</div>
+        <div class="section-icon">${s.icon}</div>
         <div class="section-meta">
-          <div class="section-eyebrow">${section.label}</div>
-          <div class="section-title">${section.title}</div>
+          <div class="section-eyebrow">${s.label}</div>
+          <div class="section-title">${s.title}</div>
         </div>
-        <div class="section-badge" id="badge-${section.id}"></div>
+        <div class="section-badge" id="badge-${s.id}"></div>
       </div>
-      <div id="tasks-${section.id}">
-        ${section.tasks.map(renderTask).join('')}
-      </div>
-    </div>
-  `).join('');
+      <div id="tasks-${s.id}">${s.tasks.map(renderTask).join('')}</div>
+    </div>`).join('');
 }
 
 function renderNav() {
-  const nav = document.getElementById('sidebar-nav');
-  nav.innerHTML = SECTIONS.map(s => `
-    <a class="nav-item" href="#section-${s.id}" id="nav-${s.id}">
+  document.getElementById('sidebar-nav').innerHTML = SECTIONS.map(s => `
+    <a class="nav-item" href="#section-${s.id}">
       <div class="nav-item-icon">${s.icon}</div>
       <div class="nav-item-text">
         <span class="nav-item-label">${s.title}</span>
         <div class="nav-mini-bar"><div class="nav-mini-fill" id="nav-fill-${s.id}"></div></div>
       </div>
-    </a>
-  `).join('');
+    </a>`).join('');
 }
 
-// ─── PROGRESS ───────────────────────────────────────────────────────────────
+// ─── PANEL ───────────────────────────────────────────────────────────────────
 
-function updateProgress() {
-  let totalAll = 0, doneAll = 0;
+function openPanel(id) {
+  const task = getTask(id);
+  if (!task) return;
+  openTaskId = id;
 
-  SECTIONS.forEach(section => {
-    const total = section.tasks.length;
-    const done = section.tasks.filter(t => state[t.id]?.completed).length;
-    totalAll += total;
-    doneAll += done;
+  const [pLabel, pClass] = [
+    { now:'Now', soon:'Soon', later:'Later', done:'Done' }[task.priority],
+    priorityClass(task.priority)
+  ];
 
-    const pct = total ? Math.round((done / total) * 100) : 0;
-    const fill = document.getElementById(`nav-fill-${section.id}`);
-    if (fill) fill.style.width = pct + '%';
+  document.getElementById('panel-priority').innerHTML = `<span class="task-priority ${pClass}">${pLabel}</span>`;
+  document.getElementById('panel-title').textContent = task.title;
+  document.getElementById('panel-desc').textContent = task.desc;
 
-    const badge = document.getElementById(`badge-${section.id}`);
-    if (badge) {
-      badge.textContent = `${done} / ${total}`;
-      badge.className = 'section-badge' + (done === total ? ' done' : '');
-    }
-  });
+  let html = '';
 
-  const pct = totalAll ? Math.round((doneAll / totalAll) * 100) : 0;
-  document.getElementById('overall-fill').style.width = pct + '%';
-  document.getElementById('overall-count').innerHTML = `<span>${doneAll}</span> / ${totalAll} tasks complete`;
-  document.getElementById('sidebar-fill').style.width = pct + '%';
-  document.getElementById('sidebar-label').textContent = `${pct}% complete — ${doneAll} of ${totalAll} done`;
+  // Why
+  if (task.why) {
+    html += `<div class="panel-section">
+      <div class="panel-section-title">Why this matters</div>
+      <div class="panel-why">${task.why}</div>
+      ${task.note ? `<div class="panel-note ${task.note.type === 'warn' ? 'warn' : task.note.type === 'good' ? 'good' : 'info'}">${task.note.text}</div>` : ''}
+    </div>`;
+  }
+
+  // Steps
+  if (task.steps && task.steps.length) {
+    const done = stepsDone(id, task.steps);
+    html += `<div class="panel-section">
+      <div class="panel-section-title">Steps — ${done} of ${task.steps.length} done</div>
+      <div class="step-list">
+        ${task.steps.map((s, i) => {
+          const isDone = !!stepState[`${id}:${i}`];
+          return `<div class="step-item ${isDone ? 'step-done' : ''}" id="step-${id}-${i}" onclick="toggleStep('${id}', ${i})">
+            <div class="step-num">${isDone ? '✓' : i+1}</div>
+            <div class="step-text">${s}</div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+  }
+
+  // Fields
+  if (task.fields && task.fields.length) {
+    const cols = task.fields.length === 1 ? 'cols-1' : '';
+    html += `<div class="panel-section">
+      <div class="panel-section-title">Store info — credentials, links, notes</div>
+      <div class="fields-grid ${cols}">
+        ${task.fields.map(f => renderPanelField(id, f)).join('')}
+      </div>
+      <div class="fields-note">Saved locally in your browser only. Not synced, not shared, not sent anywhere.</div>
+    </div>`;
+  }
+
+  // Complete button
+  const isDone = taskState[id]?.completed;
+  html += `<div class="panel-section">
+    <button class="panel-complete-btn ${isDone ? 'is-done' : ''}" id="panel-complete-btn" onclick="toggleTask('${id}', null)">
+      <span class="btn-icon">${isDone ? '✓' : '○'}</span>
+      ${isDone ? 'Marked as complete — click to undo' : 'Mark as complete'}
+    </button>
+  </div>`;
+
+  document.getElementById('panel-body').innerHTML = html;
+  document.getElementById('panel').classList.add('open');
+  document.getElementById('overlay').classList.add('visible');
 }
 
-// ─── INTERACTIONS ────────────────────────────────────────────────────────────
+function closePanel() {
+  document.getElementById('panel').classList.remove('open');
+  document.getElementById('overlay').classList.remove('visible');
+  openTaskId = null;
+}
 
-function toggleTask(id) {
-  const was = state[id]?.completed;
-  state[id] = { completed: !was, completedAt: !was ? new Date().toISOString() : null };
-  saveState(state);
+function renderPanelField(taskId, field) {
+  const key = `${taskId}:${field.id}`;
+  const val = fieldData[key] || '';
 
+  if (field.type === 'textarea') {
+    return `<div class="field-group" style="grid-column: 1/-1;">
+      <div class="field-label">${field.label}</div>
+      <textarea class="field-input" placeholder="${field.placeholder || ''}" oninput="saveField('${key}', this.value)">${val}</textarea>
+    </div>`;
+  }
+  if (field.sensitive) {
+    return `<div class="field-group">
+      <div class="field-label">${field.label}</div>
+      <div class="field-input-wrap">
+        <input type="password" class="field-input sensitive" id="fi-${key}" value="${val}" placeholder="${field.placeholder || ''}" oninput="saveField('${key}', this.value)">
+        <button class="field-toggle" onclick="toggleSensitive('fi-${key}', this)">👁</button>
+      </div>
+    </div>`;
+  }
+  return `<div class="field-group">
+    <div class="field-label">${field.label}</div>
+    <div class="field-input-wrap">
+      <input type="${field.type || 'text'}" class="field-input" id="fi-${key}" value="${val}" placeholder="${field.placeholder || ''}" oninput="saveField('${key}', this.value)">
+      ${val ? `<button class="field-copy-btn" onclick="copyField('fi-${key}', this)">copy</button>` : ''}
+    </div>
+  </div>`;
+}
+
+// ─── INTERACTIONS ─────────────────────────────────────────────────────────────
+
+function toggleTask(id, event) {
+  if (event) event.stopPropagation();
+  const was = taskState[id]?.completed;
+  taskState[id] = { completed: !was };
+  save(STORAGE_TASKS, taskState);
   const el = document.getElementById(`task-${id}`);
   el.classList.toggle('completed', !was);
   el.setAttribute('data-completed', !was ? '1' : '0');
   applyFilter(currentFilter);
   updateProgress();
+  // Update panel button if open
+  if (openTaskId === id) {
+    const btn = document.getElementById('panel-complete-btn');
+    if (btn) {
+      btn.className = `panel-complete-btn ${!was ? 'is-done' : ''}`;
+      btn.innerHTML = `<span class="btn-icon">${!was ? '✓' : '○'}</span> ${!was ? 'Marked as complete — click to undo' : 'Mark as complete'}`;
+    }
+  }
 }
 
-function toggleDrawer(id) {
-  const drawer = document.getElementById(`drawer-${id}`);
-  drawer.classList.toggle('open');
+function toggleStep(taskId, idx) {
+  const key = `${taskId}:${idx}`;
+  stepState[key] = !stepState[key];
+  save(STORAGE_STEPS, stepState);
+  // Update step UI in panel
+  const stepEl = document.getElementById(`step-${taskId}-${idx}`);
+  if (stepEl) {
+    stepEl.classList.toggle('step-done', !!stepState[key]);
+    stepEl.querySelector('.step-num').textContent = stepState[key] ? '✓' : idx + 1;
+    stepEl.querySelector('.step-text').style.textDecoration = stepState[key] ? 'line-through' : '';
+  }
+  // Update step count in panel title
+  const task = getTask(taskId);
+  if (task && task.steps) {
+    const done = stepsDone(taskId, task.steps);
+    const titleEl = document.querySelector(`#panel-body .panel-section-title`);
+    // find steps section title
+    document.querySelectorAll('#panel-body .panel-section-title').forEach(el => {
+      if (el.textContent.includes('Steps')) el.textContent = `Steps — ${done} of ${task.steps.length} done`;
+    });
+    // Update step progress in main list
+    const taskEl = document.getElementById(`task-${taskId}`);
+    if (taskEl) {
+      const sp = taskEl.querySelector('.task-step-progress');
+      if (sp && !sp.classList.contains('all-done')) {
+        sp.textContent = `${done}/${task.steps.length} steps`;
+        if (done === task.steps.length) sp.classList.add('all-done');
+      }
+    }
+  }
 }
 
 function saveField(key, value) {
   fieldData[key] = value;
-  saveFields(fieldData);
-
-  // Update info button appearance
-  const [taskId] = key.split(':');
-  const task = SECTIONS.flatMap(s => s.tasks).find(t => t.id === taskId);
-  if (task) {
-    const hasData = hasFieldData(taskId, task.fields);
-    const btn = document.getElementById(`infobtn-${taskId}`);
-    if (btn) {
-      btn.className = `task-info-btn ${hasData ? 'has-data' : ''}`;
-      btn.textContent = hasData ? '● Info saved' : '+ Store info';
+  save(STORAGE_FIELDS, fieldData);
+  // Update saved indicator in task row
+  const taskId = key.split(':')[0];
+  const taskEl = document.getElementById(`task-${taskId}`);
+  if (taskEl) {
+    const task = getTask(taskId);
+    const hasData = hasFieldData(taskId, task?.fields);
+    const indicators = taskEl.querySelectorAll('.task-step-progress');
+    // find or add saved indicator
+    let savedEl = taskEl.querySelector('.saved-indicator');
+    if (hasData && !savedEl) {
+      const rightEl = taskEl.querySelector('.task-right');
+      const span = document.createElement('span');
+      span.className = 'task-step-progress all-done saved-indicator';
+      span.textContent = '● saved';
+      rightEl.insertBefore(span, rightEl.firstChild);
     }
   }
 }
 
 function toggleSensitive(inputId, btn) {
   const input = document.getElementById(inputId);
-  if (input.type === 'password') { input.type = 'text'; btn.textContent = '🙈'; }
-  else { input.type = 'password'; btn.textContent = '👁'; }
+  input.type = input.type === 'password' ? 'text' : 'password';
+  btn.textContent = input.type === 'password' ? '👁' : '🙈';
 }
 
 function copyField(inputId, btn) {
-  const val = document.getElementById(inputId).value;
+  const val = document.getElementById(inputId)?.value;
   if (!val) return;
   navigator.clipboard.writeText(val).then(() => {
-    const orig = btn.textContent;
-    btn.textContent = '✓';
-    setTimeout(() => btn.textContent = orig, 1200);
+    const o = btn.textContent; btn.textContent = '✓';
+    setTimeout(() => btn.textContent = o, 1200);
   });
 }
 
@@ -637,19 +1124,37 @@ function setFilter(filter) {
 
 function applyFilter(filter) {
   document.querySelectorAll('.task').forEach(el => {
-    const completed = el.getAttribute('data-completed') === '1';
-    if (filter === 'active') el.classList.toggle('hidden', completed);
-    else if (filter === 'done') el.classList.toggle('hidden', !completed);
-    else el.classList.remove('hidden');
+    const done = el.getAttribute('data-completed') === '1';
+    el.classList.toggle('hidden', filter === 'active' ? done : filter === 'done' ? !done : false);
   });
 }
 
-// ─── INIT ────────────────────────────────────────────────────────────────────
+// ─── PROGRESS ─────────────────────────────────────────────────────────────────
+
+function updateProgress() {
+  let total = 0, done = 0;
+  SECTIONS.forEach(s => {
+    const t = s.tasks.length;
+    const d = s.tasks.filter(t => taskState[t.id]?.completed).length;
+    total += t; done += d;
+    const pct = t ? Math.round((d/t)*100) : 0;
+    const fill = document.getElementById(`nav-fill-${s.id}`);
+    if (fill) fill.style.width = pct + '%';
+    const badge = document.getElementById(`badge-${s.id}`);
+    if (badge) { badge.textContent = `${d} / ${t}`; badge.className = 'section-badge' + (d === t ? ' done' : ''); }
+  });
+  const pct = total ? Math.round((done/total)*100) : 0;
+  document.getElementById('overall-fill').style.width = pct + '%';
+  document.getElementById('overall-count').innerHTML = `<span>${done}</span> / ${total} complete`;
+  document.getElementById('sidebar-fill').style.width = pct + '%';
+  document.getElementById('sidebar-label').textContent = `${pct}% — ${done} of ${total} done`;
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
 
 renderNav();
 renderSections();
 updateProgress();
-applyFilter('all');
 </script>
 </body>
 </html>
