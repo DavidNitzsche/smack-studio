@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>smack. — Logo Exploration</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --pink: #e07868;
+    --dark-pink: #c85d4a;
+    --navy: #1e3a5f;
+    --canvas: #fafaf9;
+    --text: #111827;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --white: #ffffff;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--canvas);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    padding: 0 0 120px;
+  }
+
+  /* PAGE HEADER */
+  .page-header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 72px 80px 64px;
+  }
+
+  .header-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  .header-wordmark {
+    font-size: 56px;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+
+  .header-wordmark .period { color: var(--pink); }
+
+  .header-sub {
+    font-size: 16px;
+    color: var(--muted);
+    font-weight: 400;
+    max-width: 480px;
+    line-height: 1.6;
+  }
+
+  /* MAIN LAYOUT */
+  .main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 80px;
+  }
+
+  /* SECTION */
+  .section {
+    margin-top: 80px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-title {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+
+  .section-count {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* CARD GRID */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+  }
+
+  .card-grid.wide {
+    grid-template-columns: repeat(auto-fill, minmax(440px, 1fr));
+  }
+
+  /* CARD */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .card-swatches {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 200px;
+  }
+
+  .swatch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .swatch.light { background: var(--white); }
+  .swatch.dark  { background: var(--navy);  }
+
+  /* scale row inside swatch */
+  .scale-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* CARD META */
+  .card-meta {
+    padding: 20px 24px 22px;
+    border-top: 1px solid var(--border);
+  }
+
+  .card-code {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--pink);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .card-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+
+  .card-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  /* WORDMARK UTILITY */
+  .wm {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .wm .p { color: var(--pink); }
+  .wm.on-dark { color: var(--white); }
+
+  /* WM-3 Stack */
+  .wm-stack {
+    display: flex;
+    flex-direction: column;
+    line-height: 0.9;
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    color: var(--text);
+  }
+  .wm-stack .p { color: var(--pink); }
+  .wm-stack.on-dark { color: var(--white); }
+
+  /* COMBINATION LOCKUPS */
+  .combo-lockup {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .combo-lockup.stacked {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .combo-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* FOOTER */
+  .page-footer {
+    max-width: 1200px;
+    margin: 80px auto 0;
+    padding: 40px 80px;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-quote {
+    font-size: 15px;
+    font-style: italic;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  .footer-quote strong {
+    color: var(--text);
+    font-style: normal;
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE HEADER -->
+<header class="page-header">
+  <p class="header-label">Logo Exploration — smack.studio</p>
+  <h1 class="header-wordmark">smack<span class="period">.</span></h1>
+  <p class="header-sub">Explore every direction before committing. Jellyfish marks, wordmarks, combinations — nothing locked yet.</p>
+</header>
+
+<main class="main">
+
+<!-- ===================================================
+     SECTION 1 — JELLYFISH MARKS
+==================================================== -->
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">Jellyfish Marks</h2>
+    <span class="section-count">JF-1 through JF-5</span>
+  </div>
+
+  <div class="card-grid">
+
+    <!-- JF-1 — Round Dome, Minimal -->
+    <div class="card">
+      <div class="card-swatches">
+        <div class="swatch light">
+          <svg width="72" height="68" viewBox="0 0 60 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 28 A24 24 0 0 1 54 28 Z" fill="#e07868"/>
+            <path d="M6 28 C4 34 16 38 30 38 C44 38 56 34 54 28 Z" fill="#d4735f"/>
+            <line x1="14" y1="38" x2="12" y2="55" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="22" y1="39" x2="21" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="30" y1="39" x2="30" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="38" y1="39" x2="39" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="46" y1="38" x2="48" y2="55" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <div class="scale-row">
+            <svg width="44" height="42" viewBox="0 0 60 56" fill="none">
+              <path d="M6 28 A24 24 0 0 1 54 28 Z" fill="#e07868"/>
+              <path d="M6 28 C4 34 16 38 30 38 C44 38 56 34 54 28 Z" fill="#d4735f"/>
+              <line x1="14" y1="38" x2="12" y2="55" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="22" y1="39" x2="21" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="30" y1="39" x2="30" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="38" y1="39" x2="39" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="46" y1="38" x2="48" y2="55" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <svg width="24" height="23" viewBox="0 0 60 56" fill="none">
+              <path d="M6 28 A24 24 0 0 1 54 28 Z" fill="#e07868"/>
+              <path d="M6 28 C4 34 16 38 30 38 C44 38 56 34 54 28 Z" fill="#d4735f"/>
+              <line x1="14" y1="38" x2="12" y2="55" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="22" y1="39" x2="21" y2="56" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="30" y1="39" x2="30" y2="56" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="38" y1="39" x2="39" y2="56" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="46" y1="38" x2="48" y2="55" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="swatch dark">
+          <svg width="72" height="68" viewBox="0 0 60 56" fill="none">
+            <path d="M6 28 A24 24 0 0 1 54 28 Z" fill="#e07868"/>
+            <path d="M6 28 C4 34 16 38 30 38 C44 38 56 34 54 28 Z" fill="#d4735f"/>
+            <line x1="14" y1="38" x2="12" y2="55" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="22" y1="39" x2="21" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="30" y1="39" x2="30" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="38" y1="39" x2="39" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="46" y1="38" x2="48" y2="55" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <div class="scale-row">
+            <svg width="44" height="42" viewBox="0 0 60 56" fill="none">
+              <path d="M6 28 A24 24 0 0 1 54 28 Z" fill="#e07868"/>
+              <path d="M6 28 C4 34 16 38 30 38 C44 38 56 34 54 28 Z" fill="#d4735f"/>
+              <line x1="14" y1="38" x2="12" y2="55" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="22" y1="39" x2="21" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="30" y1="39" x2="30" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="38" y1="39" x2="39" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="46" y1="38" x2="48" y2="55" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <svg width="24" height="23" viewBox="0 0 60 56" fill="none">
+              <path d="M6 28 A24 24 0 0 1 54 28 Z" fill="#e07868"/>
+              <path d="M6 28 C4 34 16 38 30 38 C44 38 56 34 54 28 Z" fill="#d4735f"/>
+              <line x1="14" y1="38" x2="12" y2="55" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="22" y1="39" x2="21" y2="56" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="30" y1="39" x2="30" y2="56" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="38" y1="39" x2="39" y2="56" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="46" y1="38" x2="48" y2="55" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="card-meta">
+        <p class="card-code">JF-1</p>
+        <p class="card-name">Round Dome, Minimal</p>
+        <p class="card-desc">Half-circle dome with flared skirt and 5 straight tentacles. No face, no decoration — pure geometric confidence. Reads clean at any size.</p>
+      </div>
+    </div>
+
+    <!-- JF-2 — Soft Dome + Long Wavy Tentacles -->
+    <div class="card">
+      <div class="card-swatches">
+        <div class="swatch light">
+          <svg width="64" height="80" viewBox="0 0 64 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 32 A24 24 0 0 1 56 32 C54 40 44 46 32 46 C20 46 10 40 8 32 Z" fill="#e07868"/>
+            <path d="M16 22 A14 10 0 0 1 42 18" stroke="white" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.25"/>
+            <path d="M12 46 C10 56 16 60 12 76" stroke="#c85d4a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M19 47 C17 58 23 62 20 78" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <path d="M26 47 C24 58 30 62 27 79" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <path d="M32 47 C32 58 32 62 32 80" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <path d="M38 47 C40 58 34 62 37 79" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <path d="M45 47 C47 58 41 62 44 78" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <path d="M52 46 C54 56 48 60 52 76" stroke="#c85d4a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          </svg>
+          <div class="scale-row">
+            <svg width="40" height="50" viewBox="0 0 64 80" fill="none">
+              <path d="M8 32 A24 24 0 0 1 56 32 C54 40 44 46 32 46 C20 46 10 40 8 32 Z" fill="#e07868"/>
+              <path d="M16 22 A14 10 0 0 1 42 18" stroke="white" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.25"/>
+              <path d="M12 46 C10 56 16 60 12 76" stroke="#c85d4a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M19 47 C17 58 23 62 20 78" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+              <path d="M26 47 C24 58 30 62 27 79" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M32 47 C32 58 32 62 32 80" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M38 47 C40 58 34 62 37 79" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M45 47 C47 58 41 62 44 78" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+              <path d="M52 46 C54 56 48 60 52 76" stroke="#c85d4a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            </svg>
+            <svg width="22" height="28" viewBox="0 0 64 80" fill="none">
+              <path d="M8 32 A24 24 0 0 1 56 32 C54 40 44 46 32 46 C20 46 10 40 8 32 Z" fill="#e07868"/>
+              <path d="M12 46 C10 56 16 60 12 76" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M19 47 C17 58 23 62 20 78" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M26 47 C24 58 30 62 27 79" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+              <path d="M32 47 C32 58 32 62 32 80" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+              <path d="M38 47 C40 58 34 62 37 79" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+              <path d="M45 47 C47 58 41 62 44 78" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M52 46 C54 56 48 60 52 76" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+            </svg>
+          </div>
+        </div>
+        <div class="swatch dark">
+          <svg width="64" height="80" viewBox="0 0 64 80" fill="none">
+            <path d="M8 32 A24 24 0 0 1 56 32 C54 40 44 46 32 46 C20 46 10 40 8 32 Z" fill="#e07868"/>
+            <path d="M16 22 A14 10 0 0 1 42 18" stroke="white" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.3"/>
+            <path d="M12 46 C10 56 16 60 12 76" stroke="#c85d4a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M19 47 C17 58 23 62 20 78" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <path d="M26 47 C24 58 30 62 27 79" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <path d="M32 47 C32 58 32 62 32 80" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <path d="M38 47 C40 58 34 62 37 79" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <path d="M45 47 C47 58 41 62 44 78" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <path d="M52 46 C54 56 48 60 52 76" stroke="#c85d4a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          </svg>
+          <div class="scale-row">
+            <svg width="40" height="50" viewBox="0 0 64 80" fill="none">
+              <path d="M8 32 A24 24 0 0 1 56 32 C54 40 44 46 32 46 C20 46 10 40 8 32 Z" fill="#e07868"/>
+              <path d="M12 46 C10 56 16 60 12 76" stroke="#c85d4a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M19 47 C17 58 23 62 20 78" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+              <path d="M26 47 C24 58 30 62 27 79" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M32 47 C32 58 32 62 32 80" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M38 47 C40 58 34 62 37 79" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M45 47 C47 58 41 62 44 78" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+              <path d="M52 46 C54 56 48 60 52 76" stroke="#c85d4a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            </svg>
+            <svg width="22" height="28" viewBox="0 0 64 80" fill="none">
+              <path d="M8 32 A24 24 0 0 1 56 32 C54 40 44 46 32 46 C20 46 10 40 8 32 Z" fill="#e07868"/>
+              <path d="M12 46 C10 56 16 60 12 76" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M19 47 C17 58 23 62 20 78" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M26 47 C24 58 30 62 27 79" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+              <path d="M32 47 C32 58 32 62 32 80" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+              <path d="M38 47 C40 58 34 62 37 79" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+              <path d="M45 47 C47 58 41 62 44 78" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M52 46 C54 56 48 60 52 76" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="card-meta">
+        <p class="card-code">JF-2</p>
+        <p class="card-name">Soft Dome + Long Wavy Tentacles</p>
+        <p class="card-desc">Closest to the reference energy — tall proportions, 7 S-curve tentacles of varying length. Subtle highlight arc inside the dome. Organic, studio-grade.</p>
+      </div>
+    </div>
+
+    <!-- JF-3 — Pudgy / Chunky -->
+    <div class="card">
+      <div class="card-swatches">
+        <div class="swatch light">
+          <svg width="72" height="60" viewBox="0 0 72 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="36" cy="26" rx="30" ry="22" fill="#e07868"/>
+            <ellipse cx="36" cy="32" rx="28" ry="10" fill="#d4735f"/>
+            <path d="M20 44 C18 50 22 52 20 58" stroke="#c85d4a" stroke-width="4" stroke-linecap="round" fill="none"/>
+            <path d="M36 46 C36 52 36 52 36 58" stroke="#c85d4a" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+            <path d="M52 44 C54 50 50 52 52 58" stroke="#c85d4a" stroke-width="4" stroke-linecap="round" fill="none"/>
+            <path d="M18 18 A16 10 0 0 1 46 14" stroke="white" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.3"/>
+          </svg>
+          <div class="scale-row">
+            <svg width="48" height="40" viewBox="0 0 72 60" fill="none">
+              <ellipse cx="36" cy="26" rx="30" ry="22" fill="#e07868"/>
+              <ellipse cx="36" cy="32" rx="28" ry="10" fill="#d4735f"/>
+              <path d="M20 44 C18 50 22 52 20 58" stroke="#c85d4a" stroke-width="4" stroke-linecap="round" fill="none"/>
+              <path d="M36 46 C36 52 36 52 36 58" stroke="#c85d4a" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+              <path d="M52 44 C54 50 50 52 52 58" stroke="#c85d4a" stroke-width="4" stroke-linecap="round" fill="none"/>
+              <path d="M18 18 A16 10 0 0 1 46 14" stroke="white" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.3"/>
+            </svg>
+            <svg width="26" height="22" viewBox="0 0 72 60" fill="none">
+              <ellipse cx="36" cy="26" rx="30" ry="22" fill="#e07868"/>
+              <ellipse cx="36" cy="32" rx="28" ry="10" fill="#d4735f"/>
+              <path d="M20 44 C18 50 22 52 20 58" stroke="#c85d4a" stroke-width="4" stroke-linecap="round" fill="none"/>
+              <path d="M36 46 C36 52 36 52 36 58" stroke="#c85d4a" stroke-width="5" stroke-linecap="round" fill="none"/>
+              <path d="M52 44 C54 50 50 52 52 58" stroke="#c85d4a" stroke-width="4" stroke-linecap="round" fill="none"/>
+            </svg>
+          </div>
+        </div>
+        <div class="swatch dark">
+          <svg width="72" height="60" viewBox="0 0 72 60" fill="none">
+            <ellipse cx="36" cy="26" rx="30" ry="22" fill="#e07868"/>
+            <ellipse cx="36" cy="32" rx="28" ry="10" fill="#d4735f"/>
+            <path d="M20 44 C18 50 22 52 20 58" stroke="#c85d4a" stroke-width="4" stroke-linecap="round" fill="none"/>
+            <path d="M36 46 C36 52 36 52 36 58" stroke="#c85d4a" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+            <path d="M52 44 C54 50 50 52 52 58" stroke="#c85d4a" stroke-width="4" stroke-linecap="round" fill="none"/>
+            <path d="M18 18 A16 10 0 0 1 46 14" stroke="white" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.3"/>
+          </svg>
+          <div class="scale-row">
+            <svg width="48" height="40" viewBox="0 0 72 60" fill="none">
+              <ellipse cx="36" cy="26" rx="30" ry="22" fill="#e07868"/>
+              <ellipse cx="36" cy="32" rx="28" ry="10" fill="#d4735f"/>
+              <path d="M20 44 C18 50 22 52 20 58" stroke="#c85d4a" stroke-width="4" stroke-linecap="round" fill="none"/>
+              <path d="M36 46 C36 52 36 52 36 58" stroke="#c85d4a" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+              <path d="M52 44 C54 50 50 52 52 58" stroke="#c85d4a" stroke-width="4" stroke-linecap="round" fill="none"/>
+            </svg>
+            <svg width="26" height="22" viewBox="0 0 72 60" fill="none">
+              <ellipse cx="36" cy="26" rx="30" ry="22" fill="#e07868"/>
+              <ellipse cx="36" cy="32" rx="28" ry="10" fill="#d4735f"/>
+              <path d="M20 44 C18 50 22 52 20 58" stroke="#c85d4a" stroke-width="4" stroke-linecap="round" fill="none"/>
+              <path d="M36 46 C36 52 36 52 36 58" stroke="#c85d4a" stroke-width="5" stroke-linecap="round" fill="none"/>
+              <path d="M52 44 C54 50 50 52 52 58" stroke="#c85d4a" stroke-width="4" stroke-linecap="round" fill="none"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="card-meta">
+        <p class="card-code">JF-3</p>
+        <p class="card-name">Pudgy / Chunky</p>
+        <p class="card-desc">Fat wide dome, 3 thick short tentacles. Stamp-like weight. Bold and ownable — not cute, just assertive. Reads as a blob of confidence.</p>
+      </div>
+    </div>
+
+    <!-- JF-4 — Line Art (Outline Only) -->
+    <div class="card">
+      <div class="card-swatches">
+        <div class="swatch light">
+          <svg width="64" height="80" viewBox="0 0 64 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 32 A24 24 0 0 1 56 32 C54 40 44 46 32 46 C20 46 10 40 8 32 Z" stroke="#e07868" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+            <path d="M12 46 C10 56 16 60 12 76" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M19 47 C17 58 23 62 20 78" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M26 47 C24 58 30 62 27 79" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M32 47 C32 58 32 62 32 80" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M38 47 C40 58 34 62 37 79" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M45 47 C47 58 41 62 44 78" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M52 46 C54 56 48 60 52 76" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          </svg>
+          <div class="scale-row">
+            <svg width="40" height="50" viewBox="0 0 64 80" fill="none">
+              <path d="M8 32 A24 24 0 0 1 56 32 C54 40 44 46 32 46 C20 46 10 40 8 32 Z" stroke="#e07868" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+              <path d="M12 46 C10 56 16 60 12 76" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M19 47 C17 58 23 62 20 78" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M26 47 C24 58 30 62 27 79" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M32 47 C32 58 32 62 32 80" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M38 47 C40 58 34 62 37 79" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M45 47 C47 58 41 62 44 78" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M52 46 C54 56 48 60 52 76" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            </svg>
+            <svg width="22" height="28" viewBox="0 0 64 80" fill="none">
+              <path d="M8 32 A24 24 0 0 1 56 32 C54 40 44 46 32 46 C20 46 10 40 8 32 Z" stroke="#e07868" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+              <path d="M12 46 C10 56 16 60 12 76" stroke="#e07868" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M19 47 C17 58 23 62 20 78" stroke="#e07868" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M26 47 C24 58 30 62 27 79" stroke="#e07868" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M32 47 C32 58 32 62 32 80" stroke="#e07868" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M38 47 C40 58 34 62 37 79" stroke="#e07868" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M45 47 C47 58 41 62 44 78" stroke="#e07868" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M52 46 C54 56 48 60 52 76" stroke="#e07868" stroke-width="2" stroke-linecap="round" fill="none"/>
+            </svg>
+          </div>
+        </div>
+        <div class="swatch dark">
+          <svg width="64" height="80" viewBox="0 0 64 80" fill="none">
+            <path d="M8 32 A24 24 0 0 1 56 32 C54 40 44 46 32 46 C20 46 10 40 8 32 Z" stroke="#e07868" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+            <path d="M12 46 C10 56 16 60 12 76" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M19 47 C17 58 23 62 20 78" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M26 47 C24 58 30 62 27 79" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M32 47 C32 58 32 62 32 80" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M38 47 C40 58 34 62 37 79" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M45 47 C47 58 41 62 44 78" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M52 46 C54 56 48 60 52 76" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          </svg>
+          <div class="scale-row">
+            <svg width="40" height="50" viewBox="0 0 64 80" fill="none">
+              <path d="M8 32 A24 24 0 0 1 56 32 C54 40 44 46 32 46 C20 46 10 40 8 32 Z" stroke="#e07868" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+              <path d="M12 46 C10 56 16 60 12 76" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M19 47 C17 58 23 62 20 78" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M26 47 C24 58 30 62 27 79" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M32 47 C32 58 32 62 32 80" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M38 47 C40 58 34 62 37 79" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M45 47 C47 58 41 62 44 78" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M52 46 C54 56 48 60 52 76" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            </svg>
+            <svg width="22" height="28" viewBox="0 0 64 80" fill="none">
+              <path d="M8 32 A24 24 0 0 1 56 32 C54 40 44 46 32 46 C20 46 10 40 8 32 Z" stroke="#e07868" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+              <path d="M12 46 C10 56 16 60 12 76" stroke="#e07868" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M19 47 C17 58 23 62 20 78" stroke="#e07868" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M26 47 C24 58 30 62 27 79" stroke="#e07868" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M32 47 C32 58 32 62 32 80" stroke="#e07868" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M38 47 C40 58 34 62 37 79" stroke="#e07868" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M45 47 C47 58 41 62 44 78" stroke="#e07868" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M52 46 C54 56 48 60 52 76" stroke="#e07868" stroke-width="2" stroke-linecap="round" fill="none"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="card-meta">
+        <p class="card-code">JF-4</p>
+        <p class="card-name">Line Art — Outline Only</p>
+        <p class="card-desc">Same form as JF-2 but all stroke, zero fill. Reverses beautifully on dark. Editorial and premium — feels like an icon system from a design consultancy.</p>
+      </div>
+    </div>
+
+    <!-- JF-5 — Stacked / Compact / UFO Shape -->
+    <div class="card">
+      <div class="card-swatches">
+        <div class="swatch light">
+          <svg width="80" height="64" viewBox="0 0 80 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A32 20 0 0 1 72 30 C70 38 56 44 40 44 C24 44 10 38 8 30 Z" fill="#e07868"/>
+            <path d="M18 20 A22 12 0 0 1 58 18" stroke="white" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.25"/>
+            <line x1="18" y1="44" x2="16" y2="56" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="27" y1="46" x2="26" y2="58" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="36" y1="47" x2="36" y2="59" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="45" y1="47" x2="46" y2="59" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="54" y1="46" x2="56" y2="58" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="62" y1="44" x2="64" y2="56" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <div class="scale-row">
+            <svg width="52" height="42" viewBox="0 0 80 64" fill="none">
+              <path d="M8 30 A32 20 0 0 1 72 30 C70 38 56 44 40 44 C24 44 10 38 8 30 Z" fill="#e07868"/>
+              <path d="M18 20 A22 12 0 0 1 58 18" stroke="white" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.25"/>
+              <line x1="18" y1="44" x2="16" y2="56" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="27" y1="46" x2="26" y2="58" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="36" y1="47" x2="36" y2="59" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="45" y1="47" x2="46" y2="59" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="54" y1="46" x2="56" y2="58" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="62" y1="44" x2="64" y2="56" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+            <svg width="28" height="22" viewBox="0 0 80 64" fill="none">
+              <path d="M8 30 A32 20 0 0 1 72 30 C70 38 56 44 40 44 C24 44 10 38 8 30 Z" fill="#e07868"/>
+              <line x1="18" y1="44" x2="16" y2="56" stroke="#c85d4a" stroke-width="3" stroke-linecap="round"/>
+              <line x1="27" y1="46" x2="26" y2="58" stroke="#c85d4a" stroke-width="3" stroke-linecap="round"/>
+              <line x1="36" y1="47" x2="36" y2="59" stroke="#c85d4a" stroke-width="3" stroke-linecap="round"/>
+              <line x1="45" y1="47" x2="46" y2="59" stroke="#c85d4a" stroke-width="3" stroke-linecap="round"/>
+              <line x1="54" y1="46" x2="56" y2="58" stroke="#c85d4a" stroke-width="3" stroke-linecap="round"/>
+              <line x1="62" y1="44" x2="64" y2="56" stroke="#c85d4a" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="swatch dark">
+          <svg width="80" height="64" viewBox="0 0 80 64" fill="none">
+            <path d="M8 30 A32 20 0 0 1 72 30 C70 38 56 44 40 44 C24 44 10 38 8 30 Z" fill="#e07868"/>
+            <path d="M18 20 A22 12 0 0 1 58 18" stroke="white" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.3"/>
+            <line x1="18" y1="44" x2="16" y2="56" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="27" y1="46" x2="26" y2="58" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="36" y1="47" x2="36" y2="59" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="45" y1="47" x2="46" y2="59" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="54" y1="46" x2="56" y2="58" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="62" y1="44" x2="64" y2="56" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <div class="scale-row">
+            <svg width="52" height="42" viewBox="0 0 80 64" fill="none">
+              <path d="M8 30 A32 20 0 0 1 72 30 C70 38 56 44 40 44 C24 44 10 38 8 30 Z" fill="#e07868"/>
+              <path d="M18 20 A22 12 0 0 1 58 18" stroke="white" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.25"/>
+              <line x1="18" y1="44" x2="16" y2="56" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="27" y1="46" x2="26" y2="58" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="36" y1="47" x2="36" y2="59" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="45" y1="47" x2="46" y2="59" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="54" y1="46" x2="56" y2="58" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="62" y1="44" x2="64" y2="56" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+            <svg width="28" height="22" viewBox="0 0 80 64" fill="none">
+              <path d="M8 30 A32 20 0 0 1 72 30 C70 38 56 44 40 44 C24 44 10 38 8 30 Z" fill="#e07868"/>
+              <line x1="18" y1="44" x2="16" y2="56" stroke="#c85d4a" stroke-width="3" stroke-linecap="round"/>
+              <line x1="27" y1="46" x2="26" y2="58" stroke="#c85d4a" stroke-width="3" stroke-linecap="round"/>
+              <line x1="36" y1="47" x2="36" y2="59" stroke="#c85d4a" stroke-width="3" stroke-linecap="round"/>
+              <line x1="45" y1="47" x2="46" y2="59" stroke="#c85d4a" stroke-width="3" stroke-linecap="round"/>
+              <line x1="54" y1="46" x2="56" y2="58" stroke="#c85d4a" stroke-width="3" stroke-linecap="round"/>
+              <line x1="62" y1="44" x2="64" y2="56" stroke="#c85d4a" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="card-meta">
+        <p class="card-code">JF-5</p>
+        <p class="card-name">Stacked / Compact — UFO Shape</p>
+        <p class="card-desc">Extra-wide dome, very short fringe tentacles. White highlight arc creates a dimensional, almost 3D feel. Square bounding box — versatile for app icons and favicons.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ===================================================
+     SECTION 2 — WORDMARKS
+==================================================== -->
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">Wordmarks</h2>
+    <span class="section-count">WM-1 through WM-4</span>
+  </div>
+
+  <div class="card-grid wide">
+
+    <!-- WM-1 — Base wordmark -->
+    <div class="card">
+      <div class="card-swatches">
+        <div class="swatch light" style="flex-direction: column; align-items: flex-start; gap: 24px; padding: 36px 40px;">
+          <span class="wm" style="font-size: 72px;">smack<span class="p">.</span></span>
+          <span class="wm" style="font-size: 36px;">smack<span class="p">.</span></span>
+          <span class="wm" style="font-size: 18px;">smack<span class="p">.</span></span>
+        </div>
+        <div class="swatch dark" style="flex-direction: column; align-items: flex-start; gap: 24px; padding: 36px 40px;">
+          <span class="wm on-dark" style="font-size: 72px;">smack<span class="p">.</span></span>
+          <span class="wm on-dark" style="font-size: 36px;">smack<span class="p">.</span></span>
+          <span class="wm on-dark" style="font-size: 18px;">smack<span class="p">.</span></span>
+        </div>
+      </div>
+      <div class="card-meta">
+        <p class="card-code">WM-1</p>
+        <p class="card-name">smack. — Base Wordmark</p>
+        <p class="card-desc">Inter 900, -0.03em tracking, black + coral period. 72px / 36px / 18px. The foundation everything else builds on.</p>
+      </div>
+    </div>
+
+    <!-- WM-2 — Pink circle dot below baseline -->
+    <div class="card">
+      <div class="card-swatches">
+        <div class="swatch light" style="flex-direction: column; align-items: flex-start; gap: 32px; padding: 36px 40px;">
+          <div style="position: relative; display: inline-block; padding-bottom: 12px;">
+            <span class="wm" style="font-size: 72px;">smack</span>
+            <span style="display: inline-block; width: 10px; height: 10px; background: #e07868; border-radius: 50%; position: absolute; bottom: 0; right: -2px;"></span>
+          </div>
+          <div style="position: relative; display: inline-block; padding-bottom: 8px;">
+            <span class="wm" style="font-size: 36px;">smack</span>
+            <span style="display: inline-block; width: 6px; height: 6px; background: #e07868; border-radius: 50%; position: absolute; bottom: 0; right: -1px;"></span>
+          </div>
+          <div style="position: relative; display: inline-block; padding-bottom: 5px;">
+            <span class="wm" style="font-size: 18px;">smack</span>
+            <span style="display: inline-block; width: 4px; height: 4px; background: #e07868; border-radius: 50%; position: absolute; bottom: 0; right: 0;"></span>
+          </div>
+        </div>
+        <div class="swatch dark" style="flex-direction: column; align-items: flex-start; gap: 32px; padding: 36px 40px;">
+          <div style="position: relative; display: inline-block; padding-bottom: 12px;">
+            <span class="wm on-dark" style="font-size: 72px;">smack</span>
+            <span style="display: inline-block; width: 10px; height: 10px; background: #e07868; border-radius: 50%; position: absolute; bottom: 0; right: -2px;"></span>
+          </div>
+          <div style="position: relative; display: inline-block; padding-bottom: 8px;">
+            <span class="wm on-dark" style="font-size: 36px;">smack</span>
+            <span style="display: inline-block; width: 6px; height: 6px; background: #e07868; border-radius: 50%; position: absolute; bottom: 0; right: -1px;"></span>
+          </div>
+          <div style="position: relative; display: inline-block; padding-bottom: 5px;">
+            <span class="wm on-dark" style="font-size: 18px;">smack</span>
+            <span style="display: inline-block; width: 4px; height: 4px; background: #e07868; border-radius: 50%; position: absolute; bottom: 0; right: 0;"></span>
+          </div>
+        </div>
+      </div>
+      <div class="card-meta">
+        <p class="card-code">WM-2</p>
+        <p class="card-name">smack with Underline Dot</p>
+        <p class="card-desc">Period replaced by a circular pink dot below the baseline. Brand mark embedded in the letterform — subtle but distinctive. Unexpected and ownable.</p>
+      </div>
+    </div>
+
+    <!-- WM-3 — Condensed Stack -->
+    <div class="card">
+      <div class="card-swatches">
+        <div class="swatch light" style="flex-direction: row; align-items: center; justify-content: center; gap: 40px;">
+          <div class="wm-stack" style="font-size: 72px;">
+            <span>sm</span>
+            <span>ack<span class="p">.</span></span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 20px; align-items: flex-start;">
+            <div class="wm-stack" style="font-size: 40px;">
+              <span>sm</span>
+              <span>ack<span class="p">.</span></span>
+            </div>
+            <div class="wm-stack" style="font-size: 22px;">
+              <span>sm</span>
+              <span>ack<span class="p">.</span></span>
+            </div>
+          </div>
+        </div>
+        <div class="swatch dark" style="flex-direction: row; align-items: center; justify-content: center; gap: 40px;">
+          <div class="wm-stack on-dark" style="font-size: 72px;">
+            <span>sm</span>
+            <span>ack<span class="p">.</span></span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 20px; align-items: flex-start;">
+            <div class="wm-stack on-dark" style="font-size: 40px;">
+              <span>sm</span>
+              <span>ack<span class="p">.</span></span>
+            </div>
+            <div class="wm-stack on-dark" style="font-size: 22px;">
+              <span>sm</span>
+              <span>ack<span class="p">.</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-meta">
+        <p class="card-code">WM-3</p>
+        <p class="card-name">Condensed Stack — "sm / ack."</p>
+        <p class="card-desc">Two-line experimental split. Near-square bounding box makes this work as an app icon substitute. Unexpectedly interesting — the line break creates rhythm.</p>
+      </div>
+    </div>
+
+    <!-- WM-4 — Monogram "S." -->
+    <div class="card">
+      <div class="card-swatches">
+        <div class="swatch light" style="gap: 24px;">
+          <span class="wm" style="font-size: 96px;">S<span class="p">.</span></span>
+          <div class="scale-row" style="gap: 20px; align-items: flex-end;">
+            <span class="wm" style="font-size: 56px;">S<span class="p">.</span></span>
+            <span class="wm" style="font-size: 32px;">S<span class="p">.</span></span>
+            <span class="wm" style="font-size: 18px;">S<span class="p">.</span></span>
+          </div>
+        </div>
+        <div class="swatch dark" style="gap: 24px;">
+          <span class="wm on-dark" style="font-size: 96px;">S<span class="p">.</span></span>
+          <div class="scale-row" style="gap: 20px; align-items: flex-end;">
+            <span class="wm on-dark" style="font-size: 56px;">S<span class="p">.</span></span>
+            <span class="wm on-dark" style="font-size: 32px;">S<span class="p">.</span></span>
+            <span class="wm on-dark" style="font-size: 18px;">S<span class="p">.</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="card-meta">
+        <p class="card-code">WM-4</p>
+        <p class="card-name">Monogram — "S."</p>
+        <p class="card-desc">Single letter S with the brand period. Inter 900. Works as favicon, app icon, notification badge. The whole identity compressed to two characters.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ===================================================
+     SECTION 3 — COMBINATIONS
+==================================================== -->
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">Combinations</h2>
+    <span class="section-count">CO-1 through CO-4</span>
+  </div>
+
+  <div class="card-grid wide">
+
+    <!-- CO-1 — JF-2 + "smack." horizontal -->
+    <div class="card">
+      <div class="card-swatches">
+        <div class="swatch light" style="flex-direction: column; gap: 32px;">
+          <div class="combo-lockup" style="align-items: center; gap: 20px;">
+            <svg width="52" height="65" viewBox="0 0 64 80" fill="none">
+              <path d="M8 32 A24 24 0 0 1 56 32 C54 40 44 46 32 46 C20 46 10 40 8 32 Z" fill="#e07868"/>
+              <path d="M16 22 A14 10 0 0 1 42 18" stroke="white" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.25"/>
+              <path d="M12 46 C10 56 16 60 12 76" stroke="#c85d4a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M19 47 C17 58 23 62 20 78" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+              <path d="M26 47 C24 58 30 62 27 79" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M32 47 C32 58 32 62 32 80" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M38 47 C40 58 34 62 37 79" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M45 47 C47 58 41 62 44 78" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+              <path d="M52 46 C54 56 48 60 52 76" stroke="#c85d4a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            </svg>
+            <span class="wm" style="font-size: 44px;">smack<span class="p">.</span></span>
+          </div>
+          <div class="combo-lockup" style="align-items: center; gap: 12px;">
+            <svg width="28" height="35" viewBox="0 0 64 80" fill="none">
+              <path d="M8 32 A24 24 0 0 1 56 32 C54 40 44 46 32 46 C20 46 10 40 8 32 Z" fill="#e07868"/>
+              <path d="M12 46 C10 56 16 60 12 76" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M19 47 C17 58 23 62 20 78" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M26 47 C24 58 30 62 27 79" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+              <path d="M32 47 C32 58 32 62 32 80" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+              <path d="M38 47 C40 58 34 62 37 79" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+              <path d="M45 47 C47 58 41 62 44 78" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M52 46 C54 56 48 60 52 76" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+            </svg>
+            <span class="wm" style="font-size: 22px;">smack<span class="p">.</span></span>
+          </div>
+        </div>
+        <div class="swatch dark" style="flex-direction: column; gap: 32px;">
+          <div class="combo-lockup" style="align-items: center; gap: 20px;">
+            <svg width="52" height="65" viewBox="0 0 64 80" fill="none">
+              <path d="M8 32 A24 24 0 0 1 56 32 C54 40 44 46 32 46 C20 46 10 40 8 32 Z" fill="#e07868"/>
+              <path d="M16 22 A14 10 0 0 1 42 18" stroke="white" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.3"/>
+              <path d="M12 46 C10 56 16 60 12 76" stroke="#c85d4a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M19 47 C17 58 23 62 20 78" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+              <path d="M26 47 C24 58 30 62 27 79" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M32 47 C32 58 32 62 32 80" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M38 47 C40 58 34 62 37 79" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M45 47 C47 58 41 62 44 78" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+              <path d="M52 46 C54 56 48 60 52 76" stroke="#c85d4a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            </svg>
+            <span class="wm on-dark" style="font-size: 44px;">smack<span class="p">.</span></span>
+          </div>
+          <div class="combo-lockup" style="align-items: center; gap: 12px;">
+            <svg width="28" height="35" viewBox="0 0 64 80" fill="none">
+              <path d="M8 32 A24 24 0 0 1 56 32 C54 40 44 46 32 46 C20 46 10 40 8 32 Z" fill="#e07868"/>
+              <path d="M12 46 C10 56 16 60 12 76" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M19 47 C17 58 23 62 20 78" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M26 47 C24 58 30 62 27 79" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+              <path d="M32 47 C32 58 32 62 32 80" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+              <path d="M38 47 C40 58 34 62 37 79" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+              <path d="M45 47 C47 58 41 62 44 78" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M52 46 C54 56 48 60 52 76" stroke="#c85d4a" stroke-width="2" stroke-linecap="round" fill="none"/>
+            </svg>
+            <span class="wm on-dark" style="font-size: 22px;">smack<span class="p">.</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="card-meta">
+        <p class="card-code">CO-1</p>
+        <p class="card-name">JF-2 + Wordmark — Horizontal</p>
+        <p class="card-desc">Full organic jellyfish to the left of the wordmark. The mark adds personality without overwhelming the name. Natural nav-bar lockup.</p>
+      </div>
+    </div>
+
+    <!-- CO-2 — JF-1 above "smack." stacked -->
+    <div class="card">
+      <div class="card-swatches">
+        <div class="swatch light" style="flex-direction: column; gap: 32px;">
+          <div class="combo-lockup stacked" style="gap: 16px;">
+            <svg width="64" height="60" viewBox="0 0 60 56" fill="none">
+              <path d="M6 28 A24 24 0 0 1 54 28 Z" fill="#e07868"/>
+              <path d="M6 28 C4 34 16 38 30 38 C44 38 56 34 54 28 Z" fill="#d4735f"/>
+              <line x1="14" y1="38" x2="12" y2="55" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="22" y1="39" x2="21" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="30" y1="39" x2="30" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="38" y1="39" x2="39" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="46" y1="38" x2="48" y2="55" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span class="wm" style="font-size: 40px;">smack<span class="p">.</span></span>
+          </div>
+          <div class="combo-lockup stacked" style="gap: 10px;">
+            <svg width="36" height="34" viewBox="0 0 60 56" fill="none">
+              <path d="M6 28 A24 24 0 0 1 54 28 Z" fill="#e07868"/>
+              <path d="M6 28 C4 34 16 38 30 38 C44 38 56 34 54 28 Z" fill="#d4735f"/>
+              <line x1="14" y1="38" x2="12" y2="55" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="22" y1="39" x2="21" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="30" y1="39" x2="30" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="38" y1="39" x2="39" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="46" y1="38" x2="48" y2="55" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span class="wm" style="font-size: 22px;">smack<span class="p">.</span></span>
+          </div>
+        </div>
+        <div class="swatch dark" style="flex-direction: column; gap: 32px;">
+          <div class="combo-lockup stacked" style="gap: 16px;">
+            <svg width="64" height="60" viewBox="0 0 60 56" fill="none">
+              <path d="M6 28 A24 24 0 0 1 54 28 Z" fill="#e07868"/>
+              <path d="M6 28 C4 34 16 38 30 38 C44 38 56 34 54 28 Z" fill="#d4735f"/>
+              <line x1="14" y1="38" x2="12" y2="55" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="22" y1="39" x2="21" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="30" y1="39" x2="30" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="38" y1="39" x2="39" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="46" y1="38" x2="48" y2="55" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span class="wm on-dark" style="font-size: 40px;">smack<span class="p">.</span></span>
+          </div>
+          <div class="combo-lockup stacked" style="gap: 10px;">
+            <svg width="36" height="34" viewBox="0 0 60 56" fill="none">
+              <path d="M6 28 A24 24 0 0 1 54 28 Z" fill="#e07868"/>
+              <path d="M6 28 C4 34 16 38 30 38 C44 38 56 34 54 28 Z" fill="#d4735f"/>
+              <line x1="14" y1="38" x2="12" y2="55" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="22" y1="39" x2="21" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="30" y1="39" x2="30" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="38" y1="39" x2="39" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="46" y1="38" x2="48" y2="55" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span class="wm on-dark" style="font-size: 22px;">smack<span class="p">.</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="card-meta">
+        <p class="card-code">CO-2</p>
+        <p class="card-name">JF-1 + Wordmark — Stacked</p>
+        <p class="card-desc">Minimal dome centered above the wordmark. Centered symmetry. Works for loading screens, onboarding, printed collateral.</p>
+      </div>
+    </div>
+
+    <!-- CO-3 — JF-4 outline + "smack." horizontal editorial -->
+    <div class="card">
+      <div class="card-swatches">
+        <div class="swatch light" style="flex-direction: column; gap: 32px;">
+          <div class="combo-lockup" style="align-items: center; gap: 20px;">
+            <svg width="48" height="60" viewBox="0 0 64 80" fill="none">
+              <path d="M8 32 A24 24 0 0 1 56 32 C54 40 44 46 32 46 C20 46 10 40 8 32 Z" stroke="#e07868" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+              <path d="M12 46 C10 56 16 60 12 76" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M19 47 C17 58 23 62 20 78" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M26 47 C24 58 30 62 27 79" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M32 47 C32 58 32 62 32 80" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M38 47 C40 58 34 62 37 79" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M45 47 C47 58 41 62 44 78" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M52 46 C54 56 48 60 52 76" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            </svg>
+            <span class="wm" style="font-size: 44px;">smack<span class="p">.</span></span>
+          </div>
+          <div class="combo-lockup" style="align-items: center; gap: 12px;">
+            <svg width="26" height="33" viewBox="0 0 64 80" fill="none">
+              <path d="M8 32 A24 24 0 0 1 56 32 C54 40 44 46 32 46 C20 46 10 40 8 32 Z" stroke="#e07868" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+              <path d="M12 46 C10 56 16 60 12 76" stroke="#e07868" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M19 47 C17 58 23 62 20 78" stroke="#e07868" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M26 47 C24 58 30 62 27 79" stroke="#e07868" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M32 47 C32 58 32 62 32 80" stroke="#e07868" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M38 47 C40 58 34 62 37 79" stroke="#e07868" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M45 47 C47 58 41 62 44 78" stroke="#e07868" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M52 46 C54 56 48 60 52 76" stroke="#e07868" stroke-width="2" stroke-linecap="round" fill="none"/>
+            </svg>
+            <span class="wm" style="font-size: 22px;">smack<span class="p">.</span></span>
+          </div>
+        </div>
+        <div class="swatch dark" style="flex-direction: column; gap: 32px;">
+          <div class="combo-lockup" style="align-items: center; gap: 20px;">
+            <svg width="48" height="60" viewBox="0 0 64 80" fill="none">
+              <path d="M8 32 A24 24 0 0 1 56 32 C54 40 44 46 32 46 C20 46 10 40 8 32 Z" stroke="#e07868" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+              <path d="M12 46 C10 56 16 60 12 76" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M19 47 C17 58 23 62 20 78" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M26 47 C24 58 30 62 27 79" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M32 47 C32 58 32 62 32 80" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M38 47 C40 58 34 62 37 79" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M45 47 C47 58 41 62 44 78" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M52 46 C54 56 48 60 52 76" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            </svg>
+            <span class="wm on-dark" style="font-size: 44px;">smack<span class="p">.</span></span>
+          </div>
+          <div class="combo-lockup" style="align-items: center; gap: 12px;">
+            <svg width="26" height="33" viewBox="0 0 64 80" fill="none">
+              <path d="M8 32 A24 24 0 0 1 56 32 C54 40 44 46 32 46 C20 46 10 40 8 32 Z" stroke="#e07868" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+              <path d="M12 46 C10 56 16 60 12 76" stroke="#e07868" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M19 47 C17 58 23 62 20 78" stroke="#e07868" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M26 47 C24 58 30 62 27 79" stroke="#e07868" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M32 47 C32 58 32 62 32 80" stroke="#e07868" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M38 47 C40 58 34 62 37 79" stroke="#e07868" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M45 47 C47 58 41 62 44 78" stroke="#e07868" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M52 46 C54 56 48 60 52 76" stroke="#e07868" stroke-width="2" stroke-linecap="round" fill="none"/>
+            </svg>
+            <span class="wm on-dark" style="font-size: 22px;">smack<span class="p">.</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="card-meta">
+        <p class="card-code">CO-3</p>
+        <p class="card-name">JF-4 Outline + Wordmark — Editorial</p>
+        <p class="card-desc">Line art mark paired with the wordmark. Most editorial direction — feels like a design studio or journal masthead. Sings on dark backgrounds.</p>
+      </div>
+    </div>
+
+    <!-- CO-4 — S. monogram + tiny JF-1 above -->
+    <div class="card">
+      <div class="card-swatches">
+        <div class="swatch light" style="flex-direction: row; align-items: center; justify-content: center; gap: 48px;">
+          <div class="combo-badge">
+            <svg width="52" height="48" viewBox="0 0 60 56" fill="none">
+              <path d="M6 28 A24 24 0 0 1 54 28 Z" fill="#e07868"/>
+              <path d="M6 28 C4 34 16 38 30 38 C44 38 56 34 54 28 Z" fill="#d4735f"/>
+              <line x1="14" y1="38" x2="12" y2="55" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="22" y1="39" x2="21" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="30" y1="39" x2="30" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="38" y1="39" x2="39" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="46" y1="38" x2="48" y2="55" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span class="wm" style="font-size: 64px;">S<span class="p">.</span></span>
+          </div>
+          <div class="combo-badge" style="gap: 4px;">
+            <svg width="30" height="27" viewBox="0 0 60 56" fill="none">
+              <path d="M6 28 A24 24 0 0 1 54 28 Z" fill="#e07868"/>
+              <path d="M6 28 C4 34 16 38 30 38 C44 38 56 34 54 28 Z" fill="#d4735f"/>
+              <line x1="14" y1="38" x2="12" y2="55" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="22" y1="39" x2="21" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="30" y1="39" x2="30" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="38" y1="39" x2="39" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="46" y1="38" x2="48" y2="55" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span class="wm" style="font-size: 36px;">S<span class="p">.</span></span>
+          </div>
+          <div class="combo-badge" style="gap: 3px;">
+            <svg width="18" height="17" viewBox="0 0 60 56" fill="none">
+              <path d="M6 28 A24 24 0 0 1 54 28 Z" fill="#e07868"/>
+              <path d="M6 28 C4 34 16 38 30 38 C44 38 56 34 54 28 Z" fill="#d4735f"/>
+              <line x1="14" y1="38" x2="12" y2="55" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="22" y1="39" x2="21" y2="56" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="30" y1="39" x2="30" y2="56" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="38" y1="39" x2="39" y2="56" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="46" y1="38" x2="48" y2="55" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+            <span class="wm" style="font-size: 22px;">S<span class="p">.</span></span>
+          </div>
+        </div>
+        <div class="swatch dark" style="flex-direction: row; align-items: center; justify-content: center; gap: 48px;">
+          <div class="combo-badge">
+            <svg width="52" height="48" viewBox="0 0 60 56" fill="none">
+              <path d="M6 28 A24 24 0 0 1 54 28 Z" fill="#e07868"/>
+              <path d="M6 28 C4 34 16 38 30 38 C44 38 56 34 54 28 Z" fill="#d4735f"/>
+              <line x1="14" y1="38" x2="12" y2="55" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="22" y1="39" x2="21" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="30" y1="39" x2="30" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="38" y1="39" x2="39" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="46" y1="38" x2="48" y2="55" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span class="wm on-dark" style="font-size: 64px;">S<span class="p">.</span></span>
+          </div>
+          <div class="combo-badge" style="gap: 4px;">
+            <svg width="30" height="27" viewBox="0 0 60 56" fill="none">
+              <path d="M6 28 A24 24 0 0 1 54 28 Z" fill="#e07868"/>
+              <path d="M6 28 C4 34 16 38 30 38 C44 38 56 34 54 28 Z" fill="#d4735f"/>
+              <line x1="14" y1="38" x2="12" y2="55" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="22" y1="39" x2="21" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="30" y1="39" x2="30" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="38" y1="39" x2="39" y2="56" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+              <line x1="46" y1="38" x2="48" y2="55" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span class="wm on-dark" style="font-size: 36px;">S<span class="p">.</span></span>
+          </div>
+          <div class="combo-badge" style="gap: 3px;">
+            <svg width="18" height="17" viewBox="0 0 60 56" fill="none">
+              <path d="M6 28 A24 24 0 0 1 54 28 Z" fill="#e07868"/>
+              <path d="M6 28 C4 34 16 38 30 38 C44 38 56 34 54 28 Z" fill="#d4735f"/>
+              <line x1="14" y1="38" x2="12" y2="55" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="22" y1="39" x2="21" y2="56" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="30" y1="39" x2="30" y2="56" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="38" y1="39" x2="39" y2="56" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="46" y1="38" x2="48" y2="55" stroke="#c85d4a" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+            <span class="wm on-dark" style="font-size: 22px;">S<span class="p">.</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="card-meta">
+        <p class="card-code">CO-4</p>
+        <p class="card-name">S. Monogram + Mini Mark — Compact Badge</p>
+        <p class="card-desc">Tiny JF-1 floats above the "S." monogram. Compressed and iconic — designed for app icons, favicons, browser tabs, notification dots. A full identity in 80px.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="page-footer">
+  <p class="footer-quote">"<strong>smack.</strong> alone always works. The mark earns its place."</p>
+</footer>
+
+</body>
+</html>
