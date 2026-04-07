@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smack — Contractor Payments Deep Dive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --pink:    #e07868;
+    --navy:    #1e3a5f;
+    --canvas:  #fafaf9;
+    --surface: #ffffff;
+    --text:    #111827;
+    --muted:   #6b7280;
+    --border:  #e5e7eb;
+    --subtle:  #f3f4f6;
+    --green:   #059669;
+    --amber:   #d97706;
+    --red:     #dc2626;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--canvas);
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 14px;
+  }
+
+  .page { max-width: 1100px; margin: 0 auto; padding: 60px 40px 120px; }
+
+  /* ─── HERO ─────────────────────────────────────────── */
+  .hero {
+    background: linear-gradient(135deg, #0f1d30 0%, #1e3a5f 55%, #2a527f 100%);
+    border-radius: 28px;
+    padding: 72px 64px;
+    margin-bottom: 72px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 70% 40%, rgba(224,120,104,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-label {
+    display: inline-block;
+    background: rgba(224,120,104,0.2);
+    color: #e07868;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(224,120,104,0.3);
+  }
+  .hero h1 {
+    font-size: 48px;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+    color: #ffffff;
+    margin-bottom: 20px;
+    max-width: 680px;
+  }
+  .hero h1 span { color: #e07868; }
+  .hero p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.65);
+    max-width: 560px;
+    line-height: 1.7;
+  }
+
+  /* ─── SECTIONS ──────────────────────────────────────── */
+  .section { margin-bottom: 64px; }
+  .section-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .section-subtitle {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 32px;
+    max-width: 620px;
+  }
+
+  /* ─── RECOMMENDATION BANNER ─────────────────────────── */
+  .rec-banner {
+    background: linear-gradient(135deg, #0f1d30, #1e3a5f);
+    border-radius: 20px;
+    padding: 40px 48px;
+    margin-bottom: 48px;
+    border: 1px solid rgba(224,120,104,0.2);
+  }
+  .rec-banner-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 12px;
+  }
+  .rec-banner h2 {
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+  .rec-banner p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+    max-width: 700px;
+  }
+  .rec-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+  }
+  .rec-pill {
+    background: rgba(224,120,104,0.15);
+    border: 1px solid rgba(224,120,104,0.3);
+    color: #e07868;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 14px;
+    border-radius: 100px;
+  }
+
+  /* ─── CARDS GRID ─────────────────────────────────────── */
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
+  .cards-2 { grid-template-columns: repeat(2, 1fr); }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+  }
+  .card-icon { font-size: 24px; margin-bottom: 12px; }
+  .card-title { font-size: 14px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+  .card-body { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .card.highlight { border-color: rgba(224,120,104,0.4); background: rgba(224,120,104,0.04); }
+  .card.highlight .card-title { color: var(--pink); }
+  .card.navy { background: var(--navy); border-color: var(--navy); }
+  .card.navy .card-title { color: #fff; }
+  .card.navy .card-body { color: rgba(255,255,255,0.6); }
+
+  /* ─── TABLE ──────────────────────────────────────────── */
+  .table-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+  table { width: 100%; border-collapse: collapse; }
+  thead tr { background: var(--subtle); }
+  th {
+    text-align: left;
+    padding: 12px 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 14px 20px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: rgba(250,250,249,0.6); }
+  td.label { font-weight: 700; color: var(--text); white-space: nowrap; }
+  td.num { font-variant-numeric: tabular-nums; font-weight: 600; }
+  td.good { color: var(--green); font-weight: 700; }
+  td.bad { color: var(--red); font-weight: 700; }
+  td.ok { color: var(--amber); font-weight: 700; }
+
+  /* ─── BADGE ──────────────────────────────────────────── */
+  .badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 100px;
+  }
+  .badge-green { background: rgba(5,150,105,0.1); color: var(--green); }
+  .badge-amber { background: rgba(217,119,6,0.1); color: var(--amber); }
+  .badge-red { background: rgba(220,38,38,0.1); color: var(--red); }
+  .badge-navy { background: rgba(30,58,95,0.1); color: var(--navy); }
+  .badge-pink { background: rgba(224,120,104,0.12); color: var(--pink); }
+
+  /* ─── CALLOUT ─────────────────────────────────────────── */
+  .callout {
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    line-height: 1.6;
+    border-left: 3px solid;
+  }
+  .callout strong { display: block; font-size: 12px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 4px; }
+  .callout-green { background: rgba(5,150,105,0.06); border-color: var(--green); color: #065f46; }
+  .callout-green strong { color: var(--green); }
+  .callout-amber { background: rgba(217,119,6,0.06); border-color: var(--amber); color: #78350f; }
+  .callout-amber strong { color: var(--amber); }
+  .callout-navy { background: rgba(30,58,95,0.06); border-color: var(--navy); color: var(--navy); }
+  .callout-navy strong { color: var(--navy); }
+
+  /* ─── FLOW DIAGRAM ───────────────────────────────────── */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    gap: 0;
+  }
+  .flow-step {
+    flex: 1;
+    min-width: 160px;
+    text-align: center;
+    padding: 16px 12px;
+  }
+  .flow-icon { font-size: 28px; margin-bottom: 8px; }
+  .flow-label { font-size: 11px; font-weight: 800; color: var(--text); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 4px; }
+  .flow-desc { font-size: 12px; color: var(--muted); line-height: 1.4; }
+  .flow-arrow { font-size: 20px; color: var(--border); flex-shrink: 0; padding: 0 4px; }
+  .flow-fee { display: inline-block; background: rgba(224,120,104,0.1); color: var(--pink); font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 100px; margin-top: 6px; }
+
+  /* ─── PRICING TIERS ──────────────────────────────────── */
+  .pricing-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }
+  .pricing-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 20px;
+  }
+  .pricing-card.featured {
+    background: var(--navy);
+    border-color: var(--navy);
+  }
+  .pricing-card.featured .tier-name { color: rgba(255,255,255,0.6); }
+  .pricing-card.featured .tier-price { color: #fff; }
+  .pricing-card.featured .tier-unit { color: rgba(255,255,255,0.5); }
+  .pricing-card.featured .tier-feature { color: rgba(255,255,255,0.65); border-color: rgba(255,255,255,0.1); }
+  .tier-name { font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .tier-price { font-size: 32px; font-weight: 900; color: var(--text); letter-spacing: -0.03em; line-height: 1; }
+  .tier-price span { font-size: 16px; font-weight: 600; vertical-align: super; }
+  .tier-unit { font-size: 12px; color: var(--muted); margin-top: 4px; margin-bottom: 16px; }
+  .tier-feature {
+    font-size: 12px;
+    color: var(--muted);
+    padding: 8px 0;
+    border-top: 1px solid var(--border);
+    line-height: 1.4;
+  }
+  .tier-feature strong { color: var(--text); }
+
+  /* ─── RISK CARDS ─────────────────────────────────────── */
+  .risk-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .risk-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+  }
+  .risk-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .risk-title { font-size: 14px; font-weight: 800; color: var(--text); }
+  .risk-body { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 12px; }
+  .risk-fix { font-size: 12px; font-weight: 600; color: var(--green); }
+  .risk-fix::before { content: "Guardrail: "; font-weight: 800; }
+
+  /* ─── COMPLIANCE ─────────────────────────────────────── */
+  .compliance-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+  /* ─── WORKPRINT SECTION ──────────────────────────────── */
+  .option-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .option-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    position: relative;
+  }
+  .option-card.chosen { border-color: var(--green); }
+  .option-num { font-size: 32px; font-weight: 900; color: var(--subtle); letter-spacing: -0.03em; margin-bottom: 8px; }
+  .option-title { font-size: 14px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+  .option-body { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .chosen-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+  }
+
+  /* ─── BACK LINK ──────────────────────────────────────── */
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    text-decoration: none;
+    margin-bottom: 40px;
+  }
+  .back:hover { color: var(--text); }
+
+  @media (max-width: 768px) {
+    .hero { padding: 48px 32px; }
+    .hero h1 { font-size: 32px; }
+    .cards, .pricing-grid, .risk-grid, .compliance-grid, .option-cards { grid-template-columns: 1fr; }
+    .flow { flex-direction: column; }
+    .flow-arrow { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <a class="back" href="smack-hub.html">← Command Center</a>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-label">Deep Dive — Contractor Payments</div>
+    <h1>Getting paid out right.<br><span>No surprises. Ever.</span></h1>
+    <p>Full research on Stripe Connect architecture, fee structure, pricing model, compliance, and history reconciliation for Workprint and Smack.</p>
+  </div>
+
+  <!-- RECOMMENDATION -->
+  <div class="section">
+    <div class="section-label">Bottom Line</div>
+    <div class="rec-banner">
+      <div class="rec-banner-label">Final Recommendation</div>
+      <h2>Stripe Connect Express · Separate Charges & Transfers · $15–19/contractor/mo with volume caps</h2>
+      <p>Studios pay a flat monthly fee per active contractor. You absorb all Stripe fees. Contractors receive the exact amount you send them — no deductions, no surprises. Volume caps per tier protect the platform from losing money at scale. ACH-only studio funding keeps the math clean.</p>
+      <div class="rec-pills">
+        <div class="rec-pill">Express accounts</div>
+        <div class="rec-pill">Separate charges + transfers</div>
+        <div class="rec-pill">ACH-only funding</div>
+        <div class="rec-pill">Per-contractor seat pricing</div>
+        <div class="rec-pill">Hard volume caps</div>
+        <div class="rec-pill">Stripe handles KYC</div>
+        <div class="rec-pill">Auto 1099 generation</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STRIPE CONNECT MODELS -->
+  <div class="section">
+    <div class="section-label">Architecture</div>
+    <div class="section-title">Stripe Connect account types</div>
+    <div class="section-subtitle">Three options. Only one makes sense for a studio management SaaS.</div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🏦</div>
+        <div class="card-title">Standard</div>
+        <div class="card-body">Contractor has their own full Stripe account. They manage everything themselves. Platform has minimal control. Built for independent businesses that already use Stripe — not for production studio contractors.</div>
+        <br><span class="badge badge-red">Wrong fit</span>
+      </div>
+      <div class="card highlight">
+        <div class="card-icon">⚡</div>
+        <div class="card-title">Express — Use This</div>
+        <div class="card-body">Stripe handles KYC/verification. Contractor sees a lightweight payout dashboard only. Platform controls all money flow, payout timing, and fees. ~2 min onboarding via a Stripe-hosted link. Perfect for "studio sends contractor a payment" use case.</div>
+        <br><span class="badge badge-green">Recommended</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔧</div>
+        <div class="card-title">Custom</div>
+        <div class="card-body">Platform builds everything — full white-label, no Stripe branding anywhere. Platform owns all compliance liability. Same fees as Express but 5× the engineering work. Revisit at significant scale if white-labeling becomes a competitive requirement.</div>
+        <br><span class="badge badge-amber">Overkill for now</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MONEY FLOW -->
+  <div class="section">
+    <div class="section-label">Money Flow</div>
+    <div class="section-title">Separate charges and transfers</div>
+    <div class="section-subtitle">The charge (studio funding) and the transfer (contractor payout) are completely decoupled. This is what keeps fees clean.</div>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-icon">🏢</div>
+        <div class="flow-label">Studio</div>
+        <div class="flow-desc">Authorizes ACH pull from their bank account</div>
+        <div class="flow-fee">ACH: 0.8%, max $5</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-icon">🏛️</div>
+        <div class="flow-label">Platform</div>
+        <div class="flow-desc">Funds clear (2–5 days). Platform holds until confirmed.</div>
+        <div class="flow-fee">No card fees</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-icon">🔀</div>
+        <div class="flow-label">Transfer</div>
+        <div class="flow-desc">Platform initiates transfer to each contractor's Express account</div>
+        <div class="flow-fee">0.25% + $0.25/transfer</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-icon">👷</div>
+        <div class="flow-label">Contractor</div>
+        <div class="flow-desc">Full amount hits their bank account in 1–3 days. No deductions.</div>
+        <div class="flow-fee">Free standard payout</div>
+      </div>
+    </div>
+
+    <div class="callout callout-amber">
+      <strong>Critical: Never use card-funded payouts</strong>
+      If a studio funds their payout wallet via credit card instead of ACH, Stripe charges 2.9% + $0.30 on the funding transaction. $10,000 funded by card = $290 in fees before you've paid a single contractor. Require ACH for all contractor payment funding — no exceptions.
+    </div>
+
+    <div class="callout callout-amber">
+      <strong>Critical: Don't transfer before ACH clears</strong>
+      If a studio's ACH pull returns (insufficient funds) after you've already paid contractors, you've fronted the money. Use Stripe's <code>source_transaction</code> parameter to link transfers to the charge — transfers only execute when the charge clears.
+    </div>
+  </div>
+
+  <!-- FEE MATH -->
+  <div class="section">
+    <div class="section-label">Fee Structure</div>
+    <div class="section-title">What Stripe actually costs you</div>
+    <div class="section-subtitle">With Express accounts using Separate Charges and Transfers, the 2.9% card fee is irrelevant — you're doing bank transfers, not card processing.</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Fee</th>
+            <th>Amount</th>
+            <th>When it applies</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="label">ACH debit (studio funding)</td>
+            <td class="num">0.8%, capped at $5</td>
+            <td>Each time studio funds the wallet</td>
+            <td>Cap per transaction. One $10k pull = $5 max.</td>
+          </tr>
+          <tr>
+            <td class="label">Active account fee</td>
+            <td class="num">$2/month</td>
+            <td>Per contractor who receives a payout that month</td>
+            <td>Mirrors Stripe's definition of "active"</td>
+          </tr>
+          <tr>
+            <td class="label">Payout transfer fee</td>
+            <td class="num">0.25% + $0.25</td>
+            <td>Per transfer to a contractor's account</td>
+            <td>⚠️ Verify with Stripe if there's a $25 cap — changes high-volume math significantly</td>
+          </tr>
+          <tr>
+            <td class="label">Standard bank payout</td>
+            <td class="num good">Free</td>
+            <td>Contractor's Express account → their bank</td>
+            <td>1–3 business days. This is the default.</td>
+          </tr>
+          <tr>
+            <td class="label">Instant payout (optional)</td>
+            <td class="num">1% of amount</td>
+            <td>Only if contractor opts into instant</td>
+            <td>Pass this fee to the contractor — do not absorb it</td>
+          </tr>
+          <tr>
+            <td class="label">ACH return</td>
+            <td class="num">$4/return</td>
+            <td>If studio's bank pull bounces</td>
+            <td>Guardrail: hold transfers until ACH clears</td>
+          </tr>
+          <tr>
+            <td class="label">Card processing fee</td>
+            <td class="num">2.9% + $0.30</td>
+            <td>NOT applicable to this flow</td>
+            <td>Only on card charges. Irrelevant if ACH-only funding.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-subtitle" style="margin-bottom: 16px;">Real cost per contractor per month at different payout volumes:</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Monthly payout to contractor</th>
+            <th>ACH funding share</th>
+            <th>Active account</th>
+            <th>Transfer fee</th>
+            <th>Total Stripe cost</th>
+            <th>% of payout</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="label">$500</td>
+            <td>~$0.50</td>
+            <td>$2.00</td>
+            <td>$1.50</td>
+            <td class="num">$4.00</td>
+            <td class="good">0.8%</td>
+          </tr>
+          <tr>
+            <td class="label">$1,500</td>
+            <td>~$1.50</td>
+            <td>$2.00</td>
+            <td>$4.00</td>
+            <td class="num">$7.50</td>
+            <td class="good">0.5%</td>
+          </tr>
+          <tr>
+            <td class="label">$5,000</td>
+            <td>~$2.50</td>
+            <td>$2.00</td>
+            <td>$12.75</td>
+            <td class="num">$17.25</td>
+            <td class="ok">0.35%</td>
+          </tr>
+          <tr>
+            <td class="label">$15,000</td>
+            <td>~$3.50</td>
+            <td>$2.00</td>
+            <td>$37.75</td>
+            <td class="num">$43.25</td>
+            <td class="ok">0.29%</td>
+          </tr>
+          <tr>
+            <td class="label">$50,000</td>
+            <td>$5.00</td>
+            <td>$2.00</td>
+            <td>$125.25</td>
+            <td class="num">$132.25</td>
+            <td class="bad">0.26% (but dollar amount is large)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout-navy">
+      <strong>Verify payout fee cap with Stripe</strong>
+      Some sources cite a $25 cap on the 0.25% payout transfer fee. If this applies, your max fee per payout is $25.25 regardless of amount — dramatically changing the math at high volumes and protecting you at the top end. Confirm this directly with Stripe before finalizing pricing.
+    </div>
+  </div>
+
+  <!-- PRICING -->
+  <div class="section">
+    <div class="section-label">Pricing Model</div>
+    <div class="section-title">What to charge studios</div>
+    <div class="section-subtitle">Per active contractor per month — mirrors Stripe's billing model, easy to understand, scales with actual usage. Volume caps protect the platform. Hard caps enforced in the app, not just in the docs.</div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="tier-name">Starter</div>
+        <div class="tier-price"><span>$</span>19</div>
+        <div class="tier-unit">per active contractor / mo</div>
+        <div class="tier-feature">Up to <strong>5 contractors</strong></div>
+        <div class="tier-feature">Max <strong>$5,000/contractor/mo</strong></div>
+        <div class="tier-feature">~$2.58 margin at full cap volume</div>
+        <div class="tier-feature">~$12.50 margin at median ($1,500/mo)</div>
+      </div>
+      <div class="pricing-card featured">
+        <div class="tier-name">Growth</div>
+        <div class="tier-price"><span>$</span>15</div>
+        <div class="tier-unit">per active contractor / mo</div>
+        <div class="tier-feature">Up to <strong>20 contractors</strong></div>
+        <div class="tier-feature">Max <strong>$15,000/contractor/mo</strong></div>
+        <div class="tier-feature">Volume discount for larger teams</div>
+        <div class="tier-feature">Sweet spot for most studios</div>
+      </div>
+      <div class="pricing-card">
+        <div class="tier-name">Studio</div>
+        <div class="tier-price"><span>$</span>12</div>
+        <div class="tier-unit">per active contractor / mo</div>
+        <div class="tier-feature">Up to <strong>50 contractors</strong></div>
+        <div class="tier-feature">Max <strong>$30,000/contractor/mo</strong></div>
+        <div class="tier-feature">Further discount at scale</div>
+        <div class="tier-feature">Higher total revenue per account</div>
+      </div>
+      <div class="pricing-card">
+        <div class="tier-name">Enterprise</div>
+        <div class="tier-price" style="font-size: 24px; padding-top: 4px;">Custom</div>
+        <div class="tier-unit">negotiated annually</div>
+        <div class="tier-feature">Unlimited contractors</div>
+        <div class="tier-feature">Custom volume limits</div>
+        <div class="tier-feature">Direct Stripe rate negotiation</div>
+        <div class="tier-feature">Dedicated support</div>
+      </div>
+    </div>
+
+    <div class="callout callout-green">
+      <strong>Blended realistic margin: 40–60%</strong>
+      At median contractor payout volumes ($1,500–3,000/mo), Stripe costs ~$7–10 per contractor. At $15–19 revenue, gross margin on the add-on infrastructure is healthy. The volume caps ensure you're never in a scenario where a single high-volume contractor wipes that margin out.
+    </div>
+
+    <div class="section-subtitle" style="margin-top: 24px; margin-bottom: 16px;">Competitive positioning — 5 contractors, one month:</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Platform</th>
+            <th>Monthly cost (5 contractors)</th>
+            <th>What you get</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="label">Smack Contractor Payments</td>
+            <td class="num good">$95/mo</td>
+            <td>Clean payout, no transaction fees to anyone, embedded in studio workflow</td>
+            <td>Add-on to existing Smack subscription</td>
+          </tr>
+          <tr>
+            <td class="label">Gusto (Contractor Only)</td>
+            <td class="num">$65/mo</td>
+            <td>Full HR, tax filing, not embedded in project management</td>
+            <td>$35 base + $6/contractor</td>
+          </tr>
+          <tr>
+            <td class="label">Deel</td>
+            <td class="num bad">$245/mo</td>
+            <td>Full HR/compliance, international</td>
+            <td>$49/contractor — overkill for most studios</td>
+          </tr>
+          <tr>
+            <td class="label">DIY (Stripe direct)</td>
+            <td class="num">~$0 fixed</td>
+            <td>Manual setup, contractor sees fee deductions, no project context</td>
+            <td>Cheap but bad UX, admin burden</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- RISK & GUARDRAILS -->
+  <div class="section">
+    <div class="section-label">Risk Management</div>
+    <div class="section-title">Where you can lose money and how to stop it</div>
+    <div class="section-subtitle">The pricing model is only safe if these guardrails are built in from day one.</div>
+
+    <div class="risk-grid">
+      <div class="risk-card">
+        <div class="risk-header">
+          <div class="risk-title">High-volume contractor on cheap tier</div>
+          <span class="badge badge-red">High risk</span>
+        </div>
+        <div class="risk-body">Studio has one contractor paid $80k/month on Starter ($19). Your Stripe cost: ~$202. Net loss: ~$183/month.</div>
+        <div class="risk-fix">Enforce hard per-contractor volume cap in app. Block additional payouts once limit is hit. Show upgrade prompt.</div>
+      </div>
+      <div class="risk-card">
+        <div class="risk-header">
+          <div class="risk-title">Card-funded payouts</div>
+          <span class="badge badge-red">High risk</span>
+        </div>
+        <div class="risk-body">Studio funds $10k in contractor payments via credit card. Stripe charges 2.9% + $0.30 = $290+ before you've paid anyone. Completely wipes margin.</div>
+        <div class="risk-fix">ACH bank account required for contractor payment funding. No card option presented in the UI. Period.</div>
+      </div>
+      <div class="risk-card">
+        <div class="risk-header">
+          <div class="risk-title">ACH return after payouts sent</div>
+          <span class="badge badge-amber">Medium risk</span>
+        </div>
+        <div class="risk-body">Studio's bank pull bounces (insufficient funds) after contractors have already been paid. You've fronted the money. $4 return fee plus the full payout amount.</div>
+        <div class="risk-fix">Never initiate contractor transfers until ACH has a <code>charge.succeeded</code> event. Use <code>source_transaction</code> to link. Funds stay pending 2–5 days.</div>
+      </div>
+      <div class="risk-card">
+        <div class="risk-header">
+          <div class="risk-title">International contractors</div>
+          <span class="badge badge-amber">Medium risk</span>
+        </div>
+        <div class="risk-body">Cross-border payouts add 1–1.5% in FX fees. An $80k payout to a UK contractor costs ~$1,200 in FX on top of normal payout fees. Margin disappears fast.</div>
+        <div class="risk-fix">US bank accounts only in V1. International is an Enterprise conversation with explicit FX pass-through or higher tier pricing.</div>
+      </div>
+      <div class="risk-card">
+        <div class="risk-header">
+          <div class="risk-title">Instant payout absorption</div>
+          <span class="badge badge-amber">Medium risk</span>
+        </div>
+        <div class="risk-body">If you absorb the 1% instant payout fee, one $50k instant payout costs $500. Never absorb this — it doesn't scale at any volume.</div>
+        <div class="risk-fix">Instant payouts are opt-in by contractor. Contractor pays a disclosed 1% fee. Standard payouts (free) are the default.</div>
+      </div>
+      <div class="risk-card">
+        <div class="risk-header">
+          <div class="risk-title">Volume at scale without negotiation</div>
+          <span class="badge badge-navy">Long-term</span>
+        </div>
+        <div class="risk-body">At $500k+ annual payout volume, you're paying full Stripe list rates. At $1M+ those rates are negotiable — 20–40% off published prices is achievable.</div>
+        <div class="risk-fix">Initiate Stripe volume pricing conversation at $2M+ annual Connect volume. Track this metric from launch.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPLIANCE -->
+  <div class="section">
+    <div class="section-label">Compliance</div>
+    <div class="section-title">KYC, 1099s, and the DE 542</div>
+    <div class="section-subtitle">Stripe handles the heavy lifting. Your job is to make sure the right information is collected and the right boxes are checked in your Connect settings.</div>
+
+    <div class="cards cards-2" style="margin-bottom: 24px;">
+      <div class="card">
+        <div class="card-icon">👷</div>
+        <div class="card-title">What contractors must provide (Stripe collects this)</div>
+        <div class="card-body">
+          Full legal name · Date of birth · Home address · Last 4 of SSN (full SSN if auto-verification fails) · Bank account routing + account number<br><br>
+          <strong>Business contractors (LLC, S-Corp):</strong> EIN · Business name · Business address · Representative identity + beneficial owners
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏢</div>
+        <div class="card-title">What studios must provide (for payment funding)</div>
+        <div class="card-body">
+          Studios are your billing customers — they don't go through Connect KYC. They need:<br><br>
+          Verified bank account via Plaid or Stripe's instant verification (for ACH debit) · Standard Smack subscription billing info<br><br>
+          <strong>No Connect onboarding required for studios.</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Compliance item</th>
+            <th>Who handles it</th>
+            <th>What you need to do</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="label">Contractor KYC / identity verification</td>
+            <td>Stripe (via Express onboarding hosted link)</td>
+            <td>Initiate onboarding via Account Links API. Stripe does the rest.</td>
+          </tr>
+          <tr>
+            <td class="label">1099-NEC filing (federal)</td>
+            <td>Stripe generates automatically</td>
+            <td>Enable tax reporting in Connect Dashboard. Ensure contractors have valid TIN on file. $600 threshold triggers 1099.</td>
+          </tr>
+          <tr>
+            <td class="label">1099-K (if applicable)</td>
+            <td>Stripe generates automatically</td>
+            <td>Same as above. IRS threshold currently $5,000 (2024–2025), further reductions planned.</td>
+          </tr>
+          <tr>
+            <td class="label">California DE 542</td>
+            <td>You (platform) or the studio</td>
+            <td>Report new independent contractors to CA EDD within 20 days of first payment over $600. One-time per employer-contractor relationship. See notes below.</td>
+          </tr>
+          <tr>
+            <td class="label">AML / fraud monitoring</td>
+            <td>Stripe (built-in for Express accounts)</td>
+            <td>Stripe monitors connected accounts. Build a manual review queue for studios onboarding many contractors quickly.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout-navy">
+      <strong>On the California DE 542</strong>
+      The DE 542 is a one-time new contractor report per employer-contractor relationship. If a contractor was already set up in Gusto (or any other platform) by the same studio and a DE 542 was filed at that time, you do not need to re-file when they're added to Smack. The obligation is fulfilled. Only file DE 542 for contractors who have never been reported before by that studio. Build a checkbox in the contractor onboarding flow: "Already reported to CA EDD (e.g. via Gusto)?" — marks the DE 542 as satisfied without triggering a new filing.
+    </div>
+  </div>
+
+  <!-- HISTORY RECONCILIATION -->
+  <div class="section">
+    <div class="section-label">History Reconciliation</div>
+    <div class="section-title">Handling prior payments (Gusto and others)</div>
+    <div class="section-subtitle">The $600 threshold for 1099-NEC is based on total annual payments from your business to that contractor — not per platform. If a contractor was paid $400 in Gusto and $300 in Smack, the combined $700 triggers a 1099. Reconciliation is required.</div>
+
+    <div class="option-cards" style="margin-bottom: 24px;">
+      <div class="option-card">
+        <div class="option-num">A</div>
+        <div class="option-title">CSV Import</div>
+        <div class="option-body">Export from Gusto, import into the platform. Match on EIN/SSN first, legal name second, amount+date as fallback. Flag unmatched rows for manual review. More engineering, more that can go wrong with name format mismatches.</div>
+      </div>
+      <div class="option-card chosen">
+        <div class="chosen-badge"><span class="badge badge-green">Chosen</span></div>
+        <div class="option-num">B</div>
+        <div class="option-title">Prior Payments Field</div>
+        <div class="option-body">Single input per contractor: "Payments made outside this platform in 2026." Studio enters a number. Platform adds it to the running total for 1099 purposes. Optional notes field to log the source ("via Gusto Jan–Mar"). Works for any prior system — Gusto, checks, wire transfers, Venmo, whatever.</div>
+      </div>
+      <div class="option-card">
+        <div class="option-num">C</div>
+        <div class="option-title">Gusto API Integration</div>
+        <div class="option-body">Pull payment history directly via API. No CSV export step. Reliable matching, cleanest UX. Significant engineering work. Phase 2 if studios ask for it — not required at launch.</div>
+      </div>
+    </div>
+
+    <div class="callout callout-green">
+      <strong>Option B is the right call for launch — for both Workprint and Smack</strong>
+      One field per contractor. Works regardless of where prior payments came from. Zero parsing, zero matching logic, zero edge cases. The studio can get the number from a Gusto report or bank statement in 30 seconds. The 1099 filing checklist shows a breakdown ("$3,200 via platform, $1,800 prior") for the studio's records but reports the combined $5,000 to the IRS. Build this for Workprint now — carry the same pattern into Smack.
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Scenario</th>
+            <th>What happens</th>
+            <th>1099 outcome</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="label">New studio, no prior payments</td>
+            <td>Prior payments field left at $0 or blank</td>
+            <td>Platform total only. Clean.</td>
+          </tr>
+          <tr>
+            <td class="label">Studio joins mid-year, had Gusto</td>
+            <td>Studio enters Gusto YTD total in prior payments field</td>
+            <td>Platform + prior = combined total for 1099</td>
+          </tr>
+          <tr>
+            <td class="label">Contractor paid by check before Smack</td>
+            <td>Studio enters check total in prior payments field</td>
+            <td>Same — combined total, correct 1099</td>
+          </tr>
+          <tr>
+            <td class="label">Contractor already in Gusto, DE 542 filed</td>
+            <td>Studio checks "Already reported to CA EDD"</td>
+            <td>DE 542 marked satisfied, no duplicate filing</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- STRIPE PRODUCTS -->
+  <div class="section">
+    <div class="section-label">Other Stripe Products</div>
+    <div class="section-title">What's relevant and what isn't</div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🏦</div>
+        <div class="card-title">Stripe Treasury</div>
+        <div class="card-body">Embedded studio financial accounts — studios maintain a running balance in the platform instead of pulling from their bank per-batch. Eliminates ACH funding fee. US only, limited availability, significant engineering lift. <strong>Evaluate at $1M+ ARR.</strong></div>
+        <br><span class="badge badge-amber">Phase 2+</span>
+      </div>
+      <div class="card highlight">
+        <div class="card-icon">⚡</div>
+        <div class="card-title">Instant Payouts</div>
+        <div class="card-body">Contractor receives funds to debit card in 30 minutes instead of 1–3 days. Stripe charges platform 1%. <strong>Pass this fee to the contractor — never absorb it.</strong> Offer as an opt-in. Standard bank payout (free) is always the default.</div>
+        <br><span class="badge badge-green">Offer, don't absorb</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">📉</div>
+        <div class="card-title">Volume Pricing</div>
+        <div class="card-body">At $500k+ annual processing, Stripe negotiates custom rates. At $1M+ you can get 20–40% off published rates. The 0.25% payout fee is negotiable. Track Connect volume from launch and initiate the conversation at $2M+ annual volume.</div>
+        <br><span class="badge badge-navy">Track from day 1</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- IMPLEMENTATION CHECKLIST -->
+  <div class="section">
+    <div class="section-label">Build Checklist</div>
+    <div class="section-title">What needs to be built</div>
+    <div class="section-subtitle">In rough priority order for a V1 Contractor Payments feature.</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Item</th>
+            <th>Notes</th>
+            <th>Priority</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="num">1</td>
+            <td class="label">Studio bank account verification</td>
+            <td>Stripe instant verification (Plaid) or micro-deposits. Required before any payouts.</td>
+            <td><span class="badge badge-red">Must have</span></td>
+          </tr>
+          <tr>
+            <td class="num">2</td>
+            <td class="label">Contractor Express account onboarding</td>
+            <td>Account Links API. Stripe-hosted flow, ~2 min. Trigger when contractor is added and first payout is initiated.</td>
+            <td><span class="badge badge-red">Must have</span></td>
+          </tr>
+          <tr>
+            <td class="num">3</td>
+            <td class="label">ACH debit → transfer flow</td>
+            <td>Pull from studio bank → hold pending → transfer to contractor on charge.succeeded. Use source_transaction parameter.</td>
+            <td><span class="badge badge-red">Must have</span></td>
+          </tr>
+          <tr>
+            <td class="num">4</td>
+            <td class="label">Hard volume cap enforcement</td>
+            <td>Block payouts above tier limit. Show upgrade prompt. Log attempted overage.</td>
+            <td><span class="badge badge-red">Must have</span></td>
+          </tr>
+          <tr>
+            <td class="num">5</td>
+            <td class="label">Prior payments field</td>
+            <td>Per contractor: "Prior 2026 payments (outside this platform)." Number input + optional source notes. Adds to 1099 total.</td>
+            <td><span class="badge badge-red">Must have</span></td>
+          </tr>
+          <tr>
+            <td class="num">6</td>
+            <td class="label">DE 542 checkbox</td>
+            <td>"Already reported to CA EDD" per contractor. Marks DE 542 as satisfied in the compliance checklist.</td>
+            <td><span class="badge badge-red">Must have</span></td>
+          </tr>
+          <tr>
+            <td class="num">7</td>
+            <td class="label">1099-NEC generation</td>
+            <td>Enable tax reporting in Stripe Connect Dashboard. Display 1099 filing checklist for studios. Combined total (platform + prior payments).</td>
+            <td><span class="badge badge-red">Must have</span></td>
+          </tr>
+          <tr>
+            <td class="num">8</td>
+            <td class="label">Payout history per contractor</td>
+            <td>Studio-facing view of all payments, dates, status. Contractor-facing view in Express dashboard (Stripe handles this).</td>
+            <td><span class="badge badge-amber">Should have</span></td>
+          </tr>
+          <tr>
+            <td class="num">9</td>
+            <td class="label">Instant payout opt-in</td>
+            <td>Contractor can opt into instant payout. 1% fee disclosed and charged to contractor. Standard payout remains default.</td>
+            <td><span class="badge badge-navy">Nice to have</span></td>
+          </tr>
+          <tr>
+            <td class="num">10</td>
+            <td class="label">Gusto API import</td>
+            <td>Pull prior payment history directly via Gusto API. Replaces manual prior payments entry for studios migrating from Gusto.</td>
+            <td><span class="badge badge-navy">Phase 2</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
