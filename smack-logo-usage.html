@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smack — Logo Usage Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'Funtastic';
+    src: url('Funtastic-Regular.otf') format('opentype');
+    font-weight: normal;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --salmon: #e07868;
+    --navy: #1e3a5f;
+    --dark: #0f1d30;
+    --canvas: #fafaf9;
+    --surface: #ffffff;
+    --text: #111827;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --subtle: #f3f4f6;
+    --green: #059669;
+  }
+  body { font-family: 'Inter', sans-serif; background: var(--canvas); color: var(--text); -webkit-font-smoothing: antialiased; }
+
+  /* ─── HEADER ─── */
+  .page-header { background: var(--dark); padding: 48px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.4); text-decoration: none; margin-bottom: 32px; }
+  .back-link:hover { color: rgba(255,255,255,0.7); }
+  .header-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--salmon); margin-bottom: 10px; }
+  .header-title { font-size: 36px; font-weight: 900; letter-spacing: -0.03em; color: #fff; margin-bottom: 10px; }
+  .header-sub { font-size: 15px; color: rgba(255,255,255,0.5); max-width: 560px; line-height: 1.6; }
+
+  /* ─── CONTENT ─── */
+  .content { max-width: 1100px; margin: 0 auto; padding: 64px 48px 120px; }
+
+  /* ─── SECTION ─── */
+  .section { margin-bottom: 80px; }
+  .section-label { font-size: 10px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--salmon); margin-bottom: 6px; }
+  .section-title { font-size: 24px; font-weight: 900; letter-spacing: -0.02em; color: var(--text); margin-bottom: 6px; }
+  .section-desc { font-size: 14px; color: var(--muted); margin-bottom: 32px; line-height: 1.6; max-width: 600px; }
+
+  /* ─── ASSET HERO ─── */
+  .asset-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-bottom: 2px; }
+  .asset-cell { border-radius: 16px; padding: 48px 32px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; }
+  .asset-cell.dark { background: var(--dark); }
+  .asset-cell.mid { background: var(--navy); }
+  .asset-cell.light { background: var(--surface); border: 1px solid var(--border); }
+  .asset-cell.subtle { background: var(--subtle); }
+  .asset-cell svg { display: block; }
+  .asset-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+  .asset-cell.dark .asset-label,
+  .asset-cell.mid .asset-label { color: rgba(255,255,255,0.3); }
+  .asset-cell.light .asset-label,
+  .asset-cell.subtle .asset-label { color: var(--muted); }
+
+  /* ─── USE CASE CARDS ─── */
+  .use-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 48px; }
+  .use-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+  .use-card-preview { height: 160px; display: flex; align-items: center; justify-content: center; }
+  .use-card-preview.dark { background: var(--dark); }
+  .use-card-preview.navy { background: var(--navy); }
+  .use-card-preview.light { background: var(--canvas); }
+  .use-card-preview.white { background: var(--surface); }
+  .use-card-preview.salmon-bg { background: var(--salmon); }
+  .use-card-body { padding: 16px 18px; border-top: 1px solid var(--border); }
+  .use-card-title { font-size: 13px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+  .use-card-desc { font-size: 12px; color: var(--muted); line-height: 1.55; }
+  .use-card-tag { display: inline-flex; font-size: 10px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; margin-bottom: 8px; }
+  .tag-mark { background: rgba(224,120,104,0.1); color: var(--salmon); }
+  .tag-word { background: rgba(30,58,95,0.08); color: var(--navy); }
+  .tag-lockup { background: var(--subtle); color: var(--muted); }
+
+  /* ─── RULE GRID ─── */
+  .rule-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .rule-card { border-radius: 12px; padding: 22px 24px; }
+  .rule-card.do { background: rgba(5,150,105,0.05); border: 1px solid rgba(5,150,105,0.2); }
+  .rule-card.dont { background: rgba(220,38,38,0.04); border: 1px solid rgba(220,38,38,0.15); }
+  .rule-card-label { font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; }
+  .rule-card.do .rule-card-label { color: var(--green); }
+  .rule-card.dont .rule-card-label { color: #dc2626; }
+  .rule-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .rule-list li { font-size: 13px; color: var(--text); line-height: 1.5; padding-left: 16px; position: relative; }
+  .rule-list li::before { position: absolute; left: 0; font-size: 11px; }
+  .rule-card.do .rule-list li::before { content: '✓'; color: var(--green); }
+  .rule-card.dont .rule-list li::before { content: '✕'; color: #dc2626; }
+
+  /* ─── DIVIDER ─── */
+  .divider { height: 1px; background: var(--border); margin-bottom: 80px; }
+
+  /* ─── FOOTER ─── */
+  .page-footer { background: var(--dark); padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; }
+  .footer-wm svg { display: block; }
+  .page-footer-meta { font-size: 12px; color: rgba(255,255,255,0.3); }
+
+  /* ─── SIZE GUIDE ─── */
+  .size-row { display: flex; align-items: flex-end; gap: 32px; flex-wrap: wrap; }
+  .size-item { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .size-bg { background: var(--dark); border-radius: 12px; display: flex; align-items: center; justify-content: center; padding: 16px; }
+  .size-label { font-size: 11px; font-weight: 700; color: var(--muted); text-align: center; }
+  .size-use { font-size: 10px; color: var(--muted); opacity: 0.7; }
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <a class="back-link" href="smack-hub.html">← Hub</a>
+  <div class="header-eyebrow">Brand System</div>
+  <div class="header-title">Logo Usage Guide</div>
+  <div class="header-sub">Two assets, one brand. When to use the mark, when to use the wordmark, and how they work together.</div>
+</header>
+
+<div class="content">
+
+  <!-- ─── THE TWO ASSETS ─── -->
+  <div class="section">
+    <div class="section-label">The Assets</div>
+    <div class="section-title">Mark + Wordmark</div>
+    <div class="section-desc">These are never forced together. Each one works on its own in the right context. The lockup (both side-by-side) exists for specific cases where you need both the symbol and the name.</div>
+
+    <div class="asset-row">
+      <!-- Mark -->
+      <div class="asset-cell dark">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" height="80">
+          <path fill="#fff" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+          <path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+          <path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+          <path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+          <path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+          <path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+        </svg>
+        <div class="asset-label">Mark — white</div>
+      </div>
+      <!-- Wordmark -->
+      <div class="asset-cell dark">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1215.08 458" height="44" style="font-family:Funtastic,sans-serif">
+          <text font-family="Funtastic-Regular,Funtastic" font-size="390.45" fill="#fff" transform="translate(0 331.88)"><tspan x="0" y="0">smack</tspan><tspan fill="#fff" x="1132.7" y="0">.</tspan></text>
+        </svg>
+        <div class="asset-label">Wordmark — white</div>
+      </div>
+      <!-- Lockup -->
+      <div class="asset-cell dark">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1466.55 458" height="44">
+          <text font-family="Funtastic-Regular,Funtastic" font-size="390.45" fill="#fff" transform="translate(251.47 331.88)"><tspan x="0" y="0">smack</tspan><tspan fill="#fff" x="1132.7" y="0">.</tspan></text>
+          <path fill="#fff" d="M9.49,197.76c-5.67,0-10.05-4.14-9.44-8.87,5.26-40.27,45.93-71.6,95.32-71.6s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+          <path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,197.76c-7.99,46.94,7.99,80.48,0,134.13"/>
+          <path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,197.76c-7.99,46.94,7.99,80.48,0,134.13"/>
+          <path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,197.76c-7.99,46.94,7.99,80.48,0,134.13"/>
+          <path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,197.76c-7.99,46.94,7.99,80.48,0,134.13"/>
+          <path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,197.76c-7.99,46.94,7.99,80.48,0,134.13"/>
+        </svg>
+        <div class="asset-label">Lockup — white</div>
+      </div>
+    </div>
+
+    <!-- Light versions -->
+    <div class="asset-row">
+      <div class="asset-cell light">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" height="80">
+          <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+        </svg>
+        <div class="asset-label">Mark — salmon</div>
+      </div>
+      <div class="asset-cell light">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1215.08 458" height="44">
+          <text font-family="Funtastic-Regular,Funtastic" font-size="390.45" fill="#111827" transform="translate(0 331.88)"><tspan x="0" y="0">smack</tspan><tspan fill="#e07868" x="1132.7" y="0">.</tspan></text>
+        </svg>
+        <div class="asset-label">Wordmark — dark + salmon dot</div>
+      </div>
+      <div class="asset-cell light">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1466.55 458" height="44">
+          <text font-family="Funtastic-Regular,Funtastic" font-size="390.45" fill="#111827" transform="translate(251.47 331.88)"><tspan x="0" y="0">smack</tspan><tspan fill="#e07868" x="1132.7" y="0">.</tspan></text>
+          <path fill="#e07868" d="M9.49,197.76c-5.67,0-10.05-4.14-9.44-8.87,5.26-40.27,45.93-71.6,95.32-71.6s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,197.76c-7.99,46.94,7.99,80.48,0,134.13"/>
+          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,197.76c-7.99,46.94,7.99,80.48,0,134.13"/>
+          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,197.76c-7.99,46.94,7.99,80.48,0,134.13"/>
+          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,197.76c-7.99,46.94,7.99,80.48,0,134.13"/>
+          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,197.76c-7.99,46.94,7.99,80.48,0,134.13"/>
+        </svg>
+        <div class="asset-label">Lockup — dark + salmon</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ─── USE CASES ─── -->
+  <div class="section">
+    <div class="section-label">Use Cases</div>
+    <div class="section-title">Right tool, right context</div>
+    <div class="section-desc">The mark and wordmark each have natural homes. Neither is more important — they just work differently at different sizes and in different situations.</div>
+
+    <div class="use-grid">
+
+      <!-- Favicon -->
+      <div class="use-card">
+        <div class="use-card-preview dark">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" height="40">
+            <path fill="#fff" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+            <path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+          </svg>
+        </div>
+        <div class="use-card-body">
+          <div class="use-card-tag tag-mark">Mark</div>
+          <div class="use-card-title">Favicon & App Icon</div>
+          <div class="use-card-desc">The mark is the only thing that works at 16–512px square. The wordmark would be unreadable.</div>
+        </div>
+      </div>
+
+      <!-- App header -->
+      <div class="use-card">
+        <div class="use-card-preview dark" style="padding: 0 24px; justify-content: flex-start; align-items: center; gap: 12px; flex-direction: row;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" height="28">
+            <path fill="#fff" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+            <path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+          </svg>
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            <div style="font-size:11px;font-weight:800;color:#fff;letter-spacing:0.02em;">Dashboard</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.4);">Workprint Studio</div>
+          </div>
+        </div>
+        <div class="use-card-body">
+          <div class="use-card-tag tag-mark">Mark</div>
+          <div class="use-card-title">App Sidebar / Nav Header</div>
+          <div class="use-card-desc">Inside the app where users already know what they're in. The mark identifies the product without taking up space.</div>
+        </div>
+      </div>
+
+      <!-- PWA home screen -->
+      <div class="use-card">
+        <div class="use-card-preview dark" style="flex-direction:column;gap:8px;">
+          <div style="width:60px;height:60px;border-radius:14px;background:#1e3a5f;display:flex;align-items:center;justify-content:center;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" height="36">
+              <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+              <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+            </svg>
+          </div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.6);font-weight:600;">Smack</div>
+        </div>
+        <div class="use-card-body">
+          <div class="use-card-tag tag-mark">Mark</div>
+          <div class="use-card-title">PWA Home Screen Icon</div>
+          <div class="use-card-desc">Navy background, salmon mark. Lives on your phone's home screen alongside other apps.</div>
+        </div>
+      </div>
+
+      <!-- Marketing site header -->
+      <div class="use-card">
+        <div class="use-card-preview dark" style="flex-direction:row;padding:0 24px;justify-content:space-between;align-items:center;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1215.08 458" height="28">
+            <text font-family="Funtastic-Regular,Funtastic" font-size="390.45" fill="#fff" transform="translate(0 331.88)"><tspan x="0" y="0">smack</tspan><tspan fill="#fff" x="1132.7" y="0">.</tspan></text>
+          </svg>
+          <div style="display:flex;gap:16px;align-items:center;">
+            <div style="font-size:11px;color:rgba(255,255,255,0.5);font-weight:600;">Pricing</div>
+            <div style="background:#e07868;border-radius:6px;padding:5px 12px;font-size:11px;font-weight:700;color:#fff;">Get access</div>
+          </div>
+        </div>
+        <div class="use-card-body">
+          <div class="use-card-tag tag-word">Wordmark</div>
+          <div class="use-card-title">Marketing Site Nav</div>
+          <div class="use-card-desc">First impression for people who've never heard of Smack. The name needs to be readable and memorable.</div>
+        </div>
+      </div>
+
+      <!-- Email header -->
+      <div class="use-card">
+        <div class="use-card-preview white" style="flex-direction:column;align-items:flex-start;padding:24px 28px;gap:10px;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1215.08 458" height="22">
+            <text font-family="Funtastic-Regular,Funtastic" font-size="390.45" fill="#111827" transform="translate(0 331.88)"><tspan x="0" y="0">smack</tspan><tspan fill="#e07868" x="1132.7" y="0">.</tspan></text>
+          </svg>
+          <div style="font-size:12px;color:#6b7280;line-height:1.5;">Your invoice for Workprint Studio<br>is ready to review.</div>
+        </div>
+        <div class="use-card-body">
+          <div class="use-card-tag tag-word">Wordmark</div>
+          <div class="use-card-title">Transactional Email</div>
+          <div class="use-card-desc">Invoice sent, payout notification, billing summary. Dark text + salmon period on white. Professional and clean.</div>
+        </div>
+      </div>
+
+      <!-- One-pager / print -->
+      <div class="use-card">
+        <div class="use-card-preview light" style="padding: 24px 32px; flex-direction:column; align-items:flex-start; gap:12px;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1466.55 458" height="32">
+            <text font-family="Funtastic-Regular,Funtastic" font-size="390.45" fill="#111827" transform="translate(251.47 331.88)"><tspan x="0" y="0">smack</tspan><tspan fill="#e07868" x="1132.7" y="0">.</tspan></text>
+            <path fill="#e07868" d="M9.49,197.76c-5.67,0-10.05-4.14-9.44-8.87,5.26-40.27,45.93-71.6,95.32-71.6s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+            <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,197.76c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,197.76c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,197.76c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,197.76c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,197.76c-7.99,46.94,7.99,80.48,0,134.13"/>
+          </svg>
+          <div style="font-size:10px;font-weight:700;color:#9ca3af;letter-spacing:0.1em;text-transform:uppercase;">Studio Management Platform</div>
+        </div>
+        <div class="use-card-body">
+          <div class="use-card-tag tag-lockup">Lockup</div>
+          <div class="use-card-title">One-Pager / Pitch Doc</div>
+          <div class="use-card-desc">Full lockup for formal introductions — the pitch doc, decks, any printed or shared material where both mark and name should appear.</div>
+        </div>
+      </div>
+
+      <!-- Command center hero -->
+      <div class="use-card">
+        <div class="use-card-preview dark" style="flex-direction:column;gap:10px;text-align:center;">
+          <div style="font-size:9px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#e07868;">Command Center</div>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" height="48">
+            <path fill="#fff" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+            <path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+          </svg>
+          <div style="font-size:12px;color:rgba(255,255,255,0.45);">Everything Smack. All in one place.</div>
+        </div>
+        <div class="use-card-body">
+          <div class="use-card-tag tag-mark">Mark</div>
+          <div class="use-card-title">Internal Hub / Command Center</div>
+          <div class="use-card-desc">You already know you're in Smack. The mark stands alone — iconic, confident, no explanation needed.</div>
+        </div>
+      </div>
+
+      <!-- Social / OG -->
+      <div class="use-card">
+        <div class="use-card-preview navy" style="flex-direction:column;gap:14px;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" height="52">
+            <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+            <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+          </svg>
+          <div style="font-size:10px;color:rgba(255,255,255,0.4);font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">smack.studio</div>
+        </div>
+        <div class="use-card-body">
+          <div class="use-card-tag tag-mark">Mark</div>
+          <div class="use-card-title">Social Profile / OG Image</div>
+          <div class="use-card-desc">Salmon mark on navy. Square format. Works as a Twitter/Instagram avatar or Open Graph thumbnail.</div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="use-card">
+        <div class="use-card-preview light" style="flex-direction:column;align-items:flex-start;padding:20px 28px;gap:8px;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1215.08 458" height="20">
+            <text font-family="Funtastic-Regular,Funtastic" font-size="390.45" fill="#e07868" transform="translate(0 331.88)"><tspan x="0" y="0">smack</tspan><tspan fill="#e07868" x="1132.7" y="0">.</tspan></text>
+          </svg>
+          <div style="font-size:11px;color:#9ca3af;">For production studios &nbsp;·&nbsp; smack.studio</div>
+        </div>
+        <div class="use-card-body">
+          <div class="use-card-tag tag-word">Wordmark</div>
+          <div class="use-card-title">Page Footer</div>
+          <div class="use-card-desc">Salmon wordmark on light background. Closes out a page cleanly without competing with the content above.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ─── SIZE GUIDE ─── */
+  <div class="section">
+    <div class="section-label">Size</div>
+    <div class="section-title">Mark at every scale</div>
+    <div class="section-desc">The mark works from 16px (favicon) to display size. At small sizes the tentacles become texture — don't worry about them being individually distinct.</div>
+
+    <div class="size-row">
+      <div class="size-item">
+        <div class="size-bg" style="width:48px;height:48px;border-radius:8px;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" height="28">
+            <path fill="#fff" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+            <path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+          </svg>
+        </div>
+        <div class="size-label">28px</div>
+        <div class="size-use">Nav / sidebar</div>
+      </div>
+      <div class="size-item">
+        <div class="size-bg" style="width:64px;height:64px;border-radius:10px;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" height="40">
+            <path fill="#fff" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+            <path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+          </svg>
+        </div>
+        <div class="size-label">40px</div>
+        <div class="size-use">Email header</div>
+      </div>
+      <div class="size-item">
+        <div class="size-bg" style="width:88px;height:88px;border-radius:14px;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" height="60">
+            <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+            <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+          </svg>
+        </div>
+        <div class="size-label">60px</div>
+        <div class="size-use">App icon / PWA</div>
+      </div>
+      <div class="size-item">
+        <div class="size-bg" style="width:120px;height:120px;border-radius:20px;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" height="88">
+            <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+            <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+          </svg>
+        </div>
+        <div class="size-label">88px</div>
+        <div class="size-use">Hero / splash</div>
+      </div>
+      <div class="size-item">
+        <div class="size-bg" style="width:160px;height:160px;border-radius:24px;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" height="120">
+            <path fill="#fff" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+            <path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/><path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+          </svg>
+        </div>
+        <div class="size-label">120px</div>
+        <div class="size-use">Display / OG</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ─── RULES ─── -->
+  <div class="section">
+    <div class="section-label">Rules</div>
+    <div class="section-title">Keep it clean</div>
+    <div class="section-desc">There aren't many — but these matter.</div>
+
+    <div class="rule-grid">
+      <div class="rule-card do">
+        <div class="rule-card-label">Do</div>
+        <ul class="rule-list">
+          <li>Use the mark alone when context is already established (inside the app)</li>
+          <li>Use the wordmark when introducing Smack to someone new</li>
+          <li>Use the full lockup for pitch materials and formal documents</li>
+          <li>White on dark backgrounds, salmon on light backgrounds</li>
+          <li>Scale the mark down to texture — the tentacles can be indistinct at small sizes</li>
+          <li>Use salmon (#e07868) as the single accent color on the period and mark</li>
+        </ul>
+      </div>
+      <div class="rule-card dont">
+        <div class="rule-card-label">Don't</div>
+        <ul class="rule-list">
+          <li>Don't force the lockup where only the mark or wordmark is needed</li>
+          <li>Don't use the wordmark at small sizes — it becomes unreadable below 16px height</li>
+          <li>Don't use Funtastic anywhere except the wordmark</li>
+          <li>Don't put the mark on a salmon background — no contrast</li>
+          <li>Don't mix the mark and wordmark in different colors in the same lockup</li>
+          <li>Don't stretch, rotate, or recolor outside the approved palette</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer style="background:var(--dark);padding:32px 48px;display:flex;align-items:center;justify-content:space-between;">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1215.08 458" height="18">
+    <text font-family="Funtastic-Regular,Funtastic" font-size="390.45" fill="#e07868" transform="translate(0 331.88)"><tspan x="0" y="0">smack</tspan><tspan fill="#e07868" x="1132.7" y="0">.</tspan></text>
+  </svg>
+  <div style="font-size:12px;color:rgba(255,255,255,0.3);">Logo Usage Guide &nbsp;·&nbsp; smack-logo-usage.html</div>
+</footer>
+
+</body>
+</html>
