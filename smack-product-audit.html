@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smack — Product Audit: Workprint Projects &rarr; Smack</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --pink: #e07868;
+      --pink-light: #f5ece9;
+      --navy: #1e3a5f;
+      --navy-mid: #2d5080;
+      --navy-light: #e8edf3;
+      --white: #ffffff;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+
+      --critical: #dc2626;
+      --critical-bg: #fef2f2;
+      --critical-border: #fecaca;
+      --high: #d97706;
+      --high-bg: #fffbeb;
+      --high-border: #fde68a;
+      --medium: #2563eb;
+      --medium-bg: #eff6ff;
+      --medium-border: #bfdbfe;
+      --low: #16a34a;
+      --low-bg: #f0fdf4;
+      --low-border: #bbf7d0;
+
+      --phase1-bg: #fee2e2;
+      --phase1-color: #991b1b;
+      --phase2-bg: #fef3c7;
+      --phase2-color: #92400e;
+      --phase3-bg: #dbeafe;
+      --phase3-color: #1e40af;
+
+      --size-s-bg: #f0fdf4;
+      --size-s-color: #166534;
+      --size-m-bg: #eff6ff;
+      --size-m-color: #1e40af;
+      --size-l-bg: #fef3c7;
+      --size-l-color: #92400e;
+      --size-xl-bg: #fee2e2;
+      --size-xl-color: #991b1b;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f4f5f7;
+      color: var(--gray-800);
+      line-height: 1.6;
+    }
+
+    /* ─── HEADER ─── */
+    .doc-header {
+      background: var(--navy);
+      padding: 56px 64px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .doc-header::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 320px; height: 320px;
+      background: var(--pink);
+      opacity: 0.07;
+      border-radius: 50%;
+    }
+    .doc-header::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: 30%;
+      width: 240px; height: 240px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 50%;
+    }
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(224,120,104,0.15);
+      border: 1px solid rgba(224,120,104,0.3);
+      border-radius: 20px;
+      padding: 6px 14px;
+      margin-bottom: 20px;
+    }
+    .header-badge span {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--pink);
+    }
+    .header-badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--pink);
+    }
+    .doc-header h1 {
+      font-size: 38px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .doc-header h1 span {
+      color: var(--pink);
+    }
+    .doc-header p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.6);
+      max-width: 600px;
+      line-height: 1.65;
+    }
+    .header-stats {
+      display: grid;
+      grid-template-columns: repeat(5, auto);
+      gap: 1px;
+      margin-top: 40px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      overflow: hidden;
+      width: fit-content;
+    }
+    .stat-box {
+      padding: 16px 24px;
+      background: rgba(255,255,255,0.03);
+    }
+    .stat-box:first-child { border-radius: 12px 0 0 12px; }
+    .stat-box:last-child { border-radius: 0 12px 12px 0; }
+    .stat-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 6px;
+    }
+    .stat-value {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.02em;
+    }
+    .stat-value.critical { color: #f87171; }
+    .stat-value.high { color: #fbbf24; }
+    .stat-value.medium { color: #60a5fa; }
+    .stat-value.low { color: #4ade80; }
+
+    /* ─── CONTENT ─── */
+    .content {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 56px 48px;
+    }
+
+    /* ─── TOC ─── */
+    .toc-section {
+      background: var(--white);
+      border-radius: 14px;
+      border: 1px solid var(--gray-200);
+      padding: 32px 36px;
+      margin-bottom: 48px;
+    }
+    .toc-heading {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 20px;
+    }
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .toc-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-100);
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .toc-item:hover { background: var(--navy-light); }
+    .toc-cat-num {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gray-400);
+      width: 20px;
+      flex-shrink: 0;
+    }
+    .toc-cat-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy);
+      flex: 1;
+    }
+    .toc-sev {
+      padding: 3px 8px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .toc-sev.critical { background: var(--critical-bg); color: var(--critical); }
+    .toc-sev.high { background: var(--high-bg); color: var(--high); }
+    .toc-sev.medium { background: var(--medium-bg); color: var(--medium); }
+    .toc-sev.low { background: var(--low-bg); color: var(--low); }
+
+    /* ─── CATEGORY BLOCK ─── */
+    .category-block {
+      margin-bottom: 40px;
+    }
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .cat-number {
+      width: 32px;
+      height: 32px;
+      background: var(--navy);
+      color: var(--white);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .cat-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+      flex: 1;
+    }
+    .sev-badge {
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+    .sev-badge.critical {
+      background: var(--critical-bg);
+      color: var(--critical);
+      border: 1px solid var(--critical-border);
+    }
+    .sev-badge.high {
+      background: var(--high-bg);
+      color: var(--high);
+      border: 1px solid var(--high-border);
+    }
+    .sev-badge.medium {
+      background: var(--medium-bg);
+      color: var(--medium);
+      border: 1px solid var(--medium-border);
+    }
+    .sev-badge.low {
+      background: var(--low-bg);
+      color: var(--low);
+      border: 1px solid var(--low-border);
+    }
+
+    /* ─── AUDIT TABLE ─── */
+    .audit-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--gray-200);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+    .audit-table thead tr {
+      background: var(--navy);
+    }
+    .audit-table thead th {
+      padding: 12px 20px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      white-space: nowrap;
+    }
+    .audit-table thead th:first-child { width: 26%; }
+    .audit-table tbody tr {
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .audit-table tbody tr:last-child { border-bottom: none; }
+    .audit-table tbody tr:hover { background: var(--gray-50); }
+    .audit-table td {
+      padding: 16px 20px;
+      font-size: 13.5px;
+      color: var(--gray-700);
+      vertical-align: top;
+      line-height: 1.6;
+    }
+    .audit-table td strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .audit-table td ul {
+      padding-left: 16px;
+      margin-top: 4px;
+    }
+    .audit-table td li {
+      margin-bottom: 3px;
+      font-size: 13px;
+      color: var(--gray-600);
+    }
+    .audit-table td code {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 12px;
+      background: var(--gray-100);
+      color: var(--navy);
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+
+    /* Phase tag */
+    .phase-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .phase-tag.p1 { background: var(--phase1-bg); color: var(--phase1-color); }
+    .phase-tag.p2 { background: var(--phase2-bg); color: var(--phase2-color); }
+    .phase-tag.p3 { background: var(--phase3-bg); color: var(--phase3-color); }
+
+    /* Size tag */
+    .size-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .size-tag.s { background: var(--size-s-bg); color: var(--size-s-color); }
+    .size-tag.m { background: var(--size-m-bg); color: var(--size-m-color); }
+    .size-tag.l { background: var(--size-l-bg); color: var(--size-l-color); }
+    .size-tag.xl { background: var(--size-xl-bg); color: var(--size-xl-color); }
+
+    /* ─── SECTION DIVIDER ─── */
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 56px 0 40px;
+    }
+    .section-divider-line {
+      flex: 1;
+      height: 1px;
+      background: var(--gray-200);
+    }
+    .section-divider-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      white-space: nowrap;
+    }
+
+    /* ─── SUMMARY SECTION ─── */
+    .summary-section {
+      background: var(--navy);
+      border-radius: 16px;
+      padding: 48px;
+      position: relative;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+    .summary-section::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 300px; height: 300px;
+      background: var(--pink);
+      opacity: 0.06;
+      border-radius: 50%;
+    }
+    .summary-heading {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 8px;
+    }
+    .summary-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      margin-bottom: 40px;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 32px;
+    }
+    @media (max-width: 900px) {
+      .summary-grid { grid-template-columns: 1fr; }
+      .toc-grid { grid-template-columns: 1fr; }
+      .header-stats { grid-template-columns: repeat(2, 1fr); }
+    }
+    .summary-col h3 {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* Severity count cards */
+    .sev-count-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .sev-count-card {
+      padding: 14px 16px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .sev-count-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .sev-count-num {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .sev-count-card.critical .sev-count-label { color: #f87171; }
+    .sev-count-card.critical .sev-count-num { color: #f87171; }
+    .sev-count-card.high .sev-count-label { color: #fbbf24; }
+    .sev-count-card.high .sev-count-num { color: #fbbf24; }
+    .sev-count-card.medium .sev-count-label { color: #60a5fa; }
+    .sev-count-card.medium .sev-count-num { color: #60a5fa; }
+    .sev-count-card.low .sev-count-label { color: #4ade80; }
+    .sev-count-card.low .sev-count-num { color: #4ade80; }
+
+    /* Phase list */
+    .phase-list-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .phase-list-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .phase-list-tag { flex-shrink: 0; margin-top: 1px; }
+    .phase-list-text {
+      font-size: 13px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.5;
+    }
+    .phase-list-text strong {
+      display: block;
+      color: var(--white);
+      font-weight: 600;
+      margin-bottom: 1px;
+    }
+
+    /* Estimate section */
+    .estimate-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .estimate-row:last-child { border-bottom: none; }
+    .estimate-label {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+    }
+    .estimate-label strong {
+      display: block;
+      color: rgba(255,255,255,0.85);
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .estimate-range {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--white);
+      white-space: nowrap;
+    }
+    .estimate-range.pink { color: var(--pink); }
+    .estimate-total-box {
+      margin-top: 16px;
+      padding: 16px;
+      background: rgba(224,120,104,0.12);
+      border: 1px solid rgba(224,120,104,0.25);
+      border-radius: 10px;
+    }
+    .estimate-total-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 6px;
+    }
+    .estimate-total-val {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.02em;
+    }
+    .estimate-total-sub {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      margin-top: 4px;
+    }
+
+    /* ─── FOOTER ─── */
+    .doc-footer {
+      text-align: center;
+      padding: 32px;
+      font-size: 12px;
+      color: var(--gray-400);
+    }
+
+    /* ─── CRITICAL CALLOUT ─── */
+    .critical-callout {
+      background: #fff5f5;
+      border: 1px solid #fecaca;
+      border-left: 4px solid var(--critical);
+      border-radius: 0 8px 8px 0;
+      padding: 14px 18px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      color: #7f1d1d;
+      line-height: 1.55;
+    }
+    .critical-callout strong { color: var(--critical); font-weight: 700; }
+  </style>
+</head>
+<body>
+
+<!-- ─── HEADER ─── -->
+<div class="doc-header">
+  <div class="header-badge">
+    <div class="header-badge-dot"></div>
+    <span>Smack &mdash; Product Audit</span>
+  </div>
+  <h1>Workprint Projects <span>&rarr;</span> Smack<br>Functional Gap Analysis</h1>
+  <p>A complete functional, UX, and infrastructure audit of the existing Workprint Projects app — examining everything that must change before a second studio can use it. Not about branding. About architecture, auth, data isolation, and trust.</p>
+  <div class="header-stats">
+    <div class="stat-box">
+      <div class="stat-label">Categories</div>
+      <div class="stat-value">10</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Critical</div>
+      <div class="stat-value critical">3</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">High</div>
+      <div class="stat-value high">4</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Medium</div>
+      <div class="stat-value medium">2</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">Low</div>
+      <div class="stat-value low">1</div>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- ─── TABLE OF CONTENTS ─── -->
+  <div class="toc-section">
+    <div class="toc-heading">Audit Categories</div>
+    <div class="toc-grid">
+      <a class="toc-item" href="#cat1">
+        <span class="toc-cat-num">01</span>
+        <span class="toc-cat-name">Multi-tenancy</span>
+        <span class="toc-sev critical">Critical</span>
+      </a>
+      <a class="toc-item" href="#cat2">
+        <span class="toc-cat-num">02</span>
+        <span class="toc-cat-name">Authentication</span>
+        <span class="toc-sev critical">Critical</span>
+      </a>
+      <a class="toc-item" href="#cat3">
+        <span class="toc-cat-num">03</span>
+        <span class="toc-cat-name">Billing</span>
+        <span class="toc-sev critical">Critical</span>
+      </a>
+      <a class="toc-item" href="#cat4">
+        <span class="toc-cat-num">04</span>
+        <span class="toc-cat-name">Studio Setup / Onboarding</span>
+        <span class="toc-sev high">High</span>
+      </a>
+      <a class="toc-item" href="#cat5">
+        <span class="toc-cat-num">05</span>
+        <span class="toc-cat-name">Workprint-Specific Integrations</span>
+        <span class="toc-sev high">High</span>
+      </a>
+      <a class="toc-item" href="#cat6">
+        <span class="toc-cat-num">06</span>
+        <span class="toc-cat-name">Email / Notifications</span>
+        <span class="toc-sev high">High</span>
+      </a>
+      <a class="toc-item" href="#cat7">
+        <span class="toc-cat-num">07</span>
+        <span class="toc-cat-name">Contractor Portal</span>
+        <span class="toc-sev high">High</span>
+      </a>
+      <a class="toc-item" href="#cat8">
+        <span class="toc-cat-num">08</span>
+        <span class="toc-cat-name">Client-Facing Content</span>
+        <span class="toc-sev medium">Medium</span>
+      </a>
+      <a class="toc-item" href="#cat9">
+        <span class="toc-cat-num">09</span>
+        <span class="toc-cat-name">Data Export &amp; Privacy</span>
+        <span class="toc-sev medium">Medium</span>
+      </a>
+      <a class="toc-item" href="#cat10">
+        <span class="toc-cat-num">10</span>
+        <span class="toc-cat-name">Help &amp; Support</span>
+        <span class="toc-sev low">Low</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="section-divider">
+    <div class="section-divider-line"></div>
+    <div class="section-divider-label">Critical — Phase 1 Blockers</div>
+    <div class="section-divider-line"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       CATEGORY 1 — MULTI-TENANCY
+  ══════════════════════════════════════════════ -->
+  <div class="category-block" id="cat1">
+    <div class="category-header">
+      <div class="cat-number">01</div>
+      <div class="cat-title">Multi-tenancy</div>
+      <span class="sev-badge critical">Critical</span>
+    </div>
+    <div class="critical-callout">
+      <strong>Hard blocker.</strong> The app currently operates as a single-tenant system where all of Workprint's data lives in one SQLite database with no studio-level isolation. If a second studio signed up today, they would have access to every project, invoice, contractor, and booking Workprint has ever created. This cannot ship.
+    </div>
+    <table class="audit-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Current State</th>
+          <th>What's Needed</th>
+          <th>Phase</th>
+          <th>Complexity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Database architecture</strong>Isolation model</td>
+          <td>
+            Single <code>workprint.db</code> SQLite file. All data belongs to one implicit "studio." No <code>studio_id</code> column on any table. Zero row-level scoping.
+          </td>
+          <td>
+            Per-studio SQLite files (<code>/data/{studio_id}.db</code>) is the recommended path — maintains the existing SQLite stack, provides hard data boundaries, and allows studio-level backup/restore. Alternatively: PostgreSQL with row-level security (RLS) — more operationally complex but supports shared connection pooling.
+          </td>
+          <td><span class="phase-tag p1">Phase 1</span></td>
+          <td><span class="size-tag xl">XL</span></td>
+        </tr>
+        <tr>
+          <td><strong>All API routes</strong>Request scoping</td>
+          <td>
+            Every API route (<code>/api/projects</code>, <code>/api/invoices</code>, <code>/api/crew</code>, etc.) queries the single database with no studio filter. Any authenticated user sees all data.
+          </td>
+          <td>
+            All API routes must derive <code>studio_id</code> from the authenticated session and scope every query to that studio's database or rows. This affects every single route in the app — treat it as a full API audit.
+          </td>
+          <td><span class="phase-tag p1">Phase 1</span></td>
+          <td><span class="size-tag xl">XL</span></td>
+        </tr>
+        <tr>
+          <td><strong>IDs &amp; references</strong>Cross-studio leakage</td>
+          <td>
+            Project IDs, contractor IDs, and invoice IDs are sequential integers (<code>1, 2, 3...</code>). These can be guessed and accessed across studios if routes aren't properly scoped.
+          </td>
+          <td>
+            Migrate to UUIDs (or nanoids) for all public-facing IDs. Even with proper scoping, sequential integers are an unnecessary information disclosure risk. Enforce ownership checks on every resource fetch — <code>WHERE id = ? AND studio_id = ?</code>.
+          </td>
+          <td><span class="phase-tag p1">Phase 1</span></td>
+          <td><span class="size-tag l">L</span></td>
+        </tr>
+        <tr>
+          <td><strong>Studio record</strong>Entity model</td>
+          <td>
+            No <code>studios</code> table exists. The concept of "a studio" doesn't exist in the data model — it's all just Workprint.
+          </td>
+          <td>
+            Create a <code>studios</code> table with: <code>id</code>, <code>name</code>, <code>slug</code>, <code>logo_url</code>, <code>timezone</code>, <code>plan</code>, <code>created_at</code>. Every other entity (users, projects, invoices) must have a <code>studio_id</code> foreign key.
+          </td>
+          <td><span class="phase-tag p1">Phase 1</span></td>
+          <td><span class="size-tag l">L</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       CATEGORY 2 — AUTHENTICATION
+  ══════════════════════════════════════════════ -->
+  <div class="category-block" id="cat2">
+    <div class="category-header">
+      <div class="cat-number">02</div>
+      <div class="cat-title">Authentication</div>
+      <span class="sev-badge critical">Critical</span>
+    </div>
+    <div class="critical-callout">
+      <strong>Hard blocker.</strong> Auth is currently hard-coded to allow only <code>@workprint.la</code> Google Workspace accounts. There is no self-serve signup, no password reset, no email verification, and no way for any external user to create an account.
+    </div>
+    <table class="audit-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Current State</th>
+          <th>What's Needed</th>
+          <th>Phase</th>
+          <th>Complexity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Auth provider</strong>Core identity layer</td>
+          <td>
+            Custom Next.js auth middleware that validates Google OAuth and checks the email domain against a hard-coded <code>@workprint.la</code> allowlist. Anyone without that domain is rejected.
+          </td>
+          <td>
+            Replace entirely with <strong>Clerk.com</strong>. Clerk provides: email/password auth, Google OAuth, magic links, email verification, password reset, session management, and an <code>organizationId</code> concept that maps cleanly to studios. Use Clerk's custom UI appearance API to match Smack's design — never use Clerk's hosted pages.
+          </td>
+          <td><span class="phase-tag p1">Phase 1</span></td>
+          <td><span class="size-tag xl">XL</span></td>
+        </tr>
+        <tr>
+          <td><strong>Middleware</strong>Route protection</td>
+          <td>
+            All protected routes check for the Workprint Google session. Middleware is tightly coupled to the Google Workspace integration.
+          </td>
+          <td>
+            Replace all auth middleware with Clerk's <code>clerkMiddleware()</code>. Route protection becomes declarative. Session contains <code>userId</code> and <code>orgId</code> (studio). Every API handler reads from <code>auth()</code> — no custom session parsing.
+          </td>
+          <td><span class="phase-tag p1">Phase 1</span></td>
+          <td><span class="size-tag l">L</span></td>
+        </tr>
+        <tr>
+          <td><strong>User roles</strong>Permission model</td>
+          <td>
+            Roles (if any) are stored in the SQLite database and checked manually per route. No standardized role hierarchy.
+          </td>
+          <td>
+            Use Clerk's organization roles: <code>admin</code>, <code>producer</code>, <code>viewer</code>. Roles are attached to the Clerk organization membership — no custom role table needed. Enforce role checks via Clerk's <code>has()</code> helper in middleware and API routes.
+          </td>
+          <td><span class="phase-tag p1">Phase 1</span></td>
+          <td><span class="size-tag m">M</span></td>
+        </tr>
+        <tr>
+          <td><strong>Invite system</strong>Team member onboarding</td>
+          <td>
+            No invite system exists. New Workprint employees are added via Google Admin and can immediately sign in. There is no invite link, no invite email, and no pending invite state.
+          </td>
+          <td>
+            Build invite flow: admin generates invite link &rarr; Resend email with link &rarr; recipient clicks &rarr; Clerk signs them up &rarr; they're added to the studio org automatically. Clerk's organization invitations API handles most of this. Store pending invites in the DB for UI display.
+          </td>
+          <td><span class="phase-tag p1">Phase 1</span></td>
+          <td><span class="size-tag l">L</span></td>
+        </tr>
+        <tr>
+          <td><strong>Password reset</strong>Account recovery</td>
+          <td>
+            Does not exist. Google handles passwords. There is no "forgot password" page, no reset email flow, no email verification on signup.
+          </td>
+          <td>
+            Handled automatically by Clerk once the auth migration is complete. Clerk provides hosted flows for these at configurable URLs. Wire them to Smack's custom UI components to avoid breaking the design.
+          </td>
+          <td><span class="phase-tag p1">Phase 1</span></td>
+          <td><span class="size-tag s">S</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       CATEGORY 3 — BILLING
+  ══════════════════════════════════════════════ -->
+  <div class="category-block" id="cat3">
+    <div class="category-header">
+      <div class="cat-number">03</div>
+      <div class="cat-title">Billing</div>
+      <span class="sev-badge critical">Critical</span>
+    </div>
+    <div class="critical-callout">
+      <strong>Hard blocker.</strong> There is no subscription management, no payment collection, no plan limits, and no concept of a paid account. The app currently runs as internal tooling with no revenue infrastructure whatsoever.
+    </div>
+    <table class="audit-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Current State</th>
+          <th>What's Needed</th>
+          <th>Phase</th>
+          <th>Complexity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Payment processing</strong>Stripe integration</td>
+          <td>
+            None. Workprint is the only user of the app. No Stripe account, no payment collection, no subscription concept exists anywhere in the codebase.
+          </td>
+          <td>
+            Integrate <strong>Stripe Billing</strong>. On studio creation: create a Stripe customer. On plan selection: create a Stripe subscription. Store <code>stripe_customer_id</code> and <code>stripe_subscription_id</code> on the studio record. Use Stripe Checkout for the initial payment flow — don't build a custom card form.
+          </td>
+          <td><span class="phase-tag p1">Phase 1</span></td>
+          <td><span class="size-tag xl">XL</span></td>
+        </tr>
+        <tr>
+          <td><strong>Webhooks</strong>Subscription lifecycle</td>
+          <td>
+            No webhook endpoint exists. Stripe subscription states (active, past_due, canceled, trialing) are not tracked.
+          </td>
+          <td>
+            Build a <code>/api/webhooks/stripe</code> endpoint. Handle: <code>checkout.session.completed</code>, <code>invoice.payment_succeeded</code>, <code>invoice.payment_failed</code>, <code>customer.subscription.deleted</code>. Update studio <code>plan_status</code> on each event. Use Stripe's webhook signature verification — never trust unverified webhook payloads.
+          </td>
+          <td><span class="phase-tag p1">Phase 1</span></td>
+          <td><span class="size-tag l">L</span></td>
+        </tr>
+        <tr>
+          <td><strong>Plan limits</strong>Feature gating</td>
+          <td>
+            No plan limits exist. Users can create unlimited projects, invoices, and bookings. No concept of a free tier, paid tier, or usage ceiling.
+          </td>
+          <td>
+            Define plan tiers (e.g., Starter: 3 active projects, 2 users; Pro: unlimited). Enforce limits in API routes before resource creation. Return a <code>402</code> with an upgrade prompt when limits are hit. Limits are stored per-plan in a config file — not hard-coded in every route.
+          </td>
+          <td><span class="phase-tag p1">Phase 1</span></td>
+          <td><span class="size-tag m">M</span></td>
+        </tr>
+        <tr>
+          <td><strong>Grace period</strong>Failed payment handling</td>
+          <td>
+            No grace period logic. No delinquency state, no access restriction, no retry flow.
+          </td>
+          <td>
+            When <code>invoice.payment_failed</code> is received: set studio status to <code>past_due</code>. Show an in-app banner. Give a 7-day grace period before restricting to read-only. Send reminder emails via Resend at day 1, 3, and 7. On day 7, set status to <code>suspended</code> — read-only, no new resource creation.
+          </td>
+          <td><span class="phase-tag p1">Phase 1</span></td>
+          <td><span class="size-tag m">M</span></td>
+        </tr>
+        <tr>
+          <td><strong>Cancellation</strong>Subscription management</td>
+          <td>
+            No cancellation flow, no subscription management page, no way to downgrade or cancel from within the app.
+          </td>
+          <td>
+            Build a Studio Settings &rarr; Billing page: shows current plan, next billing date, payment method, and a "Cancel subscription" option. Cancellation via Stripe API sets to cancel at period end (not immediately). Show data export prompt at cancellation.
+          </td>
+          <td><span class="phase-tag p2">Phase 2</span></td>
+          <td><span class="size-tag m">M</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-divider">
+    <div class="section-divider-line"></div>
+    <div class="section-divider-label">High Priority — Required Before Launch</div>
+    <div class="section-divider-line"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       CATEGORY 4 — STUDIO SETUP
+  ══════════════════════════════════════════════ -->
+  <div class="category-block" id="cat4">
+    <div class="category-header">
+      <div class="cat-number">04</div>
+      <div class="cat-title">Studio Setup &amp; Onboarding</div>
+      <span class="sev-badge high">High</span>
+    </div>
+    <table class="audit-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Current State</th>
+          <th>What's Needed</th>
+          <th>Phase</th>
+          <th>Complexity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Studio creation flow</strong>First-run experience</td>
+          <td>
+            No studio creation flow exists. The app boots directly into Workprint's data — there is no concept of "setting up a new studio."
+          </td>
+          <td>
+            Full onboarding wizard (see onboarding flow doc): studio name &rarr; timezone &rarr; logo &rarr; invite team &rarr; first project. The first time an admin signs up, they must complete this flow before reaching the dashboard. Non-admins joining an existing studio skip the studio setup steps.
+          </td>
+          <td><span class="phase-tag p1">Phase 1</span></td>
+          <td><span class="size-tag l">L</span></td>
+        </tr>
+        <tr>
+          <td><strong>Studio settings panel</strong>Admin controls</td>
+          <td>
+            No studio settings page. There is no place to change the studio name, upload a logo, set a timezone, or manage billing. Workprint's settings are hardcoded or managed outside the app.
+          </td>
+          <td>
+            Build a Settings panel with tabs: General (name, logo, timezone), Team (invite, manage roles, remove members), Billing (plan, payment method, invoices). Only users with the <code>admin</code> role can access Settings. Route: <code>/settings</code>.
+          </td>
+          <td><span class="phase-tag p1">Phase 1</span></td>
+          <td><span class="size-tag l">L</span></td>
+        </tr>
+        <tr>
+          <td><strong>Team member management</strong>Roster UI</td>
+          <td>
+            No team management UI. Workprint staff are managed via Google Admin. There is no in-app list of team members, no way to change roles, and no way to remove someone.
+          </td>
+          <td>
+            Settings &rarr; Team page: shows all studio members with their role, last active date, and a "Remove" action. Shows pending invites with a "Resend" or "Cancel" option. Admins can change any member's role. Role changes update both the Clerk organization membership and the local DB.
+          </td>
+          <td><span class="phase-tag p1">Phase 1</span></td>
+          <td><span class="size-tag m">M</span></td>
+        </tr>
+        <tr>
+          <td><strong>Studio slug / URL</strong>Routing identity</td>
+          <td>
+            All routes are at the root level — <code>projects.workprint.la/projects</code>. There is no studio-specific URL segment.
+          </td>
+          <td>
+            Each studio gets a unique slug set at creation (e.g., <code>rooftop</code> &rarr; <code>app.smack.studio/rooftop/projects</code>). Slug is used in all authenticated routes and in external links (contractor portal, client portal). Studio can rename slug in settings with a redirect from the old one.
+          </td>
+          <td><span class="phase-tag p2">Phase 2</span></td>
+          <td><span class="size-tag m">M</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       CATEGORY 5 — WORKPRINT INTEGRATIONS
+  ══════════════════════════════════════════════ -->
+  <div class="category-block" id="cat5">
+    <div class="category-header">
+      <div class="cat-number">05</div>
+      <div class="cat-title">Workprint-Specific Integrations</div>
+      <span class="sev-badge high">High</span>
+    </div>
+    <table class="audit-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Current State</th>
+          <th>What's Needed</th>
+          <th>Phase</th>
+          <th>Complexity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>LucidLink integration</strong>File storage</td>
+          <td>
+            Hardcoded to Workprint's specific LucidLink filespace. Creates project folders automatically at Workprint's defined path structure (<code>/Workprint/Clients/[client]/[project]</code>). LucidLink API key is stored as a production environment variable.
+          </td>
+          <td>
+            Remove all LucidLink code from the core app. Extract into a studio-specific integration module that can be enabled per-studio via Settings &rarr; Integrations. When enabled for a studio, they configure their own LucidLink API key and base path. All other studios are unaffected.
+          </td>
+          <td><span class="phase-tag p1">Phase 1</span></td>
+          <td><span class="size-tag l">L</span></td>
+        </tr>
+        <tr>
+          <td><strong>Google Admin integration</strong>Contractor provisioning</td>
+          <td>
+            When a contractor is onboarded, the app automatically creates a <code>@workprint.la</code> Google Workspace account for them via the Google Admin SDK. This is entirely Workprint-specific behavior.
+          </td>
+          <td>
+            Remove the Google Admin auto-provisioning entirely. Contractors access Smack via their own email and a contractor portal invite. No external account provisioning should be done by the app on behalf of any studio. Remove all <code>googleapis</code> admin SDK references from the codebase and CI environment.
+          </td>
+          <td><span class="phase-tag p1">Phase 1</span></td>
+          <td><span class="size-tag m">M</span></td>
+        </tr>
+        <tr>
+          <td><strong>Hardcoded org references</strong>Code-level coupling</td>
+          <td>
+            References to "Workprint" exist in: API response copy, email templates, PDF templates, error messages, and comments throughout the codebase. Several environment variables reference workprint-specific infrastructure.
+          </td>
+          <td>
+            Full codebase grep for "workprint" (case-insensitive). Every hardcoded reference must be replaced with a dynamic studio name pulled from the authenticated session's studio record. Create a helper <code>getStudio()</code> function used consistently across server components and API routes.
+          </td>
+          <td><span class="phase-tag p1">Phase 1</span></td>
+          <td><span class="size-tag m">M</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       CATEGORY 6 — EMAIL / NOTIFICATIONS
+  ══════════════════════════════════════════════ -->
+  <div class="category-block" id="cat6">
+    <div class="category-header">
+      <div class="cat-number">06</div>
+      <div class="cat-title">Email &amp; Notifications</div>
+      <span class="sev-badge high">High</span>
+    </div>
+    <table class="audit-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Current State</th>
+          <th>What's Needed</th>
+          <th>Phase</th>
+          <th>Complexity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Sender domain</strong>Email identity</td>
+          <td>
+            All transactional emails send from <code>noreply@workprint.la</code> via Resend. The Resend sender domain is verified as <code>workprint.la</code>. No other domain is configured.
+          </td>
+          <td>
+            Verify <code>smack.studio</code> as a Resend sender domain. Change the default system sender to <code>noreply@smack.studio</code>. Allow studios to configure a custom "reply-to" address (e.g., their own email) in Settings &rarr; General. Contractor and client-facing emails should reply-to the studio's address, not Smack's.
+          </td>
+          <td><span class="phase-tag p1">Phase 1</span></td>
+          <td><span class="size-tag m">M</span></td>
+        </tr>
+        <tr>
+          <td><strong>Email templates</strong>Copy &amp; branding</td>
+          <td>
+            All email templates reference "Workprint" by name. They include the Workprint logo, Workprint color scheme, and Workprint-specific instructions (e.g., "check your LucidLink for project files").
+          </td>
+          <td>
+            Rebuild all email templates to be studio-neutral. Header should show the sending studio's name and logo (pulled from their studio record). Footer: "Sent via Smack" — not "Workprint." Remove all Workprint-specific copy from template bodies. Use React Email or equivalent for maintainable templates.
+          </td>
+          <td><span class="phase-tag p1">Phase 1</span></td>
+          <td><span class="size-tag l">L</span></td>
+        </tr>
+        <tr>
+          <td><strong>Notification types</strong>Coverage</td>
+          <td>
+            Limited to a few manual triggers: booking confirmation, invoice sent. No notifications for: project status changes, team invites, payment received, booking reminders.
+          </td>
+          <td>
+            Extend notification coverage for launch: team invite, invoice viewed, invoice paid, booking confirmation, project created, password reset. Each notification type should be individually toggle-able per user in their profile settings. Don't send emails users didn't ask for.
+          </td>
+          <td><span class="phase-tag p2">Phase 2</span></td>
+          <td><span class="size-tag l">L</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       CATEGORY 7 — CONTRACTOR PORTAL
+  ══════════════════════════════════════════════ -->
+  <div class="category-block" id="cat7">
+    <div class="category-header">
+      <div class="cat-number">07</div>
+      <div class="cat-title">Contractor Portal</div>
+      <span class="sev-badge high">High</span>
+    </div>
+    <table class="audit-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Current State</th>
+          <th>What's Needed</th>
+          <th>Phase</th>
+          <th>Complexity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Portal domain / URL</strong>Access point</td>
+          <td>
+            The contractor portal lives at <code>portal.workprint.la</code>. This is a separate Next.js app (or subdomain route) hard-coded to the Workprint domain and identity.
+          </td>
+          <td>
+            Migrate to <code>portal.smack.studio</code>. Portal must be studio-aware — when a contractor clicks their invite link, the portal context is scoped to the inviting studio (logo, name, color if customized). The URL can remain a Smack subdomain as long as the studio is clearly identified on-screen.
+          </td>
+          <td><span class="phase-tag p1">Phase 1</span></td>
+          <td><span class="size-tag m">M</span></td>
+        </tr>
+        <tr>
+          <td><strong>Onboarding steps</strong>Contractor setup flow</td>
+          <td>
+            Contractor onboarding includes a LucidLink invite step ("Accept your LucidLink invite from Workprint") and references Workprint's specific Google Drive folder structure. These steps are hard-coded.
+          </td>
+          <td>
+            Remove LucidLink step from default contractor onboarding. The step should only appear if the inviting studio has LucidLink enabled in their integrations. Replace "Workprint" references with the dynamic studio name. Remove all Google Drive references — these are Workprint-specific workflows.
+          </td>
+          <td><span class="phase-tag p1">Phase 1</span></td>
+          <td><span class="size-tag m">M</span></td>
+        </tr>
+        <tr>
+          <td><strong>Auth for contractors</strong>Portal access model</td>
+          <td>
+            Contractors receive a <code>@workprint.la</code> Google account and sign in via Google OAuth. No other auth method exists for contractor portal access.
+          </td>
+          <td>
+            Contractors must be able to access the portal with their own personal or work email. Auth via: email/password or Google OAuth on their own account. Clerk handles this. A contractor's portal access is scoped to the specific bookings/invoices shared with them by any studio — not a full login to the studio app.
+          </td>
+          <td><span class="phase-tag p1">Phase 1</span></td>
+          <td><span class="size-tag l">L</span></td>
+        </tr>
+        <tr>
+          <td><strong>Contractor data scope</strong>What contractors see</td>
+          <td>
+            Currently unknown whether contractors can see data from other contractors or other projects. Given the single-tenant architecture, this is likely an open issue.
+          </td>
+          <td>
+            A contractor in the portal can only see their own bookings, their own invoices, and the project details explicitly shared with them. They cannot browse the studio's project list, crew roster, or financial data. Enforce this via Clerk role <code>contractor</code> and explicit resource-level permission checks.
+          </td>
+          <td><span class="phase-tag p1">Phase 1</span></td>
+          <td><span class="size-tag m">M</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-divider">
+    <div class="section-divider-line"></div>
+    <div class="section-divider-label">Medium Priority — Required Before Wide Availability</div>
+    <div class="section-divider-line"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       CATEGORY 8 — CLIENT-FACING CONTENT
+  ══════════════════════════════════════════════ -->
+  <div class="category-block" id="cat8">
+    <div class="category-header">
+      <div class="cat-number">08</div>
+      <div class="cat-title">Client-Facing Content</div>
+      <span class="sev-badge medium">Medium</span>
+    </div>
+    <table class="audit-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Current State</th>
+          <th>What's Needed</th>
+          <th>Phase</th>
+          <th>Complexity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Invoice PDFs</strong>Client-facing documents</td>
+          <td>
+            Invoice PDFs are generated server-side and include the Workprint name, Workprint logo, and Workprint contact information in the header. A client receiving an invoice from another studio would see Workprint branding, not their vendor's.
+          </td>
+          <td>
+            Invoice PDF template must pull studio name, logo, address, and contact details from the studio record. Client only sees their vendor's branding. No mention of Smack on client-facing PDFs — the platform should be invisible to end clients. PDF footer can include "Powered by Smack" in tiny gray text as an optional opt-in.
+          </td>
+          <td><span class="phase-tag p1">Phase 1</span></td>
+          <td><span class="size-tag m">M</span></td>
+        </tr>
+        <tr>
+          <td><strong>Review app / approval links</strong>External sharing</td>
+          <td>
+            Review links reference <code>workprint.la</code> in their URLs and page copy. Clients clicking a review link would see Workprint-branded pages regardless of which studio sent the link.
+          </td>
+          <td>
+            Review/approval pages must show the sending studio's name and logo. URL can remain on Smack's domain (<code>review.smack.studio/[token]</code>) but the page identity should reflect the studio. No hardcoded Workprint references on any publicly accessible URL.
+          </td>
+          <td><span class="phase-tag p2">Phase 2</span></td>
+          <td><span class="size-tag m">M</span></td>
+        </tr>
+        <tr>
+          <td><strong>Client portal</strong>External access</td>
+          <td>
+            If a client portal exists, it is at a Workprint domain and references Workprint throughout. Its multi-studio readiness is unknown.
+          </td>
+          <td>
+            Audit client portal for Workprint references. Apply same studio-scoping pattern as contractor portal — client can only see their own projects and shared materials. Client portal URL should be studio-slug-based or token-based, not Workprint-branded.
+          </td>
+          <td><span class="phase-tag p2">Phase 2</span></td>
+          <td><span class="size-tag l">L</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       CATEGORY 9 — DATA EXPORT & PRIVACY
+  ══════════════════════════════════════════════ -->
+  <div class="category-block" id="cat9">
+    <div class="category-header">
+      <div class="cat-number">09</div>
+      <div class="cat-title">Data Export &amp; Privacy</div>
+      <span class="sev-badge medium">Medium</span>
+    </div>
+    <table class="audit-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Current State</th>
+          <th>What's Needed</th>
+          <th>Phase</th>
+          <th>Complexity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Data export</strong>Studio data ownership</td>
+          <td>
+            No data export functionality exists. Studios using Smack must trust that their data is accessible via the UI indefinitely. If the studio cancels or if Smack shuts down, there is no way to extract data.
+          </td>
+          <td>
+            Settings &rarr; Data Export: generate a ZIP containing CSVs for all projects, bookings, invoices, and crew members. Export should be available at any time, not just on cancellation. Add an export trigger automatically at cancellation with a 30-day data retention window after account closure.
+          </td>
+          <td><span class="phase-tag p2">Phase 2</span></td>
+          <td><span class="size-tag m">M</span></td>
+        </tr>
+        <tr>
+          <td><strong>Account deletion</strong>Right to erasure</td>
+          <td>
+            No account deletion flow. No studio deletion. No way for a user to request erasure of their personal data. This is a GDPR requirement for any studio with EU clients or crew.
+          </td>
+          <td>
+            Build: user-level account deletion (removes personal data, anonymizes authored records), studio-level deletion (requires admin, triggers data export prompt, 30-day deferred deletion). Implement a <code>deleted_at</code> soft-delete pattern. Hard delete after 30 days via a scheduled job.
+          </td>
+          <td><span class="phase-tag p2">Phase 2</span></td>
+          <td><span class="size-tag l">L</span></td>
+        </tr>
+        <tr>
+          <td><strong>Privacy policy &amp; terms</strong>Legal pages</td>
+          <td>
+            No privacy policy page, no terms of service. These pages don't exist at any URL in the current app.
+          </td>
+          <td>
+            Write and publish Privacy Policy and Terms of Service at <code>smack.studio/privacy</code> and <code>smack.studio/terms</code>. Link from the signup flow, footer, and email templates. Use a standard SaaS privacy policy template reviewed by a lawyer before any paying customers sign up.
+          </td>
+          <td><span class="phase-tag p2">Phase 2</span></td>
+          <td><span class="size-tag s">S</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-divider">
+    <div class="section-divider-line"></div>
+    <div class="section-divider-label">Low Priority — Phase 3 / Post-Launch Polish</div>
+    <div class="section-divider-line"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       CATEGORY 10 — HELP & SUPPORT
+  ══════════════════════════════════════════════ -->
+  <div class="category-block" id="cat10">
+    <div class="category-header">
+      <div class="cat-number">10</div>
+      <div class="cat-title">Help &amp; Support</div>
+      <span class="sev-badge low">Low</span>
+    </div>
+    <table class="audit-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Current State</th>
+          <th>What's Needed</th>
+          <th>Phase</th>
+          <th>Complexity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Help documentation</strong>Self-serve answers</td>
+          <td>
+            No help documentation exists. Users with questions about how the app works have no reference. Internal Workprint users could ask each other — external users cannot.
+          </td>
+          <td>
+            At minimum: a simple static HTML help page at <code>smack.studio/help</code> covering the 10 most common questions (how to create a project, how to send an invoice, how to invite a contractor, etc.). Can evolve to a Notion-embedded docs site or a proper help center (Intercom, Crisp) over time.
+          </td>
+          <td><span class="phase-tag p3">Phase 3</span></td>
+          <td><span class="size-tag s">S</span></td>
+        </tr>
+        <tr>
+          <td><strong>In-app support</strong>Contact channel</td>
+          <td>
+            No support widget, no contact email displayed in-app, no error reporting. If something breaks, users have no path to get help other than finding the company somehow.
+          </td>
+          <td>
+            Minimum viable: a "Get help" link in the app sidebar that opens a mailto to <code>support@smack.studio</code>. Better: Crisp or Intercom chat widget installed on all authenticated pages. Don't gate support behind a separate portal — make it one click from anywhere in the app.
+          </td>
+          <td><span class="phase-tag p3">Phase 3</span></td>
+          <td><span class="size-tag s">S</span></td>
+        </tr>
+        <tr>
+          <td><strong>Error pages</strong>404 / 500 handling</td>
+          <td>
+            Next.js default error pages are shown. The 404 page shows generic Next.js styling with no navigation, no branding, and no helpful context. 500 errors show a blank screen.
+          </td>
+          <td>
+            Custom <code>not-found.tsx</code> and <code>error.tsx</code> pages in the Next.js app directory. 404: show the Smack logo, a friendly message, a "Go home" button, and a "Contact support" link. 500: same, plus an automatic error report sent to Sentry (or equivalent). These pages take 2 hours to build — there's no reason to ship without them.
+          </td>
+          <td><span class="phase-tag p3">Phase 3</span></td>
+          <td><span class="size-tag s">S</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       SUMMARY SECTION
+  ══════════════════════════════════════════════ -->
+  <div class="summary-section">
+    <div class="summary-heading">Audit Summary</div>
+    <div class="summary-title">The full picture</div>
+    <div class="summary-grid">
+
+      <!-- Totals -->
+      <div class="summary-col">
+        <h3>Items by Severity</h3>
+        <div class="sev-count-grid">
+          <div class="sev-count-card critical">
+            <div class="sev-count-label">Critical</div>
+            <div class="sev-count-num">3</div>
+          </div>
+          <div class="sev-count-card high">
+            <div class="sev-count-label">High</div>
+            <div class="sev-count-num">4</div>
+          </div>
+          <div class="sev-count-card medium">
+            <div class="sev-count-label">Medium</div>
+            <div class="sev-count-num">2</div>
+          </div>
+          <div class="sev-count-card low">
+            <div class="sev-count-label">Low</div>
+            <div class="sev-count-num">1</div>
+          </div>
+        </div>
+        <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:16px;font-size:13px;color:rgba(255,255,255,0.6);line-height:1.6;">
+          <strong style="color:white;display:block;margin-bottom:6px;">Bottom line</strong>
+          The 3 Critical items (multi-tenancy, auth, billing) are complete architectural rebuilds. They cannot be shipped around or deferred. Everything else is important but can be phased. Don't start marketing until all 3 Critical items are done.
+        </div>
+      </div>
+
+      <!-- Phase 1 list -->
+      <div class="summary-col">
+        <h3>Phase 1 — Must Ship</h3>
+        <div class="phase-list-item">
+          <span class="phase-list-tag"><span class="phase-tag p1">Phase 1</span></span>
+          <div class="phase-list-text"><strong>Multi-tenant database architecture</strong>Per-studio SQLite files, UUIDs for all IDs, <code>studios</code> table, full API route scoping.</div>
+        </div>
+        <div class="phase-list-item">
+          <span class="phase-list-tag"><span class="phase-tag p1">Phase 1</span></span>
+          <div class="phase-list-text"><strong>Clerk auth integration</strong>Replace all custom auth. Email/password + Google OAuth. Invite system. Role management.</div>
+        </div>
+        <div class="phase-list-item">
+          <span class="phase-list-tag"><span class="phase-tag p1">Phase 1</span></span>
+          <div class="phase-list-text"><strong>Stripe billing</strong>Subscriptions, webhooks, plan limits, grace period logic.</div>
+        </div>
+        <div class="phase-list-item">
+          <span class="phase-list-tag"><span class="phase-tag p1">Phase 1</span></span>
+          <div class="phase-list-text"><strong>Studio onboarding &amp; settings</strong>Creation wizard, settings panel, team management.</div>
+        </div>
+        <div class="phase-list-item">
+          <span class="phase-list-tag"><span class="phase-tag p1">Phase 1</span></span>
+          <div class="phase-list-text"><strong>Remove Workprint integrations</strong>LucidLink extracted, Google Admin removed, all hardcoded refs replaced.</div>
+        </div>
+        <div class="phase-list-item">
+          <span class="phase-list-tag"><span class="phase-tag p1">Phase 1</span></span>
+          <div class="phase-list-text"><strong>Email + invoice PDFs</strong>New sender domain, studio-branded templates, studio-branded PDFs.</div>
+        </div>
+        <div class="phase-list-item">
+          <span class="phase-list-tag"><span class="phase-tag p1">Phase 1</span></span>
+          <div class="phase-list-text"><strong>Contractor portal rebuild</strong>New domain, portal scoped to studio, LucidLink step made optional.</div>
+        </div>
+      </div>
+
+      <!-- Estimate -->
+      <div class="summary-col">
+        <h3>Build Estimate</h3>
+        <div class="estimate-row">
+          <div class="estimate-label"><strong>Phase 1</strong>Foundation — first paying customer</div>
+          <div class="estimate-range pink">10 – 16 wks</div>
+        </div>
+        <div class="estimate-row">
+          <div class="estimate-label"><strong>Phase 2</strong>Studio polish, client portals, data export</div>
+          <div class="estimate-range">6 – 10 wks</div>
+        </div>
+        <div class="estimate-row">
+          <div class="estimate-label"><strong>Phase 3</strong>Help docs, error pages, support tooling</div>
+          <div class="estimate-range">2 – 4 wks</div>
+        </div>
+        <div class="estimate-total-box">
+          <div class="estimate-total-label">Total Estimate</div>
+          <div class="estimate-total-val">18 – 30 weeks</div>
+          <div class="estimate-total-sub">For a 1–2 person engineering team. Phase 1 is the only blocker to revenue.</div>
+        </div>
+        <div style="margin-top:16px;font-size:12px;color:rgba(255,255,255,0.4);line-height:1.6;">
+          Items that can wait until Phase 3: custom error pages, help documentation, in-app support chat, studio URL slugs, and notification preference settings. None of these affect the ability to collect revenue from the first studio.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="doc-footer">
+  Smack &mdash; Product Audit: Workprint Projects &rarr; Smack &bull; Internal Use Only &bull; April 2026
+</div>
+
+</body>
+</html>

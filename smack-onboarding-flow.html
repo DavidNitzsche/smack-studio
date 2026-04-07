@@ -1,0 +1,1795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smack — Onboarding Flow</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --pink: #e07868;
+      --pink-light: #f5ece9;
+      --pink-mid: #f0d0ca;
+      --navy: #1e3a5f;
+      --navy-mid: #2d5080;
+      --navy-light: #e8edf3;
+      --white: #ffffff;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --green: #16a34a;
+      --green-light: #dcfce7;
+      --amber: #d97706;
+      --amber-light: #fef3c7;
+      --red: #dc2626;
+      --red-light: #fee2e2;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f7f5f3;
+      color: var(--gray-800);
+      line-height: 1.6;
+    }
+
+    /* ─── HEADER ─── */
+    .doc-header {
+      background: var(--navy);
+      padding: 56px 64px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .doc-header::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 300px; height: 300px;
+      background: var(--pink);
+      opacity: 0.08;
+      border-radius: 50%;
+    }
+    .doc-header::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: 40%;
+      width: 200px; height: 200px;
+      background: var(--pink);
+      opacity: 0.05;
+      border-radius: 50%;
+    }
+    .header-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 16px;
+    }
+    .doc-header h1 {
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .doc-header p {
+      font-size: 17px;
+      color: rgba(255,255,255,0.65);
+      max-width: 560px;
+      font-weight: 400;
+      line-height: 1.6;
+    }
+    .header-meta {
+      display: flex;
+      gap: 32px;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .meta-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+    .meta-value {
+      font-size: 15px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+    }
+
+    /* ─── FUNNEL BAR ─── */
+    .funnel-overview {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 32px 64px;
+    }
+    .funnel-overview h2 {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 20px;
+    }
+    .funnel-steps {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .funnel-step {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-600);
+      white-space: nowrap;
+    }
+    .funnel-step .step-num {
+      width: 20px;
+      height: 20px;
+      background: var(--pink);
+      color: var(--white);
+      border-radius: 50%;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .funnel-arrow {
+      font-size: 16px;
+      color: var(--gray-300);
+      margin: 0 2px;
+      flex-shrink: 0;
+    }
+
+    /* ─── MAIN CONTENT ─── */
+    .content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 64px 48px;
+    }
+
+    /* ─── STEP CARD ─── */
+    .step-card {
+      background: var(--white);
+      border-radius: 16px;
+      border: 1px solid var(--gray-200);
+      margin-bottom: 48px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .step-header {
+      padding: 28px 36px 24px;
+      border-bottom: 1px solid var(--gray-100);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .step-left {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+    }
+    .step-number {
+      width: 48px;
+      height: 48px;
+      background: var(--pink);
+      color: var(--white);
+      border-radius: 12px;
+      font-size: 22px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-title-block h2 {
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+    .step-subtitle {
+      font-size: 14px;
+      color: var(--gray-500);
+      font-weight: 400;
+    }
+    .step-badges {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      flex-shrink: 0;
+    }
+    .badge {
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .badge-time {
+      background: var(--navy-light);
+      color: var(--navy);
+    }
+    .badge-low { background: var(--green-light); color: var(--green); }
+    .badge-medium { background: var(--amber-light); color: var(--amber); }
+    .badge-high { background: var(--red-light); color: var(--red); }
+    .badge-optional {
+      background: var(--gray-100);
+      color: var(--gray-500);
+    }
+
+    .step-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    @media (max-width: 800px) {
+      .step-body { grid-template-columns: 1fr; }
+    }
+
+    .step-mockup {
+      padding: 32px 36px;
+      background: var(--gray-50);
+      border-right: 1px solid var(--gray-100);
+    }
+    .mockup-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 16px;
+    }
+
+    .step-analysis {
+      padding: 32px 36px;
+    }
+    .analysis-section {
+      margin-bottom: 24px;
+    }
+    .analysis-section:last-child { margin-bottom: 0; }
+    .analysis-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 8px;
+    }
+    .analysis-text {
+      font-size: 14px;
+      color: var(--gray-700);
+      line-height: 1.65;
+    }
+    .analysis-text strong {
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    /* ─── UI MOCKUPS ─── */
+
+    /* Shared mockup shell */
+    .ui-shell {
+      background: var(--white);
+      border-radius: 10px;
+      border: 1px solid var(--gray-200);
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    .ui-topbar {
+      height: 36px;
+      background: var(--gray-100);
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 6px;
+    }
+    .ui-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+    }
+    .ui-dot-r { background: #ff5f57; }
+    .ui-dot-y { background: #febc2e; }
+    .ui-dot-g { background: #28c840; }
+    .ui-body {
+      padding: 28px 28px 24px;
+    }
+
+    /* Smack wordmark for mockups */
+    .smack-logo {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--pink);
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    /* Form elements */
+    .ui-form-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray-600);
+      margin-bottom: 6px;
+      display: block;
+    }
+    .ui-input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: 'Inter', sans-serif;
+      color: var(--gray-700);
+      background: var(--white);
+      margin-bottom: 14px;
+      outline: none;
+    }
+    .ui-input.prefilled {
+      background: var(--gray-50);
+      color: var(--gray-500);
+      border-color: var(--gray-200);
+    }
+    .ui-input.focused {
+      border-color: var(--pink);
+      box-shadow: 0 0 0 3px rgba(224,120,104,0.12);
+    }
+    .ui-input-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .ui-btn-primary {
+      width: 100%;
+      padding: 12px;
+      background: var(--pink);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      text-align: center;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .ui-btn-secondary {
+      width: 100%;
+      padding: 11px;
+      background: var(--white);
+      color: var(--gray-600);
+      border: 1.5px solid var(--gray-200);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      text-align: center;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .ui-btn-ghost {
+      width: 100%;
+      padding: 10px;
+      background: none;
+      color: var(--gray-400);
+      border: none;
+      font-size: 13px;
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      text-align: center;
+      display: block;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .ui-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 12px 0;
+    }
+    .ui-divider-line {
+      flex: 1;
+      height: 1px;
+      background: var(--gray-200);
+    }
+    .ui-divider-text {
+      font-size: 12px;
+      color: var(--gray-400);
+      font-weight: 500;
+    }
+    .ui-google-btn {
+      width: 100%;
+      padding: 10px 12px;
+      background: var(--white);
+      border: 1.5px solid var(--gray-200);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-700);
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .google-icon {
+      width: 16px;
+      height: 16px;
+      display: inline-block;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z' fill='%234285F4'/%3E%3Cpath d='M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z' fill='%2334A853'/%3E%3Cpath d='M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z' fill='%23FBBC05'/%3E%3Cpath d='M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z' fill='%23EA4335'/%3E%3C/svg%3E");
+      background-size: cover;
+      flex-shrink: 0;
+    }
+
+    /* Invite landing specific */
+    .invite-card-inner {
+      text-align: center;
+      padding: 8px 0 4px;
+    }
+    .invite-studio-logo {
+      width: 52px;
+      height: 52px;
+      background: var(--navy);
+      border-radius: 12px;
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--white);
+    }
+    .invite-headline {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .invite-sub {
+      font-size: 13px;
+      color: var(--gray-500);
+      margin-bottom: 6px;
+    }
+    .invite-role-pill {
+      display: inline-block;
+      padding: 4px 10px;
+      background: var(--pink-light);
+      color: var(--pink);
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 22px;
+    }
+    .invite-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--gray-100);
+      margin-bottom: 18px;
+    }
+    .invite-sender {
+      font-size: 12px;
+      color: var(--gray-400);
+      margin-top: 12px;
+    }
+    .invite-sender strong { color: var(--gray-600); }
+
+    /* Progress bar for onboarding steps */
+    .onboarding-progress {
+      margin-bottom: 20px;
+    }
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .progress-label span {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gray-400);
+    }
+    .progress-bar-track {
+      height: 4px;
+      background: var(--gray-100);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--pink);
+      border-radius: 2px;
+      transition: width 0.3s;
+    }
+
+    /* Upload zone */
+    .upload-zone {
+      border: 2px dashed var(--gray-200);
+      border-radius: 8px;
+      padding: 16px 12px;
+      text-align: center;
+      margin-bottom: 14px;
+      cursor: pointer;
+    }
+    .upload-zone-icon {
+      font-size: 20px;
+      margin-bottom: 4px;
+      display: block;
+    }
+    .upload-zone-text {
+      font-size: 12px;
+      color: var(--gray-400);
+      font-weight: 500;
+    }
+    .upload-zone-subtext {
+      font-size: 11px;
+      color: var(--gray-300);
+    }
+
+    /* Email tag inputs */
+    .email-tags-wrapper {
+      border: 1.5px solid var(--gray-200);
+      border-radius: 8px;
+      padding: 8px;
+      margin-bottom: 10px;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .email-tag {
+      background: var(--pink-light);
+      color: var(--pink);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .email-tags-cursor {
+      font-size: 13px;
+      color: var(--gray-400);
+    }
+
+    /* Role select */
+    .ui-select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: 'Inter', sans-serif;
+      color: var(--gray-600);
+      background: var(--white);
+      margin-bottom: 14px;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239ca3af' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 32px;
+      outline: none;
+    }
+
+    /* Booking form */
+    .crew-member-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+    .crew-avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .crew-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-700);
+      flex: 1;
+    }
+    .crew-role-pill {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      background: var(--navy-light);
+      color: var(--navy);
+      font-weight: 500;
+    }
+    .crew-dates {
+      font-size: 11px;
+      color: var(--gray-400);
+    }
+
+    /* Dashboard */
+    .dashboard-sidebar {
+      width: 160px;
+      background: var(--navy);
+      min-height: 100%;
+      padding: 16px 12px;
+      flex-shrink: 0;
+    }
+    .dash-logo {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+      display: block;
+    }
+    .dash-nav-item {
+      padding: 7px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 2px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .dash-nav-item.active {
+      background: rgba(255,255,255,0.1);
+      color: var(--white);
+    }
+    .dash-nav-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      opacity: 0.5;
+      flex-shrink: 0;
+    }
+    .dash-nav-item.active .dash-nav-dot { opacity: 1; }
+
+    .dashboard-main {
+      flex: 1;
+      padding: 16px;
+      background: var(--gray-50);
+      overflow: hidden;
+    }
+    .dash-shell {
+      display: flex;
+      height: 320px;
+    }
+    .dash-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .dash-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .dash-btn-new {
+      padding: 6px 12px;
+      background: var(--pink);
+      color: var(--white);
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .project-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 8px;
+    }
+    .project-card-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .project-card-client {
+      font-size: 11px;
+      color: var(--gray-400);
+      margin-bottom: 8px;
+    }
+    .project-card-bar-track {
+      height: 3px;
+      background: var(--gray-100);
+      border-radius: 2px;
+      margin-bottom: 6px;
+    }
+    .project-card-bar-fill {
+      height: 100%;
+      background: var(--pink);
+      border-radius: 2px;
+      width: 15%;
+    }
+    .project-card-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: var(--gray-400);
+    }
+    .project-phase-pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 10px;
+      font-weight: 600;
+      background: var(--pink-light);
+      color: var(--pink);
+    }
+
+    /* Getting started checklist */
+    .checklist-widget {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      width: 200px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      padding: 12px;
+    }
+    .checklist-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 10px;
+      letter-spacing: 0.02em;
+    }
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 11px;
+      color: var(--gray-600);
+    }
+    .checklist-item:last-child { margin-bottom: 0; }
+    .check-box {
+      width: 14px;
+      height: 14px;
+      border: 1.5px solid var(--gray-300);
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+    .check-box.done {
+      background: var(--pink);
+      border-color: var(--pink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .check-box.done::after {
+      content: '✓';
+      font-size: 8px;
+      color: white;
+      font-weight: 800;
+    }
+
+    .dash-main-relative {
+      position: relative;
+      flex: 1;
+    }
+
+    /* ─── METRICS SECTION ─── */
+    .metrics-section {
+      background: var(--navy);
+      border-radius: 16px;
+      padding: 48px;
+      margin-top: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .metrics-section::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 200px; height: 200px;
+      background: var(--pink);
+      opacity: 0.06;
+      border-radius: 50%;
+    }
+    .metrics-heading {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 8px;
+    }
+    .metrics-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      margin-bottom: 40px;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 32px;
+    }
+    @media (max-width: 800px) {
+      .metrics-grid { grid-template-columns: 1fr; }
+    }
+    .metrics-col h3 {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* Funnel table */
+    .funnel-table {
+      width: 100%;
+    }
+    .funnel-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .funnel-row-step {
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+      width: 88px;
+      flex-shrink: 0;
+    }
+    .funnel-row-bar-track {
+      flex: 1;
+      height: 6px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .funnel-row-bar {
+      height: 100%;
+      background: var(--pink);
+      border-radius: 3px;
+      opacity: 0.9;
+    }
+    .funnel-row-pct {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--white);
+      width: 36px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    /* Killer list */
+    .killer-item {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 18px;
+      align-items: flex-start;
+    }
+    .killer-num {
+      width: 22px;
+      height: 22px;
+      background: var(--pink);
+      color: var(--white);
+      border-radius: 50%;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .killer-text {
+      font-size: 14px;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.5;
+    }
+    .killer-text strong {
+      color: var(--white);
+      display: block;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    /* Target box */
+    .target-box {
+      background: rgba(224,120,104,0.12);
+      border: 1px solid rgba(224,120,104,0.25);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .target-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 8px;
+    }
+    .target-value {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+    .target-sub {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+    }
+    .target-breakdown {
+      margin-top: 16px;
+    }
+    .target-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-size: 12px;
+    }
+    .target-row:last-child { border-bottom: none; }
+    .target-row-label { color: rgba(255,255,255,0.5); }
+    .target-row-val { color: rgba(255,255,255,0.85); font-weight: 600; }
+
+    /* Footer */
+    .doc-footer {
+      text-align: center;
+      padding: 32px;
+      color: var(--gray-400);
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── DOCUMENT HEADER ─── -->
+<div class="doc-header">
+  <div class="header-label">Smack &mdash; Product Design</div>
+  <h1>Onboarding Flow<br>Invite &rarr; First Project</h1>
+  <p>A step-by-step UX flow showing the critical path from invite acceptance to first real value. Every step is a conversion event — treat it that way.</p>
+  <div class="header-meta">
+    <div class="meta-item">
+      <span class="meta-label">Total Steps</span>
+      <span class="meta-value">7</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Time-to-Value Target</span>
+      <span class="meta-value">&lt; 5 minutes</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Target Activation Rate</span>
+      <span class="meta-value">&ge; 60%</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Auth Provider</span>
+      <span class="meta-value">Clerk</span>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FUNNEL OVERVIEW ─── -->
+<div class="funnel-overview">
+  <h2>Flow at a Glance</h2>
+  <div class="funnel-steps">
+    <div class="funnel-step"><span class="step-num">1</span> Accept Invite</div>
+    <div class="funnel-arrow">›</div>
+    <div class="funnel-step"><span class="step-num">2</span> Create Account</div>
+    <div class="funnel-arrow">›</div>
+    <div class="funnel-step"><span class="step-num">3</span> Studio Profile</div>
+    <div class="funnel-arrow">›</div>
+    <div class="funnel-step"><span class="step-num">4</span> Invite Team</div>
+    <div class="funnel-arrow">›</div>
+    <div class="funnel-step"><span class="step-num">5</span> First Project</div>
+    <div class="funnel-arrow">›</div>
+    <div class="funnel-step"><span class="step-num">6</span> First Booking</div>
+    <div class="funnel-arrow">›</div>
+    <div class="funnel-step"><span class="step-num">7</span> Dashboard</div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- ══════════════════════════════════════════════
+       STEP 1 — ACCEPT INVITE
+  ══════════════════════════════════════════════ -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-left">
+        <div class="step-number">1</div>
+        <div class="step-title-block">
+          <h2>Accept Invite &mdash; Landing</h2>
+          <div class="step-subtitle">The user arrives from an email link. They've already said yes — don't waste their momentum.</div>
+        </div>
+      </div>
+      <div class="step-badges">
+        <span class="badge badge-time">~10 seconds</span>
+        <span class="badge badge-low">Drop-off: Low</span>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="step-mockup">
+        <div class="mockup-label">Screen Mockup</div>
+        <div class="ui-shell">
+          <div class="ui-topbar">
+            <div class="ui-dot ui-dot-r"></div>
+            <div class="ui-dot ui-dot-y"></div>
+            <div class="ui-dot ui-dot-g"></div>
+          </div>
+          <div class="ui-body">
+            <span class="smack-logo">smack.</span>
+            <div class="invite-card-inner">
+              <div class="invite-studio-logo">RC</div>
+              <div class="invite-headline">You've been invited to smack.</div>
+              <div class="invite-sub" style="margin-top:6px;font-size:14px;color:#374151;font-weight:600;">Rooftop Creative Studio</div>
+              <div class="invite-sub" style="margin-bottom:8px;">invited by Maya Chen</div>
+              <div class="invite-role-pill">Producer</div>
+              <div class="invite-divider"></div>
+              <div class="ui-btn-primary">Accept and set up now</div>
+              <div class="ui-btn-secondary" style="margin-bottom:0">Accept and set up later</div>
+              <div class="invite-sender">Invited by <strong>maya@rooftopcreative.com</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="step-analysis">
+        <div class="analysis-section">
+          <div class="analysis-label">Key Design Decision</div>
+          <div class="analysis-text">
+            The studio logo/initials and studio name appear <strong>above the fold, immediately</strong>. The invite is from a person they know, to a studio they work with — make that social proof the hero. Don't lead with Smack branding here; lead with the studio identity.
+          </div>
+        </div>
+        <div class="analysis-section">
+          <div class="analysis-label">Why Two CTAs?</div>
+          <div class="analysis-text">
+            "Set up later" accepts the invite and creates the account shell without forcing them through the full flow. This preserves the invite acceptance even if they close the tab. <strong>Don't make them lose their invite by not setting up immediately.</strong>
+          </div>
+        </div>
+        <div class="analysis-section">
+          <div class="analysis-label">What Can Go Wrong</div>
+          <div class="analysis-text">
+            Expired invite links. Make the expiry window generous (7 days minimum) and show a clear re-send prompt if expired. Don't show a generic 404.
+          </div>
+        </div>
+        <div class="analysis-section">
+          <div class="analysis-label">Role Shown On This Screen</div>
+          <div class="analysis-text">
+            Role is shown in a pill so they know what access they're getting before accepting. Reduces "wait, what am I signing up for?" hesitation.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       STEP 2 — CREATE ACCOUNT
+  ══════════════════════════════════════════════ -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-left">
+        <div class="step-number">2</div>
+        <div class="step-title-block">
+          <h2>Create Account</h2>
+          <div class="step-subtitle">Clerk-handled auth. Minimal friction. The email is already known — pre-fill everything possible.</div>
+        </div>
+      </div>
+      <div class="step-badges">
+        <span class="badge badge-time">~45 seconds</span>
+        <span class="badge badge-low">Drop-off: Low</span>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="step-mockup">
+        <div class="mockup-label">Screen Mockup</div>
+        <div class="ui-shell">
+          <div class="ui-topbar">
+            <div class="ui-dot ui-dot-r"></div>
+            <div class="ui-dot ui-dot-y"></div>
+            <div class="ui-dot ui-dot-g"></div>
+          </div>
+          <div class="ui-body">
+            <span class="smack-logo">smack.</span>
+            <div style="margin-bottom:18px;">
+              <div style="font-size:18px;font-weight:700;color:#1e3a5f;margin-bottom:4px;">Create your account</div>
+              <div style="font-size:13px;color:#6b7280;">Setting up your account for Rooftop Creative Studio</div>
+            </div>
+            <div class="ui-google-btn">
+              <span class="google-icon"></span>
+              Continue with Google
+            </div>
+            <div class="ui-divider">
+              <div class="ui-divider-line"></div>
+              <span class="ui-divider-text">or</span>
+              <div class="ui-divider-line"></div>
+            </div>
+            <div class="ui-input-row">
+              <div>
+                <label class="ui-form-label">First name</label>
+                <input class="ui-input focused" type="text" value="Jordan" readonly style="pointer-events:none;" />
+              </div>
+              <div>
+                <label class="ui-form-label">Last name</label>
+                <input class="ui-input" type="text" value="" placeholder="Last name" readonly style="pointer-events:none;" />
+              </div>
+            </div>
+            <label class="ui-form-label">Email</label>
+            <input class="ui-input prefilled" type="email" value="jordan@rooftopcreative.com" readonly style="pointer-events:none;" />
+            <label class="ui-form-label">Password</label>
+            <input class="ui-input" type="password" value="" placeholder="At least 8 characters" readonly style="pointer-events:none;" />
+            <div class="ui-btn-primary" style="margin-top:4px;">Continue</div>
+          </div>
+        </div>
+      </div>
+      <div class="step-analysis">
+        <div class="analysis-section">
+          <div class="analysis-label">Key Design Decision</div>
+          <div class="analysis-text">
+            <strong>Google OAuth is the primary CTA</strong>, positioned above the form. Most production studio folks use Google Workspace. Don't make them type a password if they don't have to — reduces time and friction to near zero.
+          </div>
+        </div>
+        <div class="analysis-section">
+          <div class="analysis-label">Pre-filled Email</div>
+          <div class="analysis-text">
+            The email from the invite is pre-filled and read-only (grayed out). This confirms they're setting up the right account and prevents them from accidentally using a different email address that won't match the invite.
+          </div>
+        </div>
+        <div class="analysis-section">
+          <div class="analysis-label">No Marketing Here</div>
+          <div class="analysis-text">
+            This screen is <strong>pure function</strong>. No feature bullets, no pricing callouts, no testimonials. They already said yes. The only job of this screen is to get them through auth as fast as possible.
+          </div>
+        </div>
+        <div class="analysis-section">
+          <div class="analysis-label">Clerk Note</div>
+          <div class="analysis-text">
+            Clerk handles email verification, password strength, and OAuth flows. Custom UI via Clerk's appearance API to match Smack's design system. Don't use Clerk's hosted pages for this step — it breaks the flow continuity.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       STEP 3 — STUDIO PROFILE (ADMIN ONLY)
+  ══════════════════════════════════════════════ -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-left">
+        <div class="step-number">3</div>
+        <div class="step-title-block">
+          <h2>Studio Profile</h2>
+          <div class="step-subtitle">Admin-only step. Team members skip this entirely and go straight to Step 5 or Dashboard.</div>
+        </div>
+      </div>
+      <div class="step-badges">
+        <span class="badge badge-time">~90 seconds</span>
+        <span class="badge badge-low">Drop-off: Low</span>
+        <span class="badge badge-optional">Admin only</span>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="step-mockup">
+        <div class="mockup-label">Screen Mockup</div>
+        <div class="ui-shell">
+          <div class="ui-topbar">
+            <div class="ui-dot ui-dot-r"></div>
+            <div class="ui-dot ui-dot-y"></div>
+            <div class="ui-dot ui-dot-g"></div>
+          </div>
+          <div class="ui-body">
+            <span class="smack-logo">smack.</span>
+            <div class="onboarding-progress">
+              <div class="progress-label">
+                <span>Set up your studio</span>
+                <span>Step 1 of 4</span>
+              </div>
+              <div class="progress-bar-track">
+                <div class="progress-bar-fill" style="width:25%"></div>
+              </div>
+            </div>
+            <div style="font-size:17px;font-weight:700;color:#1e3a5f;margin-bottom:4px;">Tell us about your studio</div>
+            <div style="font-size:13px;color:#6b7280;margin-bottom:18px;">You can always update this later.</div>
+            <label class="ui-form-label">Studio name</label>
+            <input class="ui-input focused" type="text" value="Rooftop Creative" readonly style="pointer-events:none;" />
+            <label class="ui-form-label">Timezone</label>
+            <select class="ui-select" style="pointer-events:none;">
+              <option>America / Los Angeles (PST)</option>
+            </select>
+            <label class="ui-form-label">Studio logo</label>
+            <div class="upload-zone">
+              <span class="upload-zone-icon">&#128247;</span>
+              <div class="upload-zone-text">Drag or click to upload</div>
+              <div class="upload-zone-subtext">PNG, JPG up to 2MB</div>
+            </div>
+            <div class="ui-btn-primary">Continue</div>
+            <div class="ui-btn-ghost">Skip for now</div>
+          </div>
+        </div>
+      </div>
+      <div class="step-analysis">
+        <div class="analysis-section">
+          <div class="analysis-label">Key Design Decision</div>
+          <div class="analysis-text">
+            <strong>"Skip for now" must be prominent</strong> — not a tiny gray link buried at the bottom. A logo upload is nice to have, not required. If you gate the flow behind optional fields, you lose people.
+          </div>
+        </div>
+        <div class="analysis-section">
+          <div class="analysis-label">Progress Bar</div>
+          <div class="analysis-text">
+            Show a progress bar during the admin onboarding steps (Steps 3–5). This sets expectations — they know there are 4 steps and they're on step 1. Don't show it during invite-only flows.
+          </div>
+        </div>
+        <div class="analysis-section">
+          <div class="analysis-label">Why Only 3 Fields?</div>
+          <div class="analysis-text">
+            Studio name and timezone are the only two fields with real product impact on day one. <strong>Name</strong> appears in all UI. <strong>Timezone</strong> affects project scheduling and booking displays. Logo is cosmetic — defer it.
+          </div>
+        </div>
+        <div class="analysis-section">
+          <div class="analysis-label">Non-Admin Routing</div>
+          <div class="analysis-text">
+            Non-admin team members skip this step entirely. Their role is already set by the invite. They jump from Step 2 directly to the Dashboard (Step 7). No unnecessary setup for people who don't own the studio.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       STEP 4 — INVITE TEAM
+  ══════════════════════════════════════════════ -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-left">
+        <div class="step-number">4</div>
+        <div class="step-title-block">
+          <h2>Invite Team</h2>
+          <div class="step-subtitle">Optional. Skip is the default action here — most admins set up projects before worrying about team invites.</div>
+        </div>
+      </div>
+      <div class="step-badges">
+        <span class="badge badge-time">2 sec – 60 sec</span>
+        <span class="badge badge-low">Drop-off: Low</span>
+        <span class="badge badge-optional">Optional</span>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="step-mockup">
+        <div class="mockup-label">Screen Mockup</div>
+        <div class="ui-shell">
+          <div class="ui-topbar">
+            <div class="ui-dot ui-dot-r"></div>
+            <div class="ui-dot ui-dot-y"></div>
+            <div class="ui-dot ui-dot-g"></div>
+          </div>
+          <div class="ui-body">
+            <span class="smack-logo">smack.</span>
+            <div class="onboarding-progress">
+              <div class="progress-label">
+                <span>Build your team</span>
+                <span>Step 2 of 4</span>
+              </div>
+              <div class="progress-bar-track">
+                <div class="progress-bar-fill" style="width:50%"></div>
+              </div>
+            </div>
+            <div style="font-size:17px;font-weight:700;color:#1e3a5f;margin-bottom:4px;">Add your team</div>
+            <div style="font-size:13px;color:#6b7280;margin-bottom:18px;">Invite people to your studio. They'll get an email invite.</div>
+            <label class="ui-form-label">Email addresses</label>
+            <div class="email-tags-wrapper">
+              <span class="email-tag">sam@rooftop.com</span>
+              <span class="email-tags-cursor">|</span>
+            </div>
+            <label class="ui-form-label">Role</label>
+            <select class="ui-select" style="pointer-events:none;">
+              <option>Producer</option>
+            </select>
+            <div style="display:flex;gap:4px;margin-bottom:14px;">
+              <div style="padding:4px 10px;background:#f5ece9;border-radius:6px;font-size:11px;font-weight:600;color:#e07868;cursor:pointer;">+ Add more</div>
+            </div>
+            <div class="ui-btn-primary">Send invites</div>
+            <div class="ui-btn-ghost">Skip for now &rarr;</div>
+          </div>
+        </div>
+      </div>
+      <div class="step-analysis">
+        <div class="analysis-section">
+          <div class="analysis-label">Key Design Decision</div>
+          <div class="analysis-text">
+            <strong>"Skip for now" has an arrow.</strong> It's not a failure state — it's an expected action. The arrow signals forward motion. Don't make skipping feel like giving up.
+          </div>
+        </div>
+        <div class="analysis-section">
+          <div class="analysis-label">Tag-Style Email Input</div>
+          <div class="analysis-text">
+            Multi-email entry uses a tag input (type email, press Enter to add). This is faster than clicking "Add another row" repeatedly. Paste a comma-separated list and it auto-splits.
+          </div>
+        </div>
+        <div class="analysis-section">
+          <div class="analysis-label">Role Assignment</div>
+          <div class="analysis-text">
+            All invites in a batch share one role. If you need different roles, use "Add more" to create additional rows. Keep the common case (one role, multiple people) as simple as possible.
+          </div>
+        </div>
+        <div class="analysis-section">
+          <div class="analysis-label">Invites Fire in Background</div>
+          <div class="analysis-text">
+            After clicking "Send invites," the emails queue and the user immediately moves to the next step. Don't block on email delivery. Show a "Invites sent!" toast at the top of the next screen.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       STEP 5 — CREATE FIRST PROJECT
+  ══════════════════════════════════════════════ -->
+  <div class="step-card" style="border-color: #e07868; border-width: 2px;">
+    <div class="step-header" style="background: #fdf7f6; border-bottom-color: #f5ece9;">
+      <div class="step-left">
+        <div class="step-number">5</div>
+        <div class="step-title-block">
+          <h2>Create First Project</h2>
+          <div class="step-subtitle">
+            <strong style="color: #e07868;">This is the Time-to-Value moment.</strong> Every extra field here is a conversion killer. 4-5 fields max.
+          </div>
+        </div>
+      </div>
+      <div class="step-badges">
+        <span class="badge badge-time">60 – 90 seconds</span>
+        <span class="badge badge-medium">Drop-off: Medium</span>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="step-mockup">
+        <div class="mockup-label">Screen Mockup</div>
+        <div class="ui-shell">
+          <div class="ui-topbar">
+            <div class="ui-dot ui-dot-r"></div>
+            <div class="ui-dot ui-dot-y"></div>
+            <div class="ui-dot ui-dot-g"></div>
+          </div>
+          <div class="ui-body">
+            <span class="smack-logo">smack.</span>
+            <div class="onboarding-progress">
+              <div class="progress-label">
+                <span>First project</span>
+                <span>Step 3 of 4</span>
+              </div>
+              <div class="progress-bar-track">
+                <div class="progress-bar-fill" style="width:75%"></div>
+              </div>
+            </div>
+            <div style="font-size:17px;font-weight:700;color:#1e3a5f;margin-bottom:4px;">Create your first project</div>
+            <div style="font-size:13px;color:#6b7280;margin-bottom:18px;">Keep it simple — you can add details later.</div>
+            <label class="ui-form-label">Project name</label>
+            <input class="ui-input focused" type="text" value="Spring Brand Campaign" readonly style="pointer-events:none;" />
+            <label class="ui-form-label">Client name</label>
+            <input class="ui-input" type="text" value="" placeholder="e.g. Nike, The Broad Museum" readonly style="pointer-events:none;" />
+            <div class="ui-input-row">
+              <div>
+                <label class="ui-form-label">Start date</label>
+                <input class="ui-input" type="text" value="" placeholder="Apr 14, 2026" readonly style="pointer-events:none;" />
+              </div>
+              <div>
+                <label class="ui-form-label">End date</label>
+                <input class="ui-input" type="text" value="" placeholder="May 30, 2026" readonly style="pointer-events:none;" />
+              </div>
+            </div>
+            <label class="ui-form-label">Phase</label>
+            <select class="ui-select" style="pointer-events:none;">
+              <option>Pre-production</option>
+            </select>
+            <div class="ui-btn-primary">Create project &rarr;</div>
+          </div>
+        </div>
+      </div>
+      <div class="step-analysis">
+        <div class="analysis-section">
+          <div class="analysis-label">Key Design Decision</div>
+          <div class="analysis-text">
+            <strong>Exactly 5 fields. Non-negotiable.</strong> Project name, client name, start date, end date, phase. That is the minimum viable data to make a project useful. Budget, team, deliverables, briefs — all of that comes after they're in.
+          </div>
+        </div>
+        <div class="analysis-section">
+          <div class="analysis-label">No Native Date Pickers</div>
+          <div class="analysis-text">
+            Date fields use a custom popover calendar (not the browser's native date input). Native date pickers look different on every OS, are impossible to style, and create layout jitter. Use a lightweight custom picker.
+          </div>
+        </div>
+        <div class="analysis-section">
+          <div class="analysis-label">No Skip Option Here</div>
+          <div class="analysis-text">
+            This is the only step with no skip. You can't activate on Smack without at least one project. But the fields are so few that no one should need to skip. If they're bailing here, the fields are wrong — audit them, don't add a skip.
+          </div>
+        </div>
+        <div class="analysis-section">
+          <div class="analysis-label">Activation Gate</div>
+          <div class="analysis-text">
+            <strong>Project created = activated user</strong>. This is the metric that matters for onboarding success. Everything in Steps 1–4 exists to get someone to this moment cleanly. Track completion rate of this step above all others.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       STEP 6 — FIRST BOOKING
+  ══════════════════════════════════════════════ -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-left">
+        <div class="step-number">6</div>
+        <div class="step-title-block">
+          <h2>Add First Crew / Booking</h2>
+          <div class="step-subtitle">Who's working on this project? A quick booking form tied to the project just created.</div>
+        </div>
+      </div>
+      <div class="step-badges">
+        <span class="badge badge-time">~60 seconds</span>
+        <span class="badge badge-medium">Drop-off: Medium</span>
+        <span class="badge badge-optional">Optional</span>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="step-mockup">
+        <div class="mockup-label">Screen Mockup</div>
+        <div class="ui-shell">
+          <div class="ui-topbar">
+            <div class="ui-dot ui-dot-r"></div>
+            <div class="ui-dot ui-dot-y"></div>
+            <div class="ui-dot ui-dot-g"></div>
+          </div>
+          <div class="ui-body">
+            <span class="smack-logo">smack.</span>
+            <div class="onboarding-progress">
+              <div class="progress-label">
+                <span>Book your crew</span>
+                <span>Step 4 of 4</span>
+              </div>
+              <div class="progress-bar-track">
+                <div class="progress-bar-fill" style="width:100%"></div>
+              </div>
+            </div>
+            <div style="font-size:17px;font-weight:700;color:#1e3a5f;margin-bottom:4px;">Who's on Spring Brand Campaign?</div>
+            <div style="font-size:13px;color:#6b7280;margin-bottom:18px;">Add crew members to your first project.</div>
+
+            <div class="crew-member-row">
+              <div class="crew-avatar">JL</div>
+              <div class="crew-name">Jordan Lee</div>
+              <div class="crew-role-pill">Director</div>
+              <div class="crew-dates">Apr 14 – May 30</div>
+            </div>
+
+            <label class="ui-form-label" style="margin-top:10px;">Add crew member</label>
+            <input class="ui-input" type="text" placeholder="Search or enter email..." readonly style="pointer-events:none;" />
+            <div class="ui-input-row">
+              <div>
+                <label class="ui-form-label">Role / Position</label>
+                <input class="ui-input" type="text" placeholder="e.g. DP, Editor" readonly style="pointer-events:none;" />
+              </div>
+              <div>
+                <label class="ui-form-label">Day rate</label>
+                <input class="ui-input" type="text" placeholder="$0/day" readonly style="pointer-events:none;" />
+              </div>
+            </div>
+            <div class="ui-btn-primary">Add to project</div>
+            <div class="ui-btn-ghost">Skip &mdash; go to my dashboard &rarr;</div>
+          </div>
+        </div>
+      </div>
+      <div class="step-analysis">
+        <div class="analysis-section">
+          <div class="analysis-label">Key Design Decision</div>
+          <div class="analysis-text">
+            The project name from Step 5 is used verbatim in the heading: "Who's on <em>Spring Brand Campaign</em>?" This creates <strong>continuity and context</strong>. They're no longer doing setup — they're doing their actual job.
+          </div>
+        </div>
+        <div class="analysis-section">
+          <div class="analysis-label">Pre-added: Themselves</div>
+          <div class="analysis-text">
+            The admin who created the project is <strong>automatically added as the first crew member</strong>. Their row appears at the top of the list with a default role and the full project date range. They just need to confirm or edit — not start from scratch.
+          </div>
+        </div>
+        <div class="analysis-section">
+          <div class="analysis-label">Search + Invite Combined</div>
+          <div class="analysis-text">
+            The crew search field accepts either an existing studio member (autocomplete from the team roster) or a new email address to send an invite. One field, two behaviors — no modal required.
+          </div>
+        </div>
+        <div class="analysis-section">
+          <div class="analysis-label">Skip Language</div>
+          <div class="analysis-text">
+            "Skip — go to my dashboard" is explicit about the destination. After all this setup, they deserve to know the journey is about to end. Don't use just "Skip" — they need the reward framing.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       STEP 7 — DASHBOARD
+  ══════════════════════════════════════════════ -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-left">
+        <div class="step-number">7</div>
+        <div class="step-title-block">
+          <h2>Dashboard &mdash; First View</h2>
+          <div class="step-subtitle">They're in. The project is live. A subtle getting-started checklist nudges them toward deeper activation — no modal, no forced tour.</div>
+        </div>
+      </div>
+      <div class="step-badges">
+        <span class="badge badge-time">Ongoing</span>
+        <span class="badge badge-low">Drop-off: Low</span>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="step-mockup">
+        <div class="mockup-label">Screen Mockup</div>
+        <div class="ui-shell">
+          <div class="ui-topbar">
+            <div class="ui-dot ui-dot-r"></div>
+            <div class="ui-dot ui-dot-y"></div>
+            <div class="ui-dot ui-dot-g"></div>
+          </div>
+          <div class="dash-shell">
+            <div class="dashboard-sidebar">
+              <span class="dash-logo">smack.</span>
+              <div class="dash-nav-item active"><span class="dash-nav-dot"></span> Projects</div>
+              <div class="dash-nav-item"><span class="dash-nav-dot"></span> Crew</div>
+              <div class="dash-nav-item"><span class="dash-nav-dot"></span> Invoices</div>
+              <div class="dash-nav-item"><span class="dash-nav-dot"></span> Files</div>
+              <div class="dash-nav-item"><span class="dash-nav-dot"></span> Settings</div>
+            </div>
+            <div class="dash-main-relative">
+              <div class="dashboard-main">
+                <div class="dash-header">
+                  <div class="dash-title">Projects</div>
+                  <div class="dash-btn-new">+ New project</div>
+                </div>
+                <div class="project-card">
+                  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;">
+                    <div class="project-card-name">Spring Brand Campaign</div>
+                    <div class="project-phase-pill">Pre-production</div>
+                  </div>
+                  <div class="project-card-client">Acme Corp &bull; Apr 14 – May 30, 2026</div>
+                  <div class="project-card-bar-track">
+                    <div class="project-card-bar-fill"></div>
+                  </div>
+                  <div class="project-card-meta">
+                    <span>1 crew member</span>
+                    <span>0 of 46 days elapsed</span>
+                  </div>
+                </div>
+                <div style="font-size:11px;color:#9ca3af;padding:4px 0;text-align:center;">No other projects yet</div>
+              </div>
+              <div class="checklist-widget">
+                <div class="checklist-title">Getting started</div>
+                <div class="checklist-item">
+                  <div class="check-box done"></div>
+                  <span>Create first project</span>
+                </div>
+                <div class="checklist-item">
+                  <div class="check-box"></div>
+                  <span>Add an invoice</span>
+                </div>
+                <div class="checklist-item">
+                  <div class="check-box"></div>
+                  <span>Invite a client</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="step-analysis">
+        <div class="analysis-section">
+          <div class="analysis-label">Key Design Decision</div>
+          <div class="analysis-text">
+            <strong>No welcome modal.</strong> Modals at this point in the flow feel like the product is insecure — like it needs to explain itself. The project they just created is already visible on the dashboard. That is the product working. Let it speak for itself.
+          </div>
+        </div>
+        <div class="analysis-section">
+          <div class="analysis-label">The Checklist Widget</div>
+          <div class="analysis-text">
+            A small, non-blocking widget in the lower-right corner (not a sticky banner, not a modal). "Create first project" is already checked. Two nudges remain: add an invoice, invite a client. This drives the next activation milestones passively.
+          </div>
+        </div>
+        <div class="analysis-section">
+          <div class="analysis-label">Project Already Checked</div>
+          <div class="analysis-text">
+            The checklist shows the project creation already done and checked. This creates an immediate sense of progress and momentum. <strong>Start with a win</strong>. Don't show a blank unchecked list on first login.
+          </div>
+        </div>
+        <div class="analysis-section">
+          <div class="analysis-label">No Forced Product Tour</div>
+          <div class="analysis-text">
+            No tooltip chains, no "click here next" overlays. Those tours have terrible completion rates and create anxiety. The UI should be discoverable on its own. If it's not, the UI needs to be redesigned — not covered in tooltips.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       METRICS SECTION
+  ══════════════════════════════════════════════ -->
+  <div class="metrics-section">
+    <div class="metrics-heading">Onboarding Metrics</div>
+    <div class="metrics-title">What good looks like</div>
+    <div class="metrics-grid">
+      <!-- Time to value -->
+      <div class="metrics-col">
+        <h3>Time to Value</h3>
+        <div class="target-box">
+          <div class="target-label">Target</div>
+          <div class="target-value">&lt; 5 min</div>
+          <div class="target-sub">Invite acceptance to first project created</div>
+        </div>
+        <div class="target-breakdown">
+          <div class="target-row">
+            <span class="target-row-label">Step 1 — Accept invite</span>
+            <span class="target-row-val">~10s</span>
+          </div>
+          <div class="target-row">
+            <span class="target-row-label">Step 2 — Create account</span>
+            <span class="target-row-val">~45s</span>
+          </div>
+          <div class="target-row">
+            <span class="target-row-label">Step 3 — Studio profile</span>
+            <span class="target-row-val">~60s</span>
+          </div>
+          <div class="target-row">
+            <span class="target-row-label">Step 4 — Invite team</span>
+            <span class="target-row-val">~30s</span>
+          </div>
+          <div class="target-row">
+            <span class="target-row-label">Step 5 — Create project</span>
+            <span class="target-row-val">~75s</span>
+          </div>
+          <div class="target-row">
+            <span class="target-row-label">Step 6 — First booking</span>
+            <span class="target-row-val">~45s</span>
+          </div>
+          <div class="target-row" style="border-top: 1px solid rgba(255,255,255,0.15); margin-top: 6px; padding-top: 8px;">
+            <span class="target-row-label" style="color:rgba(255,255,255,0.8);">Total</span>
+            <span class="target-row-val" style="color:#e07868;">~4m 25s</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Funnel -->
+      <div class="metrics-col">
+        <h3>Funnel Assumptions</h3>
+        <div style="margin-bottom:8px;font-size:12px;color:rgba(255,255,255,0.4);">% of users completing each step</div>
+        <div class="funnel-table">
+          <div class="funnel-row">
+            <span class="funnel-row-step">Accept invite</span>
+            <div class="funnel-row-bar-track"><div class="funnel-row-bar" style="width:95%"></div></div>
+            <span class="funnel-row-pct">95%</span>
+          </div>
+          <div class="funnel-row">
+            <span class="funnel-row-step">Create account</span>
+            <div class="funnel-row-bar-track"><div class="funnel-row-bar" style="width:88%"></div></div>
+            <span class="funnel-row-pct">88%</span>
+          </div>
+          <div class="funnel-row">
+            <span class="funnel-row-step">Studio profile</span>
+            <div class="funnel-row-bar-track"><div class="funnel-row-bar" style="width:84%"></div></div>
+            <span class="funnel-row-pct">84%</span>
+          </div>
+          <div class="funnel-row">
+            <span class="funnel-row-step">Invite team</span>
+            <div class="funnel-row-bar-track"><div class="funnel-row-bar" style="width:80%"></div></div>
+            <span class="funnel-row-pct">80%</span>
+          </div>
+          <div class="funnel-row">
+            <span class="funnel-row-step">First project</span>
+            <div class="funnel-row-bar-track"><div class="funnel-row-bar" style="width:72%"></div></div>
+            <span class="funnel-row-pct">72%</span>
+          </div>
+          <div class="funnel-row">
+            <span class="funnel-row-step">First booking</span>
+            <div class="funnel-row-bar-track"><div class="funnel-row-bar" style="width:58%"></div></div>
+            <span class="funnel-row-pct">58%</span>
+          </div>
+          <div class="funnel-row">
+            <span class="funnel-row-step">Dashboard</span>
+            <div class="funnel-row-bar-track"><div class="funnel-row-bar" style="width:72%"></div></div>
+            <span class="funnel-row-pct">72%</span>
+          </div>
+        </div>
+        <div style="margin-top:16px;padding:12px;background:rgba(255,255,255,0.05);border-radius:8px;font-size:12px;color:rgba(255,255,255,0.5);line-height:1.5;">
+          Target: <strong style="color:rgba(255,255,255,0.8);">72% activation rate</strong> (Step 5 completion). Below 60% indicates a friction problem in Steps 1–4. Below 50% is critical — investigate immediately.
+        </div>
+      </div>
+
+      <!-- Killers -->
+      <div class="metrics-col">
+        <h3>Top 3 Flow Killers</h3>
+        <div class="killer-item">
+          <div class="killer-num">1</div>
+          <div class="killer-text">
+            <strong>Too many fields in Step 5</strong>
+            Every field beyond 5 in the project creation form reduces completion. Budget, status, description, department — none of these belong here. They belong in the project edit view after the user is already in the product.
+          </div>
+        </div>
+        <div class="killer-item">
+          <div class="killer-num">2</div>
+          <div class="killer-text">
+            <strong>Auth friction in Step 2</strong>
+            If Google OAuth doesn't work or email verification emails land in spam, the user is stuck. Test deliverability from Clerk's domains on GSuite, Outlook, and iCloud accounts. Every failed auth delivery is a lost activation.
+          </div>
+        </div>
+        <div class="killer-item">
+          <div class="killer-num">3</div>
+          <div class="killer-text">
+            <strong>A welcome modal at Step 7</strong>
+            Showing a modal, tour, or overlay when the user finally reaches their dashboard tells them the product isn't self-explanatory. It creates anxiety instead of confidence. Kill the modal. Trust the UI.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="doc-footer">
+  Smack &mdash; Onboarding Flow Document &bull; Internal Use Only &bull; April 2026
+</div>
+
+</body>
+</html>
