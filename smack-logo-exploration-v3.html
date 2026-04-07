@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smack — Logo Exploration v3</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: #111827;
+      line-height: 1.5;
+    }
+
+    /* ─── Page header ─── */
+    .page-header {
+      padding: 72px 80px 48px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .page-header .eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #e07868;
+      margin-bottom: 12px;
+    }
+    .page-header h1 {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: #111827;
+      margin-bottom: 8px;
+    }
+    .page-header p {
+      font-size: 15px;
+      color: #6b7280;
+      max-width: 600px;
+    }
+
+    /* ─── Sections ─── */
+    .section {
+      padding: 64px 80px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .section:last-of-type { border-bottom: none; }
+
+    .section-eyebrow {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #e07868;
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #111827;
+      margin-bottom: 6px;
+    }
+    .section-desc {
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 40px;
+      max-width: 640px;
+    }
+
+    /* ─── Column layout ─── */
+    .col-header-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 16px;
+    }
+    .col-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #f3f4f6;
+    }
+
+    .size-row {
+      margin-bottom: 48px;
+    }
+    .size-row:last-child { margin-bottom: 0; }
+
+    .size-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #9ca3af;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .size-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #f3f4f6;
+    }
+
+    .three-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+    }
+
+    .mark-cell {
+      background: #fafafa;
+      border: 1px solid #f3f4f6;
+      border-radius: 12px;
+      padding: 32px 24px;
+      display: flex;
+      align-items: center;
+      min-height: 100px;
+    }
+
+    /* ─── Wordmark base ─── */
+    .wm {
+      font-family: 'Inter', sans-serif;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: #111827;
+      line-height: 1;
+      display: flex;
+      align-items: baseline;
+    }
+
+    /* ─── Section 2: below-baseline treatment ─── */
+    .wm-below {
+      position: relative;
+      display: inline-flex;
+      align-items: flex-start;
+    }
+
+    /* ─── Section 3: stacked ─── */
+    .stack-wm {
+      font-family: 'Inter', sans-serif;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: #111827;
+      line-height: 0.9;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .stack-line {
+      display: flex;
+      align-items: baseline;
+    }
+
+    /* ─── Section 5: System ─── */
+    .system-panel {
+      border-radius: 16px;
+      padding: 48px;
+      margin-bottom: 24px;
+    }
+    .system-panel.light {
+      background: #fafafa;
+      border: 1px solid #f3f4f6;
+    }
+    .system-panel.dark {
+      background: #1e3a5f;
+    }
+    .system-panel .panel-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 36px;
+    }
+    .system-panel.light .panel-label { color: #9ca3af; }
+    .system-panel.dark .panel-label { color: #4a7fb5; }
+
+    .system-lockups {
+      display: flex;
+      align-items: center;
+      gap: 56px;
+      flex-wrap: wrap;
+    }
+    .system-lockup-item {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .system-lockup-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .system-panel.light .system-lockup-label { color: #9ca3af; }
+    .system-panel.dark .system-lockup-label { color: #4a7fb5; }
+
+    /* ─── Divider ─── */
+    .divider {
+      width: 1px;
+      height: 60px;
+      background: #e5e7eb;
+      align-self: center;
+    }
+    .divider.dark-div { background: #2d5490; }
+
+    /* ─── Footer ─── */
+    footer {
+      padding: 48px 80px;
+      border-top: 1px solid #f3f4f6;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-tagline {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: #6b7280;
+    }
+    .footer-tagline span { color: #e07868; }
+    .footer-meta {
+      font-size: 12px;
+      color: #d1d5db;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─────────────────────────────────────────────────────────────────────── -->
+<!-- PAGE HEADER -->
+<!-- ─────────────────────────────────────────────────────────────────────── -->
+<div class="page-header">
+  <div class="eyebrow">Smack — Logo Exploration v3</div>
+  <h1>The period is the jellyfish.</h1>
+  <p>Wordmark-first direction. The "." in smack. is replaced by a micro jellyfish illustration — visible at scale, degrades to a pink dot at small sizes.</p>
+</div>
+
+
+<!-- ─────────────────────────────────────────────────────────────────────── -->
+<!-- SECTION 1 — smack + jellyfish period at scale -->
+<!-- ─────────────────────────────────────────────────────────────────────── -->
+<div class="section">
+  <div class="section-eyebrow">Section 1</div>
+  <div class="section-title">Jellyfish period — across type sizes</div>
+  <div class="section-desc">The period character replaced by an inline SVG jellyfish. Three columns: outline, filled, and plain pink period for comparison. Jellyfish degrades gracefully as type shrinks.</div>
+
+  <!-- Column headers -->
+  <div class="col-header-row">
+    <div class="col-label">Jellyfish — Outline</div>
+    <div class="col-label">Jellyfish — Filled</div>
+    <div class="col-label">Plain Period (reference)</div>
+  </div>
+
+  <!-- ── Size 1 — 80px ── -->
+  <div class="size-row">
+    <div class="size-label">80px type — full jellyfish</div>
+    <div class="three-col">
+      <!-- Outline -->
+      <div class="mark-cell">
+        <span class="wm" style="font-size:80px;">smack<svg width="20" height="32" viewBox="0 0 20 32" style="display:inline-block;vertical-align:-10px;margin-left:3px;" aria-label="jellyfish period">
+          <path d="M2 13 A8 8 0 0 1 18 13 Z" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linejoin="round"/>
+          <line x1="5.5" y1="13" x2="4.5" y2="24" stroke="#e07868" stroke-width="1.3" stroke-linecap="round"/>
+          <line x1="10" y1="13" x2="10" y2="27" stroke="#e07868" stroke-width="1.3" stroke-linecap="round"/>
+          <line x1="14.5" y1="13" x2="15.5" y2="24" stroke="#e07868" stroke-width="1.3" stroke-linecap="round"/>
+        </svg></span>
+      </div>
+      <!-- Filled -->
+      <div class="mark-cell">
+        <span class="wm" style="font-size:80px;">smack<svg width="20" height="32" viewBox="0 0 20 32" style="display:inline-block;vertical-align:-10px;margin-left:3px;" aria-label="jellyfish period">
+          <path d="M2 13 A8 8 0 0 1 18 13 Z" fill="#e07868"/>
+          <line x1="5.5" y1="13" x2="4.5" y2="24" stroke="#c85d4a" stroke-width="1.3" stroke-linecap="round"/>
+          <line x1="10" y1="13" x2="10" y2="27" stroke="#c85d4a" stroke-width="1.3" stroke-linecap="round"/>
+          <line x1="14.5" y1="13" x2="15.5" y2="24" stroke="#c85d4a" stroke-width="1.3" stroke-linecap="round"/>
+        </svg></span>
+      </div>
+      <!-- Plain -->
+      <div class="mark-cell">
+        <span class="wm" style="font-size:80px;">smack<span style="color:#e07868;">.</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Size 2 — 48px ── -->
+  <div class="size-row">
+    <div class="size-label">48px type — jellyfish readable</div>
+    <div class="three-col">
+      <!-- Outline -->
+      <div class="mark-cell">
+        <span class="wm" style="font-size:48px;">smack<svg width="13" height="20" viewBox="0 0 13 20" style="display:inline-block;vertical-align:-6px;margin-left:2px;" aria-label="jellyfish period">
+          <path d="M1.5 8 A5 5 0 0 1 11.5 8 Z" fill="none" stroke="#e07868" stroke-width="1.5" stroke-linejoin="round"/>
+          <line x1="4" y1="8" x2="3.5" y2="15" stroke="#e07868" stroke-width="1.1" stroke-linecap="round"/>
+          <line x1="6.5" y1="8" x2="6.5" y2="17" stroke="#e07868" stroke-width="1.1" stroke-linecap="round"/>
+          <line x1="9" y1="8" x2="9.5" y2="15" stroke="#e07868" stroke-width="1.1" stroke-linecap="round"/>
+        </svg></span>
+      </div>
+      <!-- Filled -->
+      <div class="mark-cell">
+        <span class="wm" style="font-size:48px;">smack<svg width="13" height="20" viewBox="0 0 13 20" style="display:inline-block;vertical-align:-6px;margin-left:2px;" aria-label="jellyfish period">
+          <path d="M1.5 8 A5 5 0 0 1 11.5 8 Z" fill="#e07868"/>
+          <line x1="4" y1="8" x2="3.5" y2="15" stroke="#c85d4a" stroke-width="1.1" stroke-linecap="round"/>
+          <line x1="6.5" y1="8" x2="6.5" y2="17" stroke="#c85d4a" stroke-width="1.1" stroke-linecap="round"/>
+          <line x1="9" y1="8" x2="9.5" y2="15" stroke="#c85d4a" stroke-width="1.1" stroke-linecap="round"/>
+        </svg></span>
+      </div>
+      <!-- Plain -->
+      <div class="mark-cell">
+        <span class="wm" style="font-size:48px;">smack<span style="color:#e07868;">.</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Size 3 — 24px ── -->
+  <div class="size-row">
+    <div class="size-label">24px type — jellyfish simplified</div>
+    <div class="three-col">
+      <!-- Outline -->
+      <div class="mark-cell">
+        <span class="wm" style="font-size:24px;">smack<svg width="8" height="13" viewBox="0 0 8 13" style="display:inline-block;vertical-align:-4px;margin-left:1px;" aria-label="jellyfish period">
+          <path d="M1 5 A3 3 0 0 1 7 5 Z" fill="none" stroke="#e07868" stroke-width="1.3" stroke-linejoin="round"/>
+          <line x1="2.5" y1="5" x2="2" y2="10" stroke="#e07868" stroke-width="0.9" stroke-linecap="round"/>
+          <line x1="4" y1="5" x2="4" y2="11" stroke="#e07868" stroke-width="0.9" stroke-linecap="round"/>
+          <line x1="5.5" y1="5" x2="6" y2="10" stroke="#e07868" stroke-width="0.9" stroke-linecap="round"/>
+        </svg></span>
+      </div>
+      <!-- Filled -->
+      <div class="mark-cell">
+        <span class="wm" style="font-size:24px;">smack<svg width="8" height="13" viewBox="0 0 8 13" style="display:inline-block;vertical-align:-4px;margin-left:1px;" aria-label="jellyfish period">
+          <path d="M1 5 A3 3 0 0 1 7 5 Z" fill="#e07868"/>
+          <line x1="2.5" y1="5" x2="2" y2="10" stroke="#c85d4a" stroke-width="0.9" stroke-linecap="round"/>
+          <line x1="4" y1="5" x2="4" y2="11" stroke="#c85d4a" stroke-width="0.9" stroke-linecap="round"/>
+          <line x1="5.5" y1="5" x2="6" y2="10" stroke="#c85d4a" stroke-width="0.9" stroke-linecap="round"/>
+        </svg></span>
+      </div>
+      <!-- Plain -->
+      <div class="mark-cell">
+        <span class="wm" style="font-size:24px;">smack<span style="color:#e07868;">.</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Size 4 — 14px ── -->
+  <div class="size-row">
+    <div class="size-label">14px type — degrades to pink dot</div>
+    <div class="three-col">
+      <!-- Outline — just dot at this size -->
+      <div class="mark-cell" style="flex-direction:column;align-items:flex-start;gap:8px;">
+        <span class="wm" style="font-size:14px;">smack<svg width="5" height="8" viewBox="0 0 5 8" style="display:inline-block;vertical-align:-2px;margin-left:1px;" aria-label="jellyfish period">
+          <circle cx="2.5" cy="3" r="2.5" fill="none" stroke="#e07868" stroke-width="1"/>
+        </svg></span>
+        <span style="font-size:10px;color:#9ca3af;font-weight:500;">graceful degradation — dot outline</span>
+      </div>
+      <!-- Filled — pink dot -->
+      <div class="mark-cell" style="flex-direction:column;align-items:flex-start;gap:8px;">
+        <span class="wm" style="font-size:14px;">smack<svg width="5" height="8" viewBox="0 0 5 8" style="display:inline-block;vertical-align:-2px;margin-left:1px;" aria-label="jellyfish period">
+          <circle cx="2.5" cy="3" r="2.5" fill="#e07868"/>
+        </svg></span>
+        <span style="font-size:10px;color:#9ca3af;font-weight:500;">graceful degradation — pink dot</span>
+      </div>
+      <!-- Plain -->
+      <div class="mark-cell">
+        <span class="wm" style="font-size:14px;">smack<span style="color:#e07868;">.</span></span>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /section 1 -->
+
+
+<!-- ─────────────────────────────────────────────────────────────────────── -->
+<!-- SECTION 2 — WM-2: dot below baseline becomes jellyfish -->
+<!-- ─────────────────────────────────────────────────────────────────────── -->
+<div class="section">
+  <div class="section-eyebrow">Section 2</div>
+  <div class="section-title">WM-2 — Below-baseline jellyfish</div>
+  <div class="section-desc">The period sits below the baseline of the "k", hovering underneath the wordmark. The dot is now a tiny jellyfish. At small sizes it reads as a pink blob — still distinctive.</div>
+
+  <!-- ── 72px ── -->
+  <div class="size-row">
+    <div class="size-label">72px type</div>
+    <div class="three-col">
+      <div class="mark-cell" style="flex-direction:column;align-items:flex-start;gap:4px;">
+        <span style="font-size:11px;color:#9ca3af;font-weight:600;margin-bottom:8px;">Jellyfish — Outline</span>
+        <div style="position:relative;display:inline-block;line-height:1;">
+          <span class="wm" style="font-size:72px;">smack</span>
+          <svg width="18" height="28" viewBox="0 0 18 28" style="position:absolute;bottom:-16px;right:0;" aria-label="below-baseline jellyfish">
+            <path d="M1.5 11 A7 7 0 0 1 16.5 11 Z" fill="none" stroke="#e07868" stroke-width="1.7" stroke-linejoin="round"/>
+            <line x1="5" y1="11" x2="4" y2="21" stroke="#e07868" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="9" y1="11" x2="9" y2="24" stroke="#e07868" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="13" y1="11" x2="14" y2="21" stroke="#e07868" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mark-cell" style="flex-direction:column;align-items:flex-start;gap:4px;">
+        <span style="font-size:11px;color:#9ca3af;font-weight:600;margin-bottom:8px;">Jellyfish — Filled</span>
+        <div style="position:relative;display:inline-block;line-height:1;">
+          <span class="wm" style="font-size:72px;">smack</span>
+          <svg width="18" height="28" viewBox="0 0 18 28" style="position:absolute;bottom:-16px;right:0;" aria-label="below-baseline jellyfish">
+            <path d="M1.5 11 A7 7 0 0 1 16.5 11 Z" fill="#e07868"/>
+            <line x1="5" y1="11" x2="4" y2="21" stroke="#c85d4a" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="9" y1="11" x2="9" y2="24" stroke="#c85d4a" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="13" y1="11" x2="14" y2="21" stroke="#c85d4a" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mark-cell" style="flex-direction:column;align-items:flex-start;gap:4px;">
+        <span style="font-size:11px;color:#9ca3af;font-weight:600;margin-bottom:8px;">Pink dot (reference)</span>
+        <div style="position:relative;display:inline-block;line-height:1;">
+          <span class="wm" style="font-size:72px;">smack</span>
+          <svg width="12" height="12" viewBox="0 0 12 12" style="position:absolute;bottom:-14px;right:0;" aria-label="dot below baseline">
+            <circle cx="6" cy="6" r="5" fill="#e07868"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 40px ── -->
+  <div class="size-row">
+    <div class="size-label">40px type</div>
+    <div class="three-col">
+      <div class="mark-cell">
+        <div style="position:relative;display:inline-block;line-height:1;">
+          <span class="wm" style="font-size:40px;">smack</span>
+          <svg width="11" height="18" viewBox="0 0 11 18" style="position:absolute;bottom:-10px;right:0;" aria-label="below-baseline jellyfish">
+            <path d="M1 7 A4.5 4.5 0 0 1 10 7 Z" fill="none" stroke="#e07868" stroke-width="1.5" stroke-linejoin="round"/>
+            <line x1="3" y1="7" x2="2.5" y2="13" stroke="#e07868" stroke-width="1" stroke-linecap="round"/>
+            <line x1="5.5" y1="7" x2="5.5" y2="15" stroke="#e07868" stroke-width="1" stroke-linecap="round"/>
+            <line x1="8" y1="7" x2="8.5" y2="13" stroke="#e07868" stroke-width="1" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mark-cell">
+        <div style="position:relative;display:inline-block;line-height:1;">
+          <span class="wm" style="font-size:40px;">smack</span>
+          <svg width="11" height="18" viewBox="0 0 11 18" style="position:absolute;bottom:-10px;right:0;" aria-label="below-baseline jellyfish">
+            <path d="M1 7 A4.5 4.5 0 0 1 10 7 Z" fill="#e07868"/>
+            <line x1="3" y1="7" x2="2.5" y2="13" stroke="#c85d4a" stroke-width="1" stroke-linecap="round"/>
+            <line x1="5.5" y1="7" x2="5.5" y2="15" stroke="#c85d4a" stroke-width="1" stroke-linecap="round"/>
+            <line x1="8" y1="7" x2="8.5" y2="13" stroke="#c85d4a" stroke-width="1" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mark-cell">
+        <div style="position:relative;display:inline-block;line-height:1;">
+          <span class="wm" style="font-size:40px;">smack</span>
+          <svg width="8" height="8" viewBox="0 0 8 8" style="position:absolute;bottom:-9px;right:0;" aria-label="dot below baseline">
+            <circle cx="4" cy="4" r="3.5" fill="#e07868"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 20px ── -->
+  <div class="size-row">
+    <div class="size-label">20px type — degrades to blob</div>
+    <div class="three-col">
+      <div class="mark-cell" style="flex-direction:column;align-items:flex-start;gap:8px;">
+        <div style="position:relative;display:inline-block;line-height:1;">
+          <span class="wm" style="font-size:20px;">smack</span>
+          <svg width="6" height="10" viewBox="0 0 6 10" style="position:absolute;bottom:-6px;right:0;" aria-label="below-baseline jellyfish tiny">
+            <ellipse cx="3" cy="3.5" rx="3" ry="2" fill="none" stroke="#e07868" stroke-width="1.1"/>
+            <line x1="1.5" y1="5" x2="1.5" y2="8.5" stroke="#e07868" stroke-width="0.8" stroke-linecap="round"/>
+            <line x1="3" y1="5.5" x2="3" y2="9.5" stroke="#e07868" stroke-width="0.8" stroke-linecap="round"/>
+            <line x1="4.5" y1="5" x2="4.5" y2="8.5" stroke="#e07868" stroke-width="0.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span style="font-size:10px;color:#9ca3af;font-weight:500;">reads as outline blob</span>
+      </div>
+      <div class="mark-cell" style="flex-direction:column;align-items:flex-start;gap:8px;">
+        <div style="position:relative;display:inline-block;line-height:1;">
+          <span class="wm" style="font-size:20px;">smack</span>
+          <svg width="6" height="10" viewBox="0 0 6 10" style="position:absolute;bottom:-6px;right:0;" aria-label="below-baseline jellyfish tiny filled">
+            <ellipse cx="3" cy="3.5" rx="3" ry="2" fill="#e07868"/>
+            <line x1="1.5" y1="5" x2="1.5" y2="8.5" stroke="#c85d4a" stroke-width="0.8" stroke-linecap="round"/>
+            <line x1="3" y1="5.5" x2="3" y2="9.5" stroke="#c85d4a" stroke-width="0.8" stroke-linecap="round"/>
+            <line x1="4.5" y1="5" x2="4.5" y2="8.5" stroke="#c85d4a" stroke-width="0.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span style="font-size:10px;color:#9ca3af;font-weight:500;">reads as pink blob</span>
+      </div>
+      <div class="mark-cell">
+        <div style="position:relative;display:inline-block;line-height:1;">
+          <span class="wm" style="font-size:20px;">smack</span>
+          <svg width="5" height="5" viewBox="0 0 5 5" style="position:absolute;bottom:-5px;right:0;">
+            <circle cx="2.5" cy="2.5" r="2.5" fill="#e07868"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /section 2 -->
+
+
+<!-- ─────────────────────────────────────────────────────────────────────── -->
+<!-- SECTION 3 — Condensed stack "sm / ack." with jellyfish period -->
+<!-- ─────────────────────────────────────────────────────────────────────── -->
+<div class="section">
+  <div class="section-eyebrow">Section 3</div>
+  <div class="section-title">WM-3 — Condensed stack with jellyfish period</div>
+  <div class="section-desc">Two-line condensed stack: "sm" over "ack" + jellyfish period. The jellyfish punctuates the second line. Shown at two sizes.</div>
+
+  <div class="size-row">
+    <div class="size-label">64px line height</div>
+    <div class="three-col">
+      <!-- Outline -->
+      <div class="mark-cell" style="flex-direction:column;align-items:flex-start;gap:6px;">
+        <span style="font-size:11px;color:#9ca3af;font-weight:600;margin-bottom:8px;">Jellyfish — Outline</span>
+        <div class="stack-wm" style="font-size:64px;">
+          <div class="stack-line">sm</div>
+          <div class="stack-line">ack<svg width="17" height="26" viewBox="0 0 17 26" style="display:inline-block;vertical-align:-8px;margin-left:2px;" aria-label="jellyfish period">
+            <path d="M1.5 11 A6.5 6.5 0 0 1 15.5 11 Z" fill="none" stroke="#e07868" stroke-width="1.7" stroke-linejoin="round"/>
+            <line x1="5" y1="11" x2="4" y2="20" stroke="#e07868" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="8.5" y1="11" x2="8.5" y2="23" stroke="#e07868" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="12" y1="11" x2="13" y2="20" stroke="#e07868" stroke-width="1.2" stroke-linecap="round"/>
+          </svg></div>
+        </div>
+      </div>
+      <!-- Filled -->
+      <div class="mark-cell" style="flex-direction:column;align-items:flex-start;gap:6px;">
+        <span style="font-size:11px;color:#9ca3af;font-weight:600;margin-bottom:8px;">Jellyfish — Filled</span>
+        <div class="stack-wm" style="font-size:64px;">
+          <div class="stack-line">sm</div>
+          <div class="stack-line">ack<svg width="17" height="26" viewBox="0 0 17 26" style="display:inline-block;vertical-align:-8px;margin-left:2px;" aria-label="jellyfish period">
+            <path d="M1.5 11 A6.5 6.5 0 0 1 15.5 11 Z" fill="#e07868"/>
+            <line x1="5" y1="11" x2="4" y2="20" stroke="#c85d4a" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="8.5" y1="11" x2="8.5" y2="23" stroke="#c85d4a" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="12" y1="11" x2="13" y2="20" stroke="#c85d4a" stroke-width="1.2" stroke-linecap="round"/>
+          </svg></div>
+        </div>
+      </div>
+      <!-- Plain -->
+      <div class="mark-cell" style="flex-direction:column;align-items:flex-start;gap:6px;">
+        <span style="font-size:11px;color:#9ca3af;font-weight:600;margin-bottom:8px;">Plain period (reference)</span>
+        <div class="stack-wm" style="font-size:64px;">
+          <div class="stack-line">sm</div>
+          <div class="stack-line">ack<span style="color:#e07868;">.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="size-row">
+    <div class="size-label">32px line height</div>
+    <div class="three-col">
+      <!-- Outline -->
+      <div class="mark-cell">
+        <div class="stack-wm" style="font-size:32px;">
+          <div class="stack-line">sm</div>
+          <div class="stack-line">ack<svg width="9" height="14" viewBox="0 0 9 14" style="display:inline-block;vertical-align:-4px;margin-left:1px;" aria-label="jellyfish period">
+            <path d="M1 5.5 A3.5 3.5 0 0 1 8 5.5 Z" fill="none" stroke="#e07868" stroke-width="1.4" stroke-linejoin="round"/>
+            <line x1="2.5" y1="5.5" x2="2" y2="10" stroke="#e07868" stroke-width="0.9" stroke-linecap="round"/>
+            <line x1="4.5" y1="5.5" x2="4.5" y2="12" stroke="#e07868" stroke-width="0.9" stroke-linecap="round"/>
+            <line x1="6.5" y1="5.5" x2="7" y2="10" stroke="#e07868" stroke-width="0.9" stroke-linecap="round"/>
+          </svg></div>
+        </div>
+      </div>
+      <!-- Filled -->
+      <div class="mark-cell">
+        <div class="stack-wm" style="font-size:32px;">
+          <div class="stack-line">sm</div>
+          <div class="stack-line">ack<svg width="9" height="14" viewBox="0 0 9 14" style="display:inline-block;vertical-align:-4px;margin-left:1px;" aria-label="jellyfish period">
+            <path d="M1 5.5 A3.5 3.5 0 0 1 8 5.5 Z" fill="#e07868"/>
+            <line x1="2.5" y1="5.5" x2="2" y2="10" stroke="#c85d4a" stroke-width="0.9" stroke-linecap="round"/>
+            <line x1="4.5" y1="5.5" x2="4.5" y2="12" stroke="#c85d4a" stroke-width="0.9" stroke-linecap="round"/>
+            <line x1="6.5" y1="5.5" x2="7" y2="10" stroke="#c85d4a" stroke-width="0.9" stroke-linecap="round"/>
+          </svg></div>
+        </div>
+      </div>
+      <!-- Plain -->
+      <div class="mark-cell">
+        <div class="stack-wm" style="font-size:32px;">
+          <div class="stack-line">sm</div>
+          <div class="stack-line">ack<span style="color:#e07868;">.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /section 3 -->
+
+
+<!-- ─────────────────────────────────────────────────────────────────────── -->
+<!-- SECTION 4 — S. monogram with jellyfish -->
+<!-- ─────────────────────────────────────────────────────────────────────── -->
+<div class="section">
+  <div class="section-eyebrow">Section 4</div>
+  <div class="section-title">S. monogram — icon / favicon treatment</div>
+  <div class="section-desc">The letter "S" followed by a jellyfish period. This is the compressed icon form — intended for favicons, app icons, and small-context usage. At 24px it simplifies to S + pink dot.</div>
+
+  <div style="display:flex;align-items:flex-end;gap:48px;flex-wrap:wrap;">
+
+    <!-- 96px -->
+    <div style="display:flex;flex-direction:column;gap:16px;align-items:flex-start;">
+      <span style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9ca3af;">96px</span>
+      <div style="display:flex;gap:20px;">
+        <!-- outline -->
+        <div style="background:#fafafa;border:1px solid #f3f4f6;border-radius:10px;padding:24px 20px;display:flex;align-items:baseline;">
+          <span class="wm" style="font-size:96px;">S<svg width="22" height="34" viewBox="0 0 22 34" style="display:inline-block;vertical-align:-12px;margin-left:2px;" aria-label="jellyfish period">
+            <path d="M2 13 A9 9 0 0 1 20 13 Z" fill="none" stroke="#e07868" stroke-width="2" stroke-linejoin="round"/>
+            <line x1="6" y1="13" x2="5" y2="25" stroke="#e07868" stroke-width="1.4" stroke-linecap="round"/>
+            <line x1="11" y1="13" x2="11" y2="29" stroke="#e07868" stroke-width="1.4" stroke-linecap="round"/>
+            <line x1="16" y1="13" x2="17" y2="25" stroke="#e07868" stroke-width="1.4" stroke-linecap="round"/>
+          </svg></span>
+        </div>
+        <!-- filled -->
+        <div style="background:#fafafa;border:1px solid #f3f4f6;border-radius:10px;padding:24px 20px;display:flex;align-items:baseline;">
+          <span class="wm" style="font-size:96px;">S<svg width="22" height="34" viewBox="0 0 22 34" style="display:inline-block;vertical-align:-12px;margin-left:2px;" aria-label="jellyfish period">
+            <path d="M2 13 A9 9 0 0 1 20 13 Z" fill="#e07868"/>
+            <line x1="6" y1="13" x2="5" y2="25" stroke="#c85d4a" stroke-width="1.4" stroke-linecap="round"/>
+            <line x1="11" y1="13" x2="11" y2="29" stroke="#c85d4a" stroke-width="1.4" stroke-linecap="round"/>
+            <line x1="16" y1="13" x2="17" y2="25" stroke="#c85d4a" stroke-width="1.4" stroke-linecap="round"/>
+          </svg></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 64px -->
+    <div style="display:flex;flex-direction:column;gap:16px;align-items:flex-start;">
+      <span style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9ca3af;">64px</span>
+      <div style="display:flex;gap:16px;">
+        <div style="background:#fafafa;border:1px solid #f3f4f6;border-radius:10px;padding:20px 16px;display:flex;align-items:baseline;">
+          <span class="wm" style="font-size:64px;">S<svg width="16" height="24" viewBox="0 0 16 24" style="display:inline-block;vertical-align:-8px;margin-left:2px;" aria-label="jellyfish period">
+            <path d="M1.5 9 A6.5 6.5 0 0 1 14.5 9 Z" fill="none" stroke="#e07868" stroke-width="1.7" stroke-linejoin="round"/>
+            <line x1="4" y1="9" x2="3.5" y2="17" stroke="#e07868" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="8" y1="9" x2="8" y2="20" stroke="#e07868" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="12" y1="9" x2="12.5" y2="17" stroke="#e07868" stroke-width="1.2" stroke-linecap="round"/>
+          </svg></span>
+        </div>
+        <div style="background:#fafafa;border:1px solid #f3f4f6;border-radius:10px;padding:20px 16px;display:flex;align-items:baseline;">
+          <span class="wm" style="font-size:64px;">S<svg width="16" height="24" viewBox="0 0 16 24" style="display:inline-block;vertical-align:-8px;margin-left:2px;" aria-label="jellyfish period">
+            <path d="M1.5 9 A6.5 6.5 0 0 1 14.5 9 Z" fill="#e07868"/>
+            <line x1="4" y1="9" x2="3.5" y2="17" stroke="#c85d4a" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="8" y1="9" x2="8" y2="20" stroke="#c85d4a" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="12" y1="9" x2="12.5" y2="17" stroke="#c85d4a" stroke-width="1.2" stroke-linecap="round"/>
+          </svg></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 40px -->
+    <div style="display:flex;flex-direction:column;gap:16px;align-items:flex-start;">
+      <span style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9ca3af;">40px</span>
+      <div style="display:flex;gap:12px;">
+        <div style="background:#fafafa;border:1px solid #f3f4f6;border-radius:10px;padding:16px 14px;display:flex;align-items:baseline;">
+          <span class="wm" style="font-size:40px;">S<svg width="10" height="16" viewBox="0 0 10 16" style="display:inline-block;vertical-align:-5px;margin-left:1px;" aria-label="jellyfish period">
+            <path d="M1 6 A4 4 0 0 1 9 6 Z" fill="none" stroke="#e07868" stroke-width="1.5" stroke-linejoin="round"/>
+            <line x1="2.5" y1="6" x2="2" y2="11" stroke="#e07868" stroke-width="1" stroke-linecap="round"/>
+            <line x1="5" y1="6" x2="5" y2="13" stroke="#e07868" stroke-width="1" stroke-linecap="round"/>
+            <line x1="7.5" y1="6" x2="8" y2="11" stroke="#e07868" stroke-width="1" stroke-linecap="round"/>
+          </svg></span>
+        </div>
+        <div style="background:#fafafa;border:1px solid #f3f4f6;border-radius:10px;padding:16px 14px;display:flex;align-items:baseline;">
+          <span class="wm" style="font-size:40px;">S<svg width="10" height="16" viewBox="0 0 10 16" style="display:inline-block;vertical-align:-5px;margin-left:1px;" aria-label="jellyfish period">
+            <path d="M1 6 A4 4 0 0 1 9 6 Z" fill="#e07868"/>
+            <line x1="2.5" y1="6" x2="2" y2="11" stroke="#c85d4a" stroke-width="1" stroke-linecap="round"/>
+            <line x1="5" y1="6" x2="5" y2="13" stroke="#c85d4a" stroke-width="1" stroke-linecap="round"/>
+            <line x1="7.5" y1="6" x2="8" y2="11" stroke="#c85d4a" stroke-width="1" stroke-linecap="round"/>
+          </svg></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 24px -->
+    <div style="display:flex;flex-direction:column;gap:16px;align-items:flex-start;">
+      <span style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9ca3af;">24px — degrades to dot</span>
+      <div style="display:flex;gap:10px;align-items:center;">
+        <div style="background:#fafafa;border:1px solid #f3f4f6;border-radius:10px;padding:14px 12px;display:flex;align-items:baseline;">
+          <span class="wm" style="font-size:24px;">S<svg width="6" height="10" viewBox="0 0 6 10" style="display:inline-block;vertical-align:-3px;margin-left:1px;" aria-label="jellyfish period">
+            <circle cx="3" cy="3.5" r="3" fill="none" stroke="#e07868" stroke-width="1"/>
+          </svg></span>
+        </div>
+        <div style="background:#fafafa;border:1px solid #f3f4f6;border-radius:10px;padding:14px 12px;display:flex;align-items:baseline;">
+          <span class="wm" style="font-size:24px;">S<svg width="6" height="10" viewBox="0 0 6 10" style="display:inline-block;vertical-align:-3px;margin-left:1px;" aria-label="jellyfish period">
+            <circle cx="3" cy="3.5" r="3" fill="#e07868"/>
+          </svg></span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /section 4 -->
+
+
+<!-- ─────────────────────────────────────────────────────────────────────── -->
+<!-- SECTION 5 — The system together -->
+<!-- ─────────────────────────────────────────────────────────────────────── -->
+<div class="section">
+  <div class="section-eyebrow">Section 5</div>
+  <div class="section-title">The system together</div>
+  <div class="section-desc">Primary wordmark, secondary stack, and icon — as a unified system on both light and dark backgrounds.</div>
+
+  <!-- LIGHT PANEL -->
+  <div class="system-panel light">
+    <div class="panel-label">Light background</div>
+    <div class="system-lockups">
+
+      <!-- Primary wordmark -->
+      <div class="system-lockup-item">
+        <span class="system-lockup-label">Primary wordmark</span>
+        <span class="wm" style="font-size:48px;">smack<svg width="13" height="21" viewBox="0 0 13 21" style="display:inline-block;vertical-align:-6px;margin-left:2px;" aria-label="jellyfish period">
+          <path d="M1.5 8 A5 5 0 0 1 11.5 8 Z" fill="#e07868"/>
+          <line x1="4" y1="8" x2="3.5" y2="15" stroke="#c85d4a" stroke-width="1.1" stroke-linecap="round"/>
+          <line x1="6.5" y1="8" x2="6.5" y2="17" stroke="#c85d4a" stroke-width="1.1" stroke-linecap="round"/>
+          <line x1="9" y1="8" x2="9.5" y2="15" stroke="#c85d4a" stroke-width="1.1" stroke-linecap="round"/>
+        </svg></span>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Secondary stack -->
+      <div class="system-lockup-item">
+        <span class="system-lockup-label">Condensed stack</span>
+        <div class="stack-wm" style="font-size:38px;">
+          <div class="stack-line">sm</div>
+          <div class="stack-line">ack<svg width="10" height="16" viewBox="0 0 10 16" style="display:inline-block;vertical-align:-5px;margin-left:1px;" aria-label="jellyfish period">
+            <path d="M1 5.5 A4 4 0 0 1 9 5.5 Z" fill="#e07868"/>
+            <line x1="2.5" y1="5.5" x2="2" y2="11" stroke="#c85d4a" stroke-width="1" stroke-linecap="round"/>
+            <line x1="5" y1="5.5" x2="5" y2="13" stroke="#c85d4a" stroke-width="1" stroke-linecap="round"/>
+            <line x1="7.5" y1="5.5" x2="8" y2="11" stroke="#c85d4a" stroke-width="1" stroke-linecap="round"/>
+          </svg></div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Icon -->
+      <div class="system-lockup-item">
+        <span class="system-lockup-label">Icon / favicon</span>
+        <span class="wm" style="font-size:48px;">S<svg width="13" height="21" viewBox="0 0 13 21" style="display:inline-block;vertical-align:-6px;margin-left:2px;" aria-label="jellyfish period">
+          <path d="M1.5 8 A5 5 0 0 1 11.5 8 Z" fill="#e07868"/>
+          <line x1="4" y1="8" x2="3.5" y2="15" stroke="#c85d4a" stroke-width="1.1" stroke-linecap="round"/>
+          <line x1="6.5" y1="8" x2="6.5" y2="17" stroke="#c85d4a" stroke-width="1.1" stroke-linecap="round"/>
+          <line x1="9" y1="8" x2="9.5" y2="15" stroke="#c85d4a" stroke-width="1.1" stroke-linecap="round"/>
+        </svg></span>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- All three tiny -->
+      <div class="system-lockup-item">
+        <span class="system-lockup-label">Scale test — 20px</span>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <span class="wm" style="font-size:20px;">smack<svg width="6" height="10" viewBox="0 0 6 10" style="display:inline-block;vertical-align:-3px;margin-left:1px;" aria-label="jellyfish period">
+            <circle cx="3" cy="3" r="2.5" fill="#e07868"/>
+          </svg></span>
+          <span class="wm" style="font-size:14px;">smack<svg width="5" height="8" viewBox="0 0 5 8" style="display:inline-block;vertical-align:-2px;margin-left:1px;" aria-label="jellyfish period">
+            <circle cx="2.5" cy="2.5" r="2.5" fill="#e07868"/>
+          </svg></span>
+          <span class="wm" style="font-size:11px;">smack<span style="color:#e07868;">.</span></span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DARK PANEL -->
+  <div class="system-panel dark">
+    <div class="panel-label">Dark / navy background</div>
+    <div class="system-lockups">
+
+      <!-- Primary wordmark -->
+      <div class="system-lockup-item">
+        <span class="system-lockup-label">Primary wordmark</span>
+        <span class="wm" style="font-size:48px;color:#ffffff;">smack<svg width="13" height="21" viewBox="0 0 13 21" style="display:inline-block;vertical-align:-6px;margin-left:2px;" aria-label="jellyfish period">
+          <path d="M1.5 8 A5 5 0 0 1 11.5 8 Z" fill="#e07868"/>
+          <line x1="4" y1="8" x2="3.5" y2="15" stroke="#c85d4a" stroke-width="1.1" stroke-linecap="round"/>
+          <line x1="6.5" y1="8" x2="6.5" y2="17" stroke="#c85d4a" stroke-width="1.1" stroke-linecap="round"/>
+          <line x1="9" y1="8" x2="9.5" y2="15" stroke="#c85d4a" stroke-width="1.1" stroke-linecap="round"/>
+        </svg></span>
+      </div>
+
+      <div class="divider dark-div"></div>
+
+      <!-- Outline version on dark -->
+      <div class="system-lockup-item">
+        <span class="system-lockup-label">Outline on dark</span>
+        <span class="wm" style="font-size:48px;color:#ffffff;">smack<svg width="13" height="21" viewBox="0 0 13 21" style="display:inline-block;vertical-align:-6px;margin-left:2px;" aria-label="jellyfish period">
+          <path d="M1.5 8 A5 5 0 0 1 11.5 8 Z" fill="none" stroke="#e07868" stroke-width="1.5"/>
+          <line x1="4" y1="8" x2="3.5" y2="15" stroke="#e07868" stroke-width="1.1" stroke-linecap="round"/>
+          <line x1="6.5" y1="8" x2="6.5" y2="17" stroke="#e07868" stroke-width="1.1" stroke-linecap="round"/>
+          <line x1="9" y1="8" x2="9.5" y2="15" stroke="#e07868" stroke-width="1.1" stroke-linecap="round"/>
+        </svg></span>
+      </div>
+
+      <div class="divider dark-div"></div>
+
+      <!-- Secondary stack dark -->
+      <div class="system-lockup-item">
+        <span class="system-lockup-label">Condensed stack</span>
+        <div class="stack-wm" style="font-size:38px;color:#ffffff;">
+          <div class="stack-line">sm</div>
+          <div class="stack-line">ack<svg width="10" height="16" viewBox="0 0 10 16" style="display:inline-block;vertical-align:-5px;margin-left:1px;" aria-label="jellyfish period">
+            <path d="M1 5.5 A4 4 0 0 1 9 5.5 Z" fill="#e07868"/>
+            <line x1="2.5" y1="5.5" x2="2" y2="11" stroke="#c85d4a" stroke-width="1" stroke-linecap="round"/>
+            <line x1="5" y1="5.5" x2="5" y2="13" stroke="#c85d4a" stroke-width="1" stroke-linecap="round"/>
+            <line x1="7.5" y1="5.5" x2="8" y2="11" stroke="#c85d4a" stroke-width="1" stroke-linecap="round"/>
+          </svg></div>
+        </div>
+      </div>
+
+      <div class="divider dark-div"></div>
+
+      <!-- Icon dark -->
+      <div class="system-lockup-item">
+        <span class="system-lockup-label">Icon / favicon</span>
+        <span class="wm" style="font-size:48px;color:#ffffff;">S<svg width="13" height="21" viewBox="0 0 13 21" style="display:inline-block;vertical-align:-6px;margin-left:2px;" aria-label="jellyfish period">
+          <path d="M1.5 8 A5 5 0 0 1 11.5 8 Z" fill="#e07868"/>
+          <line x1="4" y1="8" x2="3.5" y2="15" stroke="#c85d4a" stroke-width="1.1" stroke-linecap="round"/>
+          <line x1="6.5" y1="8" x2="6.5" y2="17" stroke="#c85d4a" stroke-width="1.1" stroke-linecap="round"/>
+          <line x1="9" y1="8" x2="9.5" y2="15" stroke="#c85d4a" stroke-width="1.1" stroke-linecap="round"/>
+        </svg></span>
+      </div>
+
+      <div class="divider dark-div"></div>
+
+      <!-- All white on dark tiny -->
+      <div class="system-lockup-item">
+        <span class="system-lockup-label">Scale test — 20px</span>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <span class="wm" style="font-size:20px;color:#ffffff;">smack<svg width="6" height="10" viewBox="0 0 6 10" style="display:inline-block;vertical-align:-3px;margin-left:1px;" aria-label="jellyfish period">
+            <circle cx="3" cy="3" r="2.5" fill="#e07868"/>
+          </svg></span>
+          <span class="wm" style="font-size:14px;color:#ffffff;">smack<svg width="5" height="8" viewBox="0 0 5 8" style="display:inline-block;vertical-align:-2px;margin-left:1px;" aria-label="jellyfish period">
+            <circle cx="2.5" cy="2.5" r="2.5" fill="#e07868"/>
+          </svg></span>
+          <span class="wm" style="font-size:11px;color:#ffffff;">smack<span style="color:#e07868;">.</span></span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /section 5 -->
+
+
+<!-- ─────────────────────────────────────────────────────────────────────── -->
+<!-- FOOTER -->
+<!-- ─────────────────────────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-tagline">The period is the <span>brand.</span></div>
+  <div class="footer-meta">smack-logo-exploration-v3 &nbsp;·&nbsp; April 2026</div>
+</footer>
+
+</body>
+</html>

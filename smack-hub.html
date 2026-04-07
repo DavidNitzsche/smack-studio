@@ -195,6 +195,12 @@
       gap: 16px;
     }
 
+    a.del-card {
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+
     .del-card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -203,11 +209,13 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      transition: border-color 0.15s ease;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
     }
 
     .del-card:hover {
       border-color: rgba(224,120,104,0.4);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      transform: translateY(-2px);
     }
 
     .del-card-top {
@@ -642,7 +650,7 @@
       <div class="section-title">Everything built so far</div>
       <div class="deliverables-grid">
 
-        <div class="del-card">
+        <a class="del-card" href="https://davidnitzsche.github.io/smack-studio/smack-report.html" target="_blank">
           <div class="del-card-top">
             <div class="del-icon">📊</div>
             <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
@@ -650,22 +658,52 @@
           <div class="del-title">Strategic Report</div>
           <div class="del-desc">Full market, brand, technical, and GTM strategy in one comprehensive document.</div>
           <div class="del-file">smack-report.html</div>
-        </div>
+        </a>
+
+        <a class="del-card" href="https://davidnitzsche.github.io/smack-studio/smack-logo-exploration.html" target="_blank">
+          <div class="del-card-top">
+            <div class="del-icon">🪼</div>
+            <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
+          </div>
+          <div class="del-title">Logo Exploration v1</div>
+          <div class="del-desc">13 logo directions — jellyfish marks, wordmarks, and combinations on light and dark.</div>
+          <div class="del-file">smack-logo-exploration.html</div>
+        </a>
+
+        <a class="del-card" href="https://davidnitzsche.github.io/smack-studio/smack-logo-exploration-v2.html" target="_blank">
+          <div class="del-card-top">
+            <div class="del-icon">🪼</div>
+            <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
+          </div>
+          <div class="del-title">Logo Exploration v2</div>
+          <div class="del-desc">Gumdrop refinement — flat-bottom dome in 3 proportions, outline and filled.</div>
+          <div class="del-file">smack-logo-exploration-v2.html</div>
+        </a>
+
+        <a class="del-card" href="https://davidnitzsche.github.io/smack-studio/smack-logo-exploration-v3.html" target="_blank">
+          <div class="del-card-top">
+            <div class="del-icon">🪼</div>
+            <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
+          </div>
+          <div class="del-title">Logo Exploration v3</div>
+          <div class="del-desc">Jellyfish-as-period — wordmark system where the "." becomes the brand mark.</div>
+          <div class="del-file">smack-logo-exploration-v3.html</div>
+        </a>
 
         <div class="del-card">
           <div class="del-card-top">
             <div class="del-icon">🎨</div>
-            <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
+            <div class="badge" style="background:rgba(107,114,128,0.1);color:#6b7280;"><span class="badge-dot" style="background:#6b7280;"></span>Up Next</div>
           </div>
           <div class="del-title">Design Exploration</div>
-          <div class="del-desc">Five complete brand worlds rendered — colors, typography, component direction.</div>
+          <div class="del-desc">Five complete brand worlds — colors, typography, component direction.</div>
           <div class="del-file">smack-design-exploration.html</div>
         </div>
 
         <div class="del-card">
           <div class="del-card-top">
             <div class="del-icon">🌐</div>
-            <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
+            <div class="badge" style="background:rgba(107,114,128,0.1);color:#6b7280;"><span class="badge-dot" style="background:#6b7280;"></span>Up Next</div>
           </div>
           <div class="del-title">Website Exploration</div>
           <div class="del-desc">Hero concepts, pricing layouts, and feature sections for smack.studio.</div>
@@ -675,7 +713,7 @@
         <div class="del-card">
           <div class="del-card-top">
             <div class="del-icon">📄</div>
-            <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
+            <div class="badge" style="background:rgba(107,114,128,0.1);color:#6b7280;"><span class="badge-dot" style="background:#6b7280;"></span>Up Next</div>
           </div>
           <div class="del-title">One-Pager</div>
           <div class="del-desc">60-second pitch with pricing, proof points, and a clear call to action.</div>
@@ -685,7 +723,7 @@
         <div class="del-card">
           <div class="del-card-top">
             <div class="del-icon">✉️</div>
-            <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
+            <div class="badge" style="background:rgba(107,114,128,0.1);color:#6b7280;"><span class="badge-dot" style="background:#6b7280;"></span>Up Next</div>
           </div>
           <div class="del-title">Email Templates</div>
           <div class="del-desc">Five core transactional and marketing emails rendered and ready to adapt.</div>
@@ -695,7 +733,7 @@
         <div class="del-card">
           <div class="del-card-top">
             <div class="del-icon">🚀</div>
-            <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
+            <div class="badge" style="background:rgba(107,114,128,0.1);color:#6b7280;"><span class="badge-dot" style="background:#6b7280;"></span>Up Next</div>
           </div>
           <div class="del-title">Onboarding Flow</div>
           <div class="del-desc">First-run UX across 7 steps, optimized for fast time-to-value.</div>
@@ -705,10 +743,10 @@
         <div class="del-card">
           <div class="del-card-top">
             <div class="del-icon">🔍</div>
-            <div class="badge badge-complete"><span class="badge-dot"></span>Complete</div>
+            <div class="badge" style="background:rgba(107,114,128,0.1);color:#6b7280;"><span class="badge-dot" style="background:#6b7280;"></span>Up Next</div>
           </div>
           <div class="del-title">Product Audit</div>
-          <div class="del-desc">A full audit of what needs to change in the existing product before going public.</div>
+          <div class="del-desc">What needs to change in the existing product before going public.</div>
           <div class="del-file">smack-product-audit.html</div>
         </div>
 
@@ -837,7 +875,7 @@
           </tr>
           <tr>
             <td class="td-decision">Founding studio pricing</td>
-            <td class="td-choice">50% off, locked for life (first 25)</td>
+            <td class="td-choice">50% off, locked for life (first 10)</td>
             <td class="td-rationale">Reward early adopters</td>
             <td class="td-date">2026-04-01</td>
           </tr>
