@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>smack. logo v5</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f5f3f0;
+    color: #111827;
+    min-height: 100vh;
+    padding: 64px 48px 96px;
+  }
+
+  /* ── Header ── */
+  .header {
+    margin-bottom: 56px;
+  }
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #e07868;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 42px;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    color: #111827;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .subtitle {
+    font-size: 15px;
+    font-weight: 400;
+    color: #6b7280;
+    letter-spacing: -0.01em;
+  }
+
+  /* ── Section labels ── */
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #9ca3af;
+    margin-bottom: 20px;
+    margin-top: 64px;
+  }
+
+  /* ── Mark Grid ── */
+  .mark-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 400px);
+    gap: 24px;
+  }
+
+  .mark-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 120ms ease, box-shadow 120ms ease;
+    cursor: default;
+  }
+  .mark-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.09);
+  }
+
+  .card-halves {
+    display: flex;
+  }
+
+  .card-half {
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .card-half.light { background: #ffffff; }
+  .card-half.dark  { background: #1e3a5f; }
+
+  .card-half svg {
+    width: 120px;
+    height: 143px; /* 120 * (76/64) */
+  }
+
+  .card-footer {
+    padding: 12px 16px 14px;
+    border-top: 1px solid #f3f4f6;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .card-code {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #e07868;
+    text-transform: uppercase;
+  }
+  .card-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: #6b7280;
+    letter-spacing: -0.01em;
+  }
+
+  /* ── Lockups ── */
+  .lockup-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .lockup-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 28px 24px;
+  }
+  .lockup-card-title {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #9ca3af;
+    margin-bottom: 24px;
+  }
+
+  .lockup-pair {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .lockup-pair.small { gap: 7px; }
+
+  .lockup-wordmark {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    color: #111827;
+    line-height: 1;
+  }
+  .lockup-wordmark .period { color: #e07868; }
+
+  /* ── Scale test ── */
+  .scale-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 32px;
+    padding: 32px;
+    background: #fff;
+    border-radius: 12px;
+    margin-bottom: 16px;
+  }
+  .scale-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .scale-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #9ca3af;
+  }
+  .scale-row-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #e07868;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    margin-right: 8px;
+    align-self: center;
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     HEADER
+════════════════════════════════════════════ -->
+<header class="header">
+  <div class="eyebrow">smack. logo v5</div>
+  <h1 class="title">Find the one.</h1>
+  <p class="subtitle">8 marks. Flat, 2D, lovable. The grill era is over.</p>
+</header>
+
+
+<!-- ═══════════════════════════════════════════
+     MARK GRID
+════════════════════════════════════════════ -->
+<div class="section-label">8 Marks — Light / Navy</div>
+
+<div class="mark-grid">
+
+  <!-- ── M1 — The Classic ── -->
+  <div class="mark-card">
+    <div class="card-halves">
+      <div class="card-half light">
+        <svg viewBox="0 0 64 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Dome -->
+          <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="#e07868"/>
+          <!-- Inner shine -->
+          <path d="M16 22 Q32 12 48 22" stroke="rgba(255,255,255,0.25)" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <!-- Tentacles -->
+          <path d="M17 32 C14 46 20 54 17 68" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M25 32 C22 47 28 56 25 72" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M32 32 C32 48 32 58 32 74" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M39 32 C42 47 36 56 39 72" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M47 32 C50 46 44 54 47 68" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="card-half dark">
+        <svg viewBox="0 0 64 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="white"/>
+          <path d="M16 22 Q32 12 48 22" stroke="rgba(255,255,255,0.25)" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M17 32 C14 46 20 54 17 68" stroke="rgba(255,255,255,0.7)" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M25 32 C22 47 28 56 25 72" stroke="rgba(255,255,255,0.7)" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M32 32 C32 48 32 58 32 74" stroke="rgba(255,255,255,0.7)" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M39 32 C42 47 36 56 39 72" stroke="rgba(255,255,255,0.7)" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M47 32 C50 46 44 54 47 68" stroke="rgba(255,255,255,0.7)" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="card-code">M1</span>
+      <span class="card-name">The Classic</span>
+    </div>
+  </div>
+
+  <!-- ── M2 — Pure Outline ── -->
+  <div class="mark-card">
+    <div class="card-halves">
+      <div class="card-half light">
+        <svg viewBox="0 0 64 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="none" stroke="#e07868" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M17 32 C14 46 20 54 17 68" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M25 32 C22 47 28 56 25 72" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M32 32 C32 48 32 58 32 74" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M39 32 C42 47 36 56 39 72" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M47 32 C50 46 44 54 47 68" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="card-half dark">
+        <svg viewBox="0 0 64 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="none" stroke="white" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M17 32 C14 46 20 54 17 68" stroke="rgba(255,255,255,0.7)" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M25 32 C22 47 28 56 25 72" stroke="rgba(255,255,255,0.7)" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M32 32 C32 48 32 58 32 74" stroke="rgba(255,255,255,0.7)" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M39 32 C42 47 36 56 39 72" stroke="rgba(255,255,255,0.7)" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M47 32 C50 46 44 54 47 68" stroke="rgba(255,255,255,0.7)" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="card-code">M2</span>
+      <span class="card-name">Pure Outline</span>
+    </div>
+  </div>
+
+  <!-- ── M3 — Wide Bell ── -->
+  <div class="mark-card">
+    <div class="card-halves">
+      <div class="card-half light">
+        <svg viewBox="0 0 64 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 28 A28 20 0 0 0 60 28 Z" fill="#e07868"/>
+          <path d="M12 28 C10 42 15 50 12 64" stroke="#c85d4a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M21 28 C18 44 23 54 20 68" stroke="#c85d4a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M29 28 C27 44 31 54 28 70" stroke="#c85d4a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M35 28 C37 44 33 54 36 70" stroke="#c85d4a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M43 28 C46 44 41 54 44 68" stroke="#c85d4a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M52 28 C54 42 49 50 52 64" stroke="#c85d4a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="card-half dark">
+        <svg viewBox="0 0 64 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 28 A28 20 0 0 0 60 28 Z" fill="white"/>
+          <path d="M12 28 C10 42 15 50 12 64" stroke="rgba(255,255,255,0.7)" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M21 28 C18 44 23 54 20 68" stroke="rgba(255,255,255,0.7)" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M29 28 C27 44 31 54 28 70" stroke="rgba(255,255,255,0.7)" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M35 28 C37 44 33 54 36 70" stroke="rgba(255,255,255,0.7)" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M43 28 C46 44 41 54 44 68" stroke="rgba(255,255,255,0.7)" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M52 28 C54 42 49 50 52 64" stroke="rgba(255,255,255,0.7)" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="card-code">M3</span>
+      <span class="card-name">Wide Bell</span>
+    </div>
+  </div>
+
+  <!-- ── M4 — Minimal ── -->
+  <div class="mark-card">
+    <div class="card-halves">
+      <div class="card-half light">
+        <svg viewBox="0 0 64 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="#e07868"/>
+          <path d="M20 32 C17 46 22 54 20 66" stroke="#c85d4a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M32 32 C32 48 32 60 32 74" stroke="#c85d4a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M44 32 C47 46 42 54 44 66" stroke="#c85d4a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="card-half dark">
+        <svg viewBox="0 0 64 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="white"/>
+          <path d="M20 32 C17 46 22 54 20 66" stroke="rgba(255,255,255,0.7)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M32 32 C32 48 32 60 32 74" stroke="rgba(255,255,255,0.7)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M44 32 C47 46 42 54 44 66" stroke="rgba(255,255,255,0.7)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="card-code">M4</span>
+      <span class="card-name">Minimal</span>
+    </div>
+  </div>
+
+  <!-- ── M5 — 7 Tentacles ── -->
+  <div class="mark-card">
+    <div class="card-halves">
+      <div class="card-half light">
+        <svg viewBox="0 0 64 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="#e07868"/>
+          <path d="M11 32 C9 44 13 52 11 62"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M18 32 C15 46 21 54 18 68"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M25 32 C22 47 28 55 25 72"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M32 32 C32 48 32 58 32 74"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M39 32 C42 47 36 55 39 72"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M46 32 C49 46 43 54 46 68"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M53 32 C55 44 51 52 53 62"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="card-half dark">
+        <svg viewBox="0 0 64 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="white"/>
+          <path d="M11 32 C9 44 13 52 11 62"  stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M18 32 C15 46 21 54 18 68"  stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M25 32 C22 47 28 55 25 72"  stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M32 32 C32 48 32 58 32 74"  stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M39 32 C42 47 36 55 39 72"  stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M46 32 C49 46 43 54 46 68"  stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M53 32 C55 44 51 52 53 62"  stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="card-code">M5</span>
+      <span class="card-name">7 Tentacles</span>
+    </div>
+  </div>
+
+  <!-- ── M6 — Two-tone ── -->
+  <div class="mark-card">
+    <div class="card-halves">
+      <div class="card-half light">
+        <svg viewBox="0 0 64 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="#1e3a5f"/>
+          <path d="M17 32 C14 46 20 54 17 68" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M25 32 C22 47 28 56 25 72" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M32 32 C32 48 32 58 32 74" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M39 32 C42 47 36 56 39 72" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M47 32 C50 46 44 54 47 68" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="card-half dark">
+        <svg viewBox="0 0 64 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- On dark bg: dome is white, tentacles are coral -->
+          <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="rgba(255,255,255,0.15)" stroke="white" stroke-width="1"/>
+          <path d="M17 32 C14 46 20 54 17 68" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M25 32 C22 47 28 56 25 72" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M32 32 C32 48 32 58 32 74" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M39 32 C42 47 36 56 39 72" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M47 32 C50 46 44 54 47 68" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="card-code">M6</span>
+      <span class="card-name">Two-tone</span>
+    </div>
+  </div>
+
+  <!-- ── M7 — Silhouette ── -->
+  <div class="mark-card">
+    <div class="card-halves">
+      <div class="card-half light">
+        <svg viewBox="0 0 64 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="#e07868"/>
+          <ellipse cx="17" cy="50" rx="3" ry="18" fill="#e07868"/>
+          <ellipse cx="25" cy="52" rx="3" ry="20" fill="#e07868"/>
+          <ellipse cx="32" cy="54" rx="3" ry="22" fill="#e07868"/>
+          <ellipse cx="39" cy="52" rx="3" ry="20" fill="#e07868"/>
+          <ellipse cx="47" cy="50" rx="3" ry="18" fill="#e07868"/>
+        </svg>
+      </div>
+      <div class="card-half dark">
+        <svg viewBox="0 0 64 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="white"/>
+          <ellipse cx="17" cy="50" rx="3" ry="18" fill="white"/>
+          <ellipse cx="25" cy="52" rx="3" ry="20" fill="white"/>
+          <ellipse cx="32" cy="54" rx="3" ry="22" fill="white"/>
+          <ellipse cx="39" cy="52" rx="3" ry="20" fill="white"/>
+          <ellipse cx="47" cy="50" rx="3" ry="18" fill="white"/>
+        </svg>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="card-code">M7</span>
+      <span class="card-name">Silhouette</span>
+    </div>
+  </div>
+
+  <!-- ── M8 — Hairline Elegance ── -->
+  <div class="mark-card">
+    <div class="card-halves">
+      <div class="card-half light">
+        <svg viewBox="0 0 64 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="none" stroke="#e07868" stroke-width="1.2" stroke-linejoin="round"/>
+          <path d="M17 32 C14 46 20 54 17 68" stroke="#e07868" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+          <path d="M25 32 C22 47 28 56 25 72" stroke="#e07868" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+          <path d="M32 32 C32 48 32 58 32 74" stroke="#e07868" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+          <path d="M39 32 C42 47 36 56 39 72" stroke="#e07868" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+          <path d="M47 32 C50 46 44 54 47 68" stroke="#e07868" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="card-half dark">
+        <svg viewBox="0 0 64 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="none" stroke="white" stroke-width="1.2" stroke-linejoin="round"/>
+          <path d="M17 32 C14 46 20 54 17 68" stroke="rgba(255,255,255,0.7)" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+          <path d="M25 32 C22 47 28 56 25 72" stroke="rgba(255,255,255,0.7)" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+          <path d="M32 32 C32 48 32 58 32 74" stroke="rgba(255,255,255,0.7)" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+          <path d="M39 32 C42 47 36 56 39 72" stroke="rgba(255,255,255,0.7)" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+          <path d="M47 32 C50 46 44 54 47 68" stroke="rgba(255,255,255,0.7)" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="card-code">M8</span>
+      <span class="card-name">Hairline Elegance</span>
+    </div>
+  </div>
+
+</div><!-- /.mark-grid -->
+
+
+<!-- ═══════════════════════════════════════════
+     LOCKUPS
+════════════════════════════════════════════ -->
+<div class="section-label">Lockups — M1, M3, M4, M7 with wordmark</div>
+
+<div class="lockup-grid">
+
+  <!-- M1 Lockup -->
+  <div class="lockup-card">
+    <div class="lockup-card-title">M1 — The Classic</div>
+    <!-- 40px mark height -->
+    <div class="lockup-pair">
+      <svg viewBox="0 0 64 76" fill="none" style="width:34px;height:40px;flex-shrink:0">
+        <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="#e07868"/>
+        <path d="M16 22 Q32 12 48 22" stroke="rgba(255,255,255,0.25)" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M17 32 C14 46 20 54 17 68" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M25 32 C22 47 28 56 25 72" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M32 32 C32 48 32 58 32 74" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M39 32 C42 47 36 56 39 72" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M47 32 C50 46 44 54 47 68" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+      <div class="lockup-wordmark" style="font-size:40px">smack<span class="period">.</span></div>
+    </div>
+    <!-- 24px mark height -->
+    <div class="lockup-pair small">
+      <svg viewBox="0 0 64 76" fill="none" style="width:20px;height:24px;flex-shrink:0">
+        <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="#e07868"/>
+        <path d="M16 22 Q32 12 48 22" stroke="rgba(255,255,255,0.25)" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M17 32 C14 46 20 54 17 68" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M25 32 C22 47 28 56 25 72" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M32 32 C32 48 32 58 32 74" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M39 32 C42 47 36 56 39 72" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M47 32 C50 46 44 54 47 68" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+      <div class="lockup-wordmark" style="font-size:24px">smack<span class="period">.</span></div>
+    </div>
+  </div>
+
+  <!-- M3 Lockup -->
+  <div class="lockup-card">
+    <div class="lockup-card-title">M3 — Wide Bell</div>
+    <div class="lockup-pair">
+      <svg viewBox="0 0 64 76" fill="none" style="width:34px;height:40px;flex-shrink:0">
+        <path d="M4 28 A28 20 0 0 0 60 28 Z" fill="#e07868"/>
+        <path d="M12 28 C10 42 15 50 12 64" stroke="#c85d4a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <path d="M21 28 C18 44 23 54 20 68" stroke="#c85d4a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <path d="M29 28 C27 44 31 54 28 70" stroke="#c85d4a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <path d="M35 28 C37 44 33 54 36 70" stroke="#c85d4a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <path d="M43 28 C46 44 41 54 44 68" stroke="#c85d4a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <path d="M52 28 C54 42 49 50 52 64" stroke="#c85d4a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      </svg>
+      <div class="lockup-wordmark" style="font-size:40px">smack<span class="period">.</span></div>
+    </div>
+    <div class="lockup-pair small">
+      <svg viewBox="0 0 64 76" fill="none" style="width:20px;height:24px;flex-shrink:0">
+        <path d="M4 28 A28 20 0 0 0 60 28 Z" fill="#e07868"/>
+        <path d="M12 28 C10 42 15 50 12 64" stroke="#c85d4a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <path d="M21 28 C18 44 23 54 20 68" stroke="#c85d4a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <path d="M29 28 C27 44 31 54 28 70" stroke="#c85d4a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <path d="M35 28 C37 44 33 54 36 70" stroke="#c85d4a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <path d="M43 28 C46 44 41 54 44 68" stroke="#c85d4a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <path d="M52 28 C54 42 49 50 52 64" stroke="#c85d4a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      </svg>
+      <div class="lockup-wordmark" style="font-size:24px">smack<span class="period">.</span></div>
+    </div>
+  </div>
+
+  <!-- M4 Lockup -->
+  <div class="lockup-card">
+    <div class="lockup-card-title">M4 — Minimal</div>
+    <div class="lockup-pair">
+      <svg viewBox="0 0 64 76" fill="none" style="width:34px;height:40px;flex-shrink:0">
+        <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="#e07868"/>
+        <path d="M20 32 C17 46 22 54 20 66" stroke="#c85d4a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M32 32 C32 48 32 60 32 74" stroke="#c85d4a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M44 32 C47 46 42 54 44 66" stroke="#c85d4a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      </svg>
+      <div class="lockup-wordmark" style="font-size:40px">smack<span class="period">.</span></div>
+    </div>
+    <div class="lockup-pair small">
+      <svg viewBox="0 0 64 76" fill="none" style="width:20px;height:24px;flex-shrink:0">
+        <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="#e07868"/>
+        <path d="M20 32 C17 46 22 54 20 66" stroke="#c85d4a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M32 32 C32 48 32 60 32 74" stroke="#c85d4a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M44 32 C47 46 42 54 44 66" stroke="#c85d4a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      </svg>
+      <div class="lockup-wordmark" style="font-size:24px">smack<span class="period">.</span></div>
+    </div>
+  </div>
+
+  <!-- M7 Lockup -->
+  <div class="lockup-card">
+    <div class="lockup-card-title">M7 — Silhouette</div>
+    <div class="lockup-pair">
+      <svg viewBox="0 0 64 76" fill="none" style="width:34px;height:40px;flex-shrink:0">
+        <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="#e07868"/>
+        <ellipse cx="17" cy="50" rx="3" ry="18" fill="#e07868"/>
+        <ellipse cx="25" cy="52" rx="3" ry="20" fill="#e07868"/>
+        <ellipse cx="32" cy="54" rx="3" ry="22" fill="#e07868"/>
+        <ellipse cx="39" cy="52" rx="3" ry="20" fill="#e07868"/>
+        <ellipse cx="47" cy="50" rx="3" ry="18" fill="#e07868"/>
+      </svg>
+      <div class="lockup-wordmark" style="font-size:40px">smack<span class="period">.</span></div>
+    </div>
+    <div class="lockup-pair small">
+      <svg viewBox="0 0 64 76" fill="none" style="width:20px;height:24px;flex-shrink:0">
+        <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="#e07868"/>
+        <ellipse cx="17" cy="50" rx="3" ry="18" fill="#e07868"/>
+        <ellipse cx="25" cy="52" rx="3" ry="20" fill="#e07868"/>
+        <ellipse cx="32" cy="54" rx="3" ry="22" fill="#e07868"/>
+        <ellipse cx="39" cy="52" rx="3" ry="20" fill="#e07868"/>
+        <ellipse cx="47" cy="50" rx="3" ry="18" fill="#e07868"/>
+      </svg>
+      <div class="lockup-wordmark" style="font-size:24px">smack<span class="period">.</span></div>
+    </div>
+  </div>
+
+</div><!-- /.lockup-grid -->
+
+
+<!-- ═══════════════════════════════════════════
+     SCALE TEST
+════════════════════════════════════════════ -->
+<div class="section-label">Scale Test — M1, M2, M5 at 80 / 48 / 32 / 16 px</div>
+
+<!-- M1 Scale -->
+<div class="scale-row">
+  <span class="scale-row-label">M1</span>
+
+  <div class="scale-item">
+    <svg viewBox="0 0 64 76" fill="none" style="width:67px;height:80px">
+      <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="#e07868"/>
+      <path d="M16 22 Q32 12 48 22" stroke="rgba(255,255,255,0.25)" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M17 32 C14 46 20 54 17 68" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M25 32 C22 47 28 56 25 72" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M32 32 C32 48 32 58 32 74" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M39 32 C42 47 36 56 39 72" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M47 32 C50 46 44 54 47 68" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+    </svg>
+    <span class="scale-label">80px</span>
+  </div>
+
+  <div class="scale-item">
+    <svg viewBox="0 0 64 76" fill="none" style="width:40px;height:48px">
+      <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="#e07868"/>
+      <path d="M16 22 Q32 12 48 22" stroke="rgba(255,255,255,0.25)" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M17 32 C14 46 20 54 17 68" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M25 32 C22 47 28 56 25 72" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M32 32 C32 48 32 58 32 74" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M39 32 C42 47 36 56 39 72" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M47 32 C50 46 44 54 47 68" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+    </svg>
+    <span class="scale-label">48px</span>
+  </div>
+
+  <div class="scale-item">
+    <svg viewBox="0 0 64 76" fill="none" style="width:27px;height:32px">
+      <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="#e07868"/>
+      <path d="M16 22 Q32 12 48 22" stroke="rgba(255,255,255,0.25)" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M17 32 C14 46 20 54 17 68" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M25 32 C22 47 28 56 25 72" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M32 32 C32 48 32 58 32 74" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M39 32 C42 47 36 56 39 72" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M47 32 C50 46 44 54 47 68" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+    </svg>
+    <span class="scale-label">32px</span>
+  </div>
+
+  <div class="scale-item">
+    <svg viewBox="0 0 64 76" fill="none" style="width:13px;height:16px">
+      <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="#e07868"/>
+      <path d="M17 32 C14 46 20 54 17 68" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M25 32 C22 47 28 56 25 72" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M32 32 C32 48 32 58 32 74" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M39 32 C42 47 36 56 39 72" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M47 32 C50 46 44 54 47 68" stroke="#c85d4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+    </svg>
+    <span class="scale-label">16px</span>
+  </div>
+</div>
+
+<!-- M2 Scale -->
+<div class="scale-row">
+  <span class="scale-row-label">M2</span>
+
+  <div class="scale-item">
+    <svg viewBox="0 0 64 76" fill="none" style="width:67px;height:80px">
+      <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="none" stroke="#e07868" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M17 32 C14 46 20 54 17 68" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M25 32 C22 47 28 56 25 72" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M32 32 C32 48 32 58 32 74" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M39 32 C42 47 36 56 39 72" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M47 32 C50 46 44 54 47 68" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+    </svg>
+    <span class="scale-label">80px</span>
+  </div>
+
+  <div class="scale-item">
+    <svg viewBox="0 0 64 76" fill="none" style="width:40px;height:48px">
+      <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="none" stroke="#e07868" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M17 32 C14 46 20 54 17 68" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M25 32 C22 47 28 56 25 72" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M32 32 C32 48 32 58 32 74" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M39 32 C42 47 36 56 39 72" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M47 32 C50 46 44 54 47 68" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+    </svg>
+    <span class="scale-label">48px</span>
+  </div>
+
+  <div class="scale-item">
+    <svg viewBox="0 0 64 76" fill="none" style="width:27px;height:32px">
+      <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="none" stroke="#e07868" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M17 32 C14 46 20 54 17 68" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M25 32 C22 47 28 56 25 72" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M32 32 C32 48 32 58 32 74" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M39 32 C42 47 36 56 39 72" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M47 32 C50 46 44 54 47 68" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+    </svg>
+    <span class="scale-label">32px</span>
+  </div>
+
+  <div class="scale-item">
+    <svg viewBox="0 0 64 76" fill="none" style="width:13px;height:16px">
+      <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="none" stroke="#e07868" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M17 32 C14 46 20 54 17 68" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M25 32 C22 47 28 56 25 72" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M32 32 C32 48 32 58 32 74" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M39 32 C42 47 36 56 39 72" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M47 32 C50 46 44 54 47 68" stroke="#e07868" stroke-width="2" fill="none" stroke-linecap="round"/>
+    </svg>
+    <span class="scale-label">16px</span>
+  </div>
+</div>
+
+<!-- M5 Scale -->
+<div class="scale-row">
+  <span class="scale-row-label">M5</span>
+
+  <div class="scale-item">
+    <svg viewBox="0 0 64 76" fill="none" style="width:67px;height:80px">
+      <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="#e07868"/>
+      <path d="M11 32 C9 44 13 52 11 62"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M18 32 C15 46 21 54 18 68"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M25 32 C22 47 28 55 25 72"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M32 32 C32 48 32 58 32 74"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M39 32 C42 47 36 55 39 72"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M46 32 C49 46 43 54 46 68"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M53 32 C55 44 51 52 53 62"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    </svg>
+    <span class="scale-label">80px</span>
+  </div>
+
+  <div class="scale-item">
+    <svg viewBox="0 0 64 76" fill="none" style="width:40px;height:48px">
+      <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="#e07868"/>
+      <path d="M11 32 C9 44 13 52 11 62"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M18 32 C15 46 21 54 18 68"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M25 32 C22 47 28 55 25 72"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M32 32 C32 48 32 58 32 74"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M39 32 C42 47 36 55 39 72"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M46 32 C49 46 43 54 46 68"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M53 32 C55 44 51 52 53 62"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    </svg>
+    <span class="scale-label">48px</span>
+  </div>
+
+  <div class="scale-item">
+    <svg viewBox="0 0 64 76" fill="none" style="width:27px;height:32px">
+      <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="#e07868"/>
+      <path d="M11 32 C9 44 13 52 11 62"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M18 32 C15 46 21 54 18 68"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M25 32 C22 47 28 55 25 72"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M32 32 C32 48 32 58 32 74"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M39 32 C42 47 36 55 39 72"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M46 32 C49 46 43 54 46 68"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M53 32 C55 44 51 52 53 62"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    </svg>
+    <span class="scale-label">32px</span>
+  </div>
+
+  <div class="scale-item">
+    <svg viewBox="0 0 64 76" fill="none" style="width:13px;height:16px">
+      <path d="M8 32 A24 24 0 0 0 56 32 Z" fill="#e07868"/>
+      <path d="M11 32 C9 44 13 52 11 62"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M18 32 C15 46 21 54 18 68"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M25 32 C22 47 28 55 25 72"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M32 32 C32 48 32 58 32 74"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M39 32 C42 47 36 55 39 72"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M46 32 C49 46 43 54 46 68"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M53 32 C55 44 51 52 53 62"  stroke="#c85d4a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    </svg>
+    <span class="scale-label">16px</span>
+  </div>
+</div>
+
+</body>
+</html>
