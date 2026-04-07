@@ -129,6 +129,13 @@
   .task-context.ctx-mixed { background: var(--subtle); color: var(--muted); border: 1px solid var(--border); }
   .task-context.ctx-browser { background: rgba(5,150,105,0.07); color: #065f46; border: 1px solid rgba(5,150,105,0.15); }
 
+  /* Claude collab banner */
+  .collab-banner { display: flex; align-items: flex-start; gap: 12px; background: linear-gradient(135deg, #0f1d30, #1a3050); border-radius: 10px; padding: 14px 16px; margin-bottom: 20px; border: 1px solid rgba(224,120,104,0.25); }
+  .collab-banner-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+  .collab-banner-body { flex: 1; }
+  .collab-banner-title { font-size: 12px; font-weight: 800; color: #e07868; margin-bottom: 3px; letter-spacing: 0.02em; }
+  .collab-banner-text { font-size: 12px; color: rgba(255,255,255,0.7); line-height: 1.55; }
+
   /* Why */
   .panel-why { font-size: 13px; color: var(--text); line-height: 1.65; background: rgba(30,58,95,0.04); border-left: 3px solid var(--navy); border-radius: 0 8px 8px 0; padding: 12px 14px; }
 
@@ -428,7 +435,7 @@ app.use(clerkMiddleware());</code>',
       },
       {
         id: 'website-build', title: 'Marketing website built', priority: 'soon',
-        context: 'vscode',
+        context: 'vscode', collab: true,
         desc: 'smack.studio homepage, pricing, waitlist CTA.',
         why: 'The public face of Smack. Needs to be live before you do any outreach — studios will check the site before replying to your pitch.',
         steps: [
@@ -460,7 +467,7 @@ app.use(clerkMiddleware());</code>',
     tasks: [
       {
         id: 'sqlite-isolation', title: 'Per-studio SQLite database isolation', priority: 'now',
-        context: 'vscode',
+        context: 'vscode', collab: true,
         desc: 'Each studio gets its own SQLite file. Zero data bleed.',
         why: 'This is the foundation of multi-tenancy. If every studio shares one database and there\'s a bug in a query, you could accidentally return one studio\'s data to another. Separate files per studio make that physically impossible — the data doesn\'t even live in the same file.',
         note: { type: 'info', text: 'SQLite creates the file automatically the first time you open it. You don\'t need to "create" files manually — just open them by path and they appear.' },
@@ -484,7 +491,7 @@ module.exports = { getDB };</code>This opens a different file for each studio. I
       },
       {
         id: 'studio-creation', title: 'Studio creation flow', priority: 'now',
-        context: 'mixed',
+        context: 'mixed', collab: true,
         desc: 'Sign up → provision DB → create Clerk org → assign slug.',
         why: 'This is the onboarding entry point for every new studio. Get it right and the rest is completely self-serve — no manual setup needed per studio.',
         steps: [
@@ -521,7 +528,7 @@ masterDB.prepare(\`INSERT INTO studios (slug, name, clerk_org_id, plan, created_
       },
       {
         id: 'auth-clerk', title: 'Auth working with Clerk + studio scoping', priority: 'now',
-        context: 'vscode',
+        context: 'vscode', collab: true,
         desc: 'Every request is scoped to the correct studio via Clerk org.',
         why: 'This middleware runs on every single request. It reads the Clerk session, finds which studio the user belongs to, and attaches the studio context to the request. Without this, there\'s no way to know which database to open.',
         steps: [
@@ -563,7 +570,7 @@ app.get(\'/projects\', studioContext, (req, res) => {
       },
       {
         id: 'routing', title: 'Per-studio routing resolved', priority: 'now',
-        context: 'vscode',
+        context: 'vscode', collab: true,
         desc: 'Studio context comes from the session, not the URL.',
         why: 'Smack uses path-based routing — everyone goes to smack.studio/dashboard, not workprint.smack.studio. The studio is identified from the logged-in user\'s Clerk session, not the URL. This means zero DNS setup per studio.',
         steps: [
@@ -576,7 +583,7 @@ app.get(\'/projects\', studioContext, (req, res) => {
       },
       {
         id: 'workprint-migration', title: 'Workprint migrated as Studio 1', priority: 'soon',
-        context: 'vscode',
+        context: 'vscode', collab: true,
         desc: 'Workprint becomes the first tenant. Parallel run for at least 1 week.',
         why: 'Workprint is your dogfood studio. Running it as the first Smack tenant proves the architecture works with real data before you invite anyone else.',
         note: { type: 'warn', text: 'Keep Workprint\'s old setup running in parallel. Do NOT turn it off until Smack has run for at least 1 week without issues.' },
@@ -597,7 +604,7 @@ app.get(\'/projects\', studioContext, (req, res) => {
     tasks: [
       {
         id: 'settings-ui', title: 'Studio settings UI', priority: 'soon',
-        context: 'vscode',
+        context: 'vscode', collab: true,
         desc: 'Self-serve config. No Railway touch needed for any studio.',
         why: 'This is what makes Smack a real SaaS. Every studio should configure everything through the app — billing, team, bank account. You should never have to touch Railway to set up a new studio.',
         steps: [
@@ -629,7 +636,7 @@ res.redirect(session.url); // Stripe handles everything from here</code>',
       },
       {
         id: 'onboarding', title: 'Studio onboarding flow', priority: 'soon',
-        context: 'vscode',
+        context: 'vscode', collab: true,
         desc: '7 steps. Target: under 5 min to first value.',
         why: 'The first-run experience determines whether a studio sticks. Get them to their first project or invoice as fast as possible. Detailed spec is in smack-onboarding-flow.html.',
         steps: [
@@ -650,7 +657,7 @@ GET     /onboarding/7  → Completion screen → redirect to /dashboard</code>',
       },
       {
         id: 'billing-sub', title: 'Stripe subscription billing per studio', priority: 'soon',
-        context: 'mixed',
+        context: 'mixed', collab: true,
         desc: 'Studios pay monthly via saved card. $79 / $149 / $299.',
         why: 'This is how Smack makes money. Every studio on a plan is charged monthly via the Smack Stripe account.',
         steps: [
@@ -678,7 +685,7 @@ customer.subscription.deleted → set studio.subscription_status = \'inactive\'<
       },
       {
         id: 'invite-waitlist', title: 'Invite-only waitlist page', priority: 'soon',
-        context: 'vscode',
+        context: 'vscode', collab: true,
         desc: 'Collect email + studio name. Founding studio offer for first 10.',
         why: 'Velvet rope approach — controls quality and builds anticipation. The founding studio offer (50% off for life) gives people a reason to sign up now.',
         steps: [
@@ -733,7 +740,7 @@ customer.subscription.deleted → set studio.subscription_status = \'inactive\'<
       },
       {
         id: 'pwa', title: 'PWA / mobile verified', priority: 'soon',
-        context: 'vscode',
+        context: 'vscode', collab: true,
         desc: 'Installable from Safari on iPhone. No App Store needed.',
         why: 'Most studio owners will check Smack from their phone on set. PWA lets them install it from Safari like a native app, with a home screen icon. Much faster than building a real app.',
         steps: [
@@ -776,7 +783,7 @@ customer.subscription.deleted → set studio.subscription_status = \'inactive\'<
       },
       {
         id: 'ach-transfer-verified', title: 'ACH → transfer flow verified end to end', priority: 'now',
-        context: 'mixed',
+        context: 'mixed', collab: true,
         desc: 'Funds don\'t move until ACH clears. Test with return scenario.',
         why: 'This is the critical money guardrail. If you transfer to a contractor before the studio\'s ACH pull clears, and the ACH returns (bounces), you\'ve fronted the money out of your own Stripe balance. The source_transaction link prevents this — Stripe holds the transfer until the charge actually clears.',
         note: { type: 'warn', text: 'Do ALL testing in Stripe test mode first. Toggle "Test mode" in the top-right of Stripe Dashboard before running any of these steps.' },
@@ -797,7 +804,7 @@ customer.subscription.deleted → set studio.subscription_status = \'inactive\'<
       },
       {
         id: 'prior-payments-field', title: 'Prior payments field per contractor', priority: 'now',
-        context: 'vscode',
+        context: 'vscode', collab: true,
         desc: '"Payments made outside Smack in 2026" — adds to 1099 total.',
         why: 'The IRS $600 1099-NEC threshold is based on TOTAL payments to a contractor from your business across ALL platforms. If a studio paid a contractor $500 by check before joining Smack, then $200 via Smack, that\'s $700 total and a 1099 is required. Without this field, you\'d only see $200 and miss the filing.',
         steps: [
@@ -815,7 +822,7 @@ const total1099 = smackTotal + contractor.prior_payments_2026;</code>',
       },
       {
         id: 'de542-checkbox', title: 'DE 542 checkbox per contractor', priority: 'now',
-        context: 'vscode',
+        context: 'vscode', collab: true,
         desc: '"Already reported to CA EDD" — prevents duplicate filings.',
         why: 'California requires you to report new independent contractors to the CA Employment Development Department (DE 542 form) within 20 days of the first payment over $600. If the contractor was already reported through a prior platform, you don\'t need to re-file. This checkbox tracks that.',
         steps: [
@@ -829,7 +836,7 @@ const total1099 = smackTotal + contractor.prior_payments_2026;</code>',
       },
       {
         id: '1099-generation', title: '1099-NEC generation', priority: 'now',
-        context: 'mixed',
+        context: 'mixed', collab: true,
         desc: 'Stripe auto-generates. You need to enable it and handle TINs.',
         why: 'Stripe Connect automatically generates and delivers 1099-NEC forms for Express accounts that hit the $600 threshold. You don\'t build any of this yourself — you just flip the switch and make sure every contractor has a valid TIN (SSN or EIN) on file.',
         note: { type: 'info', text: 'IRS threshold: $600 total in a calendar year. Stripe files automatically. Deadline: January 31 of the following year.' },
@@ -848,7 +855,7 @@ const total1099 = smackTotal + contractor.prior_payments_2026;</code>',
       },
       {
         id: 'contractor-payments-smack', title: 'Contractor Payments ported to Smack', priority: 'soon',
-        context: 'vscode',
+        context: 'vscode', collab: true,
         desc: 'Same flow as Workprint, per-studio, add-on gated.',
         why: 'Once the Workprint contractor payment flow is solid, port it to Smack so every studio can use it. The architecture is the same — just scoped per studio.',
         steps: [
@@ -874,7 +881,7 @@ db.prepare(\'UPDATE contractors SET stripe_acct_id = ? WHERE id = ?\')
       },
       {
         id: 'addon-gating', title: 'Contractor Payments add-on gating', priority: 'soon',
-        context: 'mixed',
+        context: 'mixed', collab: true,
         desc: 'Show upsell if not subscribed. Full access if active.',
         why: 'The add-on is a separate monthly charge on top of the base subscription. Studios opt in. If they haven\'t, they see an upsell screen instead of the feature.',
         steps: [
@@ -891,7 +898,7 @@ ALTER TABLE studios ADD COLUMN contractor_payments_since DATE;</code>',
       },
       {
         id: 'volume-billing', title: 'Monthly volume billing in arrears', priority: 'soon',
-        context: 'vscode',
+        context: 'vscode', collab: true,
         desc: 'Cron on 1st of month. Tally volume → charge tier fee.',
         why: 'How Contractor Payments is priced — tallied at end of each month, charged on the 1st of the next. Studios only pay for the volume tier they actually hit.',
         steps: [
@@ -940,7 +947,7 @@ async function runMonthlyBilling() {
       },
       {
         id: 'summary-email', title: 'End-of-month summary email', priority: 'soon',
-        context: 'mixed',
+        context: 'mixed', collab: true,
         desc: '"Your fee on the 1st will be $X." Sent a few days before billing.',
         why: 'Nobody likes surprise charges. A 3-day heads-up email builds trust and reduces payment disputes. Simple to build, high trust value.',
         steps: [
@@ -1191,6 +1198,17 @@ function openPanel(id) {
   if (task.context && CTX[task.context]) {
     const c = CTX[task.context];
     html += `<div class="task-context ${c.cls}">${c.icon} ${c.label}</div>`;
+  }
+
+  // Claude collab banner
+  if (task.collab) {
+    html += `<div class="collab-banner">
+      <div class="collab-banner-icon">🤖</div>
+      <div class="collab-banner-body">
+        <div class="collab-banner-title">Claude can build this with you</div>
+        <div class="collab-banner-text">Share your Railway project folder (or paste a file path) and I'll write the code directly. We check it off together — no step-following needed.</div>
+      </div>
+    </div>`;
   }
 
   // Why
