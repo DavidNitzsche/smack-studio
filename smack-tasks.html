@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smack — Master Checklist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --pink: #e07868; --pink-dark: #c85d4a; --navy: #1e3a5f;
+    --canvas: #fafaf9; --surface: #ffffff; --text: #111827;
+    --muted: #6b7280; --border: #e5e7eb; --subtle: #f3f4f6;
+    --green: #059669; --amber: #d97706; --red: #dc2626;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--canvas); color: var(--text); font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+
+  /* ─── LAYOUT ─── */
+  .app { display: flex; min-height: 100vh; }
+  .sidebar { width: 260px; flex-shrink: 0; background: var(--surface); border-right: 1px solid var(--border); position: sticky; top: 0; height: 100vh; overflow-y: auto; display: flex; flex-direction: column; }
+  .main { flex: 1; min-width: 0; padding: 48px 56px 100px; }
+
+  /* ─── SIDEBAR ─── */
+  .sidebar-header { padding: 24px 20px 16px; border-bottom: 1px solid var(--border); }
+  .sidebar-back { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--muted); text-decoration: none; margin-bottom: 16px; }
+  .sidebar-back:hover { color: var(--text); }
+  .sidebar-title { font-size: 13px; font-weight: 800; color: var(--text); letter-spacing: -0.01em; margin-bottom: 8px; }
+  .sidebar-progress-bar { height: 6px; background: var(--subtle); border-radius: 99px; overflow: hidden; margin-bottom: 4px; }
+  .sidebar-progress-fill { height: 100%; background: var(--green); border-radius: 99px; transition: width 0.4s ease; }
+  .sidebar-progress-label { font-size: 11px; color: var(--muted); font-weight: 600; }
+
+  .sidebar-nav { padding: 12px 12px; flex: 1; }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 8px; cursor: pointer; text-decoration: none; margin-bottom: 2px; transition: background 0.1s; }
+  .nav-item:hover { background: var(--subtle); }
+  .nav-item.active { background: rgba(224,120,104,0.08); }
+  .nav-item-icon { font-size: 16px; flex-shrink: 0; width: 20px; text-align: center; }
+  .nav-item-text { flex: 1; min-width: 0; }
+  .nav-item-label { font-size: 12px; font-weight: 700; color: var(--text); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .nav-item.active .nav-item-label { color: var(--pink); }
+  .nav-mini-bar { height: 3px; background: var(--subtle); border-radius: 99px; overflow: hidden; margin-top: 3px; }
+  .nav-mini-fill { height: 100%; background: var(--green); border-radius: 99px; transition: width 0.4s ease; }
+
+  .sidebar-filter { padding: 12px 20px; border-top: 1px solid var(--border); }
+  .filter-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .filter-btns { display: flex; gap: 4px; }
+  .filter-btn { flex: 1; padding: 5px 0; border: 1px solid var(--border); background: var(--surface); border-radius: 6px; font-size: 11px; font-weight: 700; color: var(--muted); cursor: pointer; transition: all 0.1s; font-family: inherit; }
+  .filter-btn:hover { border-color: var(--pink); color: var(--pink); }
+  .filter-btn.active { background: var(--pink); border-color: var(--pink); color: #fff; }
+
+  /* ─── MAIN HEADER ─── */
+  .page-header { margin-bottom: 48px; }
+  .page-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--pink); margin-bottom: 8px; }
+  .page-title { font-size: 32px; font-weight: 900; letter-spacing: -0.03em; color: var(--text); margin-bottom: 8px; }
+  .page-subtitle { font-size: 14px; color: var(--muted); }
+
+  /* ─── OVERALL PROGRESS ─── */
+  .overall-progress { background: linear-gradient(135deg, #0f1d30, #1e3a5f); border-radius: 20px; padding: 28px 32px; margin-bottom: 48px; }
+  .op-label { font-size: 10px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--pink); margin-bottom: 12px; }
+  .op-row { display: flex; align-items: center; gap: 16px; }
+  .op-bar { flex: 1; height: 8px; background: rgba(255,255,255,0.1); border-radius: 99px; overflow: hidden; }
+  .op-fill { height: 100%; background: var(--green); border-radius: 99px; transition: width 0.4s ease; }
+  .op-count { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.7); white-space: nowrap; }
+  .op-count span { color: #fff; }
+
+  /* ─── SECTION ─── */
+  .section { margin-bottom: 56px; scroll-margin-top: 32px; }
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .section-icon { font-size: 22px; }
+  .section-meta { flex: 1; }
+  .section-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--pink); margin-bottom: 2px; }
+  .section-title { font-size: 20px; font-weight: 900; letter-spacing: -0.02em; color: var(--text); }
+  .section-badge { font-size: 11px; font-weight: 700; color: var(--muted); background: var(--subtle); padding: 4px 10px; border-radius: 99px; white-space: nowrap; }
+  .section-badge.done { background: rgba(5,150,105,0.1); color: var(--green); }
+
+  /* ─── TASK ─── */
+  .task { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; margin-bottom: 8px; overflow: hidden; transition: border-color 0.15s, box-shadow 0.15s; }
+  .task:hover { border-color: rgba(224,120,104,0.3); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .task.completed { opacity: 0.55; }
+  .task.completed .task-title { text-decoration: line-through; color: var(--muted); }
+  .task.hidden { display: none; }
+
+  .task-row { display: flex; align-items: flex-start; gap: 14px; padding: 16px 20px; cursor: pointer; }
+  .task-check { flex-shrink: 0; width: 20px; height: 20px; border-radius: 6px; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; transition: all 0.15s; margin-top: 1px; }
+  .task.completed .task-check { background: var(--green); border-color: var(--green); }
+  .task-check-icon { display: none; color: #fff; font-size: 11px; font-weight: 900; }
+  .task.completed .task-check-icon { display: block; }
+  .task-body { flex: 1; min-width: 0; }
+  .task-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+  .task-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .task-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; margin-top: 1px; }
+  .task-priority { font-size: 10px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; }
+  .priority-now { background: rgba(220,38,38,0.1); color: var(--red); }
+  .priority-soon { background: rgba(217,119,6,0.1); color: var(--amber); }
+  .priority-later { background: var(--subtle); color: var(--muted); }
+  .priority-done { background: rgba(5,150,105,0.1); color: var(--green); }
+
+  .task-info-btn { background: none; border: 1px solid var(--border); border-radius: 6px; padding: 3px 10px; font-size: 11px; font-weight: 600; color: var(--muted); cursor: pointer; font-family: inherit; transition: all 0.1s; white-space: nowrap; }
+  .task-info-btn:hover { border-color: var(--pink); color: var(--pink); }
+  .task-info-btn.has-data { border-color: rgba(5,150,105,0.4); color: var(--green); background: rgba(5,150,105,0.05); }
+
+  /* ─── INFO DRAWER ─── */
+  .task-drawer { display: none; border-top: 1px solid var(--border); background: var(--subtle); padding: 20px 24px; }
+  .task-drawer.open { display: block; }
+  .drawer-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .drawer-grid.cols-1 { grid-template-columns: 1fr; }
+  .field-group { display: flex; flex-direction: column; gap: 4px; }
+  .field-label { font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .field-input-wrap { position: relative; }
+  .field-input { width: 100%; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; font-family: inherit; background: var(--surface); color: var(--text); transition: border-color 0.15s; outline: none; }
+  .field-input:focus { border-color: var(--pink); }
+  .field-input.sensitive { padding-right: 36px; font-family: monospace; letter-spacing: 0.05em; }
+  .field-toggle { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 13px; color: var(--muted); padding: 2px; }
+  .field-copy { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 11px; color: var(--muted); padding: 2px; font-family: inherit; font-weight: 700; }
+  .field-copy:hover { color: var(--pink); }
+  .drawer-note { font-size: 12px; color: var(--muted); margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); line-height: 1.6; }
+  .drawer-note strong { color: var(--text); }
+
+  /* ─── EMPTY STATE ─── */
+  .empty-section { text-align: center; padding: 40px; color: var(--muted); font-size: 13px; background: var(--surface); border: 1px dashed var(--border); border-radius: 14px; }
+
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main { padding: 32px 24px 80px; }
+    .drawer-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a class="sidebar-back" href="smack-hub.html">← Hub</a>
+      <div class="sidebar-title">Master Checklist</div>
+      <div class="sidebar-progress-bar"><div class="sidebar-progress-fill" id="sidebar-fill"></div></div>
+      <div class="sidebar-progress-label" id="sidebar-label">Loading…</div>
+    </div>
+    <nav class="sidebar-nav" id="sidebar-nav"></nav>
+    <div class="sidebar-filter">
+      <div class="filter-label">Show</div>
+      <div class="filter-btns">
+        <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">All</button>
+        <button class="filter-btn" data-filter="active" onclick="setFilter('active')">Active</button>
+        <button class="filter-btn" data-filter="done" onclick="setFilter('done')">Done</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="page-header">
+      <div class="page-eyebrow">Smack Studio</div>
+      <div class="page-title">Master Checklist</div>
+      <div class="page-subtitle">Every task, in order. Click to complete. Store credentials and links inline.</div>
+    </div>
+
+    <div class="overall-progress">
+      <div class="op-label">Overall Progress</div>
+      <div class="op-row">
+        <div class="op-bar"><div class="op-fill" id="overall-fill"></div></div>
+        <div class="op-count" id="overall-count"><span>0</span> / 0 tasks complete</div>
+      </div>
+    </div>
+
+    <div id="sections-container"></div>
+  </main>
+</div>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────────────
+
+const SECTIONS = [
+  {
+    id: 'business',
+    icon: '🏢',
+    label: 'Business Setup',
+    title: 'Accounts & Infrastructure',
+    tasks: [
+      {
+        id: 'domain',
+        title: 'smack.studio domain (GoDaddy)',
+        desc: 'Domain purchased and active. Store login details.',
+        priority: 'done',
+        fields: [
+          { id: 'url', label: 'Registrar URL', type: 'url', placeholder: 'https://godaddy.com' },
+          { id: 'email', label: 'Account Email', type: 'email', placeholder: 'you@email.com' },
+          { id: 'password', label: 'Password', type: 'password', sensitive: true },
+          { id: 'expiry', label: 'Renewal Date', type: 'text', placeholder: 'Apr 2027' },
+        ]
+      },
+      {
+        id: 'google-workspace',
+        title: 'Google Workspace (@smack.studio)',
+        desc: 'Sign up at workspace.google.com. Set up MX records in GoDaddy DNS. ~$6/user/mo.',
+        priority: 'now',
+        fields: [
+          { id: 'admin-email', label: 'Admin Email', type: 'email', placeholder: 'you@smack.studio' },
+          { id: 'password', label: 'Password', type: 'password', sensitive: true },
+          { id: 'mx-status', label: 'MX Records Status', type: 'text', placeholder: 'Configured / Pending' },
+        ]
+      },
+      {
+        id: 'railway',
+        title: 'Railway project configured',
+        desc: 'Project set up, GitHub repo connected, environment variables added.',
+        priority: 'now',
+        fields: [
+          { id: 'project-url', label: 'Project URL', type: 'url', placeholder: 'https://railway.app/project/...' },
+          { id: 'env', label: 'Environment', type: 'text', placeholder: 'production' },
+          { id: 'deploy-url', label: 'Deploy URL', type: 'url', placeholder: 'https://smack.studio' },
+        ]
+      },
+      {
+        id: 'github',
+        title: 'GitHub repo set up',
+        desc: 'Private repo, connected to Railway for auto-deploy.',
+        priority: 'now',
+        fields: [
+          { id: 'repo-url', label: 'Repo URL', type: 'url', placeholder: 'https://github.com/...' },
+        ]
+      },
+      {
+        id: 'stripe-platform',
+        title: 'Stripe platform account (Smack billing)',
+        desc: 'Separate from Workprint Stripe. This account bills studios for Smack subscriptions.',
+        priority: 'soon',
+        fields: [
+          { id: 'account-id', label: 'Account ID', type: 'text', placeholder: 'acct_...' },
+          { id: 'pub-key', label: 'Publishable Key', type: 'text', sensitive: true, placeholder: 'pk_live_...' },
+          { id: 'secret-key', label: 'Secret Key', type: 'password', sensitive: true, placeholder: 'sk_live_...' },
+          { id: 'webhook-secret', label: 'Webhook Secret', type: 'password', sensitive: true, placeholder: 'whsec_...' },
+        ]
+      },
+      {
+        id: 'clerk',
+        title: 'Clerk.com auth configured',
+        desc: 'Multi-tenant auth. Replaces any Google Workspace login dependency.',
+        priority: 'now',
+        fields: [
+          { id: 'pub-key', label: 'Publishable Key', type: 'text', sensitive: true, placeholder: 'pk_live_...' },
+          { id: 'secret-key', label: 'Secret Key', type: 'password', sensitive: true, placeholder: 'sk_live_...' },
+          { id: 'dashboard', label: 'Dashboard URL', type: 'url', placeholder: 'https://dashboard.clerk.com/...' },
+        ]
+      },
+      {
+        id: 'resend',
+        title: 'Resend configured @smack.studio',
+        desc: 'Transactional email (invoices, invites, notifications). Domain verified.',
+        priority: 'soon',
+        fields: [
+          { id: 'api-key', label: 'API Key', type: 'password', sensitive: true, placeholder: 're_...' },
+          { id: 'from-email', label: 'From Address', type: 'email', placeholder: 'hello@smack.studio' },
+          { id: 'domain-status', label: 'Domain Verification', type: 'text', placeholder: 'Verified' },
+        ]
+      },
+    ]
+  },
+  {
+    id: 'brand',
+    icon: '🎨',
+    label: 'Brand',
+    title: 'Brand & Design',
+    tasks: [
+      { id: 'logo-locked', title: 'Logo mark locked', desc: 'Variation B — perfect semicircle dome, 5 S-curve tentacles. Real artwork from jelly.svg.', priority: 'done' },
+      { id: 'colors-locked', title: 'Brand colors locked', desc: 'Coral Studio (light default) + Dark Mode Native (user-switchable). Salmon #e07868 throughout.', priority: 'done' },
+      { id: 'type-locked', title: 'Typography locked', desc: 'Inter for UI (Type A). Funtastic Regular for wordmark only.', priority: 'done' },
+      { id: 'components-locked', title: 'UI component decisions locked', desc: 'Status badges: T2 · Menu: light card · Notifications: bordered · Info: navy dark · Sidebar: warm grey.', priority: 'done' },
+      { id: 'accent-themes', title: 'Studio accent themes designed', desc: '6 curated presets for Phase 2 studio color theming. Not required for launch.', priority: 'later' },
+      {
+        id: 'website-direction',
+        title: 'Website direction chosen',
+        desc: 'Pick one direction from smack-website-exploration.html to build from.',
+        priority: 'soon',
+        fields: [
+          { id: 'direction', label: 'Chosen Direction', type: 'text', placeholder: 'e.g. Hero concept 2' },
+          { id: 'notes', label: 'Notes', type: 'textarea', placeholder: 'Key decisions, things to keep...' },
+        ]
+      },
+      { id: 'website-build', title: 'Marketing website built', desc: 'smack.studio homepage, pricing page, waitlist CTA.', priority: 'soon' },
+      { id: 'one-pager-final', title: 'One-pager finalized', desc: 'Print-ready PDF version of smack-one-pager.html. Used for outreach to founding studios.', priority: 'soon' },
+    ]
+  },
+  {
+    id: 'multitenancy',
+    icon: '🏗️',
+    label: 'Multi-tenancy',
+    title: 'Multi-tenancy (Active Build)',
+    tasks: [
+      { id: 'sqlite-isolation', title: 'Per-studio SQLite database isolation', desc: 'Each studio gets its own SQLite file. Zero data bleed between tenants.', priority: 'now' },
+      { id: 'studio-creation', title: 'Studio creation flow', desc: 'When a new studio signs up, provision their DB, create their account, assign subdomain or path routing.', priority: 'now' },
+      { id: 'auth-clerk', title: 'Auth working with Clerk.com', desc: 'Login, session management, studio-scoped access. User can only see their own studio data.', priority: 'now' },
+      { id: 'routing', title: 'Per-studio routing', desc: 'Subdomain routing (studio.smack.studio) or path routing (/s/studio-slug). Consistent across all requests.', priority: 'now' },
+      { id: 'studio-switching', title: 'Studio context in all queries', desc: 'Every DB query is scoped to the current studio. No cross-tenant data leakage possible.', priority: 'now' },
+      { id: 'workprint-migration', title: 'Workprint migrated as Studio 1', desc: 'Workprint becomes the first tenant. Parallel run minimum 1 week before external studios.', priority: 'soon' },
+    ]
+  },
+  {
+    id: 'core',
+    icon: '⚙️',
+    label: 'Core Product',
+    title: 'Core Product — Pre-Launch',
+    tasks: [
+      { id: 'settings-ui', title: 'Studio settings UI', desc: 'Self-serve configuration: business info, billing, team members, bank account for payouts. No Railway needed for any of this.', priority: 'soon' },
+      { id: 'onboarding', title: 'Studio onboarding flow', desc: '7-step first-run UX (designed in smack-onboarding-flow.html). <5 min to first value.', priority: 'soon' },
+      {
+        id: 'invite-waitlist',
+        title: 'Invite-only waitlist page',
+        desc: 'Velvet rope. Collect email + studio name. Founding studio pricing offer for first 10.',
+        priority: 'soon',
+        fields: [
+          { id: 'waitlist-url', label: 'Waitlist URL', type: 'url', placeholder: 'https://smack.studio/waitlist' },
+          { id: 'signups', label: 'Current Signups', type: 'text', placeholder: '0' },
+        ]
+      },
+      { id: 'billing-sub', title: 'Stripe subscription billing per studio', desc: 'Studio pays monthly via saved card. Flat per-studio pricing ($79 / $149 / $299). Handled by Smack platform Stripe account.', priority: 'soon' },
+      {
+        id: 'founding-studios',
+        title: 'First 10 founding studios identified',
+        desc: '50% off for life. Personal outreach. Use one-pager for pitch.',
+        priority: 'soon',
+        fields: [
+          { id: 'studio-1', label: 'Studio 1', type: 'text', placeholder: 'Name + contact' },
+          { id: 'studio-2', label: 'Studio 2', type: 'text', placeholder: 'Name + contact' },
+          { id: 'studio-3', label: 'Studio 3', type: 'text', placeholder: 'Name + contact' },
+          { id: 'studio-4', label: 'Studio 4', type: 'text', placeholder: 'Name + contact' },
+          { id: 'studio-5', label: 'Studio 5', type: 'text', placeholder: 'Name + contact' },
+          { id: 'studio-6', label: 'Studio 6', type: 'text', placeholder: 'Name + contact' },
+          { id: 'studio-7', label: 'Studio 7', type: 'text', placeholder: 'Name + contact' },
+          { id: 'studio-8', label: 'Studio 8', type: 'text', placeholder: 'Name + contact' },
+          { id: 'studio-9', label: 'Studio 9', type: 'text', placeholder: 'Name + contact' },
+          { id: 'studio-10', label: 'Studio 10', type: 'text', placeholder: 'Name + contact' },
+        ]
+      },
+      { id: 'pwa', title: 'PWA / mobile-responsive verified', desc: 'Installable from Safari on iOS. No App Store. Test on iPhone before launch.', priority: 'soon' },
+    ]
+  },
+  {
+    id: 'contractor-payments',
+    icon: '💸',
+    label: 'Contractor Payments',
+    title: 'Contractor Payments Add-on',
+    tasks: [
+      {
+        id: 'stripe-connect-workprint',
+        title: 'Stripe Connect Express set up (Workprint)',
+        desc: 'Express accounts, ACH funding, transfer flow. Tested end to end in test mode.',
+        priority: 'done',
+        fields: [
+          { id: 'connect-status', label: 'Status', type: 'text', placeholder: 'Live / Test' },
+          { id: 'test-account', label: 'Test Connected Account', type: 'text', placeholder: 'acct_...' },
+        ]
+      },
+      { id: 'prior-payments-field', title: 'Prior payments field built', desc: '"Payments made outside Smack in 2026" — per contractor, adds to 1099 total. Notes field for source.', priority: 'now' },
+      { id: 'de542-checkbox', title: 'DE 542 checkbox per contractor', desc: '"Already reported to CA EDD" — marks DE 542 as satisfied, no duplicate filing triggered.', priority: 'now' },
+      { id: '1099-generation', title: '1099-NEC generation', desc: 'Enable in Stripe Connect Dashboard. Combined total (platform + prior payments). $600 threshold. Auto-generate at year end.', priority: 'now' },
+      { id: 'verify-acch-transfer', title: 'ACH → transfer flow verified end to end', desc: 'Test: ACH pull → pending → charge.succeeded → transfer executes. Test ACH return → transfer blocked.', priority: 'now' },
+      { id: 'contractor-payments-smack', title: 'Contractor Payments ported to Smack', desc: 'Same flow, gated behind the add-on subscription. Per-studio Stripe Connect setup in Studio Settings.', priority: 'soon' },
+      { id: 'addon-gating', title: 'Add-on subscription gating', desc: 'If add-on not active, show upsell screen. If active, full access. Tied to Smack platform billing.', priority: 'soon' },
+      { id: 'volume-billing', title: 'Monthly volume billing in arrears', desc: 'Cron job on 1st of month. Tally payout volume per studio → charge tier fee. $29 / $79 / $149 / $299 / Custom.', priority: 'soon' },
+      { id: 'summary-email', title: 'End-of-month summary email', desc: '"You processed $X this month, your fee on the 1st will be $Y." Sent a few days before billing. Via Resend.', priority: 'soon' },
+    ]
+  },
+  {
+    id: 'launch',
+    icon: '🚀',
+    label: 'Launch',
+    title: 'Launch',
+    tasks: [
+      { id: 'website-live', title: 'smack.studio website live', desc: 'Homepage, pricing, waitlist. Deployed to production.', priority: 'soon' },
+      { id: 'waitlist-open', title: 'Waitlist open and collecting', desc: 'Form live. Confirmation email via Resend. First 10 slots marked as founding studios.', priority: 'soon' },
+      { id: 'founding-outreach', title: 'Personal outreach to founding studios', desc: '10 studios, personal message, one-pager attached. 50% off for life offer.', priority: 'soon' },
+      {
+        id: 'launch-date',
+        title: 'Launch date set',
+        desc: 'Pick a date and work backwards. Anchor everything to it.',
+        priority: 'soon',
+        fields: [
+          { id: 'date', label: 'Target Launch Date', type: 'text', placeholder: 'e.g. June 1, 2026' },
+          { id: 'notes', label: 'Notes', type: 'textarea', placeholder: 'Constraints, blockers, milestones...' },
+        ]
+      },
+      { id: 'workprint-parallel', title: 'Workprint parallel run complete', desc: 'Workprint running on Smack for at least 1 week without issues before external studios onboard.', priority: 'later' },
+      { id: 'first-external-studio', title: 'First external studio onboarded', desc: 'First paying studio outside Workprint. Invite-only. Validate the onboarding flow.', priority: 'later' },
+    ]
+  },
+  {
+    id: 'phase2',
+    icon: '🔮',
+    label: 'Phase 2',
+    title: 'Phase 2 — After Launch',
+    tasks: [
+      { id: 'csv-import', title: 'CSV Import add-on', desc: 'Let studios import project/client data from spreadsheets. Scoped as a separate paid add-on.', priority: 'later' },
+      { id: 'accent-themes-build', title: 'Studio accent themes (6 presets)', desc: 'Let studios pick their color palette from 6 curated options. No full custom — too fragile.', priority: 'later' },
+      { id: 'stripe-volume-negotiation', title: 'Stripe volume pricing negotiation', desc: 'At $2M+ annual Connect volume, negotiate custom rates. 20–40% off published prices possible.', priority: 'later' },
+      { id: 'international-contractors', title: 'International contractor payments', desc: 'Expand beyond US-only. Add FX pass-through or premium tier pricing. Enterprise conversation.', priority: 'later' },
+      { id: 'payroll-api-import', title: 'Payroll platform API import', desc: 'Pull prior payment history via API for studios migrating from other platforms. Build only if studios ask.', priority: 'later' },
+      { id: 'native-app', title: 'Native iOS app', desc: 'PWA first. Build native only if studios ask for it post-launch. Not required at any point soon.', priority: 'later' },
+    ]
+  },
+];
+
+// ─── STATE ──────────────────────────────────────────────────────────────────
+
+const STORAGE_KEY = 'smack_checklist_v1';
+const FIELDS_KEY = 'smack_checklist_fields_v1';
+
+function loadState() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; }
+}
+function saveState(state) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+function loadFields() {
+  try { return JSON.parse(localStorage.getItem(FIELDS_KEY) || '{}'); } catch { return {}; }
+}
+function saveFields(fields) {
+  localStorage.setItem(FIELDS_KEY, JSON.stringify(fields));
+}
+
+let state = loadState();
+let fieldData = loadFields();
+let currentFilter = 'all';
+
+// Pre-mark done tasks
+SECTIONS.forEach(s => s.tasks.forEach(t => {
+  if (t.priority === 'done' && state[t.id] === undefined) {
+    state[t.id] = { completed: true, completedAt: new Date().toISOString() };
+  }
+}));
+saveState(state);
+
+// ─── RENDER ─────────────────────────────────────────────────────────────────
+
+function priorityLabel(p) {
+  const map = { now: ['Now', 'priority-now'], soon: ['Soon', 'priority-soon'], later: ['Later', 'priority-later'], done: ['Done', 'priority-done'] };
+  return map[p] || map['later'];
+}
+
+function hasFieldData(taskId, fields) {
+  if (!fields) return false;
+  return fields.some(f => fieldData[`${taskId}:${f.id}`]);
+}
+
+function renderField(taskId, field) {
+  const key = `${taskId}:${field.id}`;
+  const val = fieldData[key] || '';
+  const hasData = !!val;
+
+  if (field.type === 'textarea') {
+    return `
+      <div class="field-group" style="grid-column: 1 / -1;">
+        <div class="field-label">${field.label}</div>
+        <textarea class="field-input" rows="3" placeholder="${field.placeholder || ''}"
+          style="resize: vertical; font-family: inherit;"
+          oninput="saveField('${key}', this.value)">${val}</textarea>
+      </div>`;
+  }
+
+  if (field.sensitive) {
+    return `
+      <div class="field-group">
+        <div class="field-label">${field.label}</div>
+        <div class="field-input-wrap">
+          <input type="password" class="field-input sensitive" id="input-${key}" value="${val}"
+            placeholder="${field.placeholder || ''}"
+            oninput="saveField('${key}', this.value)">
+          <button class="field-toggle" onclick="toggleSensitive('input-${key}', this)" title="Show/hide">👁</button>
+        </div>
+      </div>`;
+  }
+
+  return `
+    <div class="field-group">
+      <div class="field-label">${field.label}</div>
+      <div class="field-input-wrap">
+        <input type="${field.type || 'text'}" class="field-input" id="input-${key}" value="${val}"
+          placeholder="${field.placeholder || ''}"
+          oninput="saveField('${key}', this.value)">
+        ${hasData ? `<button class="field-copy" onclick="copyField('input-${key}', this)">copy</button>` : ''}
+      </div>
+    </div>`;
+}
+
+function renderTask(task) {
+  const completed = state[task.id]?.completed;
+  const hasFields = task.fields && task.fields.length > 0;
+  const hasData = hasFieldData(task.id, task.fields);
+  const [plabel, pclass] = priorityLabel(task.priority);
+  const cols = task.fields && task.fields.length === 1 ? 'cols-1' : '';
+
+  return `
+    <div class="task ${completed ? 'completed' : ''}" id="task-${task.id}" data-completed="${completed ? '1' : '0'}">
+      <div class="task-row" onclick="toggleTask('${task.id}')">
+        <div class="task-check"><span class="task-check-icon">✓</span></div>
+        <div class="task-body">
+          <div class="task-title">${task.title}</div>
+          ${task.desc ? `<div class="task-desc">${task.desc}</div>` : ''}
+        </div>
+        <div class="task-actions" onclick="event.stopPropagation()">
+          <span class="task-priority ${pclass}">${plabel}</span>
+          ${hasFields ? `<button class="task-info-btn ${hasData ? 'has-data' : ''}" id="infobtn-${task.id}" onclick="toggleDrawer('${task.id}')">
+            ${hasData ? '● Info saved' : '+ Store info'}
+          </button>` : ''}
+        </div>
+      </div>
+      ${hasFields ? `
+        <div class="task-drawer" id="drawer-${task.id}">
+          <div class="drawer-grid ${cols}">
+            ${task.fields.map(f => renderField(task.id, f)).join('')}
+          </div>
+          <div class="drawer-note">Saved locally in your browser. <strong>Not synced or shared.</strong> Store credentials, links, and notes here for easy reference.</div>
+        </div>` : ''}
+    </div>`;
+}
+
+function renderSections() {
+  const container = document.getElementById('sections-container');
+  container.innerHTML = SECTIONS.map(section => `
+    <div class="section" id="section-${section.id}">
+      <div class="section-header">
+        <div class="section-icon">${section.icon}</div>
+        <div class="section-meta">
+          <div class="section-eyebrow">${section.label}</div>
+          <div class="section-title">${section.title}</div>
+        </div>
+        <div class="section-badge" id="badge-${section.id}"></div>
+      </div>
+      <div id="tasks-${section.id}">
+        ${section.tasks.map(renderTask).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderNav() {
+  const nav = document.getElementById('sidebar-nav');
+  nav.innerHTML = SECTIONS.map(s => `
+    <a class="nav-item" href="#section-${s.id}" id="nav-${s.id}">
+      <div class="nav-item-icon">${s.icon}</div>
+      <div class="nav-item-text">
+        <span class="nav-item-label">${s.title}</span>
+        <div class="nav-mini-bar"><div class="nav-mini-fill" id="nav-fill-${s.id}"></div></div>
+      </div>
+    </a>
+  `).join('');
+}
+
+// ─── PROGRESS ───────────────────────────────────────────────────────────────
+
+function updateProgress() {
+  let totalAll = 0, doneAll = 0;
+
+  SECTIONS.forEach(section => {
+    const total = section.tasks.length;
+    const done = section.tasks.filter(t => state[t.id]?.completed).length;
+    totalAll += total;
+    doneAll += done;
+
+    const pct = total ? Math.round((done / total) * 100) : 0;
+    const fill = document.getElementById(`nav-fill-${section.id}`);
+    if (fill) fill.style.width = pct + '%';
+
+    const badge = document.getElementById(`badge-${section.id}`);
+    if (badge) {
+      badge.textContent = `${done} / ${total}`;
+      badge.className = 'section-badge' + (done === total ? ' done' : '');
+    }
+  });
+
+  const pct = totalAll ? Math.round((doneAll / totalAll) * 100) : 0;
+  document.getElementById('overall-fill').style.width = pct + '%';
+  document.getElementById('overall-count').innerHTML = `<span>${doneAll}</span> / ${totalAll} tasks complete`;
+  document.getElementById('sidebar-fill').style.width = pct + '%';
+  document.getElementById('sidebar-label').textContent = `${pct}% complete — ${doneAll} of ${totalAll} done`;
+}
+
+// ─── INTERACTIONS ────────────────────────────────────────────────────────────
+
+function toggleTask(id) {
+  const was = state[id]?.completed;
+  state[id] = { completed: !was, completedAt: !was ? new Date().toISOString() : null };
+  saveState(state);
+
+  const el = document.getElementById(`task-${id}`);
+  el.classList.toggle('completed', !was);
+  el.setAttribute('data-completed', !was ? '1' : '0');
+  applyFilter(currentFilter);
+  updateProgress();
+}
+
+function toggleDrawer(id) {
+  const drawer = document.getElementById(`drawer-${id}`);
+  drawer.classList.toggle('open');
+}
+
+function saveField(key, value) {
+  fieldData[key] = value;
+  saveFields(fieldData);
+
+  // Update info button appearance
+  const [taskId] = key.split(':');
+  const task = SECTIONS.flatMap(s => s.tasks).find(t => t.id === taskId);
+  if (task) {
+    const hasData = hasFieldData(taskId, task.fields);
+    const btn = document.getElementById(`infobtn-${taskId}`);
+    if (btn) {
+      btn.className = `task-info-btn ${hasData ? 'has-data' : ''}`;
+      btn.textContent = hasData ? '● Info saved' : '+ Store info';
+    }
+  }
+}
+
+function toggleSensitive(inputId, btn) {
+  const input = document.getElementById(inputId);
+  if (input.type === 'password') { input.type = 'text'; btn.textContent = '🙈'; }
+  else { input.type = 'password'; btn.textContent = '👁'; }
+}
+
+function copyField(inputId, btn) {
+  const val = document.getElementById(inputId).value;
+  if (!val) return;
+  navigator.clipboard.writeText(val).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = '✓';
+    setTimeout(() => btn.textContent = orig, 1200);
+  });
+}
+
+function setFilter(filter) {
+  currentFilter = filter;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === filter));
+  applyFilter(filter);
+}
+
+function applyFilter(filter) {
+  document.querySelectorAll('.task').forEach(el => {
+    const completed = el.getAttribute('data-completed') === '1';
+    if (filter === 'active') el.classList.toggle('hidden', completed);
+    else if (filter === 'done') el.classList.toggle('hidden', !completed);
+    else el.classList.remove('hidden');
+  });
+}
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+
+renderNav();
+renderSections();
+updateProgress();
+applyFilter('all');
+</script>
+</body>
+</html>
