@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>smack. — Project management built for studios.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --pink: #e07868;
+      --navy: #1e3a5f;
+      --canvas: #fafaf8;
+      --ink: #111827;
+      --muted: #6b7280;
+      --rule: #e5e7eb;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--canvas);
+      color: var(--ink);
+      font-size: 14px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 0 20px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .wordmark {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: var(--ink);
+    }
+
+    .wordmark span {
+      color: var(--pink);
+    }
+
+    .domain {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.01em;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 52px 0 44px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+      color: var(--navy);
+      max-width: 620px;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--pink);
+    }
+
+    .hero p {
+      font-size: 16px;
+      line-height: 1.65;
+      color: #374151;
+      max-width: 520px;
+    }
+
+    /* ── PROBLEM ── */
+    .section {
+      padding: 40px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: 28px;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 28px;
+    }
+
+    .problem-card {
+      position: relative;
+      padding: 22px 22px 22px 0;
+    }
+
+    .problem-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -1px;
+      width: 3px;
+      height: 100%;
+      background: var(--rule);
+    }
+
+    .problem-card:first-child::before {
+      display: none;
+    }
+
+    .problem-card:first-child {
+      padding-left: 0;
+    }
+
+    .problem-card:not(:first-child) {
+      padding-left: 28px;
+    }
+
+    .problem-icon {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .problem-card h3 {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+
+    .problem-card p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* ── SOLUTION ── */
+    .solution-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+    }
+
+    .solution-card {
+      background: white;
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      padding: 24px 22px;
+    }
+
+    .solution-icon {
+      width: 36px;
+      height: 36px;
+      background: #fff5f3;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      margin-bottom: 14px;
+    }
+
+    .solution-card h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+
+    .solution-card p {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* ── PRICING ── */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+    }
+
+    .pricing-card {
+      border: 1.5px solid var(--rule);
+      border-radius: 10px;
+      padding: 24px 22px;
+      background: white;
+      position: relative;
+    }
+
+    .pricing-card.featured {
+      border-color: var(--pink);
+    }
+
+    .pricing-badge {
+      position: absolute;
+      top: -11px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--pink);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .tier-name {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .tier-price {
+      font-size: 34px;
+      font-weight: 900;
+      color: var(--navy);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .tier-price sup {
+      font-size: 16px;
+      font-weight: 700;
+      vertical-align: super;
+      letter-spacing: 0;
+    }
+
+    .tier-cadence {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .tier-users {
+      font-size: 12.5px;
+      color: #374151;
+      font-weight: 500;
+    }
+
+    /* ── FOUNDING OFFER ── */
+    .founding-offer {
+      background: #fff8f7;
+      border: 1.5px solid #f5c9c1;
+      border-radius: 10px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .founding-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--pink);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .founding-offer p {
+      font-size: 13.5px;
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    .founding-offer strong {
+      color: var(--pink);
+      font-weight: 700;
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      padding: 52px 0 44px;
+      text-align: center;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .cta-section h2 {
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+
+    .cta-section p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: var(--pink);
+      color: white;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      padding: 14px 32px;
+      border-radius: 10px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .cta-url {
+      display: block;
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 0.01em;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer p {
+      font-size: 11.5px;
+      color: var(--muted);
+    }
+
+    footer span {
+      font-size: 11.5px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* ── PRINT ── */
+    @media print {
+      body { background: white; }
+      .page { padding: 0 32px; }
+      .hero h1 { font-size: 38px; }
+    }
+
+    @media (max-width: 700px) {
+      .page { padding: 0 20px; }
+      .hero h1 { font-size: 32px; }
+      .problem-grid, .solution-grid, .pricing-grid { grid-template-columns: 1fr; }
+      .problem-card::before { display: none; }
+      .problem-card:not(:first-child) { padding-left: 0; border-top: 1px solid var(--rule); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="wordmark">smack<span>.</span></div>
+    <div class="domain">smack.studio</div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Project management<br>built for <em>studios.</em></h1>
+    <p>Boutique production studios juggle crew, clients, and invoices across a dozen disconnected tools. Smack pulls it all into one place — so your team can focus on the work, not the admin.</p>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="section">
+    <div class="section-label">The problem</div>
+    <div class="problem-grid">
+
+      <div class="problem-card">
+        <div class="problem-icon">📱</div>
+        <h3>Crew booking lives in texts and spreadsheets.</h3>
+        <p>Confirmations get buried. Availability is a guessing game. Double-bookings happen.</p>
+      </div>
+
+      <div class="problem-card">
+        <div class="problem-icon">📄</div>
+        <h3>Invoicing is a separate nightmare.</h3>
+        <p>You're toggling between QuickBooks, email, and a PDF you made in 2019. Every. Single. Time.</p>
+      </div>
+
+      <div class="problem-card">
+        <div class="problem-icon">👁️</div>
+        <h3>Clients have no visibility.</h3>
+        <p>They chase updates. You field calls. Everyone's frustrated by the end of the project.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SOLUTION -->
+  <section class="section">
+    <div class="section-label">What smack does</div>
+    <div class="solution-grid">
+
+      <div class="solution-card">
+        <div class="solution-icon">🎬</div>
+        <h3>Crew Booking</h3>
+        <p>Build your call sheet, confirm crew, track availability, and send POs — all from one screen.</p>
+      </div>
+
+      <div class="solution-card">
+        <div class="solution-icon">💸</div>
+        <h3>Invoice Management</h3>
+        <p>Create, send, and track invoices tied directly to your projects. Clients pay online. You get notified.</p>
+      </div>
+
+      <div class="solution-card">
+        <div class="solution-icon">🔗</div>
+        <h3>Client Portal</h3>
+        <p>Give clients a live view of their project — status, files, approvals. No more "where are we?" emails.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section">
+    <div class="section-label">Pricing</div>
+    <div class="pricing-grid">
+
+      <div class="pricing-card">
+        <div class="tier-name">Starter</div>
+        <div class="tier-price"><sup>$</sup>79</div>
+        <div class="tier-cadence">per month</div>
+        <div class="tier-users">Up to 3 users</div>
+      </div>
+
+      <div class="pricing-card featured">
+        <div class="pricing-badge">Most popular</div>
+        <div class="tier-name">Studio</div>
+        <div class="tier-price"><sup>$</sup>149</div>
+        <div class="tier-cadence">per month</div>
+        <div class="tier-users">Up to 10 users</div>
+      </div>
+
+      <div class="pricing-card">
+        <div class="tier-name">Pro</div>
+        <div class="tier-price"><sup>$</sup>299</div>
+        <div class="tier-cadence">per month</div>
+        <div class="tier-users">Unlimited users</div>
+      </div>
+
+    </div>
+
+    <!-- FOUNDING OFFER -->
+    <div style="margin-top: 20px;">
+      <div class="founding-offer">
+        <div class="founding-dot"></div>
+        <p><strong>Founding studio offer:</strong> The first 10 studios to join get 50% off their plan — locked in for as long as they're with us. No strings.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Smack is invite-only.</h2>
+    <p>We're onboarding founding studios now. Spots are limited.</p>
+    <a href="https://smack.studio" class="cta-btn">Request access at smack.studio</a>
+    <span class="cta-url">smack.studio</span>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 smack. Built for production studios.</p>
+    <span>smack.studio</span>
+  </footer>
+
+</div>
+
+</body>
+</html>

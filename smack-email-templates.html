@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>smack. — Email Templates</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --pink: #e07868;
+      --navy: #1e3a5f;
+      --canvas: #f3f4f6;
+      --ink: #111827;
+      --muted: #6b7280;
+      --rule: #e5e7eb;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--canvas);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      padding: 48px 24px;
+    }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      max-width: 680px;
+      margin: 0 auto 48px;
+    }
+
+    .page-header .wordmark {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    .page-header .wordmark span { color: var(--pink); }
+
+    .page-header p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* ── EMAIL LABEL ── */
+    .email-label {
+      max-width: 680px;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .email-label .num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--pink);
+      background: #fff5f3;
+      padding: 3px 9px;
+      border-radius: 20px;
+    }
+
+    .email-label .title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    /* ── EMAIL FRAME ── */
+    .email-frame {
+      max-width: 680px;
+      margin: 0 auto 48px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+      overflow: hidden;
+      border: 1px solid #e9eaec;
+    }
+
+    /* Chrome bar */
+    .chrome-bar {
+      background: #f7f7f8;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .chrome-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .chrome-dot.red { background: #ff5f57; }
+    .chrome-dot.yellow { background: #febc2e; }
+    .chrome-dot.green { background: #28c840; }
+
+    /* Meta area (from/subject) */
+    .email-meta {
+      padding: 20px 28px 18px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .meta-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 4px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .meta-row:last-child { margin-bottom: 0; }
+
+    .meta-key {
+      font-weight: 600;
+      color: var(--muted);
+      min-width: 56px;
+      flex-shrink: 0;
+    }
+
+    .meta-val {
+      color: var(--ink);
+    }
+
+    .meta-subject {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    /* Email body */
+    .email-body {
+      padding: 0;
+      background: #f9fafb;
+    }
+
+    .email-inner {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      padding: 36px 40px 28px;
+    }
+
+    /* Email header logo zone */
+    .email-logo {
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .email-logo .wordmark {
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: var(--ink);
+    }
+
+    .email-logo .wordmark span { color: var(--pink); }
+
+    .email-logo .studio-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* Body text */
+    .email-inner p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+
+    .email-inner p:last-child { margin-bottom: 0; }
+
+    .email-inner .greeting {
+      margin-bottom: 20px;
+    }
+
+    /* Pink CTA button */
+    .btn-pink {
+      display: inline-block;
+      background: var(--pink);
+      color: white !important;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 13px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      letter-spacing: -0.01em;
+      margin: 8px 0;
+    }
+
+    .btn-secondary {
+      display: inline-block;
+      color: var(--pink) !important;
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 10px 0;
+      letter-spacing: -0.01em;
+    }
+
+    .btn-secondary:hover { text-decoration: underline; }
+
+    /* Button row */
+    .btn-row {
+      margin: 20px 0;
+    }
+
+    /* Data table */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 20px;
+    }
+
+    .data-table td {
+      padding: 10px 0;
+      font-size: 14px;
+      border-bottom: 1px solid var(--rule);
+      vertical-align: top;
+    }
+
+    .data-table td:first-child {
+      color: var(--muted);
+      font-weight: 500;
+      width: 130px;
+    }
+
+    .data-table td:last-child {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .data-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Amount callout */
+    .amount-callout {
+      background: #fff8f7;
+      border: 1px solid #f5c9c1;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 18px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .amount-callout .label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .amount-callout .amount {
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--navy);
+      letter-spacing: -0.03em;
+    }
+
+    /* Bullet list */
+    .email-bullets {
+      list-style: none;
+      margin: 14px 0 18px;
+    }
+
+    .email-bullets li {
+      font-size: 14px;
+      color: #374151;
+      padding: 5px 0 5px 20px;
+      position: relative;
+      line-height: 1.55;
+    }
+
+    .email-bullets li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--pink);
+      font-weight: 600;
+    }
+
+    /* PS line */
+    .ps {
+      font-size: 13px;
+      color: var(--muted);
+      border-top: 1px solid var(--rule);
+      padding-top: 16px;
+      margin-top: 20px;
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    /* Sign-off */
+    .signoff {
+      margin-top: 24px;
+      font-size: 15px;
+      color: var(--ink);
+    }
+
+    .signoff .name {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    /* Email footer */
+    .email-footer {
+      padding: 20px 40px;
+      background: #f9fafb;
+      border-top: 1px solid var(--rule);
+      text-align: center;
+    }
+
+    .email-footer p {
+      font-size: 11.5px;
+      color: #9ca3af;
+      line-height: 1.6;
+    }
+
+    .email-footer a {
+      color: #9ca3af;
+      text-decoration: underline;
+    }
+
+    /* Divider */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 20px 0;
+    }
+
+    .note-tag {
+      display: inline-block;
+      background: #eff6ff;
+      color: #2563eb;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 20px;
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="wordmark">smack<span>.</span></div>
+    <p>Email templates — 5 transactional emails across the studio workflow</p>
+  </div>
+
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- EMAIL 1: YOU'RE IN                          -->
+  <!-- ─────────────────────────────────────────── -->
+
+  <div class="email-label">
+    <span class="num">01</span>
+    <span class="title">You're in — Invite accepted</span>
+  </div>
+
+  <div class="email-frame">
+    <div class="chrome-bar">
+      <div class="chrome-dot red"></div>
+      <div class="chrome-dot yellow"></div>
+      <div class="chrome-dot green"></div>
+    </div>
+    <div class="email-meta">
+      <div class="meta-row">
+        <span class="meta-key">From</span>
+        <span class="meta-val">David at smack &lt;david@smack.studio&gt;</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-key">To</span>
+        <span class="meta-val">Studio name &lt;hello@yourstudio.com&gt;</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-key">Subject</span>
+        <span class="meta-val meta-subject">You're in.</span>
+      </div>
+    </div>
+    <div class="email-body">
+      <div class="email-inner">
+        <div class="email-logo">
+          <div class="wordmark">smack<span>.</span></div>
+        </div>
+
+        <p class="greeting">Hi [Name],</p>
+
+        <p>You're one of the first studios to get access to smack. We kept this invite-only on purpose — we wanted to build this with people who actually do this work, not around them.</p>
+
+        <p>As a founding studio, <strong>your rate is locked at $79/mo for as long as you're with us.</strong> No surprises when we raise prices. No re-negotiating. It's yours.</p>
+
+        <div class="btn-row">
+          <a href="#" class="btn-pink">Set up your studio →</a>
+        </div>
+
+        <p>To get started: create your first project. It takes about 90 seconds. From there you can add crew, build your call sheet, and see how it all fits together.</p>
+
+        <p>Reply to this email if you hit anything weird or want to talk through your setup. I read everything.</p>
+
+        <div class="signoff">
+          <span class="name">— David</span>
+        </div>
+
+        <div class="ps">
+          PS — Smack is the only project management tool built specifically for boutique production studios. Most tools are built for agencies. We're not.
+        </div>
+      </div>
+      <div class="email-footer">
+        <p>smack. · smack.studio<br>
+        <a href="#">Unsubscribe</a> · You're receiving this because you requested access.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- EMAIL 2: INVOICE SENT TO CLIENT             -->
+  <!-- ─────────────────────────────────────────── -->
+
+  <div class="email-label">
+    <span class="num">02</span>
+    <span class="title">Invoice sent to client</span>
+  </div>
+
+  <div class="email-frame">
+    <div class="chrome-bar">
+      <div class="chrome-dot red"></div>
+      <div class="chrome-dot yellow"></div>
+      <div class="chrome-dot green"></div>
+    </div>
+    <div class="email-meta">
+      <div class="meta-row">
+        <span class="meta-key">From</span>
+        <span class="meta-val">Acme Productions via smack &lt;billing@smack.studio&gt;</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-key">To</span>
+        <span class="meta-val">Client &lt;client@company.com&gt;</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-key">Subject</span>
+        <span class="meta-val meta-subject">Invoice #INV-042 from Acme Productions</span>
+      </div>
+    </div>
+    <div class="email-body">
+      <div class="email-inner">
+        <div class="email-logo">
+          <div class="wordmark">smack<span>.</span></div>
+          <div class="studio-name">on behalf of Acme Productions</div>
+        </div>
+
+        <p class="greeting">Hi [Client Name],</p>
+
+        <p>Here's your invoice from Acme Productions for the work below.</p>
+
+        <table class="data-table">
+          <tr>
+            <td>Project</td>
+            <td>NFL Owners Meeting 2026</td>
+          </tr>
+          <tr>
+            <td>Invoice</td>
+            <td>#INV-042</td>
+          </tr>
+          <tr>
+            <td>Due date</td>
+            <td>May 1, 2026</td>
+          </tr>
+        </table>
+
+        <div class="amount-callout">
+          <div>
+            <div class="label">Amount due</div>
+          </div>
+          <div class="amount">$12,400.00</div>
+        </div>
+
+        <div class="btn-row">
+          <a href="#" class="btn-pink">View &amp; Pay Invoice →</a>
+        </div>
+
+        <p style="font-size:13.5px; color: var(--muted);">Questions? Reply to this email and Acme Productions will get back to you.</p>
+      </div>
+      <div class="email-footer">
+        <p>Sent via smack. · smack.studio<br>
+        This invoice was sent on behalf of Acme Productions.<br>
+        <a href="#">Unsubscribe from billing emails</a></p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- EMAIL 3: BOOKING CONFIRMATION               -->
+  <!-- ─────────────────────────────────────────── -->
+
+  <div class="email-label">
+    <span class="num">03</span>
+    <span class="title">Booking confirmation to contractor</span>
+  </div>
+
+  <div class="email-frame">
+    <div class="chrome-bar">
+      <div class="chrome-dot red"></div>
+      <div class="chrome-dot yellow"></div>
+      <div class="chrome-dot green"></div>
+    </div>
+    <div class="email-meta">
+      <div class="meta-row">
+        <span class="meta-key">From</span>
+        <span class="meta-val">smack bookings &lt;team@smack.studio&gt;</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-key">To</span>
+        <span class="meta-val">Contractor &lt;contractor@email.com&gt;</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-key">Subject</span>
+        <span class="meta-val meta-subject">You've been booked — NFL Owners Meeting</span>
+      </div>
+    </div>
+    <div class="email-body">
+      <div class="email-inner">
+        <div class="email-logo">
+          <div class="wordmark">smack<span>.</span></div>
+        </div>
+
+        <p class="greeting">Hi [Name],</p>
+
+        <p>You've been booked on <strong>NFL Owners Meeting 2026</strong>. Here are the details:</p>
+
+        <table class="data-table">
+          <tr>
+            <td>Role</td>
+            <td>Director of Photography</td>
+          </tr>
+          <tr>
+            <td>Dates</td>
+            <td>April 14–17, 2026</td>
+          </tr>
+          <tr>
+            <td>Rate</td>
+            <td>$850/day · 4 days</td>
+          </tr>
+          <tr>
+            <td>Client</td>
+            <td>Acme Productions</td>
+          </tr>
+          <tr>
+            <td>Location</td>
+            <td>Las Vegas, NV — details to follow</td>
+          </tr>
+        </table>
+
+        <div class="btn-row">
+          <a href="#" class="btn-pink">View your booking →</a>
+        </div>
+
+        <a href="#" class="btn-secondary">First time with us? Set up your contractor portal →</a>
+
+        <hr class="divider" />
+
+        <p style="font-size:13.5px; color: var(--muted);">Questions? Reply to this email — the team will get back to you.</p>
+      </div>
+      <div class="email-footer">
+        <p>smack. · smack.studio<br>
+        Booking managed by Acme Productions.<br>
+        <a href="#">Unsubscribe</a></p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- EMAIL 4: PORTAL WELCOME (CONTRACTOR)        -->
+  <!-- ─────────────────────────────────────────── -->
+
+  <div class="email-label">
+    <span class="num">04</span>
+    <span class="title">Portal welcome — contractor first login</span>
+  </div>
+
+  <div class="email-frame">
+    <div class="chrome-bar">
+      <div class="chrome-dot red"></div>
+      <div class="chrome-dot yellow"></div>
+      <div class="chrome-dot green"></div>
+    </div>
+    <div class="email-meta">
+      <div class="meta-row">
+        <span class="meta-key">From</span>
+        <span class="meta-val">Workprint &lt;team@smack.studio&gt;</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-key">To</span>
+        <span class="meta-val">Contractor &lt;contractor@email.com&gt;</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-key">Subject</span>
+        <span class="meta-val meta-subject">Welcome to the Workprint portal</span>
+      </div>
+    </div>
+    <div class="email-body">
+      <div class="email-inner">
+        <div class="email-logo">
+          <div class="wordmark">smack<span>.</span></div>
+          <div class="studio-name">Workprint contractor portal</div>
+        </div>
+
+        <span class="note-tag">First time here</span>
+
+        <p class="greeting">Hi [Name],</p>
+
+        <p>Workprint has set you up with a contractor portal. This is where you'll manage everything related to your work with them — no more chasing emails.</p>
+
+        <p>Here's what you can do in the portal:</p>
+
+        <ul class="email-bullets">
+          <li>View all your bookings — confirmed, pending, and past</li>
+          <li>Accept or decline booking requests in one click</li>
+          <li>Download your POs and booking paperwork</li>
+        </ul>
+
+        <div class="btn-row">
+          <a href="#" class="btn-pink">Get started →</a>
+        </div>
+
+        <p>Once you're in, take a look around. Your upcoming bookings will be front and center.</p>
+
+        <p style="font-size:13.5px; color: var(--muted);">Questions about your portal? Reply here and we'll sort it out.</p>
+
+        <div class="signoff">
+          <span class="name">The Workprint team</span>
+        </div>
+      </div>
+      <div class="email-footer">
+        <p>smack. powers the Workprint contractor portal.<br>
+        <a href="#">Unsubscribe</a> · <a href="#">smack.studio</a></p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- EMAIL 5: PAYMENT REMINDER                   -->
+  <!-- ─────────────────────────────────────────── -->
+
+  <div class="email-label">
+    <span class="num">05</span>
+    <span class="title">Payment reminder</span>
+  </div>
+
+  <div class="email-frame">
+    <div class="chrome-bar">
+      <div class="chrome-dot red"></div>
+      <div class="chrome-dot yellow"></div>
+      <div class="chrome-dot green"></div>
+    </div>
+    <div class="email-meta">
+      <div class="meta-row">
+        <span class="meta-key">From</span>
+        <span class="meta-val">smack billing &lt;billing@smack.studio&gt;</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-key">To</span>
+        <span class="meta-val">Client &lt;client@company.com&gt;</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-key">Subject</span>
+        <span class="meta-val meta-subject">Friendly reminder: Invoice #INV-042 is due in 3 days</span>
+      </div>
+    </div>
+    <div class="email-body">
+      <div class="email-inner">
+        <div class="email-logo">
+          <div class="wordmark">smack<span>.</span></div>
+          <div class="studio-name">on behalf of Acme Productions</div>
+        </div>
+
+        <p class="greeting">Hi [Client Name],</p>
+
+        <p>Just a quick heads up — your invoice from Acme Productions is due on <strong>May 1, 2026</strong>.</p>
+
+        <div class="amount-callout">
+          <div>
+            <div class="label">Invoice #INV-042</div>
+          </div>
+          <div class="amount">$12,400.00</div>
+        </div>
+
+        <div class="btn-row">
+          <a href="#" class="btn-pink">View Invoice →</a>
+        </div>
+
+        <p style="font-size:13.5px; color: var(--muted);">Already paid? You can ignore this — we'll update automatically once payment is confirmed.</p>
+      </div>
+      <div class="email-footer">
+        <p>Sent via smack. · smack.studio<br>
+        Billing managed by Acme Productions.<br>
+        <a href="#">Unsubscribe from billing emails</a></p>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
