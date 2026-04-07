@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smack — Logo Exploration v4</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f9fafb;
+      color: #111827;
+      line-height: 1.5;
+    }
+
+    /* ─── Page header ─── */
+    .page-header {
+      padding: 72px 80px 48px;
+      background: #fff;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #e07868;
+      margin-bottom: 12px;
+    }
+    .page-header h1 {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: #111827;
+      margin-bottom: 10px;
+    }
+    .page-header p {
+      font-size: 15px;
+      color: #6b7280;
+      max-width: 620px;
+    }
+
+    /* ─── Section ─── */
+    .section {
+      padding: 56px 80px;
+      border-bottom: 1px solid #e5e7eb;
+      background: #fff;
+      margin-bottom: 2px;
+    }
+    .section:last-of-type { border-bottom: none; margin-bottom: 0; }
+
+    .section-header {
+      margin-bottom: 36px;
+    }
+    .section-eyebrow {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #e07868;
+      margin-bottom: 6px;
+    }
+    .section-title {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #111827;
+      margin-bottom: 6px;
+    }
+    .section-desc {
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    /* ─── Grid ─── */
+    .mark-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px 24px;
+    }
+
+    /* ─── Mark cell ─── */
+    .mark-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+    }
+
+    /* Swatch pair: light + dark side by side */
+    .swatch-pair {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .swatch {
+      width: 120px;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+    .swatch.light {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+    }
+    .swatch.dark {
+      background: #1e3a5f;
+    }
+
+    .swatch svg {
+      display: block;
+    }
+
+    /* ─── Mark label ─── */
+    .mark-label {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .mark-code {
+      font-family: 'Inter', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #e07868;
+      text-transform: uppercase;
+    }
+    .mark-name {
+      font-size: 12px;
+      font-weight: 500;
+      color: #374151;
+      line-height: 1.4;
+    }
+
+    /* ─── Lockup section ─── */
+    .lockup-section {
+      padding: 56px 80px 72px;
+      background: #fff;
+      border-top: 1px solid #e5e7eb;
+    }
+    .lockup-section .section-header { margin-bottom: 40px; }
+
+    .lockup-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .lockup-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .lockup-swatch {
+      height: 140px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 12px;
+      padding: 0 24px;
+    }
+    .lockup-swatch.light {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+    }
+    .lockup-swatch.dark {
+      background: #1e3a5f;
+    }
+
+    .lockup-wordmark {
+      font-family: 'Inter', sans-serif;
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+    .lockup-wordmark.pink { color: #e07868; }
+    .lockup-wordmark.white { color: #ffffff; }
+    .lockup-wordmark.dark { color: #111827; }
+
+    .lockup-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #6b7280;
+    }
+    .lockup-label span {
+      color: #e07868;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     PAGE HEADER
+══════════════════════════════════════════ -->
+<header class="page-header">
+  <div class="eyebrow">Smack Logo v4</div>
+  <h1>Graphic &amp; Flat</h1>
+  <p>Base form locked (Variation B — Perfect Semicircle Gumdrop). Every treatment is flat, 2D, no gradients. Pick what has personality.</p>
+</header>
+
+
+<!-- ══════════════════════════════════════════
+     GROUP A — STROKE WEIGHT VARIATIONS
+══════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-eyebrow">Group A</div>
+    <div class="section-title">Stroke Weight Variations</div>
+    <div class="section-desc">Outline only, no fill. All strokes in #e07868. Tentacles use stroke-linecap: round.</div>
+  </div>
+
+  <div class="mark-grid">
+
+    <!-- A1 — Hairline -->
+    <div class="mark-cell">
+      <div class="swatch-pair">
+        <div class="swatch light">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <!-- Dome: sweep-flag=0, goes UP -->
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="none" stroke="#e07868" stroke-width="1"/>
+            <!-- 5 tentacles -->
+            <line x1="16" y1="30" x2="16" y2="62" stroke="#e07868" stroke-width="0.8" stroke-linecap="round"/>
+            <line x1="23" y1="30" x2="23" y2="62" stroke="#e07868" stroke-width="0.8" stroke-linecap="round"/>
+            <line x1="32" y1="30" x2="32" y2="62" stroke="#e07868" stroke-width="0.8" stroke-linecap="round"/>
+            <line x1="41" y1="30" x2="41" y2="62" stroke="#e07868" stroke-width="0.8" stroke-linecap="round"/>
+            <line x1="48" y1="30" x2="48" y2="62" stroke="#e07868" stroke-width="0.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="swatch dark">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="none" stroke="#e07868" stroke-width="1"/>
+            <line x1="16" y1="30" x2="16" y2="62" stroke="#e07868" stroke-width="0.8" stroke-linecap="round"/>
+            <line x1="23" y1="30" x2="23" y2="62" stroke="#e07868" stroke-width="0.8" stroke-linecap="round"/>
+            <line x1="32" y1="30" x2="32" y2="62" stroke="#e07868" stroke-width="0.8" stroke-linecap="round"/>
+            <line x1="41" y1="30" x2="41" y2="62" stroke="#e07868" stroke-width="0.8" stroke-linecap="round"/>
+            <line x1="48" y1="30" x2="48" y2="62" stroke="#e07868" stroke-width="0.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mark-label">
+        <span class="mark-code">A1</span>
+        <span class="mark-name">Hairline outline</span>
+      </div>
+    </div>
+
+    <!-- A2 — Regular -->
+    <div class="mark-cell">
+      <div class="swatch-pair">
+        <div class="swatch light">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="none" stroke="#e07868" stroke-width="1.8"/>
+            <line x1="16" y1="30" x2="16" y2="62" stroke="#e07868" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="23" y1="30" x2="23" y2="62" stroke="#e07868" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="32" y1="30" x2="32" y2="62" stroke="#e07868" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="41" y1="30" x2="41" y2="62" stroke="#e07868" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="48" y1="30" x2="48" y2="62" stroke="#e07868" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="swatch dark">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="none" stroke="#e07868" stroke-width="1.8"/>
+            <line x1="16" y1="30" x2="16" y2="62" stroke="#e07868" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="23" y1="30" x2="23" y2="62" stroke="#e07868" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="32" y1="30" x2="32" y2="62" stroke="#e07868" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="41" y1="30" x2="41" y2="62" stroke="#e07868" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="48" y1="30" x2="48" y2="62" stroke="#e07868" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mark-label">
+        <span class="mark-code">A2</span>
+        <span class="mark-name">Regular outline</span>
+      </div>
+    </div>
+
+    <!-- A3 — Medium Bold -->
+    <div class="mark-cell">
+      <div class="swatch-pair">
+        <div class="swatch light">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="none" stroke="#e07868" stroke-width="3" stroke-linejoin="round"/>
+            <line x1="16" y1="30" x2="16" y2="62" stroke="#e07868" stroke-width="3" stroke-linecap="round"/>
+            <line x1="23" y1="30" x2="23" y2="62" stroke="#e07868" stroke-width="3" stroke-linecap="round"/>
+            <line x1="32" y1="30" x2="32" y2="62" stroke="#e07868" stroke-width="3" stroke-linecap="round"/>
+            <line x1="41" y1="30" x2="41" y2="62" stroke="#e07868" stroke-width="3" stroke-linecap="round"/>
+            <line x1="48" y1="30" x2="48" y2="62" stroke="#e07868" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="swatch dark">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="none" stroke="#e07868" stroke-width="3" stroke-linejoin="round"/>
+            <line x1="16" y1="30" x2="16" y2="62" stroke="#e07868" stroke-width="3" stroke-linecap="round"/>
+            <line x1="23" y1="30" x2="23" y2="62" stroke="#e07868" stroke-width="3" stroke-linecap="round"/>
+            <line x1="32" y1="30" x2="32" y2="62" stroke="#e07868" stroke-width="3" stroke-linecap="round"/>
+            <line x1="41" y1="30" x2="41" y2="62" stroke="#e07868" stroke-width="3" stroke-linecap="round"/>
+            <line x1="48" y1="30" x2="48" y2="62" stroke="#e07868" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mark-label">
+        <span class="mark-code">A3</span>
+        <span class="mark-name">Medium bold</span>
+      </div>
+    </div>
+
+    <!-- A4 — Heavy -->
+    <div class="mark-cell">
+      <div class="swatch-pair">
+        <div class="swatch light">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="none" stroke="#e07868" stroke-width="5" stroke-linecap="butt" stroke-linejoin="round"/>
+            <line x1="16" y1="30" x2="16" y2="62" stroke="#e07868" stroke-width="4" stroke-linecap="butt"/>
+            <line x1="23" y1="30" x2="23" y2="62" stroke="#e07868" stroke-width="4" stroke-linecap="butt"/>
+            <line x1="32" y1="30" x2="32" y2="62" stroke="#e07868" stroke-width="4" stroke-linecap="butt"/>
+            <line x1="41" y1="30" x2="41" y2="62" stroke="#e07868" stroke-width="4" stroke-linecap="butt"/>
+            <line x1="48" y1="30" x2="48" y2="62" stroke="#e07868" stroke-width="4" stroke-linecap="butt"/>
+          </svg>
+        </div>
+        <div class="swatch dark">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="none" stroke="#e07868" stroke-width="5" stroke-linecap="butt" stroke-linejoin="round"/>
+            <line x1="16" y1="30" x2="16" y2="62" stroke="#e07868" stroke-width="4" stroke-linecap="butt"/>
+            <line x1="23" y1="30" x2="23" y2="62" stroke="#e07868" stroke-width="4" stroke-linecap="butt"/>
+            <line x1="32" y1="30" x2="32" y2="62" stroke="#e07868" stroke-width="4" stroke-linecap="butt"/>
+            <line x1="41" y1="30" x2="41" y2="62" stroke="#e07868" stroke-width="4" stroke-linecap="butt"/>
+            <line x1="48" y1="30" x2="48" y2="62" stroke="#e07868" stroke-width="4" stroke-linecap="butt"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mark-label">
+        <span class="mark-code">A4</span>
+        <span class="mark-name">Heavy, almost brutalist</span>
+      </div>
+    </div>
+
+    <!-- A5 — Ultra Heavy -->
+    <div class="mark-cell">
+      <div class="swatch-pair">
+        <div class="swatch light">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="none" stroke="#e07868" stroke-width="8" stroke-linecap="butt" stroke-linejoin="round"/>
+            <line x1="16" y1="30" x2="16" y2="62" stroke="#e07868" stroke-width="6" stroke-linecap="butt"/>
+            <line x1="23" y1="30" x2="23" y2="62" stroke="#e07868" stroke-width="6" stroke-linecap="butt"/>
+            <line x1="32" y1="30" x2="32" y2="62" stroke="#e07868" stroke-width="6" stroke-linecap="butt"/>
+            <line x1="41" y1="30" x2="41" y2="62" stroke="#e07868" stroke-width="6" stroke-linecap="butt"/>
+            <line x1="48" y1="30" x2="48" y2="62" stroke="#e07868" stroke-width="6" stroke-linecap="butt"/>
+          </svg>
+        </div>
+        <div class="swatch dark">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="none" stroke="#e07868" stroke-width="8" stroke-linecap="butt" stroke-linejoin="round"/>
+            <line x1="16" y1="30" x2="16" y2="62" stroke="#e07868" stroke-width="6" stroke-linecap="butt"/>
+            <line x1="23" y1="30" x2="23" y2="62" stroke="#e07868" stroke-width="6" stroke-linecap="butt"/>
+            <line x1="32" y1="30" x2="32" y2="62" stroke="#e07868" stroke-width="6" stroke-linecap="butt"/>
+            <line x1="41" y1="30" x2="41" y2="62" stroke="#e07868" stroke-width="6" stroke-linecap="butt"/>
+            <line x1="48" y1="30" x2="48" y2="62" stroke="#e07868" stroke-width="6" stroke-linecap="butt"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mark-label">
+        <span class="mark-code">A5</span>
+        <span class="mark-name">Ultra heavy — dome as band</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     GROUP B — FILL & STROKE COMBINATIONS
+══════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-eyebrow">Group B</div>
+    <div class="section-title">Fill &amp; Stroke Combinations</div>
+    <div class="section-desc">Two-tone graphic treatments. Mix of filled dome, stroke tentacles, and solid rect tentacles.</div>
+  </div>
+
+  <div class="mark-grid">
+
+    <!-- B1 — Filled dome, stroke tentacles -->
+    <div class="mark-cell">
+      <div class="swatch-pair">
+        <div class="swatch light">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="#e07868"/>
+            <line x1="16" y1="30" x2="16" y2="62" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="23" y1="30" x2="23" y2="62" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="32" y1="30" x2="32" y2="62" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="41" y1="30" x2="41" y2="62" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="48" y1="30" x2="48" y2="62" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="swatch dark">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="#e07868"/>
+            <line x1="16" y1="30" x2="16" y2="62" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="23" y1="30" x2="23" y2="62" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="32" y1="30" x2="32" y2="62" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="41" y1="30" x2="41" y2="62" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="48" y1="30" x2="48" y2="62" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mark-label">
+        <span class="mark-code">B1</span>
+        <span class="mark-name">Filled dome, stroke tentacles</span>
+      </div>
+    </div>
+
+    <!-- B2 — Filled everything, rect tentacles -->
+    <div class="mark-cell">
+      <div class="swatch-pair">
+        <div class="swatch light">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="#e07868"/>
+            <rect x="14.5" y="30" width="3" height="32" fill="#e07868"/>
+            <rect x="21.5" y="30" width="3" height="32" fill="#e07868"/>
+            <rect x="30.5" y="30" width="3" height="32" fill="#e07868"/>
+            <rect x="39.5" y="30" width="3" height="32" fill="#e07868"/>
+            <rect x="46.5" y="30" width="3" height="32" fill="#e07868"/>
+          </svg>
+        </div>
+        <div class="swatch dark">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="#e07868"/>
+            <rect x="14.5" y="30" width="3" height="32" fill="#e07868"/>
+            <rect x="21.5" y="30" width="3" height="32" fill="#e07868"/>
+            <rect x="30.5" y="30" width="3" height="32" fill="#e07868"/>
+            <rect x="39.5" y="30" width="3" height="32" fill="#e07868"/>
+            <rect x="46.5" y="30" width="3" height="32" fill="#e07868"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mark-label">
+        <span class="mark-code">B2</span>
+        <span class="mark-name">Filled everything, solid bars</span>
+      </div>
+    </div>
+
+    <!-- B3 — Navy dome, pink tentacles -->
+    <div class="mark-cell">
+      <div class="swatch-pair">
+        <div class="swatch light">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="#1e3a5f"/>
+            <line x1="16" y1="30" x2="16" y2="62" stroke="#e07868" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="23" y1="30" x2="23" y2="62" stroke="#e07868" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="32" y1="30" x2="32" y2="62" stroke="#e07868" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="41" y1="30" x2="41" y2="62" stroke="#e07868" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="48" y1="30" x2="48" y2="62" stroke="#e07868" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="swatch dark">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <!-- On dark bg, add outline to navy dome so it's visible -->
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="#1e3a5f" stroke="#ffffff" stroke-width="1.5"/>
+            <line x1="16" y1="30" x2="16" y2="62" stroke="#e07868" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="23" y1="30" x2="23" y2="62" stroke="#e07868" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="32" y1="30" x2="32" y2="62" stroke="#e07868" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="41" y1="30" x2="41" y2="62" stroke="#e07868" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="48" y1="30" x2="48" y2="62" stroke="#e07868" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mark-label">
+        <span class="mark-code">B3</span>
+        <span class="mark-name">Navy dome, pink tentacles</span>
+      </div>
+    </div>
+
+    <!-- B4 — Pink dome, navy tentacles -->
+    <div class="mark-cell">
+      <div class="swatch-pair">
+        <div class="swatch light">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="#e07868"/>
+            <line x1="16" y1="30" x2="16" y2="62" stroke="#1e3a5f" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="23" y1="30" x2="23" y2="62" stroke="#1e3a5f" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="32" y1="30" x2="32" y2="62" stroke="#1e3a5f" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="41" y1="30" x2="41" y2="62" stroke="#1e3a5f" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="48" y1="30" x2="48" y2="62" stroke="#1e3a5f" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="swatch dark">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="#e07868"/>
+            <line x1="16" y1="30" x2="16" y2="62" stroke="#1e3a5f" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="23" y1="30" x2="23" y2="62" stroke="#1e3a5f" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="32" y1="30" x2="32" y2="62" stroke="#1e3a5f" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="41" y1="30" x2="41" y2="62" stroke="#1e3a5f" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="48" y1="30" x2="48" y2="62" stroke="#1e3a5f" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mark-label">
+        <span class="mark-code">B4</span>
+        <span class="mark-name">Pink dome, navy tentacles</span>
+      </div>
+    </div>
+
+    <!-- B5 — Outline dome, filled rect tentacles -->
+    <div class="mark-cell">
+      <div class="swatch-pair">
+        <div class="swatch light">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="none" stroke="#e07868" stroke-width="2"/>
+            <rect x="14.5" y="30" width="3" height="32" fill="#e07868"/>
+            <rect x="21.5" y="30" width="3" height="32" fill="#e07868"/>
+            <rect x="30.5" y="30" width="3" height="32" fill="#e07868"/>
+            <rect x="39.5" y="30" width="3" height="32" fill="#e07868"/>
+            <rect x="46.5" y="30" width="3" height="32" fill="#e07868"/>
+          </svg>
+        </div>
+        <div class="swatch dark">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="none" stroke="#e07868" stroke-width="2"/>
+            <rect x="14.5" y="30" width="3" height="32" fill="#e07868"/>
+            <rect x="21.5" y="30" width="3" height="32" fill="#e07868"/>
+            <rect x="30.5" y="30" width="3" height="32" fill="#e07868"/>
+            <rect x="39.5" y="30" width="3" height="32" fill="#e07868"/>
+            <rect x="46.5" y="30" width="3" height="32" fill="#e07868"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mark-label">
+        <span class="mark-code">B5</span>
+        <span class="mark-name">Outline dome, solid bar tentacles</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     GROUP C — TENTACLE COUNT & STYLE
+══════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-eyebrow">Group C</div>
+    <div class="section-title">Tentacle Count &amp; Style</div>
+    <div class="section-desc">Same dome, different tentacle treatments. Exploring count, spacing, shape, and proportion.</div>
+  </div>
+
+  <div class="mark-grid">
+
+    <!-- C1 — 3 tentacles -->
+    <div class="mark-cell">
+      <div class="swatch-pair">
+        <div class="swatch light">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="#e07868"/>
+            <line x1="18" y1="30" x2="18" y2="62" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="32" y1="30" x2="32" y2="62" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="46" y1="30" x2="46" y2="62" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="swatch dark">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="#e07868"/>
+            <line x1="18" y1="30" x2="18" y2="62" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="32" y1="30" x2="32" y2="62" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="46" y1="30" x2="46" y2="62" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mark-label">
+        <span class="mark-code">C1</span>
+        <span class="mark-name">3 tentacles — minimalist</span>
+      </div>
+    </div>
+
+    <!-- C2 — 7 tentacles -->
+    <div class="mark-cell">
+      <div class="swatch-pair">
+        <div class="swatch light">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="#e07868"/>
+            <!-- 7 evenly spaced from x=12 to x=52 -->
+            <line x1="12" y1="30" x2="12" y2="62" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="18.7" y1="30" x2="18.7" y2="62" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="25.3" y1="30" x2="25.3" y2="62" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="32" y1="30" x2="32" y2="62" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="38.7" y1="30" x2="38.7" y2="62" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="45.3" y1="30" x2="45.3" y2="62" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="52" y1="30" x2="52" y2="62" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="swatch dark">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="#e07868"/>
+            <line x1="12" y1="30" x2="12" y2="62" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="18.7" y1="30" x2="18.7" y2="62" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="25.3" y1="30" x2="25.3" y2="62" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="32" y1="30" x2="32" y2="62" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="38.7" y1="30" x2="38.7" y2="62" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="45.3" y1="30" x2="45.3" y2="62" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="52" y1="30" x2="52" y2="62" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mark-label">
+        <span class="mark-code">C2</span>
+        <span class="mark-name">7 tentacles — creature-like</span>
+      </div>
+    </div>
+
+    <!-- C3 — Varying lengths -->
+    <div class="mark-cell">
+      <div class="swatch-pair">
+        <div class="swatch light">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="#e07868"/>
+            <!-- outer shorter, inner longer -->
+            <line x1="16" y1="30" x2="16" y2="55" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="23" y1="30" x2="23" y2="64" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="32" y1="30" x2="32" y2="70" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="41" y1="30" x2="41" y2="64" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="48" y1="30" x2="48" y2="55" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="swatch dark">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="#e07868"/>
+            <line x1="16" y1="30" x2="16" y2="55" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="23" y1="30" x2="23" y2="64" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="32" y1="30" x2="32" y2="70" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="41" y1="30" x2="41" y2="64" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="48" y1="30" x2="48" y2="55" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mark-label">
+        <span class="mark-code">C3</span>
+        <span class="mark-name">Varying lengths — bell curve spread</span>
+      </div>
+    </div>
+
+    <!-- C4 — Tapered tentacles -->
+    <div class="mark-cell">
+      <div class="swatch-pair">
+        <div class="swatch light">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="#e07868"/>
+            <!-- Wedge tentacles: wide at top, taper to point -->
+            <path d="M14 30 L18 30 L16 68 Z" fill="#c85d4a"/>
+            <path d="M21 30 L25 30 L23 68 Z" fill="#c85d4a"/>
+            <path d="M30 30 L34 30 L32 68 Z" fill="#c85d4a"/>
+            <path d="M39 30 L43 30 L41 68 Z" fill="#c85d4a"/>
+            <path d="M46 30 L50 30 L48 68 Z" fill="#c85d4a"/>
+          </svg>
+        </div>
+        <div class="swatch dark">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="#e07868"/>
+            <path d="M14 30 L18 30 L16 68 Z" fill="#c85d4a"/>
+            <path d="M21 30 L25 30 L23 68 Z" fill="#c85d4a"/>
+            <path d="M30 30 L34 30 L32 68 Z" fill="#c85d4a"/>
+            <path d="M39 30 L43 30 L41 68 Z" fill="#c85d4a"/>
+            <path d="M46 30 L50 30 L48 68 Z" fill="#c85d4a"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mark-label">
+        <span class="mark-code">C4</span>
+        <span class="mark-name">Tapered wedge tentacles</span>
+      </div>
+    </div>
+
+    <!-- C5 — Rounded pill tentacles (rect + circle at bottom) -->
+    <div class="mark-cell">
+      <div class="swatch-pair">
+        <div class="swatch light">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="#e07868"/>
+            <!-- lollipop tentacles: rect + circle at bottom -->
+            <rect x="14.5" y="30" width="3" height="30" fill="#c85d4a"/>
+            <circle cx="16" cy="61" r="2.5" fill="#c85d4a"/>
+
+            <rect x="21.5" y="30" width="3" height="30" fill="#c85d4a"/>
+            <circle cx="23" cy="61" r="2.5" fill="#c85d4a"/>
+
+            <rect x="30.5" y="30" width="3" height="30" fill="#c85d4a"/>
+            <circle cx="32" cy="61" r="2.5" fill="#c85d4a"/>
+
+            <rect x="39.5" y="30" width="3" height="30" fill="#c85d4a"/>
+            <circle cx="41" cy="61" r="2.5" fill="#c85d4a"/>
+
+            <rect x="46.5" y="30" width="3" height="30" fill="#c85d4a"/>
+            <circle cx="48" cy="61" r="2.5" fill="#c85d4a"/>
+          </svg>
+        </div>
+        <div class="swatch dark">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="#e07868"/>
+            <rect x="14.5" y="30" width="3" height="30" fill="#c85d4a"/>
+            <circle cx="16" cy="61" r="2.5" fill="#c85d4a"/>
+            <rect x="21.5" y="30" width="3" height="30" fill="#c85d4a"/>
+            <circle cx="23" cy="61" r="2.5" fill="#c85d4a"/>
+            <rect x="30.5" y="30" width="3" height="30" fill="#c85d4a"/>
+            <circle cx="32" cy="61" r="2.5" fill="#c85d4a"/>
+            <rect x="39.5" y="30" width="3" height="30" fill="#c85d4a"/>
+            <circle cx="41" cy="61" r="2.5" fill="#c85d4a"/>
+            <rect x="46.5" y="30" width="3" height="30" fill="#c85d4a"/>
+            <circle cx="48" cy="61" r="2.5" fill="#c85d4a"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mark-label">
+        <span class="mark-code">C5</span>
+        <span class="mark-name">Pill tentacles — lollipop ends</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     GROUP D — GRAPHIC / CONCEPTUAL
+══════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-eyebrow">Group D</div>
+    <div class="section-title">Graphic &amp; Conceptual Treatments</div>
+    <div class="section-desc">Structured marks. Badge, block, stamp, negative space. These push toward brand mark territory.</div>
+  </div>
+
+  <div class="mark-grid">
+
+    <!-- D1 — Negative space -->
+    <div class="mark-cell">
+      <div class="swatch-pair">
+        <div class="swatch light">
+          <!-- Viewbox 0 0 64 64 for square badge -->
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <!-- Pink rounded square -->
+            <rect x="0" y="4" width="64" height="64" rx="12" fill="#e07868"/>
+            <!-- White dome on top = cuts out the shape -->
+            <path d="M8 34 A24 24 0 0 0 56 34 Z" fill="#ffffff"/>
+            <!-- White tentacles -->
+            <rect x="14.5" y="34" width="3" height="28" fill="#ffffff"/>
+            <rect x="21.5" y="34" width="3" height="28" fill="#ffffff"/>
+            <rect x="30.5" y="34" width="3" height="28" fill="#ffffff"/>
+            <rect x="39.5" y="34" width="3" height="28" fill="#ffffff"/>
+            <rect x="46.5" y="34" width="3" height="28" fill="#ffffff"/>
+          </svg>
+        </div>
+        <div class="swatch dark">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="4" width="64" height="64" rx="12" fill="#e07868"/>
+            <path d="M8 34 A24 24 0 0 0 56 34 Z" fill="#1e3a5f"/>
+            <rect x="14.5" y="34" width="3" height="28" fill="#1e3a5f"/>
+            <rect x="21.5" y="34" width="3" height="28" fill="#1e3a5f"/>
+            <rect x="30.5" y="34" width="3" height="28" fill="#1e3a5f"/>
+            <rect x="39.5" y="34" width="3" height="28" fill="#1e3a5f"/>
+            <rect x="46.5" y="34" width="3" height="28" fill="#1e3a5f"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mark-label">
+        <span class="mark-code">D1</span>
+        <span class="mark-name">Negative space block</span>
+      </div>
+    </div>
+
+    <!-- D2 — Stamp / Badge circle -->
+    <div class="mark-cell">
+      <div class="swatch-pair">
+        <div class="swatch light">
+          <svg viewBox="0 0 80 88" width="80" height="88" xmlns="http://www.w3.org/2000/svg">
+            <!-- Circle ring -->
+            <circle cx="40" cy="40" r="37" fill="none" stroke="#e07868" stroke-width="2"/>
+            <!-- Jellyfish centered: dome top at ~18, base at ~40, tentacles to ~66 -->
+            <path d="M17 40 A23 23 0 0 0 63 40 Z" fill="#e07868"/>
+            <line x1="25" y1="40" x2="25" y2="66" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="32" y1="40" x2="32" y2="66" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="40" y1="40" x2="40" y2="66" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="48" y1="40" x2="48" y2="66" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="55" y1="40" x2="55" y2="66" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="swatch dark">
+          <svg viewBox="0 0 80 88" width="80" height="88" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="40" cy="40" r="37" fill="none" stroke="#e07868" stroke-width="2"/>
+            <path d="M17 40 A23 23 0 0 0 63 40 Z" fill="#e07868"/>
+            <line x1="25" y1="40" x2="25" y2="66" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="32" y1="40" x2="32" y2="66" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="40" y1="40" x2="40" y2="66" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="48" y1="40" x2="48" y2="66" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="55" y1="40" x2="55" y2="66" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mark-label">
+        <span class="mark-code">D2</span>
+        <span class="mark-name">Stamp / badge circle</span>
+      </div>
+    </div>
+
+    <!-- D3 — Hatched dome -->
+    <div class="mark-cell">
+      <div class="swatch-pair">
+        <div class="swatch light">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <clipPath id="dome-clip-l">
+                <path d="M8 30 A24 24 0 0 0 56 30 Z"/>
+              </clipPath>
+            </defs>
+            <!-- Dome outline -->
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="none" stroke="#e07868" stroke-width="2"/>
+            <!-- Hatch lines clipped to dome -->
+            <g clip-path="url(#dome-clip-l)">
+              <line x1="4" y1="26" x2="60" y2="26" stroke="#e07868" stroke-width="1.2"/>
+              <line x1="4" y1="21" x2="60" y2="21" stroke="#e07868" stroke-width="1.2"/>
+              <line x1="4" y1="16" x2="60" y2="16" stroke="#e07868" stroke-width="1.2"/>
+              <line x1="4" y1="11" x2="60" y2="11" stroke="#e07868" stroke-width="1.2"/>
+              <line x1="4" y1="6" x2="60" y2="6" stroke="#e07868" stroke-width="1.2"/>
+              <line x1="4" y1="1" x2="60" y2="1" stroke="#e07868" stroke-width="1.2"/>
+            </g>
+            <!-- Tentacles -->
+            <line x1="16" y1="30" x2="16" y2="62" stroke="#e07868" stroke-width="2" stroke-linecap="round"/>
+            <line x1="23" y1="30" x2="23" y2="62" stroke="#e07868" stroke-width="2" stroke-linecap="round"/>
+            <line x1="32" y1="30" x2="32" y2="62" stroke="#e07868" stroke-width="2" stroke-linecap="round"/>
+            <line x1="41" y1="30" x2="41" y2="62" stroke="#e07868" stroke-width="2" stroke-linecap="round"/>
+            <line x1="48" y1="30" x2="48" y2="62" stroke="#e07868" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="swatch dark">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <clipPath id="dome-clip-d">
+                <path d="M8 30 A24 24 0 0 0 56 30 Z"/>
+              </clipPath>
+            </defs>
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="none" stroke="#e07868" stroke-width="2"/>
+            <g clip-path="url(#dome-clip-d)">
+              <line x1="4" y1="26" x2="60" y2="26" stroke="#e07868" stroke-width="1.2"/>
+              <line x1="4" y1="21" x2="60" y2="21" stroke="#e07868" stroke-width="1.2"/>
+              <line x1="4" y1="16" x2="60" y2="16" stroke="#e07868" stroke-width="1.2"/>
+              <line x1="4" y1="11" x2="60" y2="11" stroke="#e07868" stroke-width="1.2"/>
+              <line x1="4" y1="6" x2="60" y2="6" stroke="#e07868" stroke-width="1.2"/>
+              <line x1="4" y1="1" x2="60" y2="1" stroke="#e07868" stroke-width="1.2"/>
+            </g>
+            <line x1="16" y1="30" x2="16" y2="62" stroke="#e07868" stroke-width="2" stroke-linecap="round"/>
+            <line x1="23" y1="30" x2="23" y2="62" stroke="#e07868" stroke-width="2" stroke-linecap="round"/>
+            <line x1="32" y1="30" x2="32" y2="62" stroke="#e07868" stroke-width="2" stroke-linecap="round"/>
+            <line x1="41" y1="30" x2="41" y2="62" stroke="#e07868" stroke-width="2" stroke-linecap="round"/>
+            <line x1="48" y1="30" x2="48" y2="62" stroke="#e07868" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mark-label">
+        <span class="mark-code">D3</span>
+        <span class="mark-name">Hatched dome — screen-print</span>
+      </div>
+    </div>
+
+    <!-- D4 — Geometric block tentacles -->
+    <div class="mark-cell">
+      <div class="swatch-pair">
+        <div class="swatch light">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="#e07868"/>
+            <!-- Thin architectural rects, dark pink -->
+            <rect x="15" y="30" width="2" height="32" rx="1" fill="#c85d4a"/>
+            <rect x="22" y="30" width="2" height="32" rx="1" fill="#c85d4a"/>
+            <rect x="31" y="30" width="2" height="32" rx="1" fill="#c85d4a"/>
+            <rect x="40" y="30" width="2" height="32" rx="1" fill="#c85d4a"/>
+            <rect x="47" y="30" width="2" height="32" rx="1" fill="#c85d4a"/>
+          </svg>
+        </div>
+        <div class="swatch dark">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="#e07868"/>
+            <rect x="15" y="30" width="2" height="32" rx="1" fill="#c85d4a"/>
+            <rect x="22" y="30" width="2" height="32" rx="1" fill="#c85d4a"/>
+            <rect x="31" y="30" width="2" height="32" rx="1" fill="#c85d4a"/>
+            <rect x="40" y="30" width="2" height="32" rx="1" fill="#c85d4a"/>
+            <rect x="47" y="30" width="2" height="32" rx="1" fill="#c85d4a"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mark-label">
+        <span class="mark-code">D4</span>
+        <span class="mark-name">Geometric block tentacles</span>
+      </div>
+    </div>
+
+    <!-- D5 — App icon flat -->
+    <div class="mark-cell">
+      <div class="swatch-pair">
+        <div class="swatch light">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <!-- No outline, solid dome -->
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="#e07868"/>
+            <!-- Slightly shorter tentacles with rounded ends -->
+            <rect x="14.5" y="30" width="3" height="26" rx="1.5" fill="#e07868"/>
+            <rect x="21.5" y="30" width="3" height="26" rx="1.5" fill="#e07868"/>
+            <rect x="30.5" y="30" width="3" height="26" rx="1.5" fill="#e07868"/>
+            <rect x="39.5" y="30" width="3" height="26" rx="1.5" fill="#e07868"/>
+            <rect x="46.5" y="30" width="3" height="26" rx="1.5" fill="#e07868"/>
+          </svg>
+        </div>
+        <div class="swatch dark">
+          <svg viewBox="0 0 64 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="#e07868"/>
+            <rect x="14.5" y="30" width="3" height="26" rx="1.5" fill="#e07868"/>
+            <rect x="21.5" y="30" width="3" height="26" rx="1.5" fill="#e07868"/>
+            <rect x="30.5" y="30" width="3" height="26" rx="1.5" fill="#e07868"/>
+            <rect x="39.5" y="30" width="3" height="26" rx="1.5" fill="#e07868"/>
+            <rect x="46.5" y="30" width="3" height="26" rx="1.5" fill="#e07868"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mark-label">
+        <span class="mark-code">D5</span>
+        <span class="mark-name">App icon flat — no outline</span>
+      </div>
+    </div>
+
+    <!-- D6 — Inverted badge -->
+    <div class="mark-cell">
+      <div class="swatch-pair">
+        <div class="swatch light">
+          <svg viewBox="0 0 72 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <!-- Navy filled circle -->
+            <circle cx="36" cy="36" r="34" fill="#1e3a5f"/>
+            <!-- White outline jellyfish inside, centered at 36,36 -->
+            <path d="M13 36 A23 23 0 0 0 59 36 Z" fill="none" stroke="#ffffff" stroke-width="1.8"/>
+            <line x1="21" y1="36" x2="21" y2="62" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="28" y1="36" x2="28" y2="62" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="36" y1="36" x2="36" y2="62" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="44" y1="36" x2="44" y2="62" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="51" y1="36" x2="51" y2="62" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="swatch dark">
+          <svg viewBox="0 0 72 72" width="72" height="81" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="36" cy="36" r="34" fill="#e07868"/>
+            <path d="M13 36 A23 23 0 0 0 59 36 Z" fill="none" stroke="#ffffff" stroke-width="1.8"/>
+            <line x1="21" y1="36" x2="21" y2="62" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="28" y1="36" x2="28" y2="62" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="36" y1="36" x2="36" y2="62" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="44" y1="36" x2="44" y2="62" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="51" y1="36" x2="51" y2="62" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mark-label">
+        <span class="mark-code">D6</span>
+        <span class="mark-name">Inverted badge — max contrast</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     LOCKUP SECTION
+══════════════════════════════════════════ -->
+<section class="lockup-section">
+  <div class="section-header">
+    <div class="section-eyebrow">Lockup Preview</div>
+    <div class="section-title">Mark + Wordmark</div>
+    <div class="section-desc">Top candidates paired with "smack." at 32px. How does the mark sit next to type?</div>
+  </div>
+
+  <div class="lockup-grid">
+
+    <!-- Lockup 1: B1 light -->
+    <div class="lockup-card">
+      <div class="lockup-swatch light">
+        <svg viewBox="0 0 64 72" width="46" height="52" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="#e07868"/>
+          <line x1="16" y1="30" x2="16" y2="62" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+          <line x1="23" y1="30" x2="23" y2="62" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+          <line x1="32" y1="30" x2="32" y2="62" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+          <line x1="41" y1="30" x2="41" y2="62" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+          <line x1="48" y1="30" x2="48" y2="62" stroke="#c85d4a" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span class="lockup-wordmark dark">smack.</span>
+      </div>
+      <div class="lockup-label"><span>B1</span> — Filled dome, stroke tentacles</div>
+    </div>
+
+    <!-- Lockup 2: D4 light -->
+    <div class="lockup-card">
+      <div class="lockup-swatch light">
+        <svg viewBox="0 0 64 72" width="46" height="52" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="#e07868"/>
+          <rect x="15" y="30" width="2" height="32" rx="1" fill="#c85d4a"/>
+          <rect x="22" y="30" width="2" height="32" rx="1" fill="#c85d4a"/>
+          <rect x="31" y="30" width="2" height="32" rx="1" fill="#c85d4a"/>
+          <rect x="40" y="30" width="2" height="32" rx="1" fill="#c85d4a"/>
+          <rect x="47" y="30" width="2" height="32" rx="1" fill="#c85d4a"/>
+        </svg>
+        <span class="lockup-wordmark pink">smack.</span>
+      </div>
+      <div class="lockup-label"><span>D4</span> — Geometric block tentacles</div>
+    </div>
+
+    <!-- Lockup 3: D6 dark -->
+    <div class="lockup-card">
+      <div class="lockup-swatch dark">
+        <svg viewBox="0 0 72 72" width="52" height="52" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="36" cy="36" r="34" fill="#e07868"/>
+          <path d="M13 36 A23 23 0 0 0 59 36 Z" fill="none" stroke="#ffffff" stroke-width="1.8"/>
+          <line x1="21" y1="36" x2="21" y2="62" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="28" y1="36" x2="28" y2="62" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="36" y1="36" x2="36" y2="62" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="44" y1="36" x2="44" y2="62" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="51" y1="36" x2="51" y2="62" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <span class="lockup-wordmark white">smack.</span>
+      </div>
+      <div class="lockup-label"><span>D6</span> — Inverted badge on dark</div>
+    </div>
+
+    <!-- Lockup 4: A3 light -->
+    <div class="lockup-card">
+      <div class="lockup-swatch light">
+        <svg viewBox="0 0 64 72" width="46" height="52" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 30 A24 24 0 0 0 56 30 Z" fill="none" stroke="#e07868" stroke-width="3" stroke-linejoin="round"/>
+          <line x1="16" y1="30" x2="16" y2="62" stroke="#e07868" stroke-width="3" stroke-linecap="round"/>
+          <line x1="23" y1="30" x2="23" y2="62" stroke="#e07868" stroke-width="3" stroke-linecap="round"/>
+          <line x1="32" y1="30" x2="32" y2="62" stroke="#e07868" stroke-width="3" stroke-linecap="round"/>
+          <line x1="41" y1="30" x2="41" y2="62" stroke="#e07868" stroke-width="3" stroke-linecap="round"/>
+          <line x1="48" y1="30" x2="48" y2="62" stroke="#e07868" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <span class="lockup-wordmark pink">smack.</span>
+      </div>
+      <div class="lockup-label"><span>A3</span> — Medium bold outline</div>
+    </div>
+
+  </div>
+</section>
+
+</body>
+</html>
