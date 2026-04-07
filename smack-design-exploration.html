@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smack — Brand World Exploration</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f4f4f2;
+      color: #111827;
+    }
+
+    /* ─── Cover ─── */
+    .cover {
+      padding: 80px 64px 72px;
+      background: #fff;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .cover-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 20px;
+    }
+    .cover-title {
+      font-size: 52px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: #111827;
+      line-height: 1.05;
+      margin-bottom: 16px;
+    }
+    .cover-sub {
+      font-size: 17px;
+      font-weight: 400;
+      color: #6b7280;
+      max-width: 560px;
+      line-height: 1.6;
+    }
+    .cover-worlds {
+      display: flex;
+      gap: 8px;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+    .cover-world-tag {
+      padding: 6px 14px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    /* ─── Shared section shell ─── */
+    .world-section {
+      padding: 80px 64px;
+    }
+    .world-divider {
+      height: 8px;
+    }
+
+    .world-header {
+      display: flex;
+      align-items: baseline;
+      gap: 24px;
+      margin-bottom: 56px;
+    }
+    .world-number {
+      font-size: 72px;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+    .world-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .world-name {
+      font-size: 36px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .world-adjectives {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .world-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    /* Column labels */
+    .col-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    /* Palette swatches */
+    .swatches {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .swatch-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .swatch-block {
+      width: 40px;
+      height: 40px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .swatch-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    .swatch-name {
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .swatch-hex {
+      font-size: 10px;
+      font-family: 'Courier New', monospace;
+    }
+
+    /* Type sample */
+    .type-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .type-row {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .type-sizelabel {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #9ca3af;
+    }
+
+    /* UI card generic shell — each world overrides */
+    .ui-card-shell {
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    /* WORLD 1 — CORAL STUDIO                    */
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .w1 { background: #fafaf9; }
+    .w1 .world-number { color: #e07868; }
+    .w1 .world-name { color: #111827; }
+    .w1 .world-adjectives { color: #e07868; }
+    .w1 .col-label { color: #6b7280; }
+    .w1 .swatch-name { color: #111827; }
+    .w1 .swatch-hex { color: #9ca3af; }
+
+    .w1-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 24px;
+    }
+    .w1-card-eyebrow {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #e07868;
+      margin-bottom: 10px;
+    }
+    .w1-card-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #111827;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .w1-card-body {
+      font-size: 13px;
+      color: #6b7280;
+      line-height: 1.55;
+      margin-bottom: 20px;
+    }
+    .w1-card-stats {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .w1-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .w1-stat-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #9ca3af;
+    }
+    .w1-stat-value {
+      font-size: 16px;
+      font-weight: 700;
+      color: #111827;
+    }
+    .w1-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid #f3f4f6;
+    }
+    .w1-badge {
+      background: #fef3f2;
+      color: #e07868;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+    .w1-btn {
+      background: #e07868;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 9px 18px;
+      border-radius: 6px;
+      border: none;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    /* WORLD 2 — FILM NOIR                       */
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .w2 { background: #fffef9; }
+    .w2 .world-number { color: #111827; }
+    .w2 .world-name { color: #111827; letter-spacing: -0.04em; }
+    .w2 .world-adjectives { color: #78716c; }
+    .w2 .col-label { color: #78716c; }
+    .w2 .swatch-name { color: #111827; }
+    .w2 .swatch-hex { color: #a8a29e; }
+
+    .w2-card {
+      background: #fffef9;
+      border: 1px solid #d6d3d1;
+      border-radius: 2px;
+      padding: 28px;
+    }
+    .w2-card-eyebrow {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #e07868;
+      margin-bottom: 14px;
+    }
+    .w2-card-title {
+      font-size: 26px;
+      font-weight: 900;
+      color: #111827;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+    .w2-card-body {
+      font-size: 13px;
+      color: #78716c;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .w2-card-stats {
+      display: flex;
+      gap: 32px;
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #d6d3d1;
+    }
+    .w2-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .w2-stat-label {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #a8a29e;
+    }
+    .w2-stat-value {
+      font-size: 18px;
+      font-weight: 900;
+      color: #111827;
+      letter-spacing: -0.03em;
+    }
+    .w2-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .w2-badge {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #111827;
+      border-bottom: 1.5px solid #111827;
+      padding-bottom: 1px;
+    }
+    .w2-btn {
+      background: #111827;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 10px 20px;
+      border-radius: 2px;
+      border: none;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    /* WORLD 3 — ELECTRIC                        */
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .w3 { background: #f8fafc; }
+    .w3 .world-number { color: #6366f1; }
+    .w3 .world-name { color: #0f172a; letter-spacing: -0.025em; }
+    .w3 .world-adjectives { color: #6366f1; }
+    .w3 .col-label { color: #64748b; }
+    .w3 .swatch-name { color: #0f172a; }
+    .w3 .swatch-hex { color: #94a3b8; }
+
+    .w3-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 22px;
+      box-shadow: 0 1px 3px rgba(99,102,241,0.06), 0 4px 12px rgba(99,102,241,0.04);
+    }
+    .w3-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .w3-card-eyebrow {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #6366f1;
+    }
+    .w3-badge {
+      background: #eff6ff;
+      color: #3b82f6;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+    .w3-card-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .w3-card-body {
+      font-size: 13px;
+      color: #64748b;
+      line-height: 1.55;
+      margin-bottom: 18px;
+    }
+    .w3-progress-bar-bg {
+      background: #e2e8f0;
+      border-radius: 2px;
+      height: 4px;
+      margin-bottom: 18px;
+    }
+    .w3-progress-bar-fill {
+      background: linear-gradient(90deg, #6366f1, #8b5cf6);
+      border-radius: 2px;
+      height: 4px;
+      width: 62%;
+    }
+    .w3-card-stats {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    .w3-stat {
+      flex: 1;
+      background: #f8fafc;
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+    .w3-stat-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #94a3b8;
+      margin-bottom: 3px;
+    }
+    .w3-stat-value {
+      font-size: 15px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .w3-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .w3-date {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+    .w3-btn {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 9px 18px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      letter-spacing: 0.01em;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    /* WORLD 4 — WARM MINIMAL                    */
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .w4 { background: #fafaf8; }
+    .w4 .world-number { color: #d97706; }
+    .w4 .world-name { color: #1c1917; }
+    .w4 .world-adjectives { color: #a16207; }
+    .w4 .col-label { color: #78716c; }
+    .w4 .swatch-name { color: #1c1917; }
+    .w4 .swatch-hex { color: #a8a29e; }
+
+    .w4-card {
+      background: #fff;
+      border: 1px solid #e7e5e4;
+      border-radius: 4px;
+      padding: 28px;
+    }
+    .w4-card-eyebrow {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #78716c;
+      margin-bottom: 12px;
+    }
+    .w4-card-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1c1917;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .w4-card-body {
+      font-size: 13px;
+      color: #78716c;
+      line-height: 1.65;
+      margin-bottom: 24px;
+    }
+    .w4-card-stats {
+      display: flex;
+      gap: 0;
+      margin-bottom: 24px;
+    }
+    .w4-stat {
+      flex: 1;
+      padding: 14px 16px;
+      border: 1px solid #e7e5e4;
+      border-right: none;
+    }
+    .w4-stat:first-child { border-radius: 4px 0 0 4px; }
+    .w4-stat:last-child { border-right: 1px solid #e7e5e4; border-radius: 0 4px 4px 0; }
+    .w4-stat-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #a8a29e;
+      margin-bottom: 4px;
+    }
+    .w4-stat-value {
+      font-size: 17px;
+      font-weight: 700;
+      color: #1c1917;
+    }
+    .w4-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .w4-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #78716c;
+    }
+    .w4-badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #d97706;
+    }
+    .w4-btn {
+      background: #292524;
+      color: #fafaf8;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 9px 20px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    /* WORLD 5 — DARK MODE NATIVE                */
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .w5 { background: #0d1117; }
+    .w5 .world-number { color: #e07868; }
+    .w5 .world-name { color: #e6edf3; }
+    .w5 .world-adjectives { color: #8b949e; }
+    .w5 .col-label { color: #8b949e; }
+    .w5 .swatch-name { color: #e6edf3; }
+    .w5 .swatch-hex { color: #8b949e; }
+
+    .w5-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 22px;
+    }
+    .w5-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+    .w5-card-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      color: #8b949e;
+      letter-spacing: 0.02em;
+    }
+    .w5-badge {
+      background: rgba(224, 120, 104, 0.15);
+      color: #e07868;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(224, 120, 104, 0.25);
+    }
+    .w5-card-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #e6edf3;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+    }
+    .w5-card-body {
+      font-size: 13px;
+      color: #8b949e;
+      line-height: 1.55;
+      margin-bottom: 20px;
+    }
+    .w5-divider {
+      height: 1px;
+      background: #21262d;
+      margin-bottom: 20px;
+    }
+    .w5-card-stats {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 20px;
+    }
+    .w5-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .w5-stat-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #484f58;
+    }
+    .w5-stat-value {
+      font-size: 16px;
+      font-weight: 600;
+      color: #e6edf3;
+    }
+    .w5-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .w5-date {
+      font-size: 12px;
+      color: #8b949e;
+    }
+    .w5-btn {
+      background: #e07868;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 9px 18px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* ─── World 5 type overrides (light text on dark) ─── */
+    .w5-type-title { color: #e6edf3; }
+    .w5-type-card-title { color: #e6edf3; }
+    .w5-type-body { color: #8b949e; }
+    .w5-type-label { color: #484f58; }
+
+    /* ─── Section rule ─── */
+    .section-rule {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #d1d5db 20%, #d1d5db 80%, transparent);
+    }
+    .section-rule-dark {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #21262d 20%, #21262d 80%, transparent);
+    }
+
+    /* Swatch border helper for light colors */
+    .swatch-outlined { box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08); }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════ COVER ═══════════ -->
+  <div class="cover">
+    <div class="cover-eyebrow">Smack · Brand Worlds · April 2026</div>
+    <h1 class="cover-title">Five brand worlds.<br>One direction.</h1>
+    <p class="cover-sub">Each section below renders a complete, self-contained visual language for Smack — palette, type scale, and a live UI component. Nothing is locked. This is the exploration.</p>
+    <div class="cover-worlds">
+      <span class="cover-world-tag" style="background:#fef3f2; color:#e07868;">01 · Coral Studio</span>
+      <span class="cover-world-tag" style="background:#f1f0ec; color:#111827;">02 · Film Noir</span>
+      <span class="cover-world-tag" style="background:#eef2ff; color:#6366f1;">03 · Electric</span>
+      <span class="cover-world-tag" style="background:#fef3c7; color:#d97706;">04 · Warm Minimal</span>
+      <span class="cover-world-tag" style="background:#161b22; color:#e07868;">05 · Dark Mode Native</span>
+    </div>
+  </div>
+
+  <!-- ═══════════ WORLD 1 — CORAL STUDIO ═══════════ -->
+  <div class="world-divider" style="background:#e07868;"></div>
+  <section class="world-section w1">
+
+    <div class="world-header">
+      <span class="world-number w1">01</span>
+      <div class="world-meta">
+        <span class="world-name w1">Coral Studio</span>
+        <span class="world-adjectives w1">Bold · Warm · Human · Studio</span>
+      </div>
+    </div>
+
+    <div class="world-grid">
+
+      <!-- Palette -->
+      <div>
+        <div class="col-label w1">Color Palette</div>
+        <div class="swatches">
+          <div class="swatch-row">
+            <div class="swatch-block" style="background:#e07868;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name w1">Coral Pink · Primary</span>
+              <span class="swatch-hex w1">#e07868</span>
+            </div>
+          </div>
+          <div class="swatch-row">
+            <div class="swatch-block" style="background:#1e3a5f;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name w1">Navy · Dark</span>
+              <span class="swatch-hex w1">#1e3a5f</span>
+            </div>
+          </div>
+          <div class="swatch-row">
+            <div class="swatch-block swatch-outlined" style="background:#fafaf9;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name w1">Warm White · Canvas</span>
+              <span class="swatch-hex w1">#fafaf9</span>
+            </div>
+          </div>
+          <div class="swatch-row">
+            <div class="swatch-block" style="background:#111827;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name w1">Near Black · Text</span>
+              <span class="swatch-hex w1">#111827</span>
+            </div>
+          </div>
+          <div class="swatch-row">
+            <div class="swatch-block" style="background:#6b7280;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name w1">Gray · Muted</span>
+              <span class="swatch-hex w1">#6b7280</span>
+            </div>
+          </div>
+          <div class="swatch-row">
+            <div class="swatch-block swatch-outlined" style="background:#e5e7eb;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name w1">Light Gray · Border</span>
+              <span class="swatch-hex w1">#e5e7eb</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Typography -->
+      <div>
+        <div class="col-label w1">Type Scale</div>
+        <div class="type-stack">
+          <div class="type-row">
+            <span class="type-sizelabel">Page Title · 32px · 900</span>
+            <span style="font-size:28px; font-weight:900; color:#111827; letter-spacing:-0.02em; line-height:1.1;">Active Projects</span>
+          </div>
+          <div class="type-row">
+            <span class="type-sizelabel">Card Title · 18px · 700</span>
+            <span style="font-size:18px; font-weight:700; color:#111827; letter-spacing:-0.01em;">NFL Owners Meeting</span>
+          </div>
+          <div class="type-row">
+            <span class="type-sizelabel">Body · 14px · 400</span>
+            <span style="font-size:14px; font-weight:400; color:#6b7280; line-height:1.6;">Post-production underway. 3 crew members active, 2 invoices pending.</span>
+          </div>
+          <div class="type-row">
+            <span class="type-sizelabel">Label · 10px · 700 · CAPS</span>
+            <span style="font-size:10px; font-weight:700; color:#e07868; letter-spacing:0.1em; text-transform:uppercase;">Production · Due Aug 12</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- UI Card -->
+      <div>
+        <div class="col-label w1">UI Component</div>
+        <div class="w1-card">
+          <div class="w1-card-eyebrow">Production · Due Aug 12</div>
+          <div class="w1-card-title">NFL Owners Meeting</div>
+          <div class="w1-card-body">Post-production underway. 3 crew members active, 2 invoices pending.</div>
+          <div class="w1-card-stats">
+            <div class="w1-stat">
+              <span class="w1-stat-label">Budget</span>
+              <span class="w1-stat-value">$24,500</span>
+            </div>
+            <div class="w1-stat">
+              <span class="w1-stat-label">Timeline</span>
+              <span class="w1-stat-value">Jul 8 – Aug 12</span>
+            </div>
+          </div>
+          <div class="w1-card-footer">
+            <span class="w1-badge">Active</span>
+            <button class="w1-btn">New Project</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════ WORLD 2 — FILM NOIR ═══════════ -->
+  <div class="world-divider" style="background:#111827;"></div>
+  <section class="world-section w2">
+
+    <div class="world-header">
+      <span class="world-number w2">02</span>
+      <div class="world-meta">
+        <span class="world-name w2" style="letter-spacing:-0.04em;">Film Noir</span>
+        <span class="world-adjectives w2">Editorial · Cinematic · Quiet Confidence · Serious</span>
+      </div>
+    </div>
+
+    <div class="world-grid">
+
+      <!-- Palette -->
+      <div>
+        <div class="col-label w2">Color Palette</div>
+        <div class="swatches">
+          <div class="swatch-row">
+            <div class="swatch-block" style="background:#111827;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name w2">Near Black · Primary</span>
+              <span class="swatch-hex w2">#111827</span>
+            </div>
+          </div>
+          <div class="swatch-row">
+            <div class="swatch-block" style="background:#e07868;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name w2">Coral · Sparingly</span>
+              <span class="swatch-hex w2">#e07868</span>
+            </div>
+          </div>
+          <div class="swatch-row">
+            <div class="swatch-block swatch-outlined" style="background:#fffef9;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name w2">Warm Cream · Canvas</span>
+              <span class="swatch-hex w2">#fffef9</span>
+            </div>
+          </div>
+          <div class="swatch-row">
+            <div class="swatch-block" style="background:#111827;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name w2">Near Black · Text</span>
+              <span class="swatch-hex w2">#111827</span>
+            </div>
+          </div>
+          <div class="swatch-row">
+            <div class="swatch-block" style="background:#78716c;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name w2">Warm Stone · Muted</span>
+              <span class="swatch-hex w2">#78716c</span>
+            </div>
+          </div>
+          <div class="swatch-row">
+            <div class="swatch-block swatch-outlined" style="background:#d6d3d1;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name w2">Stone · Border</span>
+              <span class="swatch-hex w2">#d6d3d1</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Typography -->
+      <div>
+        <div class="col-label w2">Type Scale</div>
+        <div class="type-stack">
+          <div class="type-row">
+            <span class="type-sizelabel">Page Title · 34px · 900</span>
+            <span style="font-size:30px; font-weight:900; color:#111827; letter-spacing:-0.04em; line-height:1.05;">Active Projects</span>
+          </div>
+          <div class="type-row">
+            <span class="type-sizelabel">Card Title · 20px · 900</span>
+            <span style="font-size:20px; font-weight:900; color:#111827; letter-spacing:-0.04em;">NFL Owners Meeting</span>
+          </div>
+          <div class="type-row">
+            <span class="type-sizelabel">Body · 13px · 400</span>
+            <span style="font-size:13px; font-weight:400; color:#78716c; line-height:1.65;">Post-production underway. 3 crew members active, 2 invoices pending.</span>
+          </div>
+          <div class="type-row">
+            <span class="type-sizelabel">Label · 9px · 600 · CAPS</span>
+            <span style="font-size:9px; font-weight:600; color:#e07868; letter-spacing:0.14em; text-transform:uppercase;">Production · Due Aug 12</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- UI Card -->
+      <div>
+        <div class="col-label w2">UI Component</div>
+        <div class="w2-card">
+          <div class="w2-card-eyebrow">Production · Due Aug 12</div>
+          <div class="w2-card-title">NFL Owners<br>Meeting</div>
+          <div class="w2-card-body">Post-production underway. 3 crew members active, 2 invoices pending.</div>
+          <div class="w2-card-stats">
+            <div class="w2-stat">
+              <span class="w2-stat-label">Budget</span>
+              <span class="w2-stat-value">$24,500</span>
+            </div>
+            <div class="w2-stat">
+              <span class="w2-stat-label">Timeline</span>
+              <span class="w2-stat-value" style="font-size:14px;">Jul 8 – Aug 12</span>
+            </div>
+          </div>
+          <div class="w2-card-footer">
+            <span class="w2-badge">Active</span>
+            <button class="w2-btn">New Project</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════ WORLD 3 — ELECTRIC ═══════════ -->
+  <div class="world-divider" style="background:#6366f1;"></div>
+  <section class="world-section w3">
+
+    <div class="world-header">
+      <span class="world-number w3">03</span>
+      <div class="world-meta">
+        <span class="world-name w3">Electric</span>
+        <span class="world-adjectives w3">Fast · Technical · Modern · Startup</span>
+      </div>
+    </div>
+
+    <div class="world-grid">
+
+      <!-- Palette -->
+      <div>
+        <div class="col-label w3">Color Palette</div>
+        <div class="swatches">
+          <div class="swatch-row">
+            <div class="swatch-block" style="background:#6366f1;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name w3">Indigo · Primary</span>
+              <span class="swatch-hex w3">#6366f1</span>
+            </div>
+          </div>
+          <div class="swatch-row">
+            <div class="swatch-block" style="background:#e07868;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name w3">Pink · Accent</span>
+              <span class="swatch-hex w3">#e07868</span>
+            </div>
+          </div>
+          <div class="swatch-row">
+            <div class="swatch-block" style="background:#0f172a;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name w3">Slate Dark</span>
+              <span class="swatch-hex w3">#0f172a</span>
+            </div>
+          </div>
+          <div class="swatch-row">
+            <div class="swatch-block swatch-outlined" style="background:#f8fafc;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name w3">Cool White · Canvas</span>
+              <span class="swatch-hex w3">#f8fafc</span>
+            </div>
+          </div>
+          <div class="swatch-row">
+            <div class="swatch-block" style="background:#64748b;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name w3">Slate · Muted</span>
+              <span class="swatch-hex w3">#64748b</span>
+            </div>
+          </div>
+          <div class="swatch-row">
+            <div class="swatch-block swatch-outlined" style="background:#e2e8f0;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name w3">Slate Light · Border</span>
+              <span class="swatch-hex w3">#e2e8f0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Typography -->
+      <div>
+        <div class="col-label w3">Type Scale</div>
+        <div class="type-stack">
+          <div class="type-row">
+            <span class="type-sizelabel">Page Title · 30px · 800</span>
+            <span style="font-size:28px; font-weight:800; color:#0f172a; letter-spacing:-0.02em; line-height:1.1;">Active Projects</span>
+          </div>
+          <div class="type-row">
+            <span class="type-sizelabel">Card Title · 17px · 700</span>
+            <span style="font-size:17px; font-weight:700; color:#0f172a; letter-spacing:-0.01em;">NFL Owners Meeting</span>
+          </div>
+          <div class="type-row">
+            <span class="type-sizelabel">Body · 13px · 400</span>
+            <span style="font-size:13px; font-weight:400; color:#64748b; line-height:1.6;">Post-production underway. 3 crew members active, 2 invoices pending.</span>
+          </div>
+          <div class="type-row">
+            <span class="type-sizelabel">Label · 10px · 600 · CAPS</span>
+            <span style="font-size:10px; font-weight:600; color:#6366f1; letter-spacing:0.08em; text-transform:uppercase;">Production · Due Aug 12</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- UI Card -->
+      <div>
+        <div class="col-label w3">UI Component</div>
+        <div class="w3-card">
+          <div class="w3-card-header">
+            <div class="w3-card-eyebrow">Production</div>
+            <span class="w3-badge">Active</span>
+          </div>
+          <div class="w3-card-title">NFL Owners Meeting</div>
+          <div class="w3-card-body">Post-production underway. 3 crew members active, 2 invoices pending.</div>
+          <div class="w3-progress-bar-bg">
+            <div class="w3-progress-bar-fill"></div>
+          </div>
+          <div class="w3-card-stats">
+            <div class="w3-stat">
+              <div class="w3-stat-label">Budget</div>
+              <div class="w3-stat-value">$24,500</div>
+            </div>
+            <div class="w3-stat">
+              <div class="w3-stat-label">Timeline</div>
+              <div class="w3-stat-value">Jul – Aug</div>
+            </div>
+          </div>
+          <div class="w3-card-footer">
+            <span class="w3-date">Due Aug 12</span>
+            <button class="w3-btn">New Project</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════ WORLD 4 — WARM MINIMAL ═══════════ -->
+  <div class="world-divider" style="background:#d97706;"></div>
+  <section class="world-section w4">
+
+    <div class="world-header">
+      <span class="world-number w4">04</span>
+      <div class="world-meta">
+        <span class="world-name w4">Warm Minimal</span>
+        <span class="world-adjectives w4">Warm · Analog · Considered · Craft</span>
+      </div>
+    </div>
+
+    <div class="world-grid">
+
+      <!-- Palette -->
+      <div>
+        <div class="col-label w4">Color Palette</div>
+        <div class="swatches">
+          <div class="swatch-row">
+            <div class="swatch-block" style="background:#d97706;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name w4">Amber · Primary</span>
+              <span class="swatch-hex w4">#d97706</span>
+            </div>
+          </div>
+          <div class="swatch-row">
+            <div class="swatch-block" style="background:#292524;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name w4">Warm Dark · Dark</span>
+              <span class="swatch-hex w4">#292524</span>
+            </div>
+          </div>
+          <div class="swatch-row">
+            <div class="swatch-block swatch-outlined" style="background:#fafaf8;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name w4">Paper · Canvas</span>
+              <span class="swatch-hex w4">#fafaf8</span>
+            </div>
+          </div>
+          <div class="swatch-row">
+            <div class="swatch-block" style="background:#1c1917;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name w4">Ink · Text</span>
+              <span class="swatch-hex w4">#1c1917</span>
+            </div>
+          </div>
+          <div class="swatch-row">
+            <div class="swatch-block" style="background:#78716c;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name w4">Warm Stone · Muted</span>
+              <span class="swatch-hex w4">#78716c</span>
+            </div>
+          </div>
+          <div class="swatch-row">
+            <div class="swatch-block swatch-outlined" style="background:#e7e5e4;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name w4">Stone · Border</span>
+              <span class="swatch-hex w4">#e7e5e4</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Typography -->
+      <div>
+        <div class="col-label w4">Type Scale</div>
+        <div class="type-stack">
+          <div class="type-row">
+            <span class="type-sizelabel">Page Title · 30px · 700</span>
+            <span style="font-size:28px; font-weight:700; color:#1c1917; letter-spacing:-0.02em; line-height:1.1;">Active Projects</span>
+          </div>
+          <div class="type-row">
+            <span class="type-sizelabel">Card Title · 18px · 600</span>
+            <span style="font-size:18px; font-weight:600; color:#1c1917; letter-spacing:-0.01em;">NFL Owners Meeting</span>
+          </div>
+          <div class="type-row">
+            <span class="type-sizelabel">Body · 13px · 400</span>
+            <span style="font-size:13px; font-weight:400; color:#78716c; line-height:1.7;">Post-production underway. 3 crew members active, 2 invoices pending.</span>
+          </div>
+          <div class="type-row">
+            <span class="type-sizelabel">Label · 10px · 500 · CAPS</span>
+            <span style="font-size:10px; font-weight:500; color:#a16207; letter-spacing:0.12em; text-transform:uppercase;">Production · Due Aug 12</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- UI Card -->
+      <div>
+        <div class="col-label w4">UI Component</div>
+        <div class="w4-card">
+          <div class="w4-card-eyebrow">Production · Due Aug 12</div>
+          <div class="w4-card-title">NFL Owners Meeting</div>
+          <div class="w4-card-body">Post-production underway. 3 crew members active, 2 invoices pending.</div>
+          <div class="w4-card-stats">
+            <div class="w4-stat">
+              <div class="w4-stat-label">Budget</div>
+              <div class="w4-stat-value">$24,500</div>
+            </div>
+            <div class="w4-stat">
+              <div class="w4-stat-label">Timeline</div>
+              <div class="w4-stat-value">Jul 8 – Aug 12</div>
+            </div>
+          </div>
+          <div class="w4-card-footer">
+            <div class="w4-badge">
+              <div class="w4-badge-dot"></div>
+              Active
+            </div>
+            <button class="w4-btn">New Project</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════ WORLD 5 — DARK MODE NATIVE ═══════════ -->
+  <div class="world-divider" style="background:#e07868;"></div>
+  <section class="world-section w5">
+
+    <div class="world-header">
+      <span class="world-number w5">05</span>
+      <div class="world-meta">
+        <span class="world-name w5">Dark Mode Native</span>
+        <span class="world-adjectives w5">Dark · Focused · Developer-Feel · Efficient</span>
+      </div>
+    </div>
+
+    <div class="world-grid">
+
+      <!-- Palette -->
+      <div>
+        <div class="col-label w5">Color Palette</div>
+        <div class="swatches">
+          <div class="swatch-row">
+            <div class="swatch-block" style="background:#e07868;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name w5">Coral Pink · Primary</span>
+              <span class="swatch-hex w5">#e07868</span>
+            </div>
+          </div>
+          <div class="swatch-row">
+            <div class="swatch-block" style="background:#0d1117; box-shadow:inset 0 0 0 1px #30363d;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name w5">Void · Background</span>
+              <span class="swatch-hex w5">#0d1117</span>
+            </div>
+          </div>
+          <div class="swatch-row">
+            <div class="swatch-block" style="background:#161b22; box-shadow:inset 0 0 0 1px #30363d;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name w5">Surface · Card BG</span>
+              <span class="swatch-hex w5">#161b22</span>
+            </div>
+          </div>
+          <div class="swatch-row">
+            <div class="swatch-block" style="background:#e6edf3;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name w5">Frost · Text</span>
+              <span class="swatch-hex w5">#e6edf3</span>
+            </div>
+          </div>
+          <div class="swatch-row">
+            <div class="swatch-block" style="background:#8b949e;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name w5">Ash · Muted</span>
+              <span class="swatch-hex w5">#8b949e</span>
+            </div>
+          </div>
+          <div class="swatch-row">
+            <div class="swatch-block" style="background:#30363d;"></div>
+            <div class="swatch-info">
+              <span class="swatch-name w5">Graphite · Border</span>
+              <span class="swatch-hex w5">#30363d</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Typography -->
+      <div>
+        <div class="col-label w5">Type Scale</div>
+        <div class="type-stack">
+          <div class="type-row">
+            <span class="type-sizelabel" style="color:#484f58;">Page Title · 28px · 700</span>
+            <span class="w5-type-title" style="font-size:28px; font-weight:700; color:#e6edf3; letter-spacing:-0.015em; line-height:1.1;">Active Projects</span>
+          </div>
+          <div class="type-row">
+            <span class="type-sizelabel" style="color:#484f58;">Card Title · 17px · 600</span>
+            <span class="w5-type-card-title" style="font-size:17px; font-weight:600; color:#e6edf3;">NFL Owners Meeting</span>
+          </div>
+          <div class="type-row">
+            <span class="type-sizelabel" style="color:#484f58;">Body · 13px · 400</span>
+            <span style="font-size:13px; font-weight:400; color:#8b949e; line-height:1.6;">Post-production underway. 3 crew members active, 2 invoices pending.</span>
+          </div>
+          <div class="type-row">
+            <span class="type-sizelabel" style="color:#484f58;">Label · 10px · 500 · CAPS</span>
+            <span style="font-size:10px; font-weight:500; color:#484f58; letter-spacing:0.1em; text-transform:uppercase;">Production · Due Aug 12</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- UI Card -->
+      <div>
+        <div class="col-label w5">UI Component</div>
+        <div class="w5-card">
+          <div class="w5-card-top">
+            <span class="w5-card-eyebrow">Production · Due Aug 12</span>
+            <span class="w5-badge">Active</span>
+          </div>
+          <div class="w5-card-title">NFL Owners Meeting</div>
+          <div class="w5-card-body">Post-production underway. 3 crew members active, 2 invoices pending.</div>
+          <div class="w5-divider"></div>
+          <div class="w5-card-stats">
+            <div class="w5-stat">
+              <span class="w5-stat-label">Budget</span>
+              <span class="w5-stat-value">$24,500</span>
+            </div>
+            <div class="w5-stat">
+              <span class="w5-stat-label">Timeline</span>
+              <span class="w5-stat-value">Jul – Aug 12</span>
+            </div>
+          </div>
+          <div class="w5-card-footer">
+            <span class="w5-date">3 crew · 2 invoices</span>
+            <button class="w5-btn">New Project</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <div style="background:#fff; border-top:1px solid #e5e7eb; padding:32px 64px; display:flex; align-items:center; justify-content:space-between;">
+    <span style="font-size:13px; font-weight:700; color:#111827; letter-spacing:-0.01em;">Smack</span>
+    <span style="font-size:12px; color:#9ca3af;">Brand Worlds Exploration · April 2026 · Internal use only</span>
+  </div>
+
+</body>
+</html>
