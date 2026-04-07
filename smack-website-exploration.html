@@ -1,0 +1,2392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>smack.studio — Website Exploration</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --pink: #e07868;
+      --pink-light: #f0aea4;
+      --pink-dark: #c45f4f;
+      --navy: #1e3a5f;
+      --navy-mid: #2d5282;
+      --navy-light: #3b6fa0;
+      --navy-tint: #eef2f7;
+      --white: #ffffff;
+      --off-white: #fafaf9;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-500: #6b7280;
+      --gray-700: #374151;
+      --gray-900: #111827;
+      --font: 'Inter', -apple-system, sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      background: #f0f0ee;
+      color: var(--gray-900);
+      line-height: 1.5;
+    }
+
+    /* ========== EXPLORATION HEADER ========== */
+    .doc-header {
+      background: var(--navy);
+      color: white;
+      padding: 48px 64px;
+      border-bottom: 4px solid var(--pink);
+    }
+    .doc-header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .doc-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--pink-light);
+    }
+    .doc-meta-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--pink-light); }
+    .doc-header h1 {
+      font-size: 36px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+    .doc-header h1 span { color: var(--pink); }
+    .doc-header p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.65);
+      max-width: 600px;
+      line-height: 1.6;
+    }
+    .doc-toc {
+      margin-top: 32px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .doc-toc a {
+      display: inline-block;
+      padding: 6px 14px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .doc-toc a:hover { background: rgba(255,255,255,0.1); color: white; }
+
+    /* ========== SECTION LABELS ========== */
+    .section-label {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 56px 64px 24px;
+    }
+    .section-label-inner {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      border-bottom: 2px solid var(--navy);
+      padding-bottom: 16px;
+      margin-bottom: 0;
+    }
+    .section-label-inner h2 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--navy);
+    }
+    .section-label-inner .option-tag {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--pink);
+    }
+    .section-label-inner p {
+      font-size: 13px;
+      color: var(--gray-500);
+      margin-left: auto;
+      font-style: italic;
+    }
+
+    .option-label {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 64px 0;
+    }
+    .option-label-inner {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .option-badge {
+      background: var(--navy);
+      color: white;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 4px;
+    }
+    .option-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-700);
+    }
+    .option-desc {
+      font-size: 12px;
+      color: var(--gray-500);
+      margin-left: auto;
+      font-style: italic;
+    }
+
+    /* ========== HERO WRAPPER ========== */
+    .hero-frame {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 64px 64px;
+    }
+    .hero-inner {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05), 0 20px 60px rgba(0,0,0,0.12);
+    }
+
+    /* =============================================
+       HERO A — THE PAIN POINT
+    ============================================= */
+    .hero-a {
+      background: var(--navy);
+      min-height: 640px;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      align-items: center;
+      padding: 80px 72px;
+      gap: 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-a::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      right: -100px;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(224,120,104,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-a-left { position: relative; z-index: 1; }
+    .hero-a .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 24px;
+    }
+    .hero-a .eyebrow::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--pink);
+    }
+    .hero-a h1 {
+      font-size: 52px;
+      font-weight: 900;
+      color: white;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+    }
+    .hero-a h1 em {
+      color: var(--pink);
+      font-style: normal;
+    }
+    .hero-a p {
+      font-size: 17px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.65;
+      margin-bottom: 40px;
+      max-width: 440px;
+    }
+    .hero-a .cta-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .btn-pink {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: var(--pink);
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      border-radius: 8px;
+      text-decoration: none;
+      letter-spacing: -0.01em;
+      transition: background 0.15s;
+    }
+    .btn-pink:hover { background: var(--pink-dark); }
+    .btn-ghost-white {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.8);
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+    /* Hero A UI Mockup */
+    .hero-a-right { position: relative; z-index: 1; }
+    .ui-mockup-a {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      padding: 20px;
+      backdrop-filter: blur(12px);
+    }
+    .ui-mockup-a-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .ui-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .ui-dot.red { background: #ff5f57; }
+    .ui-dot.yellow { background: #febc2e; }
+    .ui-dot.green { background: #28c840; }
+    .ui-mockup-a-header span {
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+      margin-left: auto;
+      font-family: monospace;
+    }
+    /* Project card */
+    .project-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+    }
+    .project-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .project-card-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: white;
+    }
+    .status-badge {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .status-badge.active { background: rgba(224,120,104,0.2); color: var(--pink-light); }
+    .status-badge.delivered { background: rgba(40,200,64,0.15); color: #4ade80; }
+    .status-badge.review { background: rgba(251,191,36,0.15); color: #fbbf24; }
+    .project-card-meta {
+      display: flex;
+      gap: 12px;
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+    }
+    .project-card-meta span { display: flex; align-items: center; gap: 4px; }
+    .progress-bar {
+      margin-top: 10px;
+      height: 3px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--pink);
+      border-radius: 2px;
+    }
+    /* Floating invoice snippet */
+    .float-invoice {
+      background: white;
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .float-invoice-left { display: flex; align-items: center; gap: 10px; }
+    .invoice-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      background: rgba(224,120,104,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .invoice-icon svg { color: var(--pink); }
+    .float-invoice-label { font-size: 11px; color: var(--gray-500); }
+    .float-invoice-num { font-size: 13px; font-weight: 700; color: var(--gray-900); }
+    .float-invoice-amount { font-size: 16px; font-weight: 800; color: var(--navy); }
+    /* Booking badge */
+    .booking-badge {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(224,120,104,0.12);
+      border: 1px solid rgba(224,120,104,0.25);
+      border-radius: 8px;
+      padding: 10px 14px;
+    }
+    .avatar-stack { display: flex; }
+    .avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid var(--navy);
+      margin-right: -8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 700;
+      color: white;
+    }
+    .avatar:last-child { margin-right: 0; }
+    .booking-badge-text { font-size: 11px; color: var(--pink-light); margin-left: 12px; }
+    .booking-badge-text strong { font-weight: 700; }
+
+    /* =============================================
+       HERO B — THE OUTCOME
+    ============================================= */
+    .hero-b {
+      background: var(--off-white);
+      min-height: 640px;
+      padding: 100px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-b::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(to right, var(--pink), var(--navy));
+    }
+    .hero-b .eyebrow-b {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--pink);
+      margin-bottom: 28px;
+    }
+    .eyebrow-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--pink);
+    }
+    .hero-b h1 {
+      font-size: 60px;
+      font-weight: 900;
+      color: var(--navy);
+      line-height: 1.0;
+      letter-spacing: -0.04em;
+      margin-bottom: 24px;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero-b p {
+      font-size: 18px;
+      color: var(--gray-500);
+      line-height: 1.6;
+      max-width: 520px;
+      margin: 0 auto 40px;
+    }
+    .btn-pink-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 36px;
+      background: var(--pink);
+      color: white;
+      font-size: 15px;
+      font-weight: 700;
+      border-radius: 50px;
+      text-decoration: none;
+      letter-spacing: -0.01em;
+      margin-bottom: 64px;
+    }
+    .stat-cards {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    .stat-card {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 20px 28px;
+      min-width: 180px;
+      text-align: left;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .stat-card .stat-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      margin-bottom: 6px;
+    }
+    .stat-card .stat-value {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--navy);
+      letter-spacing: -0.03em;
+    }
+    .stat-card .stat-sub {
+      font-size: 11px;
+      color: var(--gray-400);
+      margin-top: 2px;
+    }
+    .stat-card.highlight { border-color: var(--pink); }
+    .stat-card.highlight .stat-value { color: var(--pink); }
+
+    /* =============================================
+       HERO C — THE AUTHORITY
+    ============================================= */
+    .hero-c {
+      background: white;
+      min-height: 580px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 80px;
+      text-align: center;
+      position: relative;
+    }
+    .invite-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(224,120,104,0.08);
+      border: 1px solid rgba(224,120,104,0.3);
+      color: var(--pink-dark);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 8px 16px;
+      border-radius: 50px;
+      margin-bottom: 44px;
+    }
+    .invite-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--pink);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .hero-c h1 {
+      font-size: 72px;
+      font-weight: 900;
+      color: var(--navy);
+      line-height: 1.0;
+      letter-spacing: -0.04em;
+      margin-bottom: 28px;
+      max-width: 800px;
+    }
+    .hero-c h1 em {
+      color: var(--pink);
+      font-style: normal;
+    }
+    .hero-c p {
+      font-size: 19px;
+      color: var(--gray-500);
+      max-width: 480px;
+      margin: 0 auto 44px;
+      line-height: 1.6;
+    }
+    .hero-c .wordmark {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-300);
+    }
+    .hero-c .wordmark strong { color: var(--pink); }
+
+    /* =============================================
+       HERO D — THE SHOW
+    ============================================= */
+    .hero-d {
+      background: var(--gray-50);
+      min-height: 640px;
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      align-items: stretch;
+      overflow: hidden;
+    }
+    .hero-d-left {
+      background: var(--navy);
+      padding: 72px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .hero-d-wordmark {
+      font-size: 56px;
+      font-weight: 900;
+      color: white;
+      letter-spacing: -0.05em;
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+    .hero-d-wordmark span { color: var(--pink); }
+    .hero-d-sub {
+      font-size: 18px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.5;
+      margin-bottom: 40px;
+    }
+    .invite-badge-dark {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(224,120,104,0.15);
+      border: 1px solid rgba(224,120,104,0.3);
+      color: var(--pink-light);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 8px 16px;
+      border-radius: 50px;
+      margin-bottom: 36px;
+      width: fit-content;
+    }
+    .hero-d-right {
+      background: #f1f2f5;
+      padding: 40px 40px 0;
+      display: flex;
+      align-items: flex-start;
+    }
+    /* Product screenshot mockup */
+    .product-mock {
+      background: white;
+      border-radius: 12px 12px 0 0;
+      overflow: hidden;
+      width: 100%;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+      border: 1px solid var(--gray-200);
+      border-bottom: none;
+      display: flex;
+      flex-direction: column;
+      min-height: 520px;
+    }
+    .product-mock-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--gray-100);
+      background: var(--gray-50);
+    }
+    .product-mock-body {
+      display: flex;
+      flex: 1;
+    }
+    .product-sidebar {
+      width: 200px;
+      border-right: 1px solid var(--gray-100);
+      padding: 20px 0;
+      background: var(--navy);
+      flex-shrink: 0;
+    }
+    .sidebar-logo {
+      font-size: 18px;
+      font-weight: 900;
+      color: white;
+      letter-spacing: -0.04em;
+      padding: 0 20px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 12px;
+    }
+    .sidebar-logo span { color: var(--pink); }
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 20px;
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+      cursor: pointer;
+    }
+    .sidebar-item.active {
+      background: rgba(224,120,104,0.12);
+      color: var(--pink-light);
+      font-weight: 600;
+    }
+    .sidebar-item svg { flex-shrink: 0; }
+    .sidebar-section-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      padding: 16px 20px 6px;
+    }
+    .product-main {
+      flex: 1;
+      padding: 24px 28px;
+      overflow: hidden;
+    }
+    .product-main-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .product-main-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--gray-900);
+      letter-spacing: -0.02em;
+    }
+    .product-add-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--pink);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 7px 14px;
+      border-radius: 6px;
+    }
+    .project-row {
+      display: grid;
+      grid-template-columns: 1fr auto auto auto;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      margin-bottom: 6px;
+      border: 1px solid var(--gray-100);
+    }
+    .project-row:hover { background: var(--gray-50); }
+    .project-row-name { font-size: 13px; font-weight: 600; color: var(--gray-900); }
+    .project-row-client { font-size: 11px; color: var(--gray-500); margin-top: 2px; }
+    .project-row-status {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+    .project-row-status.in-prod { background: rgba(224,120,104,0.1); color: var(--pink-dark); }
+    .project-row-status.editing { background: rgba(99,102,241,0.1); color: #6366f1; }
+    .project-row-status.delivered { background: rgba(16,185,129,0.1); color: #059669; }
+    .project-row-status.bid { background: rgba(245,158,11,0.1); color: #d97706; }
+    .project-row-date { font-size: 11px; color: var(--gray-400); white-space: nowrap; }
+    .project-row-budget { font-size: 12px; font-weight: 700; color: var(--gray-700); white-space: nowrap; }
+
+    /* =============================================
+       FEATURES SECTION LABELS
+    ============================================= */
+    .features-frame {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 64px 64px;
+    }
+    .features-inner {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05), 0 20px 60px rgba(0,0,0,0.10);
+    }
+
+    /* =============================================
+       FEATURES A — ICON GRID
+    ============================================= */
+    .features-a {
+      background: white;
+      padding: 96px 80px;
+    }
+    .features-a-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .section-eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: 42px;
+      font-weight: 900;
+      color: var(--navy);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 17px;
+      color: var(--gray-500);
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .feature-card {
+      background: rgba(224,120,104,0.04);
+      border: 1px solid rgba(224,120,104,0.12);
+      border-radius: 12px;
+      padding: 28px;
+      transition: box-shadow 0.15s;
+    }
+    .feature-card:hover { box-shadow: 0 4px 20px rgba(224,120,104,0.1); }
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--pink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .feature-icon svg { color: white; }
+    .feature-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .feature-desc {
+      font-size: 13px;
+      color: var(--gray-500);
+      line-height: 1.6;
+    }
+
+    /* =============================================
+       FEATURES B — ALTERNATING ROWS
+    ============================================= */
+    .features-b {
+      background: var(--off-white);
+      padding: 96px 0;
+    }
+    .features-b-header {
+      text-align: center;
+      padding: 0 80px;
+      margin-bottom: 80px;
+    }
+    .alt-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      padding: 64px 80px;
+      border-top: 1px solid var(--gray-200);
+    }
+    .alt-row.reverse { direction: rtl; }
+    .alt-row.reverse > * { direction: ltr; }
+    .alt-row-text {}
+    .alt-row-number {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      color: var(--pink);
+      margin-bottom: 16px;
+    }
+    .alt-row-title {
+      font-size: 36px;
+      font-weight: 900;
+      color: var(--navy);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .alt-row-desc {
+      font-size: 16px;
+      color: var(--gray-500);
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+    .alt-row-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--pink);
+      text-decoration: none;
+    }
+    /* Feature screenshots (pure CSS) */
+    .feature-mock {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--gray-200);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+    }
+    .feature-mock-bar {
+      background: var(--navy);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .feature-mock-bar span {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.5);
+      margin-left: auto;
+    }
+    /* Cashflow mock */
+    .cashflow-mock-body {
+      background: white;
+      padding: 20px;
+    }
+    .cashflow-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .cashflow-title { font-size: 14px; font-weight: 800; color: var(--navy); }
+    .cashflow-period { font-size: 11px; color: var(--gray-500); }
+    .cashflow-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .cf-stat {
+      background: var(--gray-50);
+      border-radius: 8px;
+      padding: 12px;
+    }
+    .cf-stat-label { font-size: 10px; color: var(--gray-500); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+    .cf-stat-val { font-size: 20px; font-weight: 900; letter-spacing: -0.03em; }
+    .cf-stat-val.green { color: #059669; }
+    .cf-stat-val.red { color: #dc2626; }
+    .cf-stat-val.navy { color: var(--navy); }
+    .bar-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      height: 80px;
+    }
+    .bar-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      height: 100%;
+      justify-content: flex-end;
+    }
+    .bar-fill { width: 100%; border-radius: 4px 4px 0 0; }
+    .bar-fill.income { background: var(--pink); }
+    .bar-fill.expense { background: var(--gray-200); }
+    .bar-label { font-size: 9px; color: var(--gray-400); font-weight: 600; }
+    /* Crew booking mock */
+    .crew-mock-body {
+      background: white;
+      padding: 20px;
+    }
+    .crew-week {
+      display: grid;
+      grid-template-columns: 120px repeat(5, 1fr);
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+    .crew-week-header {
+      display: grid;
+      grid-template-columns: 120px repeat(5, 1fr);
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+    .crew-day-label {
+      text-align: center;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--gray-400);
+      padding: 4px;
+    }
+    .crew-name {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .crew-avatar {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      font-weight: 700;
+      color: white;
+    }
+    .crew-cell {
+      border-radius: 4px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 600;
+    }
+    .crew-cell.booked { background: rgba(224,120,104,0.15); color: var(--pink-dark); }
+    .crew-cell.hold { background: rgba(245,158,11,0.12); color: #d97706; }
+    .crew-cell.free { background: var(--gray-100); color: var(--gray-400); }
+    /* Client portal mock */
+    .portal-mock-body {
+      background: white;
+      padding: 20px;
+    }
+    .portal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .portal-brand { font-size: 13px; font-weight: 800; color: var(--navy); }
+    .portal-client-name { font-size: 11px; color: var(--gray-500); }
+    .portal-project-title { font-size: 16px; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+    .portal-project-status { font-size: 11px; color: var(--gray-500); margin-bottom: 16px; }
+    .portal-phases {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 16px;
+    }
+    .portal-phase {
+      flex: 1;
+      height: 6px;
+      border-radius: 3px;
+    }
+    .portal-phase.done { background: var(--pink); }
+    .portal-phase.active { background: rgba(224,120,104,0.4); }
+    .portal-phase.todo { background: var(--gray-200); }
+    .portal-deliverables-label { font-size: 10px; font-weight: 700; color: var(--gray-400); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+    .portal-deliverable {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 10px;
+      border-radius: 6px;
+      background: var(--gray-50);
+      margin-bottom: 6px;
+      font-size: 12px;
+    }
+    .portal-deliverable-name { font-weight: 600; color: var(--navy); }
+    .portal-deliverable-status {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .portal-deliverable-status.approved { background: rgba(16,185,129,0.1); color: #059669; }
+    .portal-deliverable-status.review { background: rgba(245,158,11,0.1); color: #d97706; }
+    .portal-deliverable-status.pending { background: var(--gray-200); color: var(--gray-500); }
+
+    /* =============================================
+       FEATURES C — HORIZONTAL CARDS
+    ============================================= */
+    .features-c {
+      background: var(--navy);
+      padding: 96px 80px;
+      overflow: hidden;
+    }
+    .features-c-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .features-c-header .section-title { color: white; }
+    .features-c-header .section-sub { color: rgba(255,255,255,0.5); }
+    .horiz-cards {
+      display: grid;
+      grid-template-columns: repeat(5, 280px);
+      gap: 16px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+    .horiz-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 28px;
+      flex-shrink: 0;
+    }
+    .horiz-card-illustration {
+      height: 100px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      position: relative;
+    }
+    .horiz-card-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: white;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .horiz-card-desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.6;
+    }
+    /* Illustration styles */
+    .illus-timeline {
+      background: rgba(255,255,255,0.04);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 12px;
+      gap: 8px;
+    }
+    .illus-timeline-bar {
+      height: 10px;
+      border-radius: 5px;
+      background: var(--pink);
+      opacity: 0.8;
+    }
+    .illus-invoice {
+      background: rgba(255,255,255,0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 12px;
+      justify-content: center;
+    }
+    .illus-invoice-row {
+      height: 14px;
+      border-radius: 3px;
+      background: rgba(255,255,255,0.08);
+    }
+    .illus-invoice-total {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 4px;
+    }
+    .illus-invoice-total span {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--pink-light);
+    }
+    .illus-crew {
+      background: rgba(255,255,255,0.04);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      padding: 12px;
+      align-items: center;
+      justify-items: center;
+    }
+    .illus-crew-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: white;
+    }
+    .illus-portal {
+      background: rgba(255,255,255,0.04);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      justify-content: center;
+    }
+    .illus-portal-bar {
+      height: 8px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.08);
+    }
+    .illus-portal-progress {
+      display: flex;
+      gap: 3px;
+      margin-top: 4px;
+    }
+    .illus-portal-pip {
+      flex: 1;
+      height: 6px;
+      border-radius: 3px;
+    }
+    .illus-cashflow {
+      background: rgba(255,255,255,0.04);
+      padding: 12px;
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+    }
+    .illus-cf-bar {
+      flex: 1;
+      border-radius: 3px 3px 0 0;
+    }
+
+    /* =============================================
+       PRICING
+    ============================================= */
+    .pricing-frame {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 64px 64px;
+    }
+    .pricing-inner {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05), 0 20px 60px rgba(0,0,0,0.10);
+    }
+
+    /* Pricing A — Cards */
+    .pricing-a {
+      background: white;
+      padding: 96px 80px;
+    }
+    .pricing-a-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .pricing-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .pricing-card {
+      border: 1.5px solid var(--gray-200);
+      border-radius: 16px;
+      padding: 36px 32px;
+      position: relative;
+    }
+    .pricing-card.featured {
+      border-color: var(--pink);
+      box-shadow: 0 0 0 4px rgba(224,120,104,0.08);
+    }
+    .pricing-popular {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--pink);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .pricing-tier-name {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      margin-bottom: 8px;
+    }
+    .pricing-price {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+    .pricing-price-dollar {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .pricing-price-amount {
+      font-size: 48px;
+      font-weight: 900;
+      color: var(--navy);
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+    .pricing-price-period {
+      font-size: 13px;
+      color: var(--gray-400);
+      margin-bottom: 4px;
+    }
+    .pricing-card.featured .pricing-price-amount { color: var(--pink); }
+    .pricing-users {
+      font-size: 13px;
+      color: var(--gray-500);
+      margin-bottom: 28px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .pricing-features-list { list-style: none; margin-bottom: 32px; }
+    .pricing-features-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--gray-700);
+      padding: 6px 0;
+    }
+    .pricing-features-list li::before {
+      content: '';
+      display: block;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: rgba(224,120,104,0.12);
+      flex-shrink: 0;
+      margin-top: 1px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M3 8l3 3 7-7' stroke='%23e07868' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    }
+    .pricing-cta-btn {
+      display: block;
+      text-align: center;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .pricing-cta-btn.outline {
+      border: 1.5px solid var(--gray-300);
+      color: var(--navy);
+    }
+    .pricing-cta-btn.filled {
+      background: var(--pink);
+      color: white;
+    }
+
+    /* Pricing B — Table */
+    .pricing-b {
+      background: var(--navy);
+      padding: 96px 80px;
+    }
+    .pricing-b-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .pricing-b-header .section-title { color: white; }
+    .pricing-b-header .section-sub { color: rgba(255,255,255,0.5); }
+    .pricing-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+    .pricing-table thead th {
+      padding: 0 24px 24px;
+      text-align: left;
+      vertical-align: bottom;
+    }
+    .pricing-table thead th:first-child {
+      width: 240px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      padding-left: 0;
+    }
+    .table-tier-name {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 8px;
+    }
+    .table-tier-price {
+      font-size: 40px;
+      font-weight: 900;
+      color: white;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+    .table-tier-price span { font-size: 18px; font-weight: 600; }
+    .table-tier-period { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+    .table-tier-cta {
+      display: block;
+      margin-top: 16px;
+      text-align: center;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.7);
+    }
+    .table-tier-cta.featured { background: var(--pink); border-color: var(--pink); color: white; }
+    th.featured-col { position: relative; }
+    th.featured-col::before {
+      content: 'Most Popular';
+      position: absolute;
+      top: 0;
+      left: 24px;
+      right: 0;
+      background: var(--pink);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 5px 0;
+      border-radius: 6px 6px 0 0;
+    }
+    .pricing-table tbody tr {
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .pricing-table tbody td {
+      padding: 14px 24px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+    }
+    .pricing-table tbody td:first-child {
+      font-weight: 600;
+      color: rgba(255,255,255,0.6);
+      padding-left: 0;
+    }
+    .pricing-table tbody td.yes {
+      color: #4ade80;
+      font-weight: 600;
+    }
+    .pricing-table tbody td.highlight {
+      background: rgba(224,120,104,0.06);
+    }
+    .check-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(74,222,128,0.15);
+    }
+    .cross-icon {
+      color: rgba(255,255,255,0.2);
+    }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    .footer-frame {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 64px 96px;
+    }
+    .footer-inner {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05), 0 20px 60px rgba(0,0,0,0.10);
+    }
+    .footer-section {
+      background: var(--navy);
+      padding: 40px 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+    .footer-wordmark {
+      font-size: 24px;
+      font-weight: 900;
+      color: white;
+      letter-spacing: -0.04em;
+    }
+    .footer-wordmark span { color: var(--pink); }
+    .footer-nav {
+      display: flex;
+      gap: 32px;
+    }
+    .footer-nav a {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+    }
+    .footer-nav a:hover { color: rgba(255,255,255,0.8); }
+    .footer-copy {
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+      text-align: right;
+    }
+
+    /* =============================================
+       UTILITIES
+    ============================================= */
+    .spacer { height: 40px; }
+    .spacer-sm { height: 16px; }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       EXPLORATION DOCUMENT HEADER
+  ============================================================ -->
+  <header class="doc-header">
+    <div class="doc-header-inner">
+      <div class="doc-meta">
+        <span>smack.studio</span>
+        <span class="doc-meta-dot"></span>
+        <span>Website Exploration</span>
+        <span class="doc-meta-dot"></span>
+        <span>April 2026</span>
+        <span class="doc-meta-dot"></span>
+        <span>Not for distribution</span>
+      </div>
+      <h1>Marketing Site <span>Exploration</span></h1>
+      <p>4 hero concepts, 3 feature approaches, 2 pricing layouts, and 1 footer direction. All rendered as full HTML mockups. Nothing is locked — this is an exploration to find what feels right for the brand.</p>
+      <nav class="doc-toc">
+        <a href="#hero-a">Hero A — Pain Point</a>
+        <a href="#hero-b">Hero B — Outcome</a>
+        <a href="#hero-c">Hero C — Authority</a>
+        <a href="#hero-d">Hero D — The Show</a>
+        <a href="#features-a">Features A — Icon Grid</a>
+        <a href="#features-b">Features B — Alternating</a>
+        <a href="#features-c">Features C — Horiz Cards</a>
+        <a href="#pricing-a">Pricing A — Cards</a>
+        <a href="#pricing-b">Pricing B — Table</a>
+        <a href="#footer">Footer</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       HEROES
+  ============================================================ -->
+  <div id="hero-a" class="section-label">
+    <div class="section-label-inner">
+      <h2>Hero Concepts</h2>
+      <span class="option-tag">4 variations</span>
+      <p>Full-width hero sections — rendered at 1200px max width</p>
+    </div>
+  </div>
+
+  <!-- HERO A -->
+  <div class="option-label">
+    <div class="option-label-inner">
+      <span class="option-badge">Option A</span>
+      <span class="option-name">The Pain Point</span>
+      <span class="option-desc">Dark navy — leads with the problem studios face every day</span>
+    </div>
+  </div>
+  <div class="hero-frame">
+    <div class="hero-inner">
+      <section class="hero-a">
+        <div class="hero-a-left">
+          <div class="eyebrow">For Production Studios</div>
+          <h1>You shouldn't need <em>three apps</em> to run one project.</h1>
+          <p>Smack brings your crew, invoices, and clients into one place. Built for the way studios actually work.</p>
+          <div class="cta-row">
+            <a href="#" class="btn-pink">Request access</a>
+            <a href="#" class="btn-ghost-white">See how it works →</a>
+          </div>
+        </div>
+        <div class="hero-a-right">
+          <div class="ui-mockup-a">
+            <div class="ui-mockup-a-header">
+              <span class="ui-dot red"></span>
+              <span class="ui-dot yellow"></span>
+              <span class="ui-dot green"></span>
+              <span>smack.studio</span>
+            </div>
+            <!-- Project card -->
+            <div class="project-card">
+              <div class="project-card-top">
+                <div class="project-card-name">Patagonia — Spring Campaign</div>
+                <span class="status-badge active">In Production</span>
+              </div>
+              <div class="project-card-meta">
+                <span>📅 Apr 14–22</span>
+                <span>👥 6 crew</span>
+                <span>💰 $38,500</span>
+              </div>
+              <div class="progress-bar"><div class="progress-fill" style="width:62%"></div></div>
+            </div>
+            <div class="project-card">
+              <div class="project-card-top">
+                <div class="project-card-name">Oura Ring — Product Launch</div>
+                <span class="status-badge review">In Review</span>
+              </div>
+              <div class="project-card-meta">
+                <span>📅 Apr 30</span>
+                <span>👥 3 crew</span>
+                <span>💰 $12,000</span>
+              </div>
+              <div class="progress-bar"><div class="progress-fill" style="width:88%"></div></div>
+            </div>
+            <!-- Floating invoice -->
+            <div class="float-invoice">
+              <div class="float-invoice-left">
+                <div class="invoice-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <line x1="8" y1="13" x2="16" y2="13"/>
+                    <line x1="8" y1="17" x2="16" y2="17"/>
+                  </svg>
+                </div>
+                <div>
+                  <div class="float-invoice-label">Invoice #0041 · Sent</div>
+                  <div class="float-invoice-num">Patagonia Inc.</div>
+                </div>
+              </div>
+              <div class="float-invoice-amount">$19,250</div>
+            </div>
+            <!-- Booking badge -->
+            <div class="booking-badge">
+              <div class="avatar-stack">
+                <div class="avatar" style="background:#e07868">MK</div>
+                <div class="avatar" style="background:#3b6fa0">JR</div>
+                <div class="avatar" style="background:#6366f1">AL</div>
+              </div>
+              <div class="booking-badge-text"><strong>3 crew booked</strong> for Apr 14 shoot</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- HERO B -->
+  <div id="hero-b" class="option-label">
+    <div class="option-label-inner">
+      <span class="option-badge">Option B</span>
+      <span class="option-name">The Outcome</span>
+      <span class="option-desc">Light background — leads with the result, social proof via stat cards</span>
+    </div>
+  </div>
+  <div class="hero-frame">
+    <div class="hero-inner">
+      <section class="hero-b">
+        <div class="eyebrow-b">
+          <span class="eyebrow-dot"></span>
+          smack. for studios
+        </div>
+        <h1>From bid to delivery, everything in one place.</h1>
+        <p>Project management built for boutique production studios. Not a spreadsheet. Not five tools duct-taped together.</p>
+        <a href="#" class="btn-pink-pill">Get early access →</a>
+        <div class="stat-cards">
+          <div class="stat-card">
+            <div class="stat-label">Projects managed</div>
+            <div class="stat-value">14</div>
+            <div class="stat-sub">across 3 studios</div>
+          </div>
+          <div class="stat-card highlight">
+            <div class="stat-label">Crew hours tracked</div>
+            <div class="stat-value">2,400</div>
+            <div class="stat-sub">this quarter</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Invoiced</div>
+            <div class="stat-value">$340K</div>
+            <div class="stat-sub">in 90 days</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- HERO C -->
+  <div id="hero-c" class="option-label">
+    <div class="option-label-inner">
+      <span class="option-badge">Option C</span>
+      <span class="option-name">The Authority</span>
+      <span class="option-desc">Confident, typographic — no illustration, just words and the invite badge</span>
+    </div>
+  </div>
+  <div class="hero-frame">
+    <div class="hero-inner">
+      <section class="hero-c">
+        <div class="invite-badge">
+          <span class="invite-badge-dot"></span>
+          Invite-only launch — now accepting studios
+        </div>
+        <h1>Project management<br>for people who <em>make things.</em></h1>
+        <p>One platform for your crew, your clients, and your cash flow. Finally built the way studios actually work.</p>
+        <a href="#" class="btn-pink">Request your invite</a>
+        <div class="wordmark">smack<strong>.</strong>studio</div>
+      </section>
+    </div>
+  </div>
+
+  <!-- HERO D -->
+  <div id="hero-d" class="option-label">
+    <div class="option-label-inner">
+      <span class="option-badge">Option D</span>
+      <span class="option-name">The Show</span>
+      <span class="option-desc">Product-forward — split layout with a full CSS product screenshot</span>
+    </div>
+  </div>
+  <div class="hero-frame">
+    <div class="hero-inner">
+      <section class="hero-d">
+        <div class="hero-d-left">
+          <div class="invite-badge-dark">
+            <span class="invite-badge-dot"></span>
+            Invite-only
+          </div>
+          <div class="hero-d-wordmark">smack<span>.</span></div>
+          <div class="hero-d-sub">Built for studios.<br>Finally.</div>
+          <a href="#" class="btn-pink">Request access</a>
+        </div>
+        <div class="hero-d-right">
+          <div class="product-mock">
+            <div class="product-mock-bar">
+              <span class="ui-dot red"></span>
+              <span class="ui-dot yellow"></span>
+              <span class="ui-dot green"></span>
+            </div>
+            <div class="product-mock-body">
+              <div class="product-sidebar">
+                <div class="sidebar-logo">smack<span>.</span></div>
+                <div class="sidebar-section-label">Workspace</div>
+                <div class="sidebar-item active">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                  Projects
+                </div>
+                <div class="sidebar-item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  Crew
+                </div>
+                <div class="sidebar-item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                  Invoices
+                </div>
+                <div class="sidebar-section-label">Clients</div>
+                <div class="sidebar-item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  Portals
+                </div>
+                <div class="sidebar-section-label">Finance</div>
+                <div class="sidebar-item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                  Cash Flow
+                </div>
+              </div>
+              <div class="product-main">
+                <div class="product-main-header">
+                  <div class="product-main-title">Active Projects</div>
+                  <div class="product-add-btn">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    New Project
+                  </div>
+                </div>
+                <div class="project-row">
+                  <div>
+                    <div class="project-row-name">Patagonia — Spring Campaign</div>
+                    <div class="project-row-client">Patagonia Inc.</div>
+                  </div>
+                  <span class="project-row-status in-prod">In Production</span>
+                  <span class="project-row-date">Apr 22</span>
+                  <span class="project-row-budget">$38,500</span>
+                </div>
+                <div class="project-row">
+                  <div>
+                    <div class="project-row-name">Oura Ring — Product Launch</div>
+                    <div class="project-row-client">Oura Health</div>
+                  </div>
+                  <span class="project-row-status editing">Editing</span>
+                  <span class="project-row-date">Apr 30</span>
+                  <span class="project-row-budget">$12,000</span>
+                </div>
+                <div class="project-row">
+                  <div>
+                    <div class="project-row-name">Topo Designs — Brand Film</div>
+                    <div class="project-row-client">Topo Designs</div>
+                  </div>
+                  <span class="project-row-status delivered">Delivered</span>
+                  <span class="project-row-date">Apr 8</span>
+                  <span class="project-row-budget">$22,000</span>
+                </div>
+                <div class="project-row">
+                  <div>
+                    <div class="project-row-name">Salomon — Winter 2026</div>
+                    <div class="project-row-client">Salomon SAS</div>
+                  </div>
+                  <span class="project-row-status bid">Bidding</span>
+                  <span class="project-row-date">May 15</span>
+                  <span class="project-row-budget">$67,000</span>
+                </div>
+                <div class="project-row">
+                  <div>
+                    <div class="project-row-name">Arc'teryx — SS26 Lookbook</div>
+                    <div class="project-row-client">Arc'teryx Equipment</div>
+                  </div>
+                  <span class="project-row-status in-prod">In Production</span>
+                  <span class="project-row-date">May 3</span>
+                  <span class="project-row-budget">$44,800</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       FEATURES
+  ============================================================ -->
+  <div id="features-a" class="section-label">
+    <div class="section-label-inner">
+      <h2>Feature Sections</h2>
+      <span class="option-tag">3 approaches</span>
+      <p>Different ways to communicate product capabilities</p>
+    </div>
+  </div>
+
+  <!-- FEATURES A -->
+  <div class="option-label">
+    <div class="option-label-inner">
+      <span class="option-badge">Option A</span>
+      <span class="option-name">Icon Grid</span>
+      <span class="option-desc">6 features in a 3×2 grid — scannable, comprehensive</span>
+    </div>
+  </div>
+  <div class="features-frame">
+    <div class="features-inner">
+      <section class="features-a">
+        <div class="features-a-header">
+          <div class="section-eyebrow">Everything you need</div>
+          <h2 class="section-title">Built around how studios work</h2>
+          <p class="section-sub">Every feature exists because a real studio needed it. No bloat. No enterprise nonsense.</p>
+        </div>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <div class="feature-title">Crew Booking</div>
+            <div class="feature-desc">Book your roster, track availability, and confirm crew across multiple projects without the back-and-forth.</div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/>
+              </svg>
+            </div>
+            <div class="feature-title">Invoice Management</div>
+            <div class="feature-desc">Create, send, and track invoices without switching apps. Everything tied to the project it belongs to.</div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+              </svg>
+            </div>
+            <div class="feature-title">Client Portal</div>
+            <div class="feature-desc">Give clients a clean, branded view of their project status, deliverables, and approvals. No login chaos.</div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="1" x2="12" y2="23"/>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              </svg>
+            </div>
+            <div class="feature-title">Cash Flow Tracking</div>
+            <div class="feature-desc">See what's coming in, what's going out, and what's overdue — across every project at once.</div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+            </div>
+            <div class="feature-title">Project Timeline</div>
+            <div class="feature-desc">Visual shoot days, delivery milestones, and client deadlines — all in one place, always up to date.</div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+              </svg>
+            </div>
+            <div class="feature-title">Contractor Management</div>
+            <div class="feature-desc">Manage W-9s, rates, and pay history for every freelancer in your roster. Ready for tax season.</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- FEATURES B -->
+  <div id="features-b" class="option-label">
+    <div class="option-label-inner">
+      <span class="option-badge">Option B</span>
+      <span class="option-name">Alternating Rows</span>
+      <span class="option-desc">3 hero features with CSS product mockups — more immersive, less scan-friendly</span>
+    </div>
+  </div>
+  <div class="features-frame">
+    <div class="features-inner">
+      <section class="features-b">
+        <div class="features-b-header">
+          <div class="section-eyebrow">The platform</div>
+          <h2 class="section-title">Three things studios<br>finally get right</h2>
+        </div>
+
+        <!-- Row 1: Cashflow -->
+        <div class="alt-row">
+          <div class="alt-row-text">
+            <div class="alt-row-number">01 — Finance</div>
+            <div class="alt-row-title">Know where every dollar goes.</div>
+            <div class="alt-row-desc">See incoming and outgoing money across every project in real time. No more month-end panic. No more chasing invoices in a Google Sheet. Smack keeps your books tidy so you can focus on making things.</div>
+            <a href="#" class="alt-row-link">Explore invoicing →</a>
+          </div>
+          <div class="feature-mock">
+            <div class="feature-mock-bar">
+              <span class="ui-dot red"></span>
+              <span class="ui-dot yellow"></span>
+              <span class="ui-dot green"></span>
+              <span>Cash Flow — Q2 2026</span>
+            </div>
+            <div class="cashflow-mock-body">
+              <div class="cashflow-header">
+                <div class="cashflow-title">Cash Flow Overview</div>
+                <div class="cashflow-period">Apr 2026</div>
+              </div>
+              <div class="cashflow-stats">
+                <div class="cf-stat">
+                  <div class="cf-stat-label">Revenue</div>
+                  <div class="cf-stat-val navy">$124,800</div>
+                </div>
+                <div class="cf-stat">
+                  <div class="cf-stat-label">Expenses</div>
+                  <div class="cf-stat-val red">−$61,200</div>
+                </div>
+                <div class="cf-stat">
+                  <div class="cf-stat-label">Net</div>
+                  <div class="cf-stat-val green">$63,600</div>
+                </div>
+              </div>
+              <div class="bar-chart">
+                <div class="bar-col">
+                  <div class="bar-fill income" style="height:55%"></div>
+                  <div class="bar-fill expense" style="height:30%"></div>
+                  <div class="bar-label">Jan</div>
+                </div>
+                <div class="bar-col">
+                  <div class="bar-fill income" style="height:70%"></div>
+                  <div class="bar-fill expense" style="height:40%"></div>
+                  <div class="bar-label">Feb</div>
+                </div>
+                <div class="bar-col">
+                  <div class="bar-fill income" style="height:45%"></div>
+                  <div class="bar-fill expense" style="height:35%"></div>
+                  <div class="bar-label">Mar</div>
+                </div>
+                <div class="bar-col">
+                  <div class="bar-fill income" style="height:90%"></div>
+                  <div class="bar-fill expense" style="height:50%"></div>
+                  <div class="bar-label">Apr</div>
+                </div>
+                <div class="bar-col">
+                  <div class="bar-fill income" style="height:60%"></div>
+                  <div class="bar-fill expense" style="height:38%"></div>
+                  <div class="bar-label">May</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2: Crew (reversed) -->
+        <div class="alt-row reverse">
+          <div class="alt-row-text">
+            <div class="alt-row-number">02 — Crew</div>
+            <div class="alt-row-title">Book crew in minutes.</div>
+            <div class="alt-row-desc">Your entire roster in one place. See who's available, who's on hold, and who's confirmed — across every shoot on your calendar. No more back-and-forth texts. No more double-bookings.</div>
+            <a href="#" class="alt-row-link">Explore crew booking →</a>
+          </div>
+          <div class="feature-mock">
+            <div class="feature-mock-bar">
+              <span class="ui-dot red"></span>
+              <span class="ui-dot yellow"></span>
+              <span class="ui-dot green"></span>
+              <span>Crew — Week of Apr 14</span>
+            </div>
+            <div class="crew-mock-body">
+              <div class="crew-week-header">
+                <div></div>
+                <div class="crew-day-label">Mon</div>
+                <div class="crew-day-label">Tue</div>
+                <div class="crew-day-label">Wed</div>
+                <div class="crew-day-label">Thu</div>
+                <div class="crew-day-label">Fri</div>
+              </div>
+              <div class="crew-week">
+                <div class="crew-name"><div class="crew-avatar" style="background:#e07868">MK</div>Morgan K.</div>
+                <div class="crew-cell booked">Shoot</div>
+                <div class="crew-cell booked">Shoot</div>
+                <div class="crew-cell free">—</div>
+                <div class="crew-cell hold">Hold</div>
+                <div class="crew-cell free">—</div>
+              </div>
+              <div class="crew-week">
+                <div class="crew-name"><div class="crew-avatar" style="background:#3b6fa0">JR</div>Jamie R.</div>
+                <div class="crew-cell booked">Shoot</div>
+                <div class="crew-cell booked">Shoot</div>
+                <div class="crew-cell booked">Edit</div>
+                <div class="crew-cell free">—</div>
+                <div class="crew-cell free">—</div>
+              </div>
+              <div class="crew-week">
+                <div class="crew-name"><div class="crew-avatar" style="background:#6366f1">AL</div>Alex L.</div>
+                <div class="crew-cell free">—</div>
+                <div class="crew-cell hold">Hold</div>
+                <div class="crew-cell booked">Sound</div>
+                <div class="crew-cell booked">Sound</div>
+                <div class="crew-cell free">—</div>
+              </div>
+              <div class="crew-week">
+                <div class="crew-name"><div class="crew-avatar" style="background:#059669">TC</div>Taylor C.</div>
+                <div class="crew-cell free">—</div>
+                <div class="crew-cell free">—</div>
+                <div class="crew-cell free">—</div>
+                <div class="crew-cell booked">Shoot</div>
+                <div class="crew-cell booked">Shoot</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 3: Client Portal -->
+        <div class="alt-row">
+          <div class="alt-row-text">
+            <div class="alt-row-number">03 — Clients</div>
+            <div class="alt-row-title">Give clients a portal.</div>
+            <div class="alt-row-desc">Stop sending update emails. Give every client a clean, branded window into their project. They see what they need to see, approve what needs approving, and leave you alone while you do the work.</div>
+            <a href="#" class="alt-row-link">Explore client portals →</a>
+          </div>
+          <div class="feature-mock">
+            <div class="feature-mock-bar">
+              <span class="ui-dot red"></span>
+              <span class="ui-dot yellow"></span>
+              <span class="ui-dot green"></span>
+              <span>Client View — Patagonia</span>
+            </div>
+            <div class="portal-mock-body">
+              <div class="portal-header">
+                <div class="portal-brand">smack<span style="color:var(--pink)">.</span></div>
+                <div class="portal-client-name">Patagonia Inc. — Spring Campaign</div>
+              </div>
+              <div class="portal-project-title">Spring Campaign 2026</div>
+              <div class="portal-project-status">Production complete · Delivery by April 30</div>
+              <div class="portal-phases">
+                <div class="portal-phase done"></div>
+                <div class="portal-phase done"></div>
+                <div class="portal-phase active"></div>
+                <div class="portal-phase todo"></div>
+                <div class="portal-phase todo"></div>
+              </div>
+              <div class="portal-deliverables-label">Deliverables</div>
+              <div class="portal-deliverable">
+                <span class="portal-deliverable-name">:60 hero film</span>
+                <span class="portal-deliverable-status approved">Approved</span>
+              </div>
+              <div class="portal-deliverable">
+                <span class="portal-deliverable-name">:15 cutdown — Instagram</span>
+                <span class="portal-deliverable-status review">Awaiting review</span>
+              </div>
+              <div class="portal-deliverable">
+                <span class="portal-deliverable-name">:06 bumper — YouTube</span>
+                <span class="portal-deliverable-status pending">In progress</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- FEATURES C -->
+  <div id="features-c" class="option-label">
+    <div class="option-label-inner">
+      <span class="option-badge">Option C</span>
+      <span class="option-name">Horizontal Scroll Cards</span>
+      <span class="option-desc">5 cards showing full width — visual, bold, modern</span>
+    </div>
+  </div>
+  <div class="features-frame">
+    <div class="features-inner">
+      <section class="features-c">
+        <div class="features-c-header">
+          <div class="section-eyebrow" style="color:var(--pink-light)">The full picture</div>
+          <h2 class="section-title">Everything your studio runs on</h2>
+          <p class="section-sub">Purpose-built features for production studios — not retrofitted from generic project management tools.</p>
+        </div>
+        <div class="horiz-cards">
+          <!-- Card 1: Timeline -->
+          <div class="horiz-card">
+            <div class="horiz-card-illustration illus-timeline">
+              <div class="illus-timeline-bar" style="width:90%;opacity:0.9"></div>
+              <div class="illus-timeline-bar" style="width:60%;margin-left:10%;opacity:0.7;background:var(--navy-light)"></div>
+              <div class="illus-timeline-bar" style="width:75%;opacity:0.8"></div>
+              <div class="illus-timeline-bar" style="width:40%;margin-left:20%;opacity:0.6;background:var(--navy-light)"></div>
+            </div>
+            <div class="horiz-card-title">Project Timeline</div>
+            <div class="horiz-card-desc">Shoot days, delivery milestones, and client deadlines — all in one visual timeline.</div>
+          </div>
+          <!-- Card 2: Invoicing -->
+          <div class="horiz-card">
+            <div class="horiz-card-illustration illus-invoice">
+              <div class="illus-invoice-row" style="width:70%"></div>
+              <div class="illus-invoice-row" style="width:90%"></div>
+              <div class="illus-invoice-row" style="width:55%"></div>
+              <div class="illus-invoice-row" style="width:80%"></div>
+              <div class="illus-invoice-total">
+                <span style="opacity:0.5;font-size:10px;font-weight:500">TOTAL</span>
+                <span>$38,500</span>
+              </div>
+            </div>
+            <div class="horiz-card-title">Invoice Management</div>
+            <div class="horiz-card-desc">Create and send invoices without leaving your project. Track what's paid, what's due, what's overdue.</div>
+          </div>
+          <!-- Card 3: Crew -->
+          <div class="horiz-card">
+            <div class="horiz-card-illustration illus-crew">
+              <div class="illus-crew-avatar" style="background:#e07868">MK</div>
+              <div class="illus-crew-avatar" style="background:#3b6fa0">JR</div>
+              <div class="illus-crew-avatar" style="background:#6366f1">AL</div>
+              <div class="illus-crew-avatar" style="background:#059669">TC</div>
+              <div class="illus-crew-avatar" style="background:#d97706">PB</div>
+              <div class="illus-crew-avatar" style="background:#dc2626">SR</div>
+              <div class="illus-crew-avatar" style="background:#7c3aed">DM</div>
+              <div style="width:28px;height:28px;border-radius:50%;border:2px dashed rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:12px;color:rgba(255,255,255,0.3)">+</div>
+            </div>
+            <div class="horiz-card-title">Crew Booking</div>
+            <div class="horiz-card-desc">Your entire roster. Book, confirm, and track availability across every project without the back-and-forth.</div>
+          </div>
+          <!-- Card 4: Client Portal -->
+          <div class="horiz-card">
+            <div class="horiz-card-illustration illus-portal">
+              <div class="illus-portal-bar" style="width:60%"></div>
+              <div class="illus-portal-bar" style="width:90%"></div>
+              <div class="illus-portal-bar" style="width:40%"></div>
+              <div class="illus-portal-progress">
+                <div class="illus-portal-pip" style="background:var(--pink)"></div>
+                <div class="illus-portal-pip" style="background:var(--pink)"></div>
+                <div class="illus-portal-pip" style="background:rgba(224,120,104,0.3)"></div>
+                <div class="illus-portal-pip" style="background:rgba(255,255,255,0.1)"></div>
+                <div class="illus-portal-pip" style="background:rgba(255,255,255,0.1)"></div>
+              </div>
+            </div>
+            <div class="horiz-card-title">Client Portal</div>
+            <div class="horiz-card-desc">A clean, branded project view for every client. Approvals, deliverables, and status — no login chaos.</div>
+          </div>
+          <!-- Card 5: Cash Flow -->
+          <div class="horiz-card">
+            <div class="horiz-card-illustration illus-cashflow">
+              <div class="illus-cf-bar" style="height:40%;background:var(--pink);opacity:0.6"></div>
+              <div class="illus-cf-bar" style="height:65%;background:var(--pink);opacity:0.8"></div>
+              <div class="illus-cf-bar" style="height:50%;background:var(--pink);opacity:0.7"></div>
+              <div class="illus-cf-bar" style="height:90%;background:var(--pink)"></div>
+              <div class="illus-cf-bar" style="height:55%;background:var(--pink);opacity:0.75"></div>
+            </div>
+            <div class="horiz-card-title">Cash Flow</div>
+            <div class="horiz-card-desc">Income, expenses, and net across every project — real time, in one view. Know your number before month-end.</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       PRICING
+  ============================================================ -->
+  <div id="pricing-a" class="section-label">
+    <div class="section-label-inner">
+      <h2>Pricing Sections</h2>
+      <span class="option-tag">2 layouts</span>
+      <p>Same 3 tiers — two different ways to present them</p>
+    </div>
+  </div>
+
+  <!-- PRICING A -->
+  <div class="option-label">
+    <div class="option-label-inner">
+      <span class="option-badge">Option A</span>
+      <span class="option-name">3-Card Layout</span>
+      <span class="option-desc">Standard tier cards — familiar, trustworthy, easy to scan</span>
+    </div>
+  </div>
+  <div class="pricing-frame">
+    <div class="pricing-inner">
+      <section class="pricing-a">
+        <div class="pricing-a-header">
+          <div class="section-eyebrow">Pricing</div>
+          <h2 class="section-title">Simple, honest pricing</h2>
+          <p class="section-sub">Invite-only during launch. Apply for early access — we'll reach out to studios that are the right fit.</p>
+        </div>
+        <div class="pricing-cards">
+          <!-- Starter -->
+          <div class="pricing-card">
+            <div class="pricing-tier-name">Starter</div>
+            <div class="pricing-price">
+              <span class="pricing-price-dollar">$</span>
+              <span class="pricing-price-amount">79</span>
+            </div>
+            <div class="pricing-price-period">per month</div>
+            <div class="pricing-users">2 team members · Unlimited contractors</div>
+            <ul class="pricing-features-list">
+              <li>Up to 10 active projects</li>
+              <li>Invoice creation and tracking</li>
+              <li>Crew roster and availability</li>
+              <li>Client portals (2 per project)</li>
+              <li>Basic cash flow reporting</li>
+            </ul>
+            <a href="#" class="pricing-cta-btn outline">Request access</a>
+          </div>
+          <!-- Studio (Featured) -->
+          <div class="pricing-card featured">
+            <div class="pricing-popular">Most Popular</div>
+            <div class="pricing-tier-name">Studio</div>
+            <div class="pricing-price">
+              <span class="pricing-price-dollar" style="color:var(--pink)">$</span>
+              <span class="pricing-price-amount">149</span>
+            </div>
+            <div class="pricing-price-period">per month</div>
+            <div class="pricing-users">5 team members · Unlimited contractors</div>
+            <ul class="pricing-features-list">
+              <li>Unlimited active projects</li>
+              <li>Invoice creation, tracking, and reminders</li>
+              <li>Full crew booking and scheduling</li>
+              <li>Client portals (unlimited)</li>
+              <li>Full cash flow and P&L reporting</li>
+            </ul>
+            <a href="#" class="pricing-cta-btn filled">Request access</a>
+          </div>
+          <!-- Pro -->
+          <div class="pricing-card">
+            <div class="pricing-tier-name">Pro</div>
+            <div class="pricing-price">
+              <span class="pricing-price-dollar">$</span>
+              <span class="pricing-price-amount">299</span>
+            </div>
+            <div class="pricing-price-period">per month</div>
+            <div class="pricing-users">10 team members · Unlimited contractors</div>
+            <ul class="pricing-features-list">
+              <li>Everything in Studio</li>
+              <li>Multi-studio workspace</li>
+              <li>Custom invoice branding</li>
+              <li>API access</li>
+              <li>Priority support</li>
+            </ul>
+            <a href="#" class="pricing-cta-btn outline">Request access</a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- PRICING B -->
+  <div id="pricing-b" class="option-label">
+    <div class="option-label-inner">
+      <span class="option-badge">Option B</span>
+      <span class="option-name">Comparison Table</span>
+      <span class="option-desc">Same 3 tiers as a feature comparison table — good for decision-makers who want details</span>
+    </div>
+  </div>
+  <div class="pricing-frame">
+    <div class="pricing-inner">
+      <section class="pricing-b">
+        <div class="pricing-b-header">
+          <div class="section-eyebrow" style="color:var(--pink-light)">Pricing</div>
+          <h2 class="section-title">Pick your plan</h2>
+          <p class="section-sub">Apply for early access during our invite-only launch. We're onboarding studios selectively.</p>
+        </div>
+        <table class="pricing-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>
+                <div class="table-tier-name">Starter</div>
+                <div class="table-tier-price"><span>$</span>79</div>
+                <div class="table-tier-period">per month</div>
+                <a href="#" class="table-tier-cta">Request access</a>
+              </th>
+              <th class="featured-col" style="padding-top:36px">
+                <div class="table-tier-name" style="color:var(--pink-light)">Studio</div>
+                <div class="table-tier-price" style="color:var(--pink)"><span style="color:var(--pink)">$</span>149</div>
+                <div class="table-tier-period">per month</div>
+                <a href="#" class="table-tier-cta featured">Request access</a>
+              </th>
+              <th>
+                <div class="table-tier-name">Pro</div>
+                <div class="table-tier-price"><span>$</span>299</div>
+                <div class="table-tier-period">per month</div>
+                <a href="#" class="table-tier-cta">Request access</a>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Team members</td>
+              <td>2</td>
+              <td class="highlight">5</td>
+              <td>10</td>
+            </tr>
+            <tr>
+              <td>Contractor seats</td>
+              <td>Unlimited</td>
+              <td class="highlight">Unlimited</td>
+              <td>Unlimited</td>
+            </tr>
+            <tr>
+              <td>Active projects</td>
+              <td>Up to 10</td>
+              <td class="highlight">Unlimited</td>
+              <td>Unlimited</td>
+            </tr>
+            <tr>
+              <td>Invoicing</td>
+              <td class="yes">✓ Included</td>
+              <td class="yes highlight">✓ + Reminders</td>
+              <td class="yes">✓ Custom branding</td>
+            </tr>
+            <tr>
+              <td>Client portal</td>
+              <td>2 per project</td>
+              <td class="highlight yes">✓ Unlimited</td>
+              <td class="yes">✓ Unlimited</td>
+            </tr>
+            <tr>
+              <td>Cash flow reporting</td>
+              <td>Basic</td>
+              <td class="highlight yes">Full P&L</td>
+              <td class="yes">Full P&L</td>
+            </tr>
+            <tr>
+              <td>Priority support</td>
+              <td class="cross-icon">—</td>
+              <td class="cross-icon highlight">—</td>
+              <td class="yes">✓ Included</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <div id="footer" class="section-label">
+    <div class="section-label-inner">
+      <h2>Footer</h2>
+      <span class="option-tag">1 concept</span>
+      <p>Simple, dark navy footer</p>
+    </div>
+  </div>
+  <div class="option-label">
+    <div class="option-label-inner">
+      <span class="option-badge">Only Option</span>
+      <span class="option-name">Simple Footer</span>
+      <span class="option-desc">Wordmark left, nav center, copyright right — dark navy</span>
+    </div>
+  </div>
+  <div class="footer-frame">
+    <div class="footer-inner">
+      <footer class="footer-section">
+        <div class="footer-wordmark">smack<span>.</span></div>
+        <nav class="footer-nav">
+          <a href="#">About</a>
+          <a href="#">Pricing</a>
+          <a href="#">Contact</a>
+          <a href="#">Privacy</a>
+        </nav>
+        <div class="footer-copy">© 2026 smack. For production studios.</div>
+      </footer>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+</body>
+</html>
