@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smack — Brand System Exploration</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Syne:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --pink: #e07868;
+    --navy: #1e3a5f;
+    --canvas: #fafaf9;
+    --text: #111827;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #fff;
+    color: #111827;
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── PAGE HEADER ── */
+  .page-header {
+    padding: 72px 80px 48px;
+    border-bottom: 1px solid #e5e7eb;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .page-header-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #e07868;
+    margin-bottom: 16px;
+  }
+  .page-header h1 {
+    font-size: 48px;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    color: #111827;
+    margin-bottom: 16px;
+  }
+  .page-header p {
+    font-size: 17px;
+    color: #6b7280;
+    max-width: 600px;
+    font-weight: 400;
+    line-height: 1.65;
+  }
+
+  /* ── LAYOUT ── */
+  .page-body {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 80px 120px;
+  }
+
+  .section {
+    padding-top: 80px;
+    border-top: 1px solid #e5e7eb;
+    margin-top: 80px;
+  }
+  .section:first-child { margin-top: 48px; border-top: none; }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #e07868;
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: -0.025em;
+    color: #111827;
+    margin-bottom: 8px;
+  }
+  .section-desc {
+    font-size: 15px;
+    color: #6b7280;
+    margin-bottom: 48px;
+    max-width: 640px;
+  }
+
+  .subsection {
+    margin-top: 56px;
+    padding-top: 40px;
+    border-top: 1px solid #f3f4f6;
+  }
+  .subsection-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+  .subsection-desc {
+    font-size: 13px;
+    color: #9ca3af;
+    margin-bottom: 28px;
+  }
+
+  /* ── PALETTE GRID ── */
+  .palette-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .palette-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .palette-card.full-width {
+    grid-column: 1 / -1;
+  }
+  .palette-header {
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .palette-name {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #111827;
+  }
+  .palette-feel {
+    font-size: 12px;
+    color: #9ca3af;
+    margin-top: 2px;
+  }
+  .swatch-strip {
+    display: flex;
+    height: 44px;
+  }
+  .swatch {
+    flex: 1;
+  }
+  .palette-ui {
+    padding: 20px 24px;
+    background: var(--ui-canvas, #fafaf9);
+  }
+
+  /* ── MINI PROJECT CARD ── */
+  .mini-card {
+    background: var(--ui-card, #fff);
+    border: 1px solid var(--ui-border, #e5e7eb);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .mini-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .mini-card-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ui-text, #111827);
+    letter-spacing: -0.01em;
+  }
+  .mini-card-date {
+    font-size: 11px;
+    color: var(--ui-muted, #6b7280);
+    margin-top: 2px;
+  }
+  .mini-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--ui-border, #e5e7eb);
+  }
+  .mini-stat {
+    font-size: 11px;
+    color: var(--ui-muted, #6b7280);
+  }
+  .mini-stat strong {
+    font-weight: 700;
+    color: var(--ui-text, #111827);
+  }
+
+  /* status badge */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .badge-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* button */
+  .mini-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 0.01em;
+  }
+
+  /* nav row */
+  .mini-nav {
+    display: flex;
+    gap: 4px;
+    margin-top: 12px;
+  }
+  .mini-nav-item {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  /* ── TYPOGRAPHY SECTION ── */
+  .type-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .type-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 28px;
+    background: #fafaf9;
+  }
+  .type-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #e07868;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .type-demo-header {
+    margin-bottom: 20px;
+  }
+  .type-demo-header h2 {
+    font-size: 26px;
+    color: #111827;
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+  .type-demo-header p {
+    font-size: 13px;
+    color: #6b7280;
+  }
+  .type-card-demo {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 14px;
+    margin-bottom: 16px;
+  }
+  .type-card-title {
+    font-size: 14px;
+    color: #111827;
+    margin-bottom: 4px;
+  }
+  .type-card-body {
+    font-size: 12px;
+    color: #6b7280;
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+  .type-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .type-table-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    margin-bottom: 16px;
+  }
+  .type-stat-display {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .type-stat-num {
+    font-size: 52px;
+    line-height: 1;
+    color: #111827;
+  }
+  .type-stat-label {
+    font-size: 11px;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* ── COMPONENTS SECTION ── */
+  .component-row {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-bottom: 32px;
+  }
+  .component-group {
+    flex: 1;
+    min-width: 220px;
+  }
+  .component-group-title {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #9ca3af;
+    margin-bottom: 12px;
+  }
+
+  /* status badge variants */
+  .badges-row { display: flex; flex-direction: column; gap: 8px; }
+  .badge-set { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  /* treatment labels */
+  .treatment-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #d1d5db;
+    margin-bottom: 8px;
+    margin-top: 20px;
+  }
+  .treatment-label:first-child { margin-top: 0; }
+
+  /* dropdown */
+  .dropdown-demo {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 6px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    min-width: 200px;
+  }
+  .dropdown-demo.dark {
+    background: #1e3a5f;
+    border-color: #2d4f7a;
+  }
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #111827;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  .dropdown-item:hover { background: #f3f4f6; }
+  .dropdown-item.active { background: #fde8e4; color: #c05040; }
+  .dropdown-item.danger { color: #dc2626; }
+  .dropdown-item.dark-item { color: #e2e8f0; }
+  .dropdown-item.dark-item:hover { background: #e07868; color: #fff; }
+  .dropdown-item.dark-active { background: rgba(224,120,104,0.25); color: #f9c8c0; }
+  .dropdown-item.dark-danger { color: #fca5a5; }
+  .dropdown-divider { height: 1px; background: #f3f4f6; margin: 4px 0; }
+  .dropdown-divider.dark { background: #2d4f7a; }
+  .checkmark { font-size: 11px; color: #e07868; }
+  .checkmark.dark { color: #f9c8c0; }
+
+  /* toasts */
+  .toast {
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .toast-icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    margin-top: 1px;
+  }
+  .toast-title { font-weight: 700; font-size: 13px; }
+  .toast-body { font-size: 12px; margin-top: 1px; }
+
+  /* toast bordered */
+  .toast-bordered {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-left-width: 3px;
+  }
+  .toast-bordered.success { border-left-color: #059669; }
+  .toast-bordered.warning { border-left-color: #d97706; }
+  .toast-bordered.error { border-left-color: #dc2626; }
+  .toast-bordered .toast-icon.success { background: #d1fae5; color: #059669; }
+  .toast-bordered .toast-icon.warning { background: #fef3c7; color: #d97706; }
+  .toast-bordered .toast-icon.error { background: #fee2e2; color: #dc2626; }
+  .toast-bordered .toast-title { color: #111827; }
+  .toast-bordered .toast-body { color: #6b7280; }
+
+  /* toast filled */
+  .toast-filled.success { background: #059669; color: #fff; }
+  .toast-filled.warning { background: #d97706; color: #fff; }
+  .toast-filled.error { background: #dc2626; color: #fff; }
+  .toast-filled .toast-icon { background: rgba(255,255,255,0.25); color: #fff; }
+
+  /* callouts */
+  .callout {
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+  }
+  .callout-light {
+    background: rgba(224,120,104,0.06);
+    border: 1px solid rgba(224,120,104,0.18);
+  }
+  .callout-dark {
+    background: #1e3a5f;
+    color: #fff;
+  }
+  .callout-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .callout-light .callout-pill { background: rgba(224,120,104,0.15); color: #c05040; }
+  .callout-dark .callout-pill { background: rgba(255,255,255,0.15); color: #fde8e4; }
+  .callout-body { font-size: 14px; line-height: 1.55; }
+  .callout-light .callout-body { color: #374151; }
+  .callout-dark .callout-body { color: #cbd5e1; }
+  .callout-cta {
+    display: inline-flex;
+    margin-top: 14px;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .callout-light .callout-cta { background: #e07868; color: #fff; }
+  .callout-dark .callout-cta { background: rgba(255,255,255,0.15); color: #fff; }
+
+  /* nav sidebar */
+  .nav-demo {
+    border-radius: 10px;
+    overflow: hidden;
+    min-width: 180px;
+    border: 1px solid #e5e7eb;
+  }
+  .nav-header {
+    padding: 16px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .nav-logo-mark {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 900;
+    color: #fff;
+    background: #e07868;
+    flex-shrink: 0;
+  }
+  .nav-items { padding: 8px; }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 2px;
+  }
+  .nav-icon {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    opacity: 0.5;
+  }
+
+  /* nav dark */
+  .nav-dark { background: #1e3a5f; border-color: #2d4f7a; }
+  .nav-dark .nav-header { color: #fff; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .nav-dark .nav-item { color: rgba(255,255,255,0.55); }
+  .nav-dark .nav-item:hover { color: rgba(255,255,255,0.8); background: rgba(255,255,255,0.08); }
+  .nav-dark .nav-item.active { color: #fff; background: rgba(224,120,104,0.25); }
+  .nav-dark .nav-item.active .nav-icon { opacity: 1; background: #e07868; }
+  .nav-dark .nav-icon { background: rgba(255,255,255,0.3); }
+
+  /* nav light */
+  .nav-light { background: #fff; border-color: #e5e7eb; }
+  .nav-light .nav-header { color: #111827; border-bottom: 1px solid #f3f4f6; }
+  .nav-light .nav-item { color: #6b7280; }
+  .nav-light .nav-item:hover { color: #111827; background: #f9fafb; }
+  .nav-light .nav-item.active { color: #e07868; background: #fde8e4; }
+  .nav-light .nav-item.active .nav-icon { opacity: 1; background: #e07868; }
+  .nav-light .nav-icon { background: #d1d5db; }
+
+  /* nav mid */
+  .nav-mid { background: #f4f3f0; border-color: #e2e0da; }
+  .nav-mid .nav-header { color: #111827; border-bottom: 1px solid #e2e0da; }
+  .nav-mid .nav-item { color: #6b7280; }
+  .nav-mid .nav-item:hover { color: #111827; background: rgba(0,0,0,0.06); }
+  .nav-mid .nav-item.active { color: #1e3a5f; background: rgba(30,58,95,0.1); font-weight: 700; }
+  .nav-mid .nav-item.active .nav-icon { opacity: 1; background: #1e3a5f; }
+  .nav-mid .nav-icon { background: #c0bdb5; }
+
+  /* ── STUDIO THEMING ── */
+  .theme-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .theme-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .theme-card-header {
+    height: 6px;
+  }
+  .theme-card-body {
+    padding: 16px;
+    background: #fafaf9;
+  }
+  .theme-project-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 6px;
+  }
+  .theme-meta { font-size: 11px; color: #6b7280; margin-bottom: 12px; }
+  .theme-btn {
+    display: inline-flex;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  .theme-name {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 10px 16px;
+    border-top: 1px solid #e5e7eb;
+    color: #9ca3af;
+    text-align: center;
+  }
+
+  /* not-recommended box */
+  .not-rec {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+    opacity: 0.7;
+    margin-bottom: 32px;
+  }
+  .not-rec-header {
+    background: #f9fafb;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .not-rec-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #dc2626;
+    background: #fee2e2;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+  .not-rec-body { padding: 20px; }
+  .form-field { margin-bottom: 14px; }
+  .form-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #374151;
+    margin-bottom: 5px;
+    letter-spacing: 0.04em;
+  }
+  .form-input {
+    display: flex;
+    align-items: center;
+    height: 36px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    padding: 0 12px;
+    font-size: 13px;
+    color: #9ca3af;
+    background: #fff;
+    gap: 8px;
+  }
+  .color-swatch-preview {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  .not-rec-note {
+    font-size: 12px;
+    color: #9ca3af;
+    font-style: italic;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #f3f4f6;
+  }
+
+  .rec-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #059669;
+    background: #d1fae5;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+
+  /* Helpers */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+  .flex-row { display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-start; }
+
+  .divider-sm { height: 1px; background: #f3f4f6; margin: 24px 0; }
+
+  /* exploration note tag */
+  .exp-note {
+    font-size: 11px;
+    color: #9ca3af;
+    font-style: italic;
+    margin-top: -36px;
+    margin-bottom: 40px;
+  }
+
+  /* section 4 rec banner */
+  .rec-banner {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 32px;
+  }
+  .rec-banner h3 {
+    font-size: 17px;
+    font-weight: 800;
+    color: #064e3b;
+    margin-bottom: 6px;
+  }
+  .rec-banner p {
+    font-size: 13px;
+    color: #047857;
+    line-height: 1.6;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     PAGE HEADER
+═══════════════════════════════════════ -->
+<div class="page-header">
+  <div class="page-header-label">Brand System Exploration — April 2026</div>
+  <h1>Smack<br>Brand System</h1>
+  <p>This is not a finished brand guide. It's an exploration — options shown in context so the right system reveals itself. React, compare, decide.</p>
+</div>
+
+<div class="page-body">
+
+
+<!-- ═══════════════════════════════════════
+     SECTION 1 — COLOR SYSTEMS
+═══════════════════════════════════════ -->
+<div class="section" id="s1">
+  <div class="section-label">01 — Color Systems</div>
+  <div class="section-title">Five complete palettes</div>
+  <div class="section-desc">Each palette shown as swatches + live UI preview: a project card, status badge, button, and nav items rendered in that system.</div>
+
+  <div class="palette-grid">
+
+    <!-- PALETTE 1: CORAL STUDIO -->
+    <div class="palette-card">
+      <div class="palette-header">
+        <div class="palette-name">01 — Coral Studio</div>
+        <div class="palette-feel">Current direction · Warm, confident, feminine-adjacent but not precious</div>
+      </div>
+      <div class="swatch-strip">
+        <div class="swatch" style="background:#e07868;" title="#e07868"></div>
+        <div class="swatch" style="background:#1e3a5f;" title="#1e3a5f"></div>
+        <div class="swatch" style="background:#111827;" title="#111827"></div>
+        <div class="swatch" style="background:#6b7280;" title="#6b7280"></div>
+        <div class="swatch" style="background:#e5e7eb;" title="#e5e7eb"></div>
+        <div class="swatch" style="background:#fafaf9;" title="#fafaf9"></div>
+      </div>
+      <div class="palette-ui" style="--ui-canvas:#fafaf9;--ui-card:#fff;--ui-border:#e5e7eb;--ui-text:#111827;--ui-muted:#6b7280;">
+        <div class="mini-card">
+          <div class="mini-card-top">
+            <div>
+              <div class="mini-card-title" style="color:#111827;">NFL Owners Meeting</div>
+              <div class="mini-card-date" style="color:#6b7280;">Mar 18 – Apr 2, 2026</div>
+            </div>
+            <span class="badge" style="background:#d1fae5;color:#059669;">
+              <span class="badge-dot" style="background:#059669;"></span>Active
+            </span>
+          </div>
+          <div class="mini-card-footer">
+            <div class="mini-stat" style="color:#6b7280;">Deliverables: <strong style="color:#111827;">12</strong></div>
+            <button class="mini-btn" style="background:#e07868;color:#fff;">+ New Project</button>
+          </div>
+        </div>
+        <div class="mini-nav">
+          <div class="mini-nav-item" style="background:#fde8e4;color:#c05040;font-weight:700;">Projects</div>
+          <div class="mini-nav-item" style="color:#6b7280;">Clients</div>
+          <div class="mini-nav-item" style="color:#6b7280;">Invoices</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PALETTE 2: DEEP OCEAN -->
+    <div class="palette-card">
+      <div class="palette-header">
+        <div class="palette-name">02 — Deep Ocean</div>
+        <div class="palette-feel">Technical, serious, enterprise-adjacent</div>
+      </div>
+      <div class="swatch-strip">
+        <div class="swatch" style="background:#3b82f6;"></div>
+        <div class="swatch" style="background:#0f172a;"></div>
+        <div class="swatch" style="background:#1e293b;"></div>
+        <div class="swatch" style="background:#64748b;"></div>
+        <div class="swatch" style="background:#e2e8f0;"></div>
+        <div class="swatch" style="background:#f8fafc;"></div>
+      </div>
+      <div class="palette-ui" style="background:#f8fafc;">
+        <div class="mini-card" style="background:#fff;border-color:#e2e8f0;">
+          <div class="mini-card-top">
+            <div>
+              <div class="mini-card-title" style="color:#0f172a;">NFL Owners Meeting</div>
+              <div class="mini-card-date" style="color:#64748b;">Mar 18 – Apr 2, 2026</div>
+            </div>
+            <span class="badge" style="background:#dbeafe;color:#1d4ed8;">
+              <span class="badge-dot" style="background:#3b82f6;"></span>Active
+            </span>
+          </div>
+          <div class="mini-card-footer" style="border-color:#e2e8f0;">
+            <div class="mini-stat" style="color:#64748b;">Deliverables: <strong style="color:#0f172a;">12</strong></div>
+            <button class="mini-btn" style="background:#3b82f6;color:#fff;">+ New Project</button>
+          </div>
+        </div>
+        <div class="mini-nav">
+          <div class="mini-nav-item" style="background:#dbeafe;color:#1d4ed8;font-weight:700;">Projects</div>
+          <div class="mini-nav-item" style="color:#64748b;">Clients</div>
+          <div class="mini-nav-item" style="color:#64748b;">Invoices</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PALETTE 3: FILM GRAIN -->
+    <div class="palette-card">
+      <div class="palette-header">
+        <div class="palette-name">03 — Film Grain</div>
+        <div class="palette-feel">Editorial, film-forward, confident silence</div>
+      </div>
+      <div class="swatch-strip">
+        <div class="swatch" style="background:#111827;"></div>
+        <div class="swatch" style="background:#374151;"></div>
+        <div class="swatch" style="background:#e07868;"></div>
+        <div class="swatch" style="background:#6b7280;"></div>
+        <div class="swatch" style="background:#d4d0ca;"></div>
+        <div class="swatch" style="background:#fffef9;"></div>
+      </div>
+      <div class="palette-ui" style="background:#fffef9;">
+        <div class="mini-card" style="background:#fff;border-color:#d4d0ca;">
+          <div class="mini-card-top">
+            <div>
+              <div class="mini-card-title" style="color:#111827;">NFL Owners Meeting</div>
+              <div class="mini-card-date" style="color:#6b7280;">Mar 18 – Apr 2, 2026</div>
+            </div>
+            <span class="badge" style="background:#f3f4f6;color:#374151;border:1px solid #d4d0ca;">
+              <span class="badge-dot" style="background:#e07868;"></span>Active
+            </span>
+          </div>
+          <div class="mini-card-footer" style="border-color:#d4d0ca;">
+            <div class="mini-stat" style="color:#6b7280;">Deliverables: <strong style="color:#111827;">12</strong></div>
+            <button class="mini-btn" style="background:#111827;color:#fff;">+ New Project</button>
+          </div>
+        </div>
+        <div class="mini-nav">
+          <div class="mini-nav-item" style="background:#111827;color:#fff;font-weight:700;">Projects</div>
+          <div class="mini-nav-item" style="color:#6b7280;">Clients</div>
+          <div class="mini-nav-item" style="color:#6b7280;">Invoices</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PALETTE 4: WARM SLATE -->
+    <div class="palette-card">
+      <div class="palette-header">
+        <div class="palette-name">04 — Warm Slate</div>
+        <div class="palette-feel">Friendly, professional, less edgy</div>
+      </div>
+      <div class="swatch-strip">
+        <div class="swatch" style="background:#f97316;"></div>
+        <div class="swatch" style="background:#64748b;"></div>
+        <div class="swatch" style="background:#1e293b;"></div>
+        <div class="swatch" style="background:#94a3b8;"></div>
+        <div class="swatch" style="background:#e2e8f0;"></div>
+        <div class="swatch" style="background:#f8f7f4;"></div>
+      </div>
+      <div class="palette-ui" style="background:#f8f7f4;">
+        <div class="mini-card" style="background:#fff;border-color:#e2e8f0;">
+          <div class="mini-card-top">
+            <div>
+              <div class="mini-card-title" style="color:#1e293b;">NFL Owners Meeting</div>
+              <div class="mini-card-date" style="color:#94a3b8;">Mar 18 – Apr 2, 2026</div>
+            </div>
+            <span class="badge" style="background:#ffedd5;color:#c2410c;">
+              <span class="badge-dot" style="background:#f97316;"></span>Active
+            </span>
+          </div>
+          <div class="mini-card-footer" style="border-color:#e2e8f0;">
+            <div class="mini-stat" style="color:#94a3b8;">Deliverables: <strong style="color:#1e293b;">12</strong></div>
+            <button class="mini-btn" style="background:#f97316;color:#fff;">+ New Project</button>
+          </div>
+        </div>
+        <div class="mini-nav">
+          <div class="mini-nav-item" style="background:#ffedd5;color:#c2410c;font-weight:700;">Projects</div>
+          <div class="mini-nav-item" style="color:#94a3b8;">Clients</div>
+          <div class="mini-nav-item" style="color:#94a3b8;">Invoices</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PALETTE 5: MONOCHROME PINK -->
+    <div class="palette-card full-width">
+      <div class="palette-header">
+        <div class="palette-name">05 — Monochrome Pink</div>
+        <div class="palette-feel">Brand-confident, all-in on one color family · Full-width because it demands space</div>
+      </div>
+      <div class="swatch-strip">
+        <div class="swatch" style="background:#2d1210;"></div>
+        <div class="swatch" style="background:#7a3328;"></div>
+        <div class="swatch" style="background:#b05040;"></div>
+        <div class="swatch" style="background:#e07868;"></div>
+        <div class="swatch" style="background:#f4b8ad;"></div>
+        <div class="swatch" style="background:#fde8e4;"></div>
+        <div class="swatch" style="background:#fffbfa;"></div>
+      </div>
+      <div class="palette-ui" style="background:#fffbfa;display:flex;gap:24px;flex-wrap:wrap;">
+        <div style="flex:1;min-width:260px;">
+          <div class="mini-card" style="background:#fff;border-color:#fde8e4;">
+            <div class="mini-card-top">
+              <div>
+                <div class="mini-card-title" style="color:#2d1210;">NFL Owners Meeting</div>
+                <div class="mini-card-date" style="color:#b05040;">Mar 18 – Apr 2, 2026</div>
+              </div>
+              <span class="badge" style="background:#fde8e4;color:#7a3328;">
+                <span class="badge-dot" style="background:#e07868;"></span>Active
+              </span>
+            </div>
+            <div class="mini-card-footer" style="border-color:#fde8e4;">
+              <div class="mini-stat" style="color:#b05040;">Deliverables: <strong style="color:#2d1210;">12</strong></div>
+              <button class="mini-btn" style="background:#e07868;color:#fff;">+ New Project</button>
+            </div>
+          </div>
+        </div>
+        <div style="flex:1;min-width:260px;">
+          <div class="mini-nav" style="flex-direction:column;gap:4px;margin-top:0;">
+            <div class="mini-nav-item" style="background:#fde8e4;color:#7a3328;font-weight:800;border-radius:6px;">Projects</div>
+            <div class="mini-nav-item" style="color:#b05040;border-radius:6px;">Clients</div>
+            <div class="mini-nav-item" style="color:#b05040;border-radius:6px;">Invoices</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /palette-grid -->
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     SECTION 2 — TYPOGRAPHY
+═══════════════════════════════════════ -->
+<div class="section" id="s2">
+  <div class="section-label">02 — Typography</div>
+  <div class="section-title">Four type systems</div>
+  <div class="section-desc">Each shown in context: page header, card, table row, and display stat. All using the Coral Studio palette so the type personality is isolated.</div>
+
+  <div class="type-grid">
+
+    <!-- TYPE A: INTER -->
+    <div class="type-card">
+      <div class="type-label" style="font-family:'Inter',sans-serif;">Type A — Inter (Current)</div>
+      <div class="type-demo-header">
+        <h2 style="font-family:'Inter',sans-serif;font-weight:900;letter-spacing:-0.03em;color:#111827;">Active Projects</h2>
+        <p style="font-family:'Inter',sans-serif;font-weight:500;color:#6b7280;font-size:13px;">8 projects in progress across 4 clients</p>
+      </div>
+      <div class="type-card-demo">
+        <div class="type-card-title" style="font-family:'Inter',sans-serif;font-weight:700;letter-spacing:-0.01em;">NFL Owners Meeting — Highlight Reel</div>
+        <div class="type-card-body" style="font-family:'Inter',sans-serif;font-weight:500;">Post-production finishing, color grade, and audio mix for the annual owners summit broadcast package.</div>
+        <div class="type-meta" style="font-family:'Inter',sans-serif;font-weight:700;">
+          <span style="color:#e07868;">Active</span>
+          <span style="color:#d1d5db;">·</span>
+          <span>Due Apr 12</span>
+        </div>
+      </div>
+      <div class="type-table-row">
+        <span style="font-family:'Inter',sans-serif;font-weight:600;font-size:13px;color:#111827;">Regal Hotels Campaign</span>
+        <span class="badge" style="font-family:'Inter',sans-serif;background:#d1fae5;color:#059669;font-size:9px;"><span class="badge-dot" style="background:#059669;"></span>Delivered</span>
+      </div>
+      <div class="type-stat-display">
+        <div class="type-stat-num" style="font-family:'Inter',sans-serif;font-weight:900;letter-spacing:-0.04em;">14</div>
+        <div style="display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:6px;">
+          <div class="type-stat-label" style="font-family:'Inter',sans-serif;font-weight:700;">Active Projects</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TYPE B: SYNE + INTER -->
+    <div class="type-card">
+      <div class="type-label" style="font-family:'Inter',sans-serif;">Type B — Syne + Inter</div>
+      <div class="type-demo-header">
+        <h2 style="font-family:'Syne',sans-serif;font-weight:800;letter-spacing:-0.02em;color:#111827;">Active Projects</h2>
+        <p style="font-family:'Inter',sans-serif;font-weight:400;color:#6b7280;font-size:13px;">8 projects in progress across 4 clients</p>
+      </div>
+      <div class="type-card-demo">
+        <div class="type-card-title" style="font-family:'Syne',sans-serif;font-weight:700;">NFL Owners Meeting — Highlight Reel</div>
+        <div class="type-card-body" style="font-family:'Inter',sans-serif;font-weight:400;">Post-production finishing, color grade, and audio mix for the annual owners summit broadcast package.</div>
+        <div class="type-meta" style="font-family:'Inter',sans-serif;font-weight:700;">
+          <span style="color:#e07868;">Active</span>
+          <span style="color:#d1d5db;">·</span>
+          <span>Due Apr 12</span>
+        </div>
+      </div>
+      <div class="type-table-row">
+        <span style="font-family:'Syne',sans-serif;font-weight:600;font-size:13px;color:#111827;">Regal Hotels Campaign</span>
+        <span class="badge" style="font-family:'Inter',sans-serif;background:#d1fae5;color:#059669;font-size:9px;"><span class="badge-dot" style="background:#059669;"></span>Delivered</span>
+      </div>
+      <div class="type-stat-display">
+        <div class="type-stat-num" style="font-family:'Syne',sans-serif;font-weight:800;letter-spacing:-0.03em;">14</div>
+        <div style="display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:6px;">
+          <div class="type-stat-label" style="font-family:'Inter',sans-serif;font-weight:700;">Active Projects</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TYPE C: PLUS JAKARTA SANS -->
+    <div class="type-card">
+      <div class="type-label" style="font-family:'Inter',sans-serif;">Type C — Plus Jakarta Sans</div>
+      <div class="type-demo-header">
+        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;letter-spacing:-0.02em;color:#111827;">Active Projects</h2>
+        <p style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;color:#6b7280;font-size:13px;letter-spacing:0.01em;">8 projects in progress across 4 clients</p>
+      </div>
+      <div class="type-card-demo">
+        <div class="type-card-title" style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;">NFL Owners Meeting — Highlight Reel</div>
+        <div class="type-card-body" style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;letter-spacing:0.01em;">Post-production finishing, color grade, and audio mix for the annual owners summit broadcast package.</div>
+        <div class="type-meta" style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;">
+          <span style="color:#e07868;">Active</span>
+          <span style="color:#d1d5db;">·</span>
+          <span>Due Apr 12</span>
+        </div>
+      </div>
+      <div class="type-table-row">
+        <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:13px;color:#111827;">Regal Hotels Campaign</span>
+        <span class="badge" style="font-family:'Plus Jakarta Sans',sans-serif;background:#d1fae5;color:#059669;font-size:9px;"><span class="badge-dot" style="background:#059669;"></span>Delivered</span>
+      </div>
+      <div class="type-stat-display">
+        <div class="type-stat-num" style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;">14</div>
+        <div style="display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:6px;">
+          <div class="type-stat-label" style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;">Active Projects</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TYPE D: DM SANS -->
+    <div class="type-card">
+      <div class="type-label" style="font-family:'Inter',sans-serif;">Type D — DM Sans</div>
+      <div class="type-demo-header">
+        <h2 style="font-family:'DM Sans',sans-serif;font-weight:700;letter-spacing:-0.01em;color:#111827;">Active Projects</h2>
+        <p style="font-family:'DM Sans',sans-serif;font-weight:400;color:#6b7280;font-size:13px;">8 projects in progress across 4 clients</p>
+      </div>
+      <div class="type-card-demo">
+        <div class="type-card-title" style="font-family:'DM Sans',sans-serif;font-weight:700;">NFL Owners Meeting — Highlight Reel</div>
+        <div class="type-card-body" style="font-family:'DM Sans',sans-serif;font-weight:400;">Post-production finishing, color grade, and audio mix for the annual owners summit broadcast package.</div>
+        <div class="type-meta" style="font-family:'DM Sans',sans-serif;font-weight:600;">
+          <span style="color:#e07868;">Active</span>
+          <span style="color:#d1d5db;">·</span>
+          <span>Due Apr 12</span>
+        </div>
+      </div>
+      <div class="type-table-row">
+        <span style="font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;color:#111827;">Regal Hotels Campaign</span>
+        <span class="badge" style="font-family:'DM Sans',sans-serif;background:#d1fae5;color:#059669;font-size:9px;"><span class="badge-dot" style="background:#059669;"></span>Delivered</span>
+      </div>
+      <div class="type-stat-display">
+        <div class="type-stat-num" style="font-family:'DM Sans',sans-serif;font-weight:700;">14</div>
+        <div style="display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:6px;">
+          <div class="type-stat-label" style="font-family:'DM Sans',sans-serif;font-weight:600;">Active Projects</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /type-grid -->
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     SECTION 3 — UI COMPONENTS IN CONTEXT
+═══════════════════════════════════════ -->
+<div class="section" id="s3">
+  <div class="section-label">03 — UI Components in Context</div>
+  <div class="section-title">How the brand shows up in UI moments</div>
+  <div class="section-desc">All components use the Coral Studio palette. Multiple treatment options shown for comparison.</div>
+
+  <!-- 3A STATUS BADGES -->
+  <div class="subsection">
+    <div class="subsection-title">3A — Status Badges</div>
+    <div class="subsection-desc">5 statuses × 3 treatments. Decide on one system and commit to it.</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px;">
+
+      <!-- Treatment 1: dot pill -->
+      <div>
+        <div class="treatment-label">Treatment 1 — Dot + Text Pill</div>
+        <div class="badges-row">
+          <span class="badge" style="background:#d1fae5;color:#059669;font-family:'Inter',sans-serif;">
+            <span class="badge-dot" style="background:#059669;"></span>Active
+          </span>
+          <span class="badge" style="background:#f3f4f6;color:#4b5563;font-family:'Inter',sans-serif;">
+            <span class="badge-dot" style="background:#6b7280;"></span>Pending
+          </span>
+          <span class="badge" style="background:#e0e7f0;color:#1e3a5f;font-family:'Inter',sans-serif;">
+            <span class="badge-dot" style="background:#1e3a5f;"></span>Delivered
+          </span>
+          <span class="badge" style="background:#fef3c7;color:#92400e;font-family:'Inter',sans-serif;">
+            <span class="badge-dot" style="background:#d97706;"></span>On Hold
+          </span>
+          <span class="badge" style="background:#fee2e2;color:#b91c1c;font-family:'Inter',sans-serif;">
+            <span class="badge-dot" style="background:#dc2626;"></span>Overdue
+          </span>
+        </div>
+      </div>
+
+      <!-- Treatment 2: solid fill -->
+      <div>
+        <div class="treatment-label">Treatment 2 — Solid Fill</div>
+        <div class="badges-row">
+          <span class="badge" style="background:#059669;color:#fff;font-family:'Inter',sans-serif;">Active</span>
+          <span class="badge" style="background:#6b7280;color:#fff;font-family:'Inter',sans-serif;">Pending</span>
+          <span class="badge" style="background:#1e3a5f;color:#fff;font-family:'Inter',sans-serif;">Delivered</span>
+          <span class="badge" style="background:#d97706;color:#fff;font-family:'Inter',sans-serif;">On Hold</span>
+          <span class="badge" style="background:#dc2626;color:#fff;font-family:'Inter',sans-serif;">Overdue</span>
+        </div>
+      </div>
+
+      <!-- Treatment 3: outline -->
+      <div>
+        <div class="treatment-label">Treatment 3 — Outline</div>
+        <div class="badges-row">
+          <span class="badge" style="border:1.5px solid #059669;color:#059669;background:transparent;font-family:'Inter',sans-serif;">Active</span>
+          <span class="badge" style="border:1.5px solid #6b7280;color:#6b7280;background:transparent;font-family:'Inter',sans-serif;">Pending</span>
+          <span class="badge" style="border:1.5px solid #1e3a5f;color:#1e3a5f;background:transparent;font-family:'Inter',sans-serif;">Delivered</span>
+          <span class="badge" style="border:1.5px solid #d97706;color:#d97706;background:transparent;font-family:'Inter',sans-serif;">On Hold</span>
+          <span class="badge" style="border:1.5px solid #dc2626;color:#dc2626;background:transparent;font-family:'Inter',sans-serif;">Overdue</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 3B MENUS & DROPDOWNS -->
+  <div class="subsection">
+    <div class="subsection-title">3B — Menus &amp; Dropdowns</div>
+    <div class="subsection-desc">Two tonal approaches to contextual menus.</div>
+
+    <div class="two-col">
+
+      <!-- Style 1: Light -->
+      <div>
+        <div class="treatment-label" style="margin-top:0;">Style 1 — Light Card</div>
+        <div class="dropdown-demo">
+          <div class="dropdown-item active">
+            <span>New Project</span>
+            <span class="checkmark">✓</span>
+          </div>
+          <div class="dropdown-item">Duplicate</div>
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-item">Archive</div>
+          <div class="dropdown-item">Settings</div>
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-item danger">Delete</div>
+        </div>
+      </div>
+
+      <!-- Style 2: Dark -->
+      <div>
+        <div class="treatment-label" style="margin-top:0;">Style 2 — Dark Navy</div>
+        <div class="dropdown-demo dark">
+          <div class="dropdown-item dark-item dark-active">
+            <span>New Project</span>
+            <span class="checkmark dark">✓</span>
+          </div>
+          <div class="dropdown-item dark-item">Duplicate</div>
+          <div class="dropdown-divider dark"></div>
+          <div class="dropdown-item dark-item">Archive</div>
+          <div class="dropdown-item dark-item">Settings</div>
+          <div class="dropdown-divider dark"></div>
+          <div class="dropdown-item dark-item dark-danger">Delete</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 3C TOASTS -->
+  <div class="subsection">
+    <div class="subsection-title">3C — Notification / Toast</div>
+    <div class="subsection-desc">Three states × two visual treatments.</div>
+
+    <div class="two-col">
+
+      <!-- Bordered -->
+      <div>
+        <div class="treatment-label" style="margin-top:0;">Style 1 — Bordered Card</div>
+        <div class="toast toast-bordered success">
+          <div class="toast-icon success">✓</div>
+          <div>
+            <div class="toast-title">Project created</div>
+            <div class="toast-body">NFL Owners Meeting is now active.</div>
+          </div>
+        </div>
+        <div class="toast toast-bordered warning">
+          <div class="toast-icon warning">!</div>
+          <div>
+            <div class="toast-title">Invoice overdue</div>
+            <div class="toast-body">Regal Hotels — $3,200 past due 14 days.</div>
+          </div>
+        </div>
+        <div class="toast toast-bordered error">
+          <div class="toast-icon error">✕</div>
+          <div>
+            <div class="toast-title">Upload failed</div>
+            <div class="toast-body">File too large. Maximum size is 500MB.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filled -->
+      <div>
+        <div class="treatment-label" style="margin-top:0;">Style 2 — Filled Color</div>
+        <div class="toast toast-filled success">
+          <div class="toast-icon">✓</div>
+          <div>
+            <div class="toast-title">Project created</div>
+            <div class="toast-body" style="opacity:0.85;">NFL Owners Meeting is now active.</div>
+          </div>
+        </div>
+        <div class="toast toast-filled warning">
+          <div class="toast-icon">!</div>
+          <div>
+            <div class="toast-title">Invoice overdue</div>
+            <div class="toast-body" style="opacity:0.85;">Regal Hotels — $3,200 past due 14 days.</div>
+          </div>
+        </div>
+        <div class="toast toast-filled error">
+          <div class="toast-icon">✕</div>
+          <div>
+            <div class="toast-title">Upload failed</div>
+            <div class="toast-body" style="opacity:0.85;">File too large. Maximum size is 500MB.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 3D CALLOUTS -->
+  <div class="subsection">
+    <div class="subsection-title">3D — Information Cards</div>
+    <div class="subsection-desc">Callouts for system messages and hero moments.</div>
+
+    <div class="two-col">
+      <div>
+        <div class="treatment-label" style="margin-top:0;">Style 1 — Light Tinted</div>
+        <div class="callout callout-light">
+          <div class="callout-pill">Billing</div>
+          <div class="callout-body">You have <strong>3 invoices</strong> awaiting payment totaling <strong>$4,200</strong>. These have been outstanding for more than 30 days.</div>
+          <div class="callout-cta">Review Invoices</div>
+        </div>
+      </div>
+      <div>
+        <div class="treatment-label" style="margin-top:0;">Style 2 — Navy Dark Card</div>
+        <div class="callout callout-dark">
+          <div class="callout-pill">Billing</div>
+          <div class="callout-body">You have <strong style="color:#fff;">3 invoices</strong> awaiting payment totaling <strong style="color:#fff;">$4,200</strong>. These have been outstanding for more than 30 days.</div>
+          <div class="callout-cta">Review Invoices</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3E NAVIGATION -->
+  <div class="subsection">
+    <div class="subsection-title">3E — Navigation Sidebar</div>
+    <div class="subsection-desc">Three tonal approaches. Active + inactive + hover states shown.</div>
+
+    <div class="three-col">
+
+      <!-- Dark navy -->
+      <div>
+        <div class="treatment-label" style="margin-top:0;">Dark Navy</div>
+        <div class="nav-demo nav-dark">
+          <div class="nav-header">
+            <div class="nav-logo-mark">S</div>
+            Smack
+          </div>
+          <div class="nav-items">
+            <div class="nav-item active nav-dark">
+              <div class="nav-icon" style="background:#e07868;opacity:1;"></div>
+              Projects
+            </div>
+            <div class="nav-item nav-dark">
+              <div class="nav-icon" style="background:rgba(255,255,255,0.3);"></div>
+              Clients
+            </div>
+            <div class="nav-item nav-dark" style="color:rgba(255,255,255,0.75);background:rgba(255,255,255,0.08);">
+              <div class="nav-icon" style="background:rgba(255,255,255,0.3);"></div>
+              Invoices <span style="font-size:10px;opacity:0.6;margin-left:4px;">hover</span>
+            </div>
+            <div class="nav-item nav-dark">
+              <div class="nav-icon" style="background:rgba(255,255,255,0.3);"></div>
+              Team
+            </div>
+            <div class="nav-item nav-dark">
+              <div class="nav-icon" style="background:rgba(255,255,255,0.3);"></div>
+              Settings
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Light white -->
+      <div>
+        <div class="treatment-label" style="margin-top:0;">Light White</div>
+        <div class="nav-demo nav-light">
+          <div class="nav-header" style="color:#111827;border-bottom:1px solid #f3f4f6;">
+            <div class="nav-logo-mark">S</div>
+            Smack
+          </div>
+          <div class="nav-items">
+            <div class="nav-item nav-light active">
+              <div class="nav-icon" style="background:#e07868;opacity:1;"></div>
+              Projects
+            </div>
+            <div class="nav-item nav-light">
+              <div class="nav-icon"></div>
+              Clients
+            </div>
+            <div class="nav-item nav-light" style="color:#111827;background:#f9fafb;">
+              <div class="nav-icon"></div>
+              Invoices <span style="font-size:10px;color:#9ca3af;margin-left:4px;">hover</span>
+            </div>
+            <div class="nav-item nav-light">
+              <div class="nav-icon"></div>
+              Team
+            </div>
+            <div class="nav-item nav-light">
+              <div class="nav-icon"></div>
+              Settings
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mid warm gray -->
+      <div>
+        <div class="treatment-label" style="margin-top:0;">Warm Gray</div>
+        <div class="nav-demo nav-mid">
+          <div class="nav-header" style="color:#111827;border-bottom:1px solid #e2e0da;">
+            <div class="nav-logo-mark">S</div>
+            Smack
+          </div>
+          <div class="nav-items">
+            <div class="nav-item nav-mid active">
+              <div class="nav-icon" style="background:#1e3a5f;opacity:1;"></div>
+              Projects
+            </div>
+            <div class="nav-item nav-mid">
+              <div class="nav-icon"></div>
+              Clients
+            </div>
+            <div class="nav-item nav-mid" style="color:#111827;background:rgba(0,0,0,0.06);">
+              <div class="nav-icon"></div>
+              Invoices <span style="font-size:10px;color:#9ca3af;margin-left:4px;">hover</span>
+            </div>
+            <div class="nav-item nav-mid">
+              <div class="nav-icon"></div>
+              Team
+            </div>
+            <div class="nav-item nav-mid">
+              <div class="nav-icon"></div>
+              Settings
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /section 3 -->
+
+
+<!-- ═══════════════════════════════════════
+     SECTION 4 — STUDIO THEMING
+═══════════════════════════════════════ -->
+<div class="section" id="s4">
+  <div class="section-label">04 — Studio Theming Decision</div>
+  <div class="section-title">Do studios customize their color?</div>
+  <div class="section-desc">This section answers the question. The recommendation is clear. The mockup shows why.</div>
+
+  <!-- NOT RECOMMENDED -->
+  <div style="margin-bottom:8px;">
+    <div class="not-rec-label" style="display:inline-flex;margin-bottom:12px;">Not Recommended</div>
+  </div>
+  <div class="not-rec">
+    <div class="not-rec-header">
+      <div style="font-size:13px;font-weight:700;color:#374151;">Full Custom Color Input</div>
+      <div class="not-rec-label">Too fragile for Phase 1</div>
+    </div>
+    <div class="not-rec-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <div>
+          <div class="form-field">
+            <div class="form-label">Primary Color</div>
+            <div class="form-input">
+              <div class="color-swatch-preview" style="background:#e07868;"></div>
+              #e07868
+            </div>
+          </div>
+          <div class="form-field">
+            <div class="form-label">Background Color</div>
+            <div class="form-input">
+              <div class="color-swatch-preview" style="background:#fafaf9;"></div>
+              #fafaf9
+            </div>
+          </div>
+          <div class="form-field">
+            <div class="form-label">Text Color</div>
+            <div class="form-input">
+              <div class="color-swatch-preview" style="background:#111827;"></div>
+              #111827
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;justify-content:center;">
+          <div style="font-size:13px;color:#374151;font-weight:600;margin-bottom:8px;">Problems with this approach:</div>
+          <ul style="font-size:12px;color:#6b7280;line-height:1.8;padding-left:16px;">
+            <li>No guarantee of accessible contrast ratios</li>
+            <li>Can conflict with semantic status colors</li>
+            <li>Increases support burden ("my colors look wrong")</li>
+            <li>Requires testing every possible combination</li>
+            <li>Not worth the engineering cost in Phase 1</li>
+          </ul>
+        </div>
+      </div>
+      <div class="not-rec-note">Colors could break the UI. Not worth Phase 1 complexity.</div>
+    </div>
+  </div>
+
+  <!-- RECOMMENDED -->
+  <div class="rec-banner">
+    <div class="rec-label">Recommended — Phase 2 Add-On</div>
+    <h3>Preset Accent Themes</h3>
+    <p>Studios pick one of 6 curated accents. The Smack structural UI stays identical — typography, spacing, layout, all status colors. Only the accent color (buttons, badges, active highlights) changes. Safe, beautiful, on-brand.</p>
+  </div>
+
+  <div class="theme-grid">
+
+    <!-- Theme 1: Coral -->
+    <div class="theme-card">
+      <div class="theme-card-header" style="background:#e07868;"></div>
+      <div class="theme-card-body">
+        <div class="theme-project-title">NFL Owners Meeting</div>
+        <div class="theme-meta">Mar 18 – Apr 2, 2026 · 12 deliverables</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+          <span class="badge" style="background:#fde8e4;color:#c05040;font-size:9px;">
+            <span class="badge-dot" style="background:#e07868;"></span>Active
+          </span>
+        </div>
+        <button class="theme-btn" style="background:#e07868;">Open Project</button>
+      </div>
+      <div class="theme-name">01 — Coral (Default) · #e07868</div>
+    </div>
+
+    <!-- Theme 2: Ocean -->
+    <div class="theme-card">
+      <div class="theme-card-header" style="background:#3b82f6;"></div>
+      <div class="theme-card-body">
+        <div class="theme-project-title">NFL Owners Meeting</div>
+        <div class="theme-meta">Mar 18 – Apr 2, 2026 · 12 deliverables</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+          <span class="badge" style="background:#dbeafe;color:#1d4ed8;font-size:9px;">
+            <span class="badge-dot" style="background:#3b82f6;"></span>Active
+          </span>
+        </div>
+        <button class="theme-btn" style="background:#3b82f6;">Open Project</button>
+      </div>
+      <div class="theme-name">02 — Ocean · #3b82f6</div>
+    </div>
+
+    <!-- Theme 3: Forest -->
+    <div class="theme-card">
+      <div class="theme-card-header" style="background:#059669;"></div>
+      <div class="theme-card-body">
+        <div class="theme-project-title">NFL Owners Meeting</div>
+        <div class="theme-meta">Mar 18 – Apr 2, 2026 · 12 deliverables</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+          <span class="badge" style="background:#d1fae5;color:#065f46;font-size:9px;">
+            <span class="badge-dot" style="background:#059669;"></span>Active
+          </span>
+        </div>
+        <button class="theme-btn" style="background:#059669;">Open Project</button>
+      </div>
+      <div class="theme-name">03 — Forest · #059669</div>
+    </div>
+
+    <!-- Theme 4: Ember -->
+    <div class="theme-card">
+      <div class="theme-card-header" style="background:#f97316;"></div>
+      <div class="theme-card-body">
+        <div class="theme-project-title">NFL Owners Meeting</div>
+        <div class="theme-meta">Mar 18 – Apr 2, 2026 · 12 deliverables</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+          <span class="badge" style="background:#ffedd5;color:#c2410c;font-size:9px;">
+            <span class="badge-dot" style="background:#f97316;"></span>Active
+          </span>
+        </div>
+        <button class="theme-btn" style="background:#f97316;">Open Project</button>
+      </div>
+      <div class="theme-name">04 — Ember · #f97316</div>
+    </div>
+
+    <!-- Theme 5: Violet -->
+    <div class="theme-card">
+      <div class="theme-card-header" style="background:#7c3aed;"></div>
+      <div class="theme-card-body">
+        <div class="theme-project-title">NFL Owners Meeting</div>
+        <div class="theme-meta">Mar 18 – Apr 2, 2026 · 12 deliverables</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+          <span class="badge" style="background:#ede9fe;color:#5b21b6;font-size:9px;">
+            <span class="badge-dot" style="background:#7c3aed;"></span>Active
+          </span>
+        </div>
+        <button class="theme-btn" style="background:#7c3aed;">Open Project</button>
+      </div>
+      <div class="theme-name">05 — Violet · #7c3aed</div>
+    </div>
+
+    <!-- Theme 6: Stone -->
+    <div class="theme-card">
+      <div class="theme-card-header" style="background:#6b7280;"></div>
+      <div class="theme-card-body">
+        <div class="theme-project-title">NFL Owners Meeting</div>
+        <div class="theme-meta">Mar 18 – Apr 2, 2026 · 12 deliverables</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+          <span class="badge" style="background:#f3f4f6;color:#374151;font-size:9px;">
+            <span class="badge-dot" style="background:#6b7280;"></span>Active
+          </span>
+        </div>
+        <button class="theme-btn" style="background:#6b7280;">Open Project</button>
+      </div>
+      <div class="theme-name">06 — Stone · #6b7280</div>
+    </div>
+
+  </div><!-- /theme-grid -->
+
+</div><!-- /section 4 -->
+
+
+<!-- ── PAGE FOOTER ── -->
+<div style="margin-top:96px;padding-top:32px;border-top:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;">
+  <div style="font-size:12px;color:#9ca3af;">Smack Brand System Exploration — April 2026</div>
+  <div style="font-size:12px;color:#d1d5db;">For internal review only</div>
+</div>
+
+
+</div><!-- /page-body -->
+</body>
+</html>
