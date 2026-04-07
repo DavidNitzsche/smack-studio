@@ -306,12 +306,9 @@ const SECTIONS = [
         why: 'Railway deploys directly from GitHub. Every time you push code, Railway automatically re-deploys. The repo must exist before you can connect Railway.',
         steps: [
           '<span class="loc">github.com</span>Go to <b>github.com/new</b> → Name it <code>smack-studio</code> → set to Private → click "Create repository".',
-          '<span class="loc">Your Mac — Terminal</span>Clone it to your computer: <code class="code-block">git clone https://github.com/YOUR-USERNAME/smack-studio.git
-cd smack-studio</code>',
+          '<span class="loc">Your Mac — Terminal</span>Clone it to your computer: <code class="code-block">git clone https://github.com/YOUR-USERNAME/smack-studio.git\ncd smack-studio</code>',
           'Copy your Workprint project files into this folder. Or start fresh with <code>npm init</code> if building from scratch.',
-          'Push to GitHub:<code class="code-block">git add .
-git commit -m "initial commit"
-git push origin main</code>',
+          'Push to GitHub:<code class="code-block">git add .\ngit commit -m "initial commit"\ngit push origin main</code>',
           'Confirm the files appear at github.com/YOUR-USERNAME/smack-studio.',
         ],
         fields: [
@@ -352,8 +349,7 @@ git push origin main</code>',
           '<span class="loc">Clerk Dashboard → API Keys</span>Copy your <b>Publishable Key</b> (starts with <code>pk_live_</code>) and <b>Secret Key</b> (starts with <code>sk_live_</code>).',
           '<span class="loc">Railway — Variables</span>Add both keys as env vars: <code>CLERK_PUBLISHABLE_KEY</code> and <code>CLERK_SECRET_KEY</code>.',
           '<span class="loc">VS Code</span>Install Clerk in your project: <code class="code-block">npm install @clerk/express</code>',
-          '<span class="loc">VS Code</span>In your main app file (<code>app.js</code> or <code>server.js</code>), add Clerk middleware to protect all routes that require login:<code class="code-block">const { clerkMiddleware } = require('@clerk/express');
-app.use(clerkMiddleware());</code>',
+          '<span class="loc">VS Code</span>In your main app file (<code>app.js</code> or <code>server.js</code>), add Clerk middleware to protect all routes that require login:<code class="code-block">const { clerkMiddleware } = require('@clerk/express');\napp.use(clerkMiddleware());</code>',
           'Test: visit your app, try to access a protected page — you should be redirected to a login screen. Create a test account and confirm you can log in.',
         ],
         fields: [
@@ -473,14 +469,7 @@ app.use(clerkMiddleware());</code>',
         note: { type: 'info', text: 'SQLite creates the file automatically the first time you open it. You don\'t need to "create" files manually — just open them by path and they appear.' },
         steps: [
           '<span class="loc">VS Code — your Railway project</span>Create a new file: <code>src/lib/db.js</code>. This will be the only place in your entire app that opens a database connection.',
-          'Paste this into <code>db.js</code>:<code class="code-block">const Database = require(\'better-sqlite3\');
-
-function getDB(studioSlug) {
-  const path = `/data/studios/${studioSlug}.db`;
-  return new Database(path);
-}
-
-module.exports = { getDB };</code>This opens a different file for each studio. If the file doesn\'t exist, SQLite creates it automatically.',
+          'Paste this into <code>db.js</code>:<code class="code-block">const Database = require(\'better-sqlite3\');\n\nfunction getDB(studioSlug) {\n  const path = `/data/studios/${studioSlug}.db`;\n  return new Database(path);\n}\n\nmodule.exports = { getDB };</code>This opens a different file for each studio. If the file doesn\'t exist, SQLite creates it automatically.',
           'If you don\'t have <code>better-sqlite3</code> installed yet: <code class="code-block">npm install better-sqlite3</code>',
           '<span class="loc">Railway Dashboard → your project → Volumes</span>Add a Persistent Volume → mount path: <code>/data</code>. This is critical — without it, all SQLite files are deleted every time your app redeploys.',
           '<span class="loc">VS Code</span>In every route file that queries the database, replace the hardcoded DB open with: <code>const db = getDB(req.studio.slug);</code> — you\'ll set up <code>req.studio.slug</code> in the auth middleware (next task).',
@@ -496,31 +485,7 @@ module.exports = { getDB };</code>This opens a different file for each studio. I
         why: 'This is the onboarding entry point for every new studio. Get it right and the rest is completely self-serve — no manual setup needed per studio.',
         steps: [
           '<span class="loc">VS Code</span>Your sign-up form needs 4 fields: first name, last name, email, studio name. Password is handled by Clerk.',
-          '<span class="loc">VS Code — your sign-up API route (e.g. <code>POST /api/signup</code>)</span>After Clerk creates the user account, your server runs this sequence automatically:<code class="code-block">// 1. Generate a URL-safe slug from the studio name
-// "Blue Marble Films" → "blue-marble-films"
-const slug = studioName.toLowerCase()
-  .replace(/[^a-z0-9]+/g, \'-\')
-  .replace(/^-|-$/g, \'\');
-
-// 2. Create a Clerk Organization
-const org = await clerkClient.organizations.createOrganization({
-  name: studioName, createdBy: userId
-});
-
-// 3. Add user as admin of that org
-await clerkClient.organizations.createOrganizationMembership({
-  organizationId: org.id,
-  userId, role: \'admin\'
-});
-
-// 4. Provision the studio\'s SQLite database
-const db = getDB(slug);
-runSchemaMigrations(db); // creates all tables
-
-// 5. Save a record in your master directory
-masterDB.prepare(\`INSERT INTO studios (slug, name, clerk_org_id, plan, created_at)
-  VALUES (?, ?, ?, \'starter\', ?)\`)
-  .run(slug, studioName, org.id, Date.now());</code>',
+          '<span class="loc">VS Code — your sign-up API route (e.g. <code>POST /api/signup</code>)</span>After Clerk creates the user account, your server runs this sequence automatically:<code class="code-block">// 1. Generate a URL-safe slug from the studio name\n// "Blue Marble Films" → "blue-marble-films"\nconst slug = studioName.toLowerCase()\n  .replace(/[^a-z0-9]+/g, \'-\')\n  .replace(/^-|-$/g, \'\');\n\n// 2. Create a Clerk Organization\nconst org = await clerkClient.organizations.createOrganization({\n  name: studioName, createdBy: userId\n});\n\n// 3. Add user as admin of that org\nawait clerkClient.organizations.createOrganizationMembership({\n  organizationId: org.id,\n  userId, role: \'admin\'\n});\n\n// 4. Provision the studio\'s SQLite database\nconst db = getDB(slug);\nrunSchemaMigrations(db); // creates all tables\n\n// 5. Save a record in your master directory\nmasterDB.prepare(\`INSERT INTO studios (slug, name, clerk_org_id, plan, created_at)\n  VALUES (?, ?, ?, \'starter\', ?)\`)\n  .run(slug, studioName, org.id, Date.now());</code>',
           '<span class="loc">VS Code</span>The "master directory" is a separate SQLite file — <code>/data/smack-master.db</code>. It\'s the one DB that\'s NOT per-studio. It just maps <code>clerk_org_id → studio slug</code> so you know which studio to open.',
           'After the sign-up sequence, redirect the user to <code>/onboarding</code>.',
           '<span class="loc">Clerk Dashboard</span>After testing a sign-up, go to dashboard.clerk.com → your app → Organizations → confirm the new org appears with the user as a member.',
@@ -533,37 +498,9 @@ masterDB.prepare(\`INSERT INTO studios (slug, name, clerk_org_id, plan, created_
         why: 'This middleware runs on every single request. It reads the Clerk session, finds which studio the user belongs to, and attaches the studio context to the request. Without this, there\'s no way to know which database to open.',
         steps: [
           '<span class="loc">VS Code</span>Create a new file: <code>src/middleware/studioContext.js</code>.',
-          'Paste this middleware:<code class="code-block">const { getAuth } = require(\'@clerk/express\');
-const masterDB = require(\'../lib/masterDB\');
-const { getDB } = require(\'../lib/db\');
-
-function studioContext(req, res, next) {
-  const { orgId } = getAuth(req);
-  if (!orgId) return res.redirect(\'/sign-in\');
-
-  const studio = masterDB
-    .prepare(\'SELECT * FROM studios WHERE clerk_org_id = ?\')
-    .get(orgId);
-
-  if (!studio) return res.redirect(\'/setup\');
-
-  req.studio = studio;
-  // Now req.studio.slug, req.studio.plan, etc. are available
-  next();
-}
-
-module.exports = studioContext;</code>',
-          '<span class="loc">VS Code — <code>app.js</code> or <code>server.js</code></span>Apply this middleware to every route that needs studio data:<code class="code-block">const studioContext = require(\'./middleware/studioContext\');
-app.use(\'/dashboard\', studioContext, dashboardRouter);
-app.use(\'/projects\', studioContext, projectsRouter);
-// ...etc for each section of the app</code>',
-          'In every route handler, open the studio DB like this:<code class="code-block">const { getDB } = require(\'../lib/db\');
-
-app.get(\'/projects\', studioContext, (req, res) => {
-  const db = getDB(req.studio.slug);
-  const projects = db.prepare(\'SELECT * FROM projects\').all();
-  res.json(projects);
-});</code>',
+          'Paste this middleware:<code class="code-block">const { getAuth } = require(\'@clerk/express\');\nconst masterDB = require(\'../lib/masterDB\');\nconst { getDB } = require(\'../lib/db\');\n\nfunction studioContext(req, res, next) {\n  const { orgId } = getAuth(req);\n  if (!orgId) return res.redirect(\'/sign-in\');\n\n  const studio = masterDB\n    .prepare(\'SELECT * FROM studios WHERE clerk_org_id = ?\')\n    .get(orgId);\n\n  if (!studio) return res.redirect(\'/setup\');\n\n  req.studio = studio;\n  // Now req.studio.slug, req.studio.plan, etc. are available\n  next();\n}\n\nmodule.exports = studioContext;</code>',
+          '<span class="loc">VS Code — <code>app.js</code> or <code>server.js</code></span>Apply this middleware to every route that needs studio data:<code class="code-block">const studioContext = require(\'./middleware/studioContext\');\napp.use(\'/dashboard\', studioContext, dashboardRouter);\napp.use(\'/projects\', studioContext, projectsRouter);\n// ...etc for each section of the app</code>',
+          'In every route handler, open the studio DB like this:<code class="code-block">const { getDB } = require(\'../lib/db\');\n\napp.get(\'/projects\', studioContext, (req, res) => {\n  const db = getDB(req.studio.slug);\n  const projects = db.prepare(\'SELECT * FROM projects\').all();\n  res.json(projects);\n});</code>',
           '<span class="loc">Railway Dashboard → Logs</span>Push your code, trigger a request, and confirm <code>req.studio</code> has your studio\'s data in the logs.',
           'Test: log in as two different users in different studios. Both hit <code>/projects</code>. They should see completely different results.',
         ]
@@ -608,28 +545,10 @@ app.get(\'/projects\', studioContext, (req, res) => {
         desc: 'Self-serve config. No Railway touch needed for any studio.',
         why: 'This is what makes Smack a real SaaS. Every studio should configure everything through the app — billing, team, bank account. You should never have to touch Railway to set up a new studio.',
         steps: [
-          '<span class="loc">VS Code</span>Create a settings section with 4 sub-pages. Add these routes to your app:<code class="code-block">GET /settings          → redirect to /settings/profile
-GET /settings/profile  → studio name, logo, address, timezone
-GET /settings/team     → team members, invite by email
-GET /settings/billing  → current plan, invoices
-GET /settings/integrations → bank account connection</code>',
+          '<span class="loc">VS Code</span>Create a settings section with 4 sub-pages. Add these routes to your app:<code class="code-block">GET /settings          → redirect to /settings/profile\nGET /settings/profile  → studio name, logo, address, timezone\nGET /settings/team     → team members, invite by email\nGET /settings/billing  → current plan, invoices\nGET /settings/integrations → bank account connection</code>',
           '<b>Studio Profile page:</b> A form with studio name, logo upload, address, and timezone. On submit, update the studio record in the studio\'s own DB.',
-          '<b>Team Members page:</b> Use the Clerk API to list org members and send invites:<code class="code-block">// List current members
-const members = await clerkClient.organizations.getOrganizationMembershipList({
-  organizationId: req.studio.clerk_org_id
-});
-
-// Invite new member by email
-await clerkClient.organizations.createOrganizationInvitation({
-  organizationId: req.studio.clerk_org_id,
-  emailAddress: inviteEmail,
-  role: \'basic_member\'
-});</code>',
-          '<b>Billing page:</b> Show <code>req.studio.plan</code>. For billing management, use the Stripe Customer Portal — one API call and Stripe hosts the entire billing UI for you:<code class="code-block">const session = await stripe.billingPortal.sessions.create({
-  customer: req.studio.stripe_customer_id,
-  return_url: \'https://smack.studio/settings/billing\'
-});
-res.redirect(session.url); // Stripe handles everything from here</code>',
+          '<b>Team Members page:</b> Use the Clerk API to list org members and send invites:<code class="code-block">// List current members\nconst members = await clerkClient.organizations.getOrganizationMembershipList({\n  organizationId: req.studio.clerk_org_id\n});\n\n// Invite new member by email\nawait clerkClient.organizations.createOrganizationInvitation({\n  organizationId: req.studio.clerk_org_id,\n  emailAddress: inviteEmail,\n  role: \'basic_member\'\n});</code>',
+          '<b>Billing page:</b> Show <code>req.studio.plan</code>. For billing management, use the Stripe Customer Portal — one API call and Stripe hosts the entire billing UI for you:<code class="code-block">const session = await stripe.billingPortal.sessions.create({\n  customer: req.studio.stripe_customer_id,\n  return_url: \'https://smack.studio/settings/billing\'\n});\nres.redirect(session.url); // Stripe handles everything from here</code>',
           '<b>Integrations page:</b> "Connect Bank Account" button for contractor payments. Only show this if <code>req.studio.contractor_payments_active</code> is true.',
           'None of this involves Railway env vars — all data is per-studio in their own DB or in Clerk.',
         ]
@@ -642,13 +561,7 @@ res.redirect(session.url); // Stripe handles everything from here</code>',
         steps: [
           '<span class="loc">VS Code</span>Create an <code>onboarding_step</code> integer column in your studio DB. Default = 1. Each step completion increments it.',
           'Add a redirect in your main middleware: if <code>studio.onboarding_step &lt; 8</code>, redirect to <code>/onboarding/step/${studio.onboarding_step}</code> instead of the dashboard.',
-          'Create 7 route handlers:<code class="code-block">GET/POST /onboarding/1  → Studio name + logo
-GET/POST /onboarding/2  → Invite team member (skippable)
-GET/POST /onboarding/3  → Create first client
-GET/POST /onboarding/4  → Create first project
-GET/POST /onboarding/5  → Set rate / add invoice milestone
-GET/POST /onboarding/6  → Preview invoice
-GET     /onboarding/7  → Completion screen → redirect to /dashboard</code>',
+          'Create 7 route handlers:<code class="code-block">GET/POST /onboarding/1  → Studio name + logo\nGET/POST /onboarding/2  → Invite team member (skippable)\nGET/POST /onboarding/3  → Create first client\nGET/POST /onboarding/4  → Create first project\nGET/POST /onboarding/5  → Set rate / add invoice milestone\nGET/POST /onboarding/6  → Preview invoice\nGET     /onboarding/7  → Completion screen → redirect to /dashboard</code>',
           'Each step: on POST (form submit), save the data, increment <code>onboarding_step</code>, then redirect to the next step.',
           'Each step needs a "Skip" link (except step 1) that just increments the step without saving.',
           'Step 7 sets <code>onboarding_step = 8</code> (meaning complete). After this, the middleware no longer intercepts and sends them to the normal dashboard.',
@@ -662,23 +575,9 @@ GET     /onboarding/7  → Completion screen → redirect to /dashboard</code>',
         why: 'This is how Smack makes money. Every studio on a plan is charged monthly via the Smack Stripe account.',
         steps: [
           '<span class="loc">Stripe Dashboard → Products</span>Create 3 products: "Smack Studio — Starter" ($79/mo), "Smack Studio — Growth" ($149/mo), "Smack Studio — Studio" ($299/mo). Copy each <b>Price ID</b> (starts with <code>price_</code>) and save them as Railway env vars.',
-          '<span class="loc">VS Code</span>During the sign-up flow, after creating the studio, create a Stripe Customer:<code class="code-block">const customer = await stripe.customers.create({
-  email: studioEmail,
-  name: studioName,
-  metadata: { smack_slug: studioSlug }
-});
-// Save customer.id to your master DB
-masterDB.prepare(\'UPDATE studios SET stripe_customer_id = ? WHERE slug = ?\')
-  .run(customer.id, studioSlug);</code>',
-          '<span class="loc">VS Code</span>During onboarding, show a plan selection + card form (use Stripe Elements for the card input). On plan select:<code class="code-block">const subscription = await stripe.subscriptions.create({
-  customer: customerId,
-  items: [{ price: priceId }],
-  payment_behavior: \'default_incomplete\',
-  expand: [\'latest_invoice.payment_intent\']
-});</code>',
-          '<span class="loc">VS Code — <code>routes/webhooks/stripe.js</code></span>Handle these Stripe webhook events:<code class="code-block">invoice.paid           → set studio.subscription_status = \'active\'
-invoice.payment_failed → send warning email via Resend
-customer.subscription.deleted → set studio.subscription_status = \'inactive\'</code>',
+          '<span class="loc">VS Code</span>During the sign-up flow, after creating the studio, create a Stripe Customer:<code class="code-block">const customer = await stripe.customers.create({\n  email: studioEmail,\n  name: studioName,\n  metadata: { smack_slug: studioSlug }\n});\n// Save customer.id to your master DB\nmasterDB.prepare(\'UPDATE studios SET stripe_customer_id = ? WHERE slug = ?\')\n  .run(customer.id, studioSlug);</code>',
+          '<span class="loc">VS Code</span>During onboarding, show a plan selection + card form (use Stripe Elements for the card input). On plan select:<code class="code-block">const subscription = await stripe.subscriptions.create({\n  customer: customerId,\n  items: [{ price: priceId }],\n  payment_behavior: \'default_incomplete\',\n  expand: [\'latest_invoice.payment_intent\']\n});</code>',
+          '<span class="loc">VS Code — <code>routes/webhooks/stripe.js</code></span>Handle these Stripe webhook events:<code class="code-block">invoice.paid           → set studio.subscription_status = \'active\'\ninvoice.payment_failed → send warning email via Resend\ncustomer.subscription.deleted → set studio.subscription_status = \'inactive\'</code>',
           '<span class="loc">VS Code — middleware</span>Add a subscription check: if <code>studio.subscription_status !== \'active\'</code>, redirect to a payment/renewal screen instead of the dashboard.',
           '<span class="loc">Stripe Dashboard → Coupons</span>Create a coupon: 50% off, duration = "forever", name it "FOUNDING50". Apply it for founding studios: <code>stripe.subscriptions.create({ ..., coupon: \'FOUNDING50\' })</code>.',
         ]
@@ -690,15 +589,7 @@ customer.subscription.deleted → set studio.subscription_status = \'inactive\'<
         why: 'Velvet rope approach — controls quality and builds anticipation. The founding studio offer (50% off for life) gives people a reason to sign up now.',
         steps: [
           '<span class="loc">VS Code</span>Create a waitlist page at <code>/waitlist</code> with these fields: first name, studio name, email, optional note. No password needed — they\'re just expressing interest.',
-          'Create a <code>waitlist_signups</code> table in your master DB:<code class="code-block">CREATE TABLE IF NOT EXISTS waitlist_signups (
-  id INTEGER PRIMARY KEY,
-  first_name TEXT,
-  studio_name TEXT,
-  email TEXT UNIQUE,
-  note TEXT,
-  status TEXT DEFAULT \'pending\', -- \'pending\' | \'approved\' | \'rejected\'
-  created_at INTEGER
-);</code>',
+          'Create a <code>waitlist_signups</code> table in your master DB:<code class="code-block">CREATE TABLE IF NOT EXISTS waitlist_signups (\n  id INTEGER PRIMARY KEY,\n  first_name TEXT,\n  studio_name TEXT,\n  email TEXT UNIQUE,\n  note TEXT,\n  status TEXT DEFAULT \'pending\', -- \'pending\' | \'approved\' | \'rejected\'\n  created_at INTEGER\n);</code>',
           'On form submit: save to DB, send a confirmation email via Resend: subject "You\'re on the list — Smack Studio", body: you\'re on the list, we\'ll reach out when your invite is ready, include the founding studio offer details.',
           'Build a simple admin view at <code>/admin/waitlist</code> (protect it with a hardcoded admin password for now): show all signups, with an "Approve" button per row.',
           'On approval: send an invite email with a unique sign-up link. Mark them in the DB as <code>status = \'approved\'</code>.',
@@ -744,23 +635,9 @@ customer.subscription.deleted → set studio.subscription_status = \'inactive\'<
         desc: 'Installable from Safari on iPhone. No App Store needed.',
         why: 'Most studio owners will check Smack from their phone on set. PWA lets them install it from Safari like a native app, with a home screen icon. Much faster than building a real app.',
         steps: [
-          '<span class="loc">VS Code</span>Create <code>public/manifest.json</code>:<code class="code-block">{
-  "name": "Smack Studio",
-  "short_name": "Smack",
-  "start_url": "/dashboard",
-  "display": "standalone",
-  "background_color": "#fafaf9",
-  "theme_color": "#e07868",
-  "icons": [
-    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
-  ]
-}</code>',
+          '<span class="loc">VS Code</span>Create <code>public/manifest.json</code>:<code class="code-block">{\n  "name": "Smack Studio",\n  "short_name": "Smack",\n  "start_url": "/dashboard",\n  "display": "standalone",\n  "background_color": "#fafaf9",\n  "theme_color": "#e07868",\n  "icons": [\n    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },\n    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" }\n  ]\n}</code>',
           'Create app icons: a 192×192px and 512×512px PNG of the Smack jellyfish mark. Save them in <code>public/icons/</code>.',
-          '<span class="loc">VS Code — your HTML layout template</span>Add to the <code>&lt;head&gt;</code>:<code class="code-block">&lt;link rel="manifest" href="/manifest.json"&gt;
-&lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;
-&lt;meta name="apple-mobile-web-app-status-bar-style" content="default"&gt;
-&lt;link rel="apple-touch-icon" href="/icons/icon-192.png"&gt;</code>',
+          '<span class="loc">VS Code — your HTML layout template</span>Add to the <code>&lt;head&gt;</code>:<code class="code-block">&lt;link rel="manifest" href="/manifest.json"&gt;\n&lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;\n&lt;meta name="apple-mobile-web-app-status-bar-style" content="default"&gt;\n&lt;link rel="apple-touch-icon" href="/icons/icon-192.png"&gt;</code>',
           'Push to Railway. On iPhone: open smack.studio in Safari → tap the Share button → "Add to Home Screen" → confirm. It should launch fullscreen without the browser bar.',
           'Test the main flows on mobile: create invoice, check project, view dashboard. Fix any layout issues at 390px width.',
         ]
@@ -790,12 +667,7 @@ customer.subscription.deleted → set studio.subscription_status = \'inactive\'<
         steps: [
           '<span class="loc">Stripe Dashboard — confirm you are in TEST MODE (toggle top-right)</span>Go to Customers → create a test customer with a test ACH bank account. Use these test credentials: routing <code>110000000</code>, account <code>000123456789</code>.',
           '<span class="loc">VS Code</span>Create an ACH charge for this test customer. In test mode, it comes back with <code>status: "pending"</code> — this simulates the real 3–5 business day ACH clearing window.',
-          'Attempt to create a transfer to a test contractor Express account, linking it to the ACH charge:<code class="code-block">const transfer = await stripe.transfers.create({
-  amount: 500000, // $5000 in cents
-  currency: \'usd\',
-  destination: \'acct_CONTRACTOR_EXPRESS_ID\',
-  source_transaction: charge.id // THIS is the guardrail
-});</code>Stripe will hold the transfer until the charge clears. This is correct behavior.',
+          'Attempt to create a transfer to a test contractor Express account, linking it to the ACH charge:<code class="code-block">const transfer = await stripe.transfers.create({\n  amount: 500000, // $5000 in cents\n  currency: \'usd\',\n  destination: \'acct_CONTRACTOR_EXPRESS_ID\',\n  source_transaction: charge.id // THIS is the guardrail\n});</code>Stripe will hold the transfer until the charge clears. This is correct behavior.',
           '<span class="loc">Stripe Test Clock (Dashboard → Test clocks)</span>Create a test clock, advance it past the ACH clearing window. Confirm the transfer executes automatically when the charge succeeds.',
           '<span class="loc">VS Code — webhook handler</span>Test ACH return: use test account number <code>000111111113</code>. When this account "returns" (like a bounced check), confirm your <code>charge.failed</code> webhook fires and that NO transfer was sent.',
           '<span class="loc">Railway Dashboard → Logs</span>Check your Railway logs during these tests — confirm your webhook endpoint is receiving and logging each event correctly.',
@@ -808,14 +680,10 @@ customer.subscription.deleted → set studio.subscription_status = \'inactive\'<
         desc: '"Payments made outside Smack in 2026" — adds to 1099 total.',
         why: 'The IRS $600 1099-NEC threshold is based on TOTAL payments to a contractor from your business across ALL platforms. If a studio paid a contractor $500 by check before joining Smack, then $200 via Smack, that\'s $700 total and a 1099 is required. Without this field, you\'d only see $200 and miss the filing.',
         steps: [
-          '<span class="loc">VS Code — your schema SQL</span>Add two columns to the contractors table:<code class="code-block">ALTER TABLE contractors ADD COLUMN prior_payments_2026 INTEGER DEFAULT 0;
-ALTER TABLE contractors ADD COLUMN prior_payments_source TEXT;</code>',
+          '<span class="loc">VS Code — your schema SQL</span>Add two columns to the contractors table:<code class="code-block">ALTER TABLE contractors ADD COLUMN prior_payments_2026 INTEGER DEFAULT 0;\nALTER TABLE contractors ADD COLUMN prior_payments_source TEXT;</code>',
           '<span class="loc">VS Code — contractor profile page UI</span>Add a number input field labeled: <b>"Payments made outside Smack in 2026"</b> with a note below it: "e.g. checks, wire, Gusto, or any other platform". Maps to <code>prior_payments_2026</code>.',
           'Below that, add an optional text field: <b>"Source (optional)"</b> — maps to <code>prior_payments_source</code>.',
-          '<span class="loc">VS Code — 1099 total calculation</span>Wherever you calculate the 1099 total, add the prior payments:<code class="code-block">const smackTotal = db.prepare(
-  \'SELECT SUM(amount) FROM payments WHERE contractor_id = ? AND year = ?\')
-  .get(contractorId, 2026);
-const total1099 = smackTotal + contractor.prior_payments_2026;</code>',
+          '<span class="loc">VS Code — 1099 total calculation</span>Wherever you calculate the 1099 total, add the prior payments:<code class="code-block">const smackTotal = db.prepare(\n  \'SELECT SUM(amount) FROM payments WHERE contractor_id = ? AND year = ?\')\n  .get(contractorId, 2026);\nconst total1099 = smackTotal + contractor.prior_payments_2026;</code>',
           '<span class="loc">VS Code — 1099 checklist UI</span>Show the breakdown to the studio owner: <b>"$3,200 via Smack + $1,800 prior = $5,000 total"</b>',
           '<span class="loc">Test</span>Add a contractor, set prior payments to $500, pay them $200 via the platform. Confirm the 1099 checklist shows $700 total (not $200).',
         ]
@@ -843,12 +711,7 @@ const total1099 = smackTotal + contractor.prior_payments_2026;</code>',
         steps: [
           '<span class="loc">Stripe Dashboard → Connect → Settings</span>Scroll down to "Tax reporting" → enable "1099 generation". This tells Stripe to auto-generate forms for all connected Express accounts above threshold.',
           'Stripe collects the contractor\'s TIN (SSN or EIN) during the Express onboarding flow. If it\'s missing, the contractor\'s Stripe Express account will show a warning — they need to complete their profile.',
-          '<span class="loc">VS Code — 1099 checklist UI</span>Build a compliance screen in the app. For each contractor, show:<code class="code-block">- Contractor name
-- Total paid (Smack payments + prior payments field)
-- Is threshold met? (>= $600)
-- TIN status (pull from Stripe: stripe.accounts.retrieve(acct_id)
-  → check requirements.currently_due for \'individual.id_number\')
-- DE 542 status (from your DB checkbox)</code>',
+          '<span class="loc">VS Code — 1099 checklist UI</span>Build a compliance screen in the app. For each contractor, show:<code class="code-block">- Contractor name\n- Total paid (Smack payments + prior payments field)\n- Is threshold met? (>= $600)\n- TIN status (pull from Stripe: stripe.accounts.retrieve(acct_id)\n  → check requirements.currently_due for \'individual.id_number\')\n- DE 542 status (from your DB checkbox)</code>',
           '<span class="loc">Important deadline</span>Check this checklist every December. Any contractor missing a TIN needs to update their Stripe Express profile before January 31. Stripe sends the 1099 directly to contractors — you don\'t mail anything.',
           '<span class="loc">Test</span>In Stripe test mode, create a test contractor, push their payment total above $600. Confirm they appear in your 1099 checklist.',
         ]
@@ -859,23 +722,10 @@ const total1099 = smackTotal + contractor.prior_payments_2026;</code>',
         desc: 'Same flow as Workprint, per-studio, add-on gated.',
         why: 'Once the Workprint contractor payment flow is solid, port it to Smack so every studio can use it. The architecture is the same — just scoped per studio.',
         steps: [
-          '<span class="loc">VS Code — studio DB schema</span>Add a contractors table to every studio\'s DB schema SQL:<code class="code-block">CREATE TABLE IF NOT EXISTS contractors (
-  id INTEGER PRIMARY KEY,
-  name TEXT NOT NULL,
-  email TEXT UNIQUE,
-  stripe_acct_id TEXT,        -- their Express account ID (acct_...)
-  de542_filed BOOLEAN DEFAULT 0,
-  prior_payments_2026 INTEGER DEFAULT 0,
-  prior_payments_source TEXT,
-  created_at INTEGER
-);</code>',
-          'The Stripe Connect Express onboarding flow is the same as Workprint. The key difference: save the generated <code>acct_id</code> to <b>that studio\'s DB</b> (not a shared location):<code class="code-block">const db = getDB(req.studio.slug); // studio-specific DB
-db.prepare(\'UPDATE contractors SET stripe_acct_id = ? WHERE id = ?\')
-  .run(expressAccountId, contractorId);</code>',
+          '<span class="loc">VS Code — studio DB schema</span>Add a contractors table to every studio\'s DB schema SQL:<code class="code-block">CREATE TABLE IF NOT EXISTS contractors (\n  id INTEGER PRIMARY KEY,\n  name TEXT NOT NULL,\n  email TEXT UNIQUE,\n  stripe_acct_id TEXT,        -- their Express account ID (acct_...)\n  de542_filed BOOLEAN DEFAULT 0,\n  prior_payments_2026 INTEGER DEFAULT 0,\n  prior_payments_source TEXT,\n  created_at INTEGER\n);</code>',
+          'The Stripe Connect Express onboarding flow is the same as Workprint. The key difference: save the generated <code>acct_id</code> to <b>that studio\'s DB</b> (not a shared location):<code class="code-block">const db = getDB(req.studio.slug); // studio-specific DB\ndb.prepare(\'UPDATE contractors SET stripe_acct_id = ? WHERE id = ?\')\n  .run(expressAccountId, contractorId);</code>',
           '<span class="loc">VS Code — Studio Settings → Integrations</span>Add a "Connect Bank Account" button. This opens Stripe\'s bank verification flow so the studio can fund ACH payments. Store the bank source ID in the studio\'s DB record.',
-          'Wrap every contractor payments route with an add-on check:<code class="code-block">if (!req.studio.contractor_payments_active) {
-  return res.redirect(\'/settings/contractor-payments/upsell\');
-}</code>',
+          'Wrap every contractor payments route with an add-on check:<code class="code-block">if (!req.studio.contractor_payments_active) {\n  return res.redirect(\'/settings/contractor-payments/upsell\');\n}</code>',
           '<span class="loc">Stripe Dashboard</span>Confirm that when a new contractor onboards through any studio, a new Express account appears in your Connect dashboard. You should see separate accounts for each contractor across all studios.',
         ]
       },
@@ -885,12 +735,9 @@ db.prepare(\'UPDATE contractors SET stripe_acct_id = ? WHERE id = ?\')
         desc: 'Show upsell if not subscribed. Full access if active.',
         why: 'The add-on is a separate monthly charge on top of the base subscription. Studios opt in. If they haven\'t, they see an upsell screen instead of the feature.',
         steps: [
-          '<span class="loc">VS Code — master DB schema</span>Add two columns to the studios table:<code class="code-block">ALTER TABLE studios ADD COLUMN contractor_payments_active BOOLEAN DEFAULT 0;
-ALTER TABLE studios ADD COLUMN contractor_payments_since DATE;</code>',
+          '<span class="loc">VS Code — master DB schema</span>Add two columns to the studios table:<code class="code-block">ALTER TABLE studios ADD COLUMN contractor_payments_active BOOLEAN DEFAULT 0;\nALTER TABLE studios ADD COLUMN contractor_payments_since DATE;</code>',
           '<span class="loc">VS Code — <code>studioContext</code> middleware</span>When you load the studio record, these fields come along automatically in <code>req.studio</code>.',
-          '<span class="loc">VS Code</span>In every contractor payments route, add this check at the top:<code class="code-block">if (!req.studio.contractor_payments_active) {
-  return res.redirect(\'/contractor-payments/upsell\');
-}</code>',
+          '<span class="loc">VS Code</span>In every contractor payments route, add this check at the top:<code class="code-block">if (!req.studio.contractor_payments_active) {\n  return res.redirect(\'/contractor-payments/upsell\');\n}</code>',
           '<span class="loc">VS Code — <code>views/upsell-contractor-payments.html</code></span>Build the upsell page: explain what the feature does, show the 4 pricing tiers ($29/$79/$149/$299 based on monthly payout volume), and an "Enable Contractor Payments" button.',
           'When the studio enables it: set <code>contractor_payments_active = 1</code> and save <code>contractor_payments_since</code> in the master DB. No Stripe subscription needed — billing is handled by the monthly cron job.',
           '<span class="loc">Test</span>Create a test studio without the add-on. Try accessing <code>/contractor-payments</code> — you should land on the upsell page. Enable it, try again — you should see the feature.',
@@ -903,44 +750,9 @@ ALTER TABLE studios ADD COLUMN contractor_payments_since DATE;</code>',
         why: 'How Contractor Payments is priced — tallied at end of each month, charged on the 1st of the next. Studios only pay for the volume tier they actually hit.',
         steps: [
           '<span class="loc">VS Code</span>Install a job scheduler: <code class="code-block">npm install node-cron</code>',
-          'Create <code>src/jobs/monthly-billing.js</code>. Set up the cron to run at 12:01am on the 1st of every month:<code class="code-block">const cron = require(\'node-cron\');
-
-cron.schedule(\'1 0 1 * *\', runMonthlyBilling);
-
-async function runMonthlyBilling() {
-  const studios = masterDB.prepare(
-    \'SELECT * FROM studios WHERE contractor_payments_active = 1\'
-  ).all();
-  for (const studio of studios) {
-    await billStudio(studio);
-  }
-}</code>',
-          'Write the <code>billStudio(studio)</code> function:<code class="code-block">async function billStudio(studio) {
-  const db = getDB(studio.slug);
-  const lastMonth = getPreviousMonth(); // e.g. { year: 2026, month: 3 }
-
-  const { volume } = db.prepare(
-    \'SELECT SUM(amount) as volume FROM contractor_payments WHERE month = ?\')
-    .get(lastMonth);
-
-  const fee = getTierFee(volume);
-  // $0-5k → $29 | $5k-25k → $79 | $25k-75k → $149 | $75k-200k → $299
-
-  const invoice = await stripe.invoices.create({
-    customer: studio.stripe_customer_id,
-    description: `Contractor Payments — ${lastMonth.year}/${lastMonth.month} ($${volume} volume)`,
-    auto_advance: true
-  });
-  await stripe.invoiceItems.create({
-    customer: studio.stripe_customer_id,
-    invoice: invoice.id,
-    amount: fee * 100, // cents
-    currency: \'usd\'
-  });
-  await stripe.invoices.pay(invoice.id);
-}</code>',
-          '<span class="loc">VS Code</span>Log the billing result to the studio DB:<code class="code-block">db.prepare(\'INSERT INTO billing_history (month, volume, fee, status) VALUES (?, ?, ?, ?)\')
-  .run(lastMonth, volume, fee, \'paid\');</code>',
+          'Create <code>src/jobs/monthly-billing.js</code>. Set up the cron to run at 12:01am on the 1st of every month:<code class="code-block">const cron = require(\'node-cron\');\n\ncron.schedule(\'1 0 1 * *\', runMonthlyBilling);\n\nasync function runMonthlyBilling() {\n  const studios = masterDB.prepare(\n    \'SELECT * FROM studios WHERE contractor_payments_active = 1\'\n  ).all();\n  for (const studio of studios) {\n    await billStudio(studio);\n  }\n}</code>',
+          'Write the <code>billStudio(studio)</code> function:<code class="code-block">async function billStudio(studio) {\n  const db = getDB(studio.slug);\n  const lastMonth = getPreviousMonth(); // e.g. { year: 2026, month: 3 }\n\n  const { volume } = db.prepare(\n    \'SELECT SUM(amount) as volume FROM contractor_payments WHERE month = ?\')\n    .get(lastMonth);\n\n  const fee = getTierFee(volume);\n  // $0-5k → $29 | $5k-25k → $79 | $25k-75k → $149 | $75k-200k → $299\n\n  const invoice = await stripe.invoices.create({\n    customer: studio.stripe_customer_id,\n    description: `Contractor Payments — ${lastMonth.year}/${lastMonth.month} ($${volume} volume)`,\n    auto_advance: true\n  });\n  await stripe.invoiceItems.create({\n    customer: studio.stripe_customer_id,\n    invoice: invoice.id,\n    amount: fee * 100, // cents\n    currency: \'usd\'\n  });\n  await stripe.invoices.pay(invoice.id);\n}</code>',
+          '<span class="loc">VS Code</span>Log the billing result to the studio DB:<code class="code-block">db.prepare(\'INSERT INTO billing_history (month, volume, fee, status) VALUES (?, ?, ?, ?)\')\n  .run(lastMonth, volume, fee, \'paid\');</code>',
           'Handle payment failure: if <code>stripe.invoices.pay()</code> throws, send a warning email via Resend and set a flag to pause contractor payouts after 2 consecutive failures.',
           '<span class="loc">Import this cron job in your main app file</span>Add <code>require(\'./jobs/monthly-billing\')</code> to <code>app.js</code> so it registers when the app starts.',
         ]
@@ -952,26 +764,9 @@ async function runMonthlyBilling() {
         why: 'Nobody likes surprise charges. A 3-day heads-up email builds trust and reduces payment disputes. Simple to build, high trust value.',
         steps: [
           '<span class="loc">VS Code — <code>src/jobs/monthly-billing.js</code></span>Add a second cron that runs on the 27th of each month at 9am:<code class="code-block">cron.schedule(\'0 9 27 * *\', runSummaryEmails);</code>',
-          'Write <code>runSummaryEmails()</code>: loop through all studios with contractor payments active, sum month-to-date volume from their studio DB:<code class="code-block">async function runSummaryEmails() {
-  const studios = masterDB.prepare(
-    \'SELECT * FROM studios WHERE contractor_payments_active = 1\'
-  ).all();
-  for (const studio of studios) {
-    const db = getDB(studio.slug);
-    const { volume } = db.prepare(
-      \'SELECT SUM(amount) as volume FROM contractor_payments WHERE year = ? AND month = ?\')
-      .get(thisYear, thisMonth);
-    const projectedFee = getTierFee(volume);
-    await sendSummaryEmail(studio, volume, projectedFee);
-  }
-}</code>',
+          'Write <code>runSummaryEmails()</code>: loop through all studios with contractor payments active, sum month-to-date volume from their studio DB:<code class="code-block">async function runSummaryEmails() {\n  const studios = masterDB.prepare(\n    \'SELECT * FROM studios WHERE contractor_payments_active = 1\'\n  ).all();\n  for (const studio of studios) {\n    const db = getDB(studio.slug);\n    const { volume } = db.prepare(\n      \'SELECT SUM(amount) as volume FROM contractor_payments WHERE year = ? AND month = ?\')\n      .get(thisYear, thisMonth);\n    const projectedFee = getTierFee(volume);\n    await sendSummaryEmail(studio, volume, projectedFee);\n  }\n}</code>',
           '<span class="loc">Resend Dashboard — resend.com</span>Create an email template. Match Smack brand (salmon accent, Inter font). Variables: <code>studioName</code>, <code>monthVolume</code>, <code>projectedFee</code>, <code>billingDate</code>.',
-          '<span class="loc">VS Code</span>Send the email via Resend:<code class="code-block">await resend.emails.send({
-  from: \'billing@smack.studio\',
-  to: studio.email,
-  subject: \'Your Contractor Payments fee on the 1st\',
-  html: buildSummaryEmailHTML({ studioName, monthVolume, projectedFee })
-});</code>',
+          '<span class="loc">VS Code</span>Send the email via Resend:<code class="code-block">await resend.emails.send({\n  from: \'billing@smack.studio\',\n  to: studio.email,\n  subject: \'Your Contractor Payments fee on the 1st\',\n  html: buildSummaryEmailHTML({ studioName, monthVolume, projectedFee })\n});</code>',
           '<span class="loc">Test</span>Trigger the function manually in development (<code>node -e "require(\'./src/jobs/monthly-billing\').runSummaryEmails()"</code>). Confirm the email arrives and the numbers are correct.',
         ]
       },
