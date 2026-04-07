@@ -358,19 +358,25 @@
     <p>Full research on Stripe Connect architecture, fee structure, pricing model, compliance, and history reconciliation for Workprint and Smack.</p>
   </div>
 
+  <!-- CONTRACTOR ONLY NOTICE -->
+  <div class="callout callout-amber" style="margin-bottom: 48px;">
+    <strong>Independent contractors only — not payroll</strong>
+    This feature is for paying independent contractors (1099 workers) only. It is not a payroll system and does not support W-2 employees, salary, withholding, or benefits. Studios using Smack Contractor Payments are responsible for correctly classifying their workers. If in doubt, consult an accountant or employment attorney.
+  </div>
+
   <!-- RECOMMENDATION -->
   <div class="section">
     <div class="section-label">Bottom Line</div>
     <div class="rec-banner">
       <div class="rec-banner-label">Final Recommendation</div>
-      <h2>Stripe Connect Express · Separate Charges & Transfers · $15–19/contractor/mo with volume caps</h2>
-      <p>Studios pay a flat monthly fee per active contractor. You absorb all Stripe fees. Contractors receive the exact amount you send them — no deductions, no surprises. Volume caps per tier protect the platform from losing money at scale. ACH-only studio funding keeps the math clean.</p>
+      <h2>Stripe Connect Express · Separate Charges & Transfers · Flat monthly fee based on payout volume</h2>
+      <p>Studios pay a flat monthly fee based on their total payout volume for the month — billed in arrears, no proration. Doesn't matter how many contractors or how many payments. You absorb all Stripe fees. Contractors receive exactly what you send. One clean number on the first of every month.</p>
       <div class="rec-pills">
         <div class="rec-pill">Express accounts</div>
         <div class="rec-pill">Separate charges + transfers</div>
         <div class="rec-pill">ACH-only funding</div>
-        <div class="rec-pill">Per-contractor seat pricing</div>
-        <div class="rec-pill">Hard volume caps</div>
+        <div class="rec-pill">Volume-based flat fee</div>
+        <div class="rec-pill">Billed in arrears</div>
         <div class="rec-pill">Stripe handles KYC</div>
         <div class="rec-pill">Auto 1099 generation</div>
       </div>
@@ -583,59 +589,118 @@
   <div class="section">
     <div class="section-label">Pricing Model</div>
     <div class="section-title">What to charge studios</div>
-    <div class="section-subtitle">Per active contractor per month — mirrors Stripe's billing model, easy to understand, scales with actual usage. Volume caps protect the platform. Hard caps enforced in the app, not just in the docs.</div>
+    <div class="section-subtitle">Flat monthly fee based on total payout volume — billed in arrears on the first of each month. No per-contractor seats, no per-transaction fees. Whatever volume a studio hits that month, that's their tier. No proration for partial months.</div>
 
     <div class="pricing-grid">
       <div class="pricing-card">
-        <div class="tier-name">Starter</div>
-        <div class="tier-price"><span>$</span>19</div>
-        <div class="tier-unit">per active contractor / mo</div>
-        <div class="tier-feature">Up to <strong>5 contractors</strong></div>
-        <div class="tier-feature">Max <strong>$5,000/contractor/mo</strong></div>
-        <div class="tier-feature">~$2.58 margin at full cap volume</div>
-        <div class="tier-feature">~$12.50 margin at median ($1,500/mo)</div>
+        <div class="tier-name">Up to $5k / mo</div>
+        <div class="tier-price"><span>$</span>29</div>
+        <div class="tier-unit">billed 1st of following month</div>
+        <div class="tier-feature">Unlimited contractors</div>
+        <div class="tier-feature">Your Stripe cost: <strong>~$18</strong></div>
+        <div class="tier-feature">Margin: <strong>~$11</strong></div>
       </div>
       <div class="pricing-card featured">
-        <div class="tier-name">Growth</div>
-        <div class="tier-price"><span>$</span>15</div>
-        <div class="tier-unit">per active contractor / mo</div>
-        <div class="tier-feature">Up to <strong>20 contractors</strong></div>
-        <div class="tier-feature">Max <strong>$15,000/contractor/mo</strong></div>
-        <div class="tier-feature">Volume discount for larger teams</div>
-        <div class="tier-feature">Sweet spot for most studios</div>
-      </div>
-      <div class="pricing-card">
-        <div class="tier-name">Studio</div>
-        <div class="tier-price"><span>$</span>12</div>
-        <div class="tier-unit">per active contractor / mo</div>
-        <div class="tier-feature">Up to <strong>50 contractors</strong></div>
-        <div class="tier-feature">Max <strong>$30,000/contractor/mo</strong></div>
-        <div class="tier-feature">Further discount at scale</div>
-        <div class="tier-feature">Higher total revenue per account</div>
-      </div>
-      <div class="pricing-card">
-        <div class="tier-name">Enterprise</div>
-        <div class="tier-price" style="font-size: 24px; padding-top: 4px;">Custom</div>
-        <div class="tier-unit">negotiated annually</div>
+        <div class="tier-name">$5k – $25k / mo</div>
+        <div class="tier-price"><span>$</span>79</div>
+        <div class="tier-unit">billed 1st of following month</div>
         <div class="tier-feature">Unlimited contractors</div>
-        <div class="tier-feature">Custom volume limits</div>
-        <div class="tier-feature">Direct Stripe rate negotiation</div>
-        <div class="tier-feature">Dedicated support</div>
+        <div class="tier-feature">Your Stripe cost: <strong>~$65</strong></div>
+        <div class="tier-feature">Margin: <strong>~$14</strong></div>
+      </div>
+      <div class="pricing-card">
+        <div class="tier-name">$25k – $75k / mo</div>
+        <div class="tier-price"><span>$</span>149</div>
+        <div class="tier-unit">billed 1st of following month</div>
+        <div class="tier-feature">Unlimited contractors</div>
+        <div class="tier-feature">Your Stripe cost: <strong>~$140</strong></div>
+        <div class="tier-feature">Margin: <strong>~$9</strong></div>
+      </div>
+      <div class="pricing-card">
+        <div class="tier-name">$75k – $200k / mo</div>
+        <div class="tier-price"><span>$</span>299</div>
+        <div class="tier-unit">billed 1st of following month</div>
+        <div class="tier-feature">Unlimited contractors</div>
+        <div class="tier-feature">Your Stripe cost: <strong>~$250</strong></div>
+        <div class="tier-feature">Margin: <strong>~$49</strong></div>
       </div>
     </div>
 
-    <div class="callout callout-green">
-      <strong>Blended realistic margin: 40–60%</strong>
-      At median contractor payout volumes ($1,500–3,000/mo), Stripe costs ~$7–10 per contractor. At $15–19 revenue, gross margin on the add-on infrastructure is healthy. The volume caps ensure you're never in a scenario where a single high-volume contractor wipes that margin out.
+    <div class="callout callout-amber">
+      <strong>$200k+ / month → Enterprise (custom pricing)</strong>
+      At this volume Stripe fees exceed $299. Route to a custom conversation — by the time a studio is processing $200k+/month in contractor payments, they'll expect a call anyway. This is also the threshold where negotiating Stripe volume pricing becomes meaningful.
     </div>
 
-    <div class="section-subtitle" style="margin-top: 24px; margin-bottom: 16px;">Competitive positioning — 5 contractors, one month:</div>
+    <div class="callout callout-navy">
+      <strong>How billing works</strong>
+      Month ends → platform tallies total payout volume for that studio → charges the appropriate tier fee to their card on file on the 1st. Studios get a monthly summary email before the bill hits: "This month you processed $18,400 in contractor payments. Your fee on the 1st will be $79." No surprises. No proration for studios joining mid-month — whatever they hit, that's the tier.
+    </div>
+
+    <div class="section-subtitle" style="margin-top: 24px; margin-bottom: 16px;">Example scenarios:</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Studio</th>
+            <th>Contractors</th>
+            <th>Monthly payout volume</th>
+            <th>Fee</th>
+            <th>Your Stripe cost</th>
+            <th>Margin</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="label">Small studio</td>
+            <td>3 contractors</td>
+            <td>$4,200</td>
+            <td class="num">$29</td>
+            <td>~$15</td>
+            <td class="good">~$14</td>
+          </tr>
+          <tr>
+            <td class="label">Mid studio</td>
+            <td>8 contractors</td>
+            <td>$18,000</td>
+            <td class="num">$79</td>
+            <td>~$52</td>
+            <td class="good">~$27</td>
+          </tr>
+          <tr>
+            <td class="label">Busy month</td>
+            <td>5 contractors, one paid $5k/wk</td>
+            <td>$32,000</td>
+            <td class="num">$149</td>
+            <td>~$87</td>
+            <td class="good">~$62</td>
+          </tr>
+          <tr>
+            <td class="label">Large studio</td>
+            <td>20 contractors</td>
+            <td>$90,000</td>
+            <td class="num">$299</td>
+            <td>~$268</td>
+            <td class="ok">~$31</td>
+          </tr>
+          <tr>
+            <td class="label">Enterprise</td>
+            <td>40+ contractors</td>
+            <td>$250,000+</td>
+            <td class="num">Custom</td>
+            <td>Negotiate with Stripe</td>
+            <td class="ok">Negotiated</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-subtitle" style="margin-top: 24px; margin-bottom: 16px;">Competitive positioning:</div>
     <div class="table-wrap">
       <table>
         <thead>
           <tr>
             <th>Platform</th>
-            <th>Monthly cost (5 contractors)</th>
+            <th>Monthly cost</th>
             <th>What you get</th>
             <th>Notes</th>
           </tr>
@@ -643,26 +708,26 @@
         <tbody>
           <tr>
             <td class="label">Smack Contractor Payments</td>
-            <td class="num good">$95/mo</td>
-            <td>Clean payout, no transaction fees to anyone, embedded in studio workflow</td>
-            <td>Add-on to existing Smack subscription</td>
+            <td class="num good">$29–$299/mo</td>
+            <td>Clean payout, no transaction fees, embedded in studio workflow, unlimited contractors</td>
+            <td>Based on payout volume, not headcount</td>
           </tr>
           <tr>
-            <td class="label">Gusto (Contractor Only)</td>
-            <td class="num">$65/mo</td>
+            <td class="label">Payroll platforms (Gusto, Rippling, etc.)</td>
+            <td class="num">$65+/mo</td>
             <td>Full HR, tax filing, not embedded in project management</td>
-            <td>$35 base + $6/contractor</td>
+            <td>Headcount pricing — separate tool, separate login</td>
           </tr>
           <tr>
             <td class="label">Deel</td>
-            <td class="num bad">$245/mo</td>
+            <td class="num bad">$245+/mo</td>
             <td>Full HR/compliance, international</td>
             <td>$49/contractor — overkill for most studios</td>
           </tr>
           <tr>
             <td class="label">DIY (Stripe direct)</td>
             <td class="num">~$0 fixed</td>
-            <td>Manual setup, contractor sees fee deductions, no project context</td>
+            <td>Manual setup, contractor sees deductions, no project context</td>
             <td>Cheap but bad UX, admin burden</td>
           </tr>
         </tbody>
@@ -802,31 +867,31 @@
   <!-- HISTORY RECONCILIATION -->
   <div class="section">
     <div class="section-label">History Reconciliation</div>
-    <div class="section-title">Handling prior payments (Gusto and others)</div>
-    <div class="section-subtitle">The $600 threshold for 1099-NEC is based on total annual payments from your business to that contractor — not per platform. If a contractor was paid $400 in Gusto and $300 in Smack, the combined $700 triggers a 1099. Reconciliation is required.</div>
+    <div class="section-title">Handling prior payments from other platforms</div>
+    <div class="section-subtitle">The $600 threshold for 1099-NEC is based on total annual payments from your business to that contractor — not per platform. If a contractor was paid $400 elsewhere and $300 in Smack, the combined $700 triggers a 1099. Reconciliation is required.</div>
 
     <div class="option-cards" style="margin-bottom: 24px;">
       <div class="option-card">
         <div class="option-num">A</div>
         <div class="option-title">CSV Import</div>
-        <div class="option-body">Export from Gusto, import into the platform. Match on EIN/SSN first, legal name second, amount+date as fallback. Flag unmatched rows for manual review. More engineering, more that can go wrong with name format mismatches.</div>
+        <div class="option-body">Export CSV from whatever platform the studio used before, import into Smack. Match on EIN/SSN first, legal name second, amount+date as fallback. Flag unmatched rows for manual review. More engineering, more that can go wrong with name format mismatches.</div>
       </div>
       <div class="option-card chosen">
         <div class="chosen-badge"><span class="badge badge-green">Chosen</span></div>
         <div class="option-num">B</div>
         <div class="option-title">Prior Payments Field</div>
-        <div class="option-body">Single input per contractor: "Payments made outside this platform in 2026." Studio enters a number. Platform adds it to the running total for 1099 purposes. Optional notes field to log the source ("via Gusto Jan–Mar"). Works for any prior system — Gusto, checks, wire transfers, Venmo, whatever.</div>
+        <div class="option-body">Single input per contractor: "Payments made outside Smack in 2026." Studio enters a number. Platform adds it to the running total for 1099 purposes. Optional notes field to log the source. Works regardless of what they used before — payroll software, checks, wire transfers, whatever.</div>
       </div>
       <div class="option-card">
         <div class="option-num">C</div>
-        <div class="option-title">Gusto API Integration</div>
-        <div class="option-body">Pull payment history directly via API. No CSV export step. Reliable matching, cleanest UX. Significant engineering work. Phase 2 if studios ask for it — not required at launch.</div>
+        <div class="option-title">Payroll Platform API</div>
+        <div class="option-body">Pull payment history directly via API from whatever platform the studio used. No CSV export step. Reliable matching, cleanest UX. Significant engineering work and varies per platform. Phase 2 only if studios ask for it.</div>
       </div>
     </div>
 
     <div class="callout callout-green">
       <strong>Option B is the right call for launch — for both Workprint and Smack</strong>
-      One field per contractor. Works regardless of where prior payments came from. Zero parsing, zero matching logic, zero edge cases. The studio can get the number from a Gusto report or bank statement in 30 seconds. The 1099 filing checklist shows a breakdown ("$3,200 via platform, $1,800 prior") for the studio's records but reports the combined $5,000 to the IRS. Build this for Workprint now — carry the same pattern into Smack.
+      One field per contractor. Works regardless of where prior payments came from. Zero parsing, zero matching logic, zero edge cases. The studio pulls the number from a bank statement or their old platform's report in 30 seconds. The 1099 filing checklist shows a breakdown ("$3,200 via Smack, $1,800 prior") for the studio's records but reports the combined $5,000 to the IRS.
     </div>
 
     <div class="table-wrap">
@@ -845,8 +910,8 @@
             <td>Platform total only. Clean.</td>
           </tr>
           <tr>
-            <td class="label">Studio joins mid-year, had Gusto</td>
-            <td>Studio enters Gusto YTD total in prior payments field</td>
+            <td class="label">Studio joins mid-year, paid contractors elsewhere</td>
+            <td>Studio enters prior YTD total in prior payments field</td>
             <td>Platform + prior = combined total for 1099</td>
           </tr>
           <tr>
@@ -855,7 +920,7 @@
             <td>Same — combined total, correct 1099</td>
           </tr>
           <tr>
-            <td class="label">Contractor already in Gusto, DE 542 filed</td>
+            <td class="label">Contractor already reported to CA EDD elsewhere</td>
             <td>Studio checks "Already reported to CA EDD"</td>
             <td>DE 542 marked satisfied, no duplicate filing</td>
           </tr>
@@ -964,8 +1029,8 @@
           </tr>
           <tr>
             <td class="num">10</td>
-            <td class="label">Gusto API import</td>
-            <td>Pull prior payment history directly via Gusto API. Replaces manual prior payments entry for studios migrating from Gusto.</td>
+            <td class="label">Payroll platform import (API)</td>
+            <td>Pull prior payment history via API from whatever platform the studio used. Replaces manual prior payments entry. Build only if studios request it — Option B covers launch.</td>
             <td><span class="badge badge-navy">Phase 2</span></td>
           </tr>
         </tbody>
