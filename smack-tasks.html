@@ -349,7 +349,7 @@ const SECTIONS = [
           '<span class="loc">Clerk Dashboard → API Keys</span>Copy your <b>Publishable Key</b> (starts with <code>pk_live_</code>) and <b>Secret Key</b> (starts with <code>sk_live_</code>).',
           '<span class="loc">Railway — Variables</span>Add both keys as env vars: <code>CLERK_PUBLISHABLE_KEY</code> and <code>CLERK_SECRET_KEY</code>.',
           '<span class="loc">VS Code</span>Install Clerk in your project: <code class="code-block">npm install @clerk/express</code>',
-          '<span class="loc">VS Code</span>In your main app file (<code>app.js</code> or <code>server.js</code>), add Clerk middleware to protect all routes that require login:<code class="code-block">const { clerkMiddleware } = require('@clerk/express');\napp.use(clerkMiddleware());</code>',
+          '<span class="loc">VS Code</span>In your main app file (<code>app.js</code> or <code>server.js</code>), add Clerk middleware to protect all routes that require login:<code class="code-block">const { clerkMiddleware } = require(\'@clerk/express\');\napp.use(clerkMiddleware());</code>',
           'Test: visit your app, try to access a protected page — you should be redirected to a login screen. Create a test account and confirm you can log in.',
         ],
         fields: [
