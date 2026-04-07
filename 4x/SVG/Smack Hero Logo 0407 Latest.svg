@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1466.55 458">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #e07868;
+        stroke-linecap: round;
+        stroke-miterlimit: 16;
+        stroke-width: 8px;
+      }
+
+      .cls-2 {
+        fill: #e07868;
+      }
+
+      .cls-3 {
+        fill: #e07868;
+        letter-spacing: 0em;
+      }
+
+      .cls-4 {
+        font-family: Funtastic-Regular, Funtastic;
+        font-size: 390.45px;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <text class="cls-4" transform="translate(251.47 331.88)"><tspan x="0" y="0">smack</tspan><tspan class="cls-3" x="1132.7" y="0">.</tspan></text>
+    <g>
+      <path class="cls-2" d="M9.49,197.76c-5.67,0-10.05-4.14-9.44-8.87,5.26-40.27,45.93-71.6,95.32-71.6s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+      <path class="cls-1" d="M31.45,197.76c-7.99,46.94,7.99,80.48,0,134.13"/>
+      <path class="cls-1" d="M59.41,197.76c-7.99,46.94,7.99,80.48,0,134.13"/>
+      <path class="cls-1" d="M95.37,197.76c-7.99,46.94,7.99,80.48,0,134.13"/>
+      <path class="cls-1" d="M131.33,197.76c-7.99,46.94,7.99,80.48,0,134.13"/>
+      <path class="cls-1" d="M159.3,197.76c-7.99,46.94,7.99,80.48,0,134.13"/>
+    </g>
+  </g>
+</svg>
