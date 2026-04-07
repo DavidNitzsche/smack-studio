@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>smack. logo v6 — Wide Open</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f5f3f0;
+    color: #111827;
+    padding: 64px 48px 120px;
+  }
+
+  /* ── Header ── */
+  .header {
+    margin-bottom: 64px;
+  }
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #e07868;
+    margin-bottom: 12px;
+  }
+  .title {
+    font-size: 48px;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    color: #111827;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .subtitle {
+    font-size: 16px;
+    font-weight: 400;
+    color: #6b7280;
+    letter-spacing: -0.01em;
+  }
+
+  /* ── Section labels ── */
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #9ca3af;
+    margin-bottom: 20px;
+    margin-top: 64px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  /* ── Mark Grid ── */
+  .mark-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+  }
+
+  .mark-card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    transition: transform 120ms ease, box-shadow 120ms ease;
+    cursor: default;
+  }
+  .mark-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 36px rgba(0,0,0,0.10);
+  }
+
+  .card-halves {
+    display: flex;
+    height: 180px;
+  }
+
+  .card-half {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-half.light {
+    background: #ffffff;
+  }
+
+  .card-half.dark {
+    background: #1e3a5f;
+  }
+
+  .card-meta {
+    padding: 16px 20px;
+    border-top: 1px solid #f3f4f6;
+  }
+
+  .card-code {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: #e07868;
+    margin-bottom: 3px;
+  }
+
+  .card-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #111827;
+    letter-spacing: -0.01em;
+  }
+
+  .card-desc {
+    font-size: 12px;
+    font-weight: 400;
+    color: #9ca3af;
+    margin-top: 2px;
+    line-height: 1.4;
+  }
+
+  /* ── Wordmark pairings ── */
+  .pairing-section {
+    margin-top: 96px;
+  }
+
+  .pairing-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin-top: 20px;
+  }
+
+  .pairing-card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    transition: transform 120ms ease, box-shadow 120ms ease;
+  }
+  .pairing-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 36px rgba(0,0,0,0.10);
+  }
+
+  .pairing-inner {
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 0 24px;
+  }
+
+  .pairing-inner.dark {
+    background: #1e3a5f;
+    height: 100px;
+  }
+
+  .wordmark {
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    color: #111827;
+    line-height: 1;
+  }
+  .wordmark .dot {
+    color: #e07868;
+  }
+  .wordmark.on-dark {
+    color: #ffffff;
+  }
+
+  .pairing-meta {
+    padding: 14px 20px;
+    border-top: 1px solid #f3f4f6;
+  }
+
+  .pairing-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: #9ca3af;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="eyebrow">Logo v6 — Wide Open</div>
+  <div class="title">Twelve new directions.</div>
+  <div class="subtitle">Nothing is locked. These are all wrong until one is right.</div>
+</div>
+
+<!-- GROUP 1: Shape Explorations -->
+<div class="section-label">Group 1 — Shape explorations</div>
+
+<div class="mark-grid">
+
+  <!-- V6-1: The Floating Cap -->
+  <div class="mark-card">
+    <div class="card-halves">
+      <div class="card-half light">
+        <svg width="72" height="90" viewBox="0 0 72 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Wide flat dome -->
+          <path d="M4 22 A34 16 0 0 0 68 22 Z" fill="#e07868"/>
+          <!-- 5 long S-curve tentacles -->
+          <path d="M14 22 C12 38 18 46 14 62 C11 72 13 78 14 82" stroke="#c85d4a" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+          <path d="M24 22 C22 40 28 48 24 64 C21 74 23 80 24 84" stroke="#c85d4a" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+          <path d="M36 22 C36 40 36 50 36 66 C36 76 36 82 36 86" stroke="#c85d4a" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+          <path d="M48 22 C50 40 44 48 48 64 C51 74 49 80 48 84" stroke="#c85d4a" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+          <path d="M58 22 C60 38 54 46 58 62 C61 72 59 78 58 82" stroke="#c85d4a" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="card-half dark">
+        <svg width="72" height="90" viewBox="0 0 72 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 22 A34 16 0 0 0 68 22 Z" fill="#e07868"/>
+          <path d="M14 22 C12 38 18 46 14 62 C11 72 13 78 14 82" stroke="rgba(255,255,255,0.55)" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+          <path d="M24 22 C22 40 28 48 24 64 C21 74 23 80 24 84" stroke="rgba(255,255,255,0.55)" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+          <path d="M36 22 C36 40 36 50 36 66 C36 76 36 82 36 86" stroke="rgba(255,255,255,0.55)" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+          <path d="M48 22 C50 40 44 48 48 64 C51 74 49 80 48 84" stroke="rgba(255,255,255,0.55)" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+          <path d="M58 22 C60 38 54 46 58 62 C61 72 59 78 58 82" stroke="rgba(255,255,255,0.55)" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+    </div>
+    <div class="card-meta">
+      <div class="card-code">V6-1</div>
+      <div class="card-name">The Floating Cap</div>
+      <div class="card-desc">Flying-saucer dome, long trailing tentacles. Drama in contrast.</div>
+    </div>
+  </div>
+
+  <!-- V6-2: The Tall Bell -->
+  <div class="mark-card">
+    <div class="card-halves">
+      <div class="card-half light">
+        <svg width="72" height="90" viewBox="0 0 72 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Tall narrow dome: thimble shape -->
+          <path d="M18 42 A18 30 0 0 0 54 42 Z" fill="#e07868"/>
+          <!-- 5 shorter tentacles proportional to tall bell -->
+          <path d="M22 42 C20 52 24 56 21 64" stroke="#c85d4a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <path d="M28 42 C26 53 30 57 28 66" stroke="#c85d4a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <path d="M36 42 C36 53 36 57 36 67" stroke="#c85d4a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <path d="M44 42 C46 53 42 57 44 66" stroke="#c85d4a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <path d="M50 42 C52 52 48 56 51 64" stroke="#c85d4a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="card-half dark">
+        <svg width="72" height="90" viewBox="0 0 72 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 42 A18 30 0 0 0 54 42 Z" fill="#e07868"/>
+          <path d="M22 42 C20 52 24 56 21 64" stroke="rgba(255,255,255,0.55)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <path d="M28 42 C26 53 30 57 28 66" stroke="rgba(255,255,255,0.55)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <path d="M36 42 C36 53 36 57 36 67" stroke="rgba(255,255,255,0.55)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <path d="M44 42 C46 53 42 57 44 66" stroke="rgba(255,255,255,0.55)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <path d="M50 42 C52 52 48 56 51 64" stroke="rgba(255,255,255,0.55)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+    </div>
+    <div class="card-meta">
+      <div class="card-code">V6-2</div>
+      <div class="card-name">The Tall Bell</div>
+      <div class="card-desc">Thimble proportion. The bell is the statement — tentacles are secondary.</div>
+    </div>
+  </div>
+
+  <!-- V6-3: Asymmetric -->
+  <div class="mark-card">
+    <div class="card-halves">
+      <div class="card-half light">
+        <svg width="72" height="90" viewBox="0 0 72 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g transform="rotate(-4, 36, 28)">
+            <path d="M10 28 A26 22 0 0 0 62 28 Z" fill="#e07868"/>
+            <path d="M16 28 C13 42 19 50 15 64 C13 72 14 77 15 80" stroke="#c85d4a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M26 28 C23 43 29 51 25 65 C23 73 24 78 25 81" stroke="#c85d4a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M36 28 C36 43 36 51 36 65 C36 73 36 78 36 82" stroke="#c85d4a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M46 28 C49 43 43 51 47 65 C49 73 48 78 47 81" stroke="#c85d4a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M56 28 C59 42 53 50 57 64 C59 72 58 77 57 80" stroke="#c85d4a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          </g>
+        </svg>
+      </div>
+      <div class="card-half dark">
+        <svg width="72" height="90" viewBox="0 0 72 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g transform="rotate(-4, 36, 28)">
+            <path d="M10 28 A26 22 0 0 0 62 28 Z" fill="#e07868"/>
+            <path d="M16 28 C13 42 19 50 15 64 C13 72 14 77 15 80" stroke="rgba(255,255,255,0.55)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M26 28 C23 43 29 51 25 65 C23 73 24 78 25 81" stroke="rgba(255,255,255,0.55)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M36 28 C36 43 36 51 36 65 C36 73 36 78 36 82" stroke="rgba(255,255,255,0.55)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M46 28 C49 43 43 51 47 65 C49 73 48 78 47 81" stroke="rgba(255,255,255,0.55)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M56 28 C59 42 53 50 57 64 C59 72 58 77 57 80" stroke="rgba(255,255,255,0.55)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div class="card-meta">
+      <div class="card-code">V6-3</div>
+      <div class="card-name">Asymmetric</div>
+      <div class="card-desc">Tilted 4°. Mid-swim. Gives it intention, not just shape.</div>
+    </div>
+  </div>
+
+  <!-- V6-4: Negative Space Ring -->
+  <div class="mark-card">
+    <div class="card-halves">
+      <div class="card-half light">
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Outer circle frame -->
+          <circle cx="40" cy="40" r="36" fill="none" stroke="#e07868" stroke-width="2"/>
+          <!-- Jellyfish inside at reduced scale, centered -->
+          <path d="M22 38 A18 15 0 0 0 58 38 Z" fill="#e07868"/>
+          <!-- 5 tentacles inside circle -->
+          <path d="M26 38 C24 46 28 51 26 58" stroke="#c85d4a" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+          <path d="M32 38 C30 47 34 52 32 60" stroke="#c85d4a" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+          <path d="M40 38 C40 47 40 52 40 61" stroke="#c85d4a" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+          <path d="M48 38 C50 47 46 52 48 60" stroke="#c85d4a" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+          <path d="M54 38 C56 46 52 51 54 58" stroke="#c85d4a" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="card-half dark">
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="40" cy="40" r="36" fill="none" stroke="#e07868" stroke-width="2"/>
+          <path d="M22 38 A18 15 0 0 0 58 38 Z" fill="#e07868"/>
+          <path d="M26 38 C24 46 28 51 26 58" stroke="rgba(255,255,255,0.55)" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+          <path d="M32 38 C30 47 34 52 32 60" stroke="rgba(255,255,255,0.55)" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+          <path d="M40 38 C40 47 40 52 40 61" stroke="rgba(255,255,255,0.55)" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+          <path d="M48 38 C50 47 46 52 48 60" stroke="rgba(255,255,255,0.55)" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+          <path d="M54 38 C56 46 52 51 54 58" stroke="rgba(255,255,255,0.55)" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+    </div>
+    <div class="card-meta">
+      <div class="card-code">V6-4</div>
+      <div class="card-name">Negative Space Ring</div>
+      <div class="card-desc">Jellyfish contained inside a circle frame. Stamp-like authority.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- GROUP 2: Tentacle Explorations -->
+<div class="section-label">Group 2 — Tentacle explorations</div>
+
+<div class="mark-grid">
+
+  <!-- V6-5: Tapered Strokes -->
+  <div class="mark-card">
+    <div class="card-halves">
+      <div class="card-half light">
+        <svg width="72" height="90" viewBox="0 0 72 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Classic dome -->
+          <path d="M8 32 A28 24 0 0 0 64 32 Z" fill="#e07868"/>
+          <!-- Tapered tentacles as filled triangles/polygons -->
+          <path d="M13 32 L17 32 L15 72 Z" fill="#c85d4a"/>
+          <path d="M22 32 L26 32 L24 72 Z" fill="#c85d4a"/>
+          <path d="M34 32 L38 32 L36 74 Z" fill="#c85d4a"/>
+          <path d="M46 32 L50 32 L48 72 Z" fill="#c85d4a"/>
+          <path d="M55 32 L59 32 L57 72 Z" fill="#c85d4a"/>
+        </svg>
+      </div>
+      <div class="card-half dark">
+        <svg width="72" height="90" viewBox="0 0 72 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 32 A28 24 0 0 0 64 32 Z" fill="#e07868"/>
+          <path d="M13 32 L17 32 L15 72 Z" fill="rgba(255,255,255,0.45)"/>
+          <path d="M22 32 L26 32 L24 72 Z" fill="rgba(255,255,255,0.45)"/>
+          <path d="M34 32 L38 32 L36 74 Z" fill="rgba(255,255,255,0.45)"/>
+          <path d="M46 32 L50 32 L48 72 Z" fill="rgba(255,255,255,0.45)"/>
+          <path d="M55 32 L59 32 L57 72 Z" fill="rgba(255,255,255,0.45)"/>
+        </svg>
+      </div>
+    </div>
+    <div class="card-meta">
+      <div class="card-code">V6-5</div>
+      <div class="card-name">Tapered Strokes</div>
+      <div class="card-desc">Tentacles taper to a point. Precise, graphic, vector-clean.</div>
+    </div>
+  </div>
+
+  <!-- V6-6: Ribbon Tentacles -->
+  <div class="mark-card">
+    <div class="card-halves">
+      <div class="card-half light">
+        <svg width="72" height="90" viewBox="0 0 72 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 32 A28 24 0 0 0 64 32 Z" fill="#e07868"/>
+          <!-- Ribbon tentacles: filled curved shapes -->
+          <path d="M12 32 C10 45 16 54 12 66 C11 70 11 73 12 75 C13 73 13 70 14 66 C18 54 12 45 14 32 Z" fill="#c85d4a"/>
+          <path d="M22 32 C20 45 26 54 22 66 C21 70 21 73 22 75 C23 73 23 70 24 66 C28 54 22 45 24 32 Z" fill="#c85d4a"/>
+          <path d="M34 32 C33 46 36 55 34 67 C33.5 71 33.5 74 34 76 C34.5 74 34.5 71 36 67 C38 55 35 46 36 32 Z" fill="#c85d4a"/>
+          <path d="M46 32 C44 45 50 54 46 66 C45 70 45 73 46 75 C47 73 47 70 48 66 C52 54 46 45 48 32 Z" fill="#c85d4a"/>
+          <path d="M56 32 C54 45 60 54 56 66 C55 70 55 73 56 75 C57 73 57 70 58 66 C62 54 56 45 58 32 Z" fill="#c85d4a"/>
+        </svg>
+      </div>
+      <div class="card-half dark">
+        <svg width="72" height="90" viewBox="0 0 72 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 32 A28 24 0 0 0 64 32 Z" fill="#e07868"/>
+          <path d="M12 32 C10 45 16 54 12 66 C11 70 11 73 12 75 C13 73 13 70 14 66 C18 54 12 45 14 32 Z" fill="rgba(255,255,255,0.45)"/>
+          <path d="M22 32 C20 45 26 54 22 66 C21 70 21 73 22 75 C23 73 23 70 24 66 C28 54 22 45 24 32 Z" fill="rgba(255,255,255,0.45)"/>
+          <path d="M34 32 C33 46 36 55 34 67 C33.5 71 33.5 74 34 76 C34.5 74 34.5 71 36 67 C38 55 35 46 36 32 Z" fill="rgba(255,255,255,0.45)"/>
+          <path d="M46 32 C44 45 50 54 46 66 C45 70 45 73 46 75 C47 73 47 70 48 66 C52 54 46 45 48 32 Z" fill="rgba(255,255,255,0.45)"/>
+          <path d="M56 32 C54 45 60 54 56 66 C55 70 55 73 56 75 C57 73 57 70 58 66 C62 54 56 45 58 32 Z" fill="rgba(255,255,255,0.45)"/>
+        </svg>
+      </div>
+    </div>
+    <div class="card-meta">
+      <div class="card-code">V6-6</div>
+      <div class="card-name">Ribbon Tentacles</div>
+      <div class="card-desc">Flat filled ribbons, gently waving. Fluid and organic.</div>
+    </div>
+  </div>
+
+  <!-- V6-7: Dot Tentacles -->
+  <div class="mark-card">
+    <div class="card-halves">
+      <div class="card-half light">
+        <svg width="72" height="90" viewBox="0 0 72 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 32 A28 24 0 0 0 64 32 Z" fill="#e07868"/>
+          <!-- Column 1 -->
+          <circle cx="15" cy="39" r="2.8" fill="#c85d4a"/>
+          <circle cx="15" cy="47" r="2.3" fill="#c85d4a"/>
+          <circle cx="15" cy="54" r="1.8" fill="#c85d4a"/>
+          <circle cx="15" cy="60" r="1.3" fill="#c85d4a"/>
+          <circle cx="15" cy="65" r="0.9" fill="#c85d4a"/>
+          <!-- Column 2 -->
+          <circle cx="25" cy="39" r="2.8" fill="#c85d4a"/>
+          <circle cx="25" cy="47" r="2.3" fill="#c85d4a"/>
+          <circle cx="25" cy="54" r="1.8" fill="#c85d4a"/>
+          <circle cx="25" cy="60" r="1.3" fill="#c85d4a"/>
+          <circle cx="25" cy="65" r="0.9" fill="#c85d4a"/>
+          <!-- Column 3 (center) -->
+          <circle cx="36" cy="39" r="2.8" fill="#c85d4a"/>
+          <circle cx="36" cy="47" r="2.3" fill="#c85d4a"/>
+          <circle cx="36" cy="54" r="1.8" fill="#c85d4a"/>
+          <circle cx="36" cy="60" r="1.3" fill="#c85d4a"/>
+          <circle cx="36" cy="65" r="0.9" fill="#c85d4a"/>
+          <!-- Column 4 -->
+          <circle cx="47" cy="39" r="2.8" fill="#c85d4a"/>
+          <circle cx="47" cy="47" r="2.3" fill="#c85d4a"/>
+          <circle cx="47" cy="54" r="1.8" fill="#c85d4a"/>
+          <circle cx="47" cy="60" r="1.3" fill="#c85d4a"/>
+          <circle cx="47" cy="65" r="0.9" fill="#c85d4a"/>
+          <!-- Column 5 -->
+          <circle cx="57" cy="39" r="2.8" fill="#c85d4a"/>
+          <circle cx="57" cy="47" r="2.3" fill="#c85d4a"/>
+          <circle cx="57" cy="54" r="1.8" fill="#c85d4a"/>
+          <circle cx="57" cy="60" r="1.3" fill="#c85d4a"/>
+          <circle cx="57" cy="65" r="0.9" fill="#c85d4a"/>
+        </svg>
+      </div>
+      <div class="card-half dark">
+        <svg width="72" height="90" viewBox="0 0 72 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 32 A28 24 0 0 0 64 32 Z" fill="#e07868"/>
+          <circle cx="15" cy="39" r="2.8" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="15" cy="47" r="2.3" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="15" cy="54" r="1.8" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="15" cy="60" r="1.3" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="15" cy="65" r="0.9" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="25" cy="39" r="2.8" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="25" cy="47" r="2.3" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="25" cy="54" r="1.8" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="25" cy="60" r="1.3" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="25" cy="65" r="0.9" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="36" cy="39" r="2.8" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="36" cy="47" r="2.3" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="36" cy="54" r="1.8" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="36" cy="60" r="1.3" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="36" cy="65" r="0.9" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="47" cy="39" r="2.8" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="47" cy="47" r="2.3" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="47" cy="54" r="1.8" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="47" cy="60" r="1.3" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="47" cy="65" r="0.9" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="57" cy="39" r="2.8" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="57" cy="47" r="2.3" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="57" cy="54" r="1.8" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="57" cy="60" r="1.3" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="57" cy="65" r="0.9" fill="rgba(255,255,255,0.5)"/>
+        </svg>
+      </div>
+    </div>
+    <div class="card-meta">
+      <div class="card-code">V6-7</div>
+      <div class="card-name">Dot Tentacles</div>
+      <div class="card-desc">Tentacles as cascading dot columns. Abstract, graphic, poster-ready.</div>
+    </div>
+  </div>
+
+  <!-- V6-8: Alternating lengths -->
+  <div class="mark-card">
+    <div class="card-halves">
+      <div class="card-half light">
+        <svg width="72" height="90" viewBox="0 0 72 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 32 A28 24 0 0 0 64 32 Z" fill="#e07868"/>
+          <!-- long-short-long-short-long alternating -->
+          <path d="M15 32 C13 46 19 54 15 68 C13 75 14 79 15 82" stroke="#c85d4a" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+          <path d="M25 32 C23 42 27 47 25 56 C24 61 24.5 63 25 65" stroke="#c85d4a" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+          <path d="M36 32 C36 46 36 54 36 68 C36 75 36 79 36 82" stroke="#c85d4a" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+          <path d="M47 32 C49 42 45 47 47 56 C48 61 47.5 63 47 65" stroke="#c85d4a" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+          <path d="M57 32 C59 46 53 54 57 68 C59 75 58 79 57 82" stroke="#c85d4a" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="card-half dark">
+        <svg width="72" height="90" viewBox="0 0 72 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 32 A28 24 0 0 0 64 32 Z" fill="#e07868"/>
+          <path d="M15 32 C13 46 19 54 15 68 C13 75 14 79 15 82" stroke="rgba(255,255,255,0.55)" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+          <path d="M25 32 C23 42 27 47 25 56 C24 61 24.5 63 25 65" stroke="rgba(255,255,255,0.55)" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+          <path d="M36 32 C36 46 36 54 36 68 C36 75 36 79 36 82" stroke="rgba(255,255,255,0.55)" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+          <path d="M47 32 C49 42 45 47 47 56 C48 61 47.5 63 47 65" stroke="rgba(255,255,255,0.55)" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+          <path d="M57 32 C59 46 53 54 57 68 C59 75 58 79 57 82" stroke="rgba(255,255,255,0.55)" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+    </div>
+    <div class="card-meta">
+      <div class="card-code">V6-8</div>
+      <div class="card-name">Two-Length Alternating</div>
+      <div class="card-desc">Long-short-long-short-long. Rhythm. The eye bounces through it.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- GROUP 3: Conceptual -->
+<div class="section-label">Group 3 — Conceptual / logo-thinking</div>
+
+<div class="mark-grid">
+
+  <!-- V6-9: The Letterform S -->
+  <div class="mark-card">
+    <div class="card-halves">
+      <div class="card-half light">
+        <svg width="80" height="90" viewBox="0 0 80 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- S in coral, heavy weight approximated with thick path -->
+          <text x="14" y="62" font-family="Inter, sans-serif" font-weight="900" font-size="62" fill="#e07868" letter-spacing="-3">S</text>
+          <!-- Tentacles hanging from bottom of S -->
+          <path d="M26 68 C24 74 26 79 24 84" stroke="#c85d4a" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+          <path d="M33 70 C32 76 33 81 32 86" stroke="#c85d4a" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+          <path d="M40 70 C40 76 40 81 40 86" stroke="#c85d4a" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+          <path d="M47 70 C48 76 47 81 48 86" stroke="#c85d4a" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+          <path d="M54 68 C56 74 54 79 56 84" stroke="#c85d4a" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="card-half dark">
+        <svg width="80" height="90" viewBox="0 0 80 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="14" y="62" font-family="Inter, sans-serif" font-weight="900" font-size="62" fill="#e07868" letter-spacing="-3">S</text>
+          <path d="M26 68 C24 74 26 79 24 84" stroke="rgba(255,255,255,0.55)" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+          <path d="M33 70 C32 76 33 81 32 86" stroke="rgba(255,255,255,0.55)" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+          <path d="M40 70 C40 76 40 81 40 86" stroke="rgba(255,255,255,0.55)" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+          <path d="M47 70 C48 76 47 81 48 86" stroke="rgba(255,255,255,0.55)" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+          <path d="M54 68 C56 74 54 79 56 84" stroke="rgba(255,255,255,0.55)" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+    </div>
+    <div class="card-meta">
+      <div class="card-code">V6-9</div>
+      <div class="card-name">The Letterform</div>
+      <div class="card-desc">The S IS the jellyfish. Body as glyph, tentacles below the bowl.</div>
+    </div>
+  </div>
+
+  <!-- V6-10: Overlapping Circles -->
+  <div class="mark-card">
+    <div class="card-halves">
+      <div class="card-half light">
+        <svg width="80" height="95" viewBox="0 0 80 95" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Three overlapping circles, different opacities -->
+          <circle cx="24" cy="26" r="17" fill="#e07868" opacity="0.55"/>
+          <circle cx="40" cy="22" r="17" fill="#e07868" opacity="0.75"/>
+          <circle cx="56" cy="26" r="17" fill="#e07868" opacity="0.55"/>
+          <!-- Tentacles from bottom of merged mass -->
+          <path d="M20 38 C18 50 22 57 19 66 C18 72 18 75 19 78" stroke="#c85d4a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <path d="M29 41 C27 53 31 60 28 69 C27 75 27 78 28 81" stroke="#c85d4a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <path d="M40 43 C40 55 40 62 40 71 C40 77 40 80 40 83" stroke="#c85d4a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <path d="M51 41 C53 53 49 60 52 69 C53 75 53 78 52 81" stroke="#c85d4a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <path d="M60 38 C62 50 58 57 61 66 C62 72 62 75 61 78" stroke="#c85d4a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="card-half dark">
+        <svg width="80" height="95" viewBox="0 0 80 95" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="26" r="17" fill="#e07868" opacity="0.45"/>
+          <circle cx="40" cy="22" r="17" fill="#e07868" opacity="0.75"/>
+          <circle cx="56" cy="26" r="17" fill="#e07868" opacity="0.45"/>
+          <path d="M20 38 C18 50 22 57 19 66 C18 72 18 75 19 78" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <path d="M29 41 C27 53 31 60 28 69 C27 75 27 78 28 81" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <path d="M40 43 C40 55 40 62 40 71 C40 77 40 80 40 83" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <path d="M51 41 C53 53 49 60 52 69 C53 75 53 78 52 81" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <path d="M60 38 C62 50 58 57 61 66 C62 72 62 75 61 78" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+    </div>
+    <div class="card-meta">
+      <div class="card-code">V6-10</div>
+      <div class="card-name">Overlapping Circles</div>
+      <div class="card-desc">Three intersecting discs form the dome. Venn logic, jellyfish silhouette.</div>
+    </div>
+  </div>
+
+  <!-- V6-11: Wordmark with underscore jellyfish -->
+  <div class="mark-card">
+    <div class="card-halves">
+      <div class="card-half light" style="padding: 0 16px;">
+        <div style="display:flex; align-items:flex-end; gap:0; line-height:1;">
+          <span style="font-family:'Inter',sans-serif; font-weight:900; font-size:26px; letter-spacing:-0.03em; color:#111827;">smack</span>
+          <svg width="28" height="32" viewBox="0 0 28 32" fill="none" style="flex-shrink:0; margin-bottom:0px;">
+            <!-- Underscore jellyfish: flat wide dome sitting on baseline -->
+            <path d="M2 20 A13 7 0 0 0 26 20 Z" fill="#e07868"/>
+            <path d="M6 20 C5 24 7 26 5.5 29" stroke="#c85d4a" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+            <path d="M10 20 C9.5 24.5 11 27 10 30" stroke="#c85d4a" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+            <path d="M14 20 C14 24.5 14 27 14 30.5" stroke="#c85d4a" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+            <path d="M18 20 C18.5 24.5 17 27 18 30" stroke="#c85d4a" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+            <path d="M22 20 C23 24 21 26 22.5 29" stroke="#c85d4a" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+          </svg>
+        </div>
+      </div>
+      <div class="card-half dark" style="padding: 0 16px;">
+        <div style="display:flex; align-items:flex-end; gap:0; line-height:1;">
+          <span style="font-family:'Inter',sans-serif; font-weight:900; font-size:26px; letter-spacing:-0.03em; color:#ffffff;">smack</span>
+          <svg width="28" height="32" viewBox="0 0 28 32" fill="none" style="flex-shrink:0;">
+            <path d="M2 20 A13 7 0 0 0 26 20 Z" fill="#e07868"/>
+            <path d="M6 20 C5 24 7 26 5.5 29" stroke="rgba(255,255,255,0.55)" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+            <path d="M10 20 C9.5 24.5 11 27 10 30" stroke="rgba(255,255,255,0.55)" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+            <path d="M14 20 C14 24.5 14 27 14 30.5" stroke="rgba(255,255,255,0.55)" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+            <path d="M18 20 C18.5 24.5 17 27 18 30" stroke="rgba(255,255,255,0.55)" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+            <path d="M22 20 C23 24 21 26 22.5 29" stroke="rgba(255,255,255,0.55)" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="card-meta">
+      <div class="card-code">V6-11</div>
+      <div class="card-name">smack_ Underscore Mark</div>
+      <div class="card-desc">The underscore position is a tiny jellyfish. Wordmark as organism.</div>
+    </div>
+  </div>
+
+  <!-- V6-12: The Stack Mark -->
+  <div class="mark-card">
+    <div class="card-halves">
+      <div class="card-half light">
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Top: dome -->
+          <path d="M12 30 A24 18 0 0 0 60 30 Z" fill="#e07868"/>
+          <!-- Gap (white space) -->
+          <!-- Bottom: three dots -->
+          <circle cx="22" cy="48" r="5.5" fill="#e07868"/>
+          <circle cx="36" cy="48" r="5.5" fill="#e07868"/>
+          <circle cx="50" cy="48" r="5.5" fill="#e07868"/>
+        </svg>
+      </div>
+      <div class="card-half dark">
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 30 A24 18 0 0 0 60 30 Z" fill="#e07868"/>
+          <circle cx="22" cy="48" r="5.5" fill="#e07868"/>
+          <circle cx="36" cy="48" r="5.5" fill="#e07868"/>
+          <circle cx="50" cy="48" r="5.5" fill="#e07868"/>
+        </svg>
+      </div>
+    </div>
+    <div class="card-meta">
+      <div class="card-code">V6-12</div>
+      <div class="card-name">The Stack Mark</div>
+      <div class="card-desc">Dome + gap + three dots. Abstract as hell. Reads as many things at once.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- WORDMARK PAIRINGS -->
+<div class="pairing-section">
+  <div class="section-label" style="margin-top:80px;">Wordmark pairings — V6-1, V6-3, V6-5, V6-7</div>
+
+  <div class="pairing-grid">
+
+    <!-- Pairing: V6-1 + smack. -->
+    <div class="pairing-card">
+      <div class="pairing-inner">
+        <svg width="44" height="60" viewBox="0 0 72 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 22 A34 16 0 0 0 68 22 Z" fill="#e07868"/>
+          <path d="M14 22 C12 38 18 46 14 62 C11 72 13 78 14 82" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          <path d="M24 22 C22 40 28 48 24 64 C21 74 23 80 24 84" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          <path d="M36 22 C36 40 36 50 36 66 C36 76 36 82 36 86" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          <path d="M48 22 C50 40 44 48 48 64 C51 74 49 80 48 84" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          <path d="M58 22 C60 38 54 46 58 62 C61 72 59 78 58 82" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+        </svg>
+        <span class="wordmark">smack<span class="dot">.</span></span>
+      </div>
+      <div style="background:#1e3a5f; height:80px; display:flex; align-items:center; justify-content:center; gap:12px; padding:0 24px;">
+        <svg width="36" height="52" viewBox="0 0 72 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 22 A34 16 0 0 0 68 22 Z" fill="#e07868"/>
+          <path d="M14 22 C12 38 18 46 14 62 C11 72 13 78 14 82" stroke="rgba(255,255,255,0.5)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          <path d="M24 22 C22 40 28 48 24 64 C21 74 23 80 24 84" stroke="rgba(255,255,255,0.5)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          <path d="M36 22 C36 40 36 50 36 66 C36 76 36 82 36 86" stroke="rgba(255,255,255,0.5)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          <path d="M48 22 C50 40 44 48 48 64 C51 74 49 80 48 84" stroke="rgba(255,255,255,0.5)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          <path d="M58 22 C60 38 54 46 58 62 C61 72 59 78 58 82" stroke="rgba(255,255,255,0.5)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+        </svg>
+        <span class="wordmark on-dark">smack<span class="dot">.</span></span>
+      </div>
+      <div class="pairing-meta">
+        <div class="pairing-label">V6-1 + smack.</div>
+      </div>
+    </div>
+
+    <!-- Pairing: V6-3 + smack. -->
+    <div class="pairing-card">
+      <div class="pairing-inner">
+        <svg width="44" height="60" viewBox="0 0 72 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g transform="rotate(-4, 36, 28)">
+            <path d="M10 28 A26 22 0 0 0 62 28 Z" fill="#e07868"/>
+            <path d="M16 28 C13 42 19 50 15 64 C13 72 14 77 15 80" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <path d="M26 28 C23 43 29 51 25 65 C23 73 24 78 25 81" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <path d="M36 28 C36 43 36 51 36 65 C36 73 36 78 36 82" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <path d="M46 28 C49 43 43 51 47 65 C49 73 48 78 47 81" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <path d="M56 28 C59 42 53 50 57 64 C59 72 58 77 57 80" stroke="#c85d4a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          </g>
+        </svg>
+        <span class="wordmark">smack<span class="dot">.</span></span>
+      </div>
+      <div style="background:#1e3a5f; height:80px; display:flex; align-items:center; justify-content:center; gap:12px; padding:0 24px;">
+        <svg width="36" height="52" viewBox="0 0 72 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g transform="rotate(-4, 36, 28)">
+            <path d="M10 28 A26 22 0 0 0 62 28 Z" fill="#e07868"/>
+            <path d="M16 28 C13 42 19 50 15 64 C13 72 14 77 15 80" stroke="rgba(255,255,255,0.5)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <path d="M26 28 C23 43 29 51 25 65 C23 73 24 78 25 81" stroke="rgba(255,255,255,0.5)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <path d="M36 28 C36 43 36 51 36 65 C36 73 36 78 36 82" stroke="rgba(255,255,255,0.5)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <path d="M46 28 C49 43 43 51 47 65 C49 73 48 78 47 81" stroke="rgba(255,255,255,0.5)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <path d="M56 28 C59 42 53 50 57 64 C59 72 58 77 57 80" stroke="rgba(255,255,255,0.5)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          </g>
+        </svg>
+        <span class="wordmark on-dark">smack<span class="dot">.</span></span>
+      </div>
+      <div class="pairing-meta">
+        <div class="pairing-label">V6-3 + smack.</div>
+      </div>
+    </div>
+
+    <!-- Pairing: V6-5 + smack. -->
+    <div class="pairing-card">
+      <div class="pairing-inner">
+        <svg width="44" height="60" viewBox="0 0 72 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 32 A28 24 0 0 0 64 32 Z" fill="#e07868"/>
+          <path d="M13 32 L17 32 L15 72 Z" fill="#c85d4a"/>
+          <path d="M22 32 L26 32 L24 72 Z" fill="#c85d4a"/>
+          <path d="M34 32 L38 32 L36 74 Z" fill="#c85d4a"/>
+          <path d="M46 32 L50 32 L48 72 Z" fill="#c85d4a"/>
+          <path d="M55 32 L59 32 L57 72 Z" fill="#c85d4a"/>
+        </svg>
+        <span class="wordmark">smack<span class="dot">.</span></span>
+      </div>
+      <div style="background:#1e3a5f; height:80px; display:flex; align-items:center; justify-content:center; gap:12px; padding:0 24px;">
+        <svg width="36" height="52" viewBox="0 0 72 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 32 A28 24 0 0 0 64 32 Z" fill="#e07868"/>
+          <path d="M13 32 L17 32 L15 72 Z" fill="rgba(255,255,255,0.45)"/>
+          <path d="M22 32 L26 32 L24 72 Z" fill="rgba(255,255,255,0.45)"/>
+          <path d="M34 32 L38 32 L36 74 Z" fill="rgba(255,255,255,0.45)"/>
+          <path d="M46 32 L50 32 L48 72 Z" fill="rgba(255,255,255,0.45)"/>
+          <path d="M55 32 L59 32 L57 72 Z" fill="rgba(255,255,255,0.45)"/>
+        </svg>
+        <span class="wordmark on-dark">smack<span class="dot">.</span></span>
+      </div>
+      <div class="pairing-meta">
+        <div class="pairing-label">V6-5 + smack.</div>
+      </div>
+    </div>
+
+    <!-- Pairing: V6-7 + smack. -->
+    <div class="pairing-card">
+      <div class="pairing-inner">
+        <svg width="44" height="60" viewBox="0 0 72 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 32 A28 24 0 0 0 64 32 Z" fill="#e07868"/>
+          <circle cx="15" cy="39" r="2.8" fill="#c85d4a"/>
+          <circle cx="15" cy="47" r="2.3" fill="#c85d4a"/>
+          <circle cx="15" cy="54" r="1.8" fill="#c85d4a"/>
+          <circle cx="15" cy="60" r="1.3" fill="#c85d4a"/>
+          <circle cx="25" cy="39" r="2.8" fill="#c85d4a"/>
+          <circle cx="25" cy="47" r="2.3" fill="#c85d4a"/>
+          <circle cx="25" cy="54" r="1.8" fill="#c85d4a"/>
+          <circle cx="25" cy="60" r="1.3" fill="#c85d4a"/>
+          <circle cx="36" cy="39" r="2.8" fill="#c85d4a"/>
+          <circle cx="36" cy="47" r="2.3" fill="#c85d4a"/>
+          <circle cx="36" cy="54" r="1.8" fill="#c85d4a"/>
+          <circle cx="36" cy="60" r="1.3" fill="#c85d4a"/>
+          <circle cx="47" cy="39" r="2.8" fill="#c85d4a"/>
+          <circle cx="47" cy="47" r="2.3" fill="#c85d4a"/>
+          <circle cx="47" cy="54" r="1.8" fill="#c85d4a"/>
+          <circle cx="47" cy="60" r="1.3" fill="#c85d4a"/>
+          <circle cx="57" cy="39" r="2.8" fill="#c85d4a"/>
+          <circle cx="57" cy="47" r="2.3" fill="#c85d4a"/>
+          <circle cx="57" cy="54" r="1.8" fill="#c85d4a"/>
+          <circle cx="57" cy="60" r="1.3" fill="#c85d4a"/>
+        </svg>
+        <span class="wordmark">smack<span class="dot">.</span></span>
+      </div>
+      <div style="background:#1e3a5f; height:80px; display:flex; align-items:center; justify-content:center; gap:12px; padding:0 24px;">
+        <svg width="36" height="52" viewBox="0 0 72 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 32 A28 24 0 0 0 64 32 Z" fill="#e07868"/>
+          <circle cx="15" cy="39" r="2.8" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="15" cy="47" r="2.3" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="15" cy="54" r="1.8" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="15" cy="60" r="1.3" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="25" cy="39" r="2.8" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="25" cy="47" r="2.3" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="25" cy="54" r="1.8" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="25" cy="60" r="1.3" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="36" cy="39" r="2.8" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="36" cy="47" r="2.3" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="36" cy="54" r="1.8" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="36" cy="60" r="1.3" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="47" cy="39" r="2.8" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="47" cy="47" r="2.3" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="47" cy="54" r="1.8" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="47" cy="60" r="1.3" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="57" cy="39" r="2.8" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="57" cy="47" r="2.3" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="57" cy="54" r="1.8" fill="rgba(255,255,255,0.5)"/>
+          <circle cx="57" cy="60" r="1.3" fill="rgba(255,255,255,0.5)"/>
+        </svg>
+        <span class="wordmark on-dark">smack<span class="dot">.</span></span>
+      </div>
+      <div class="pairing-meta">
+        <div class="pairing-label">V6-7 + smack.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
