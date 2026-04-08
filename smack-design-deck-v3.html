@@ -2187,14 +2187,84 @@ svg.icon{fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;v
 
           <!-- Stage 1: Availability Check Sent -->
           <div class="flow-stage">
-            <div class="flow-card">
-              <div class="flow-card-label">Stage 1 — Admin sends</div>
-              <div class="flow-card-title">Availability Check Sent</div>
-              <div class="flow-card-body">Select project + dates → pick contractor Marcus Kim → click "Send Availability Check"</div>
-              <div style="margin-top:8px;background:var(--surface-raised);border-radius:6px;padding:8px 10px;font-size:11px">
-                <div style="color:var(--text);font-weight:600;margin-bottom:4px">Marcus Kim · DP</div>
-                <div style="color:var(--muted);margin-bottom:6px">Patagonia · Apr 14–22 · 9 days</div>
-                <button class="btn btn-primary btn-xs">Send Availability Check</button>
+            <div class="flow-card" style="padding:0;overflow:hidden;background:var(--surface-raised);border-radius:10px;border:1px solid var(--border-strong)">
+              <!-- modal header: dark navy -->
+              <div style="background:#0d1a2e;padding:10px 14px 9px">
+                <div style="font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,0.38);margin-bottom:3px">Availability Check</div>
+                <div style="font-size:12px;font-weight:700;color:#f0f4f8;line-height:1.2;margin-bottom:2px">Patagonia — Spring Campaign</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.45)">Apr 14 – Apr 22, 2026</div>
+              </div>
+              <!-- modal body: white-ish surface -->
+              <div style="background:#1a2640;padding:10px 14px;display:flex;flex-direction:column;gap:8px">
+                <!-- FROM -->
+                <div style="display:flex;gap:6px;align-items:baseline">
+                  <div style="font-size:8px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.35);min-width:60px;padding-top:1px">From</div>
+                  <div style="font-size:10px;color:rgba(255,255,255,0.6)">Workprint &lt;david@workprint.la&gt;</div>
+                </div>
+                <!-- TO -->
+                <div style="display:flex;gap:6px;align-items:flex-start">
+                  <div style="font-size:8px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.35);min-width:60px;padding-top:6px">To <span style="font-weight:400;letter-spacing:0;text-transform:none">(1)</span></div>
+                  <div style="background:#0f1a2b;border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:5px 8px;display:flex;align-items:center;gap:7px;flex:1">
+                    <div style="width:24px;height:24px;border-radius:50%;background:#e07868;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:800;color:#fff;flex-shrink:0">MK</div>
+                    <div style="flex:1;min-width:0">
+                      <div style="font-size:10px;font-weight:600;color:#f0f4f8;line-height:1.2">Marcus Kim</div>
+                      <div style="font-size:9px;color:rgba(255,255,255,0.4)">marcus@example.com</div>
+                    </div>
+                    <div style="display:flex;gap:4px;flex-shrink:0">
+                      <span style="background:rgba(255,255,255,0.09);color:rgba(255,255,255,0.55);font-size:8px;font-weight:600;padding:2px 5px;border-radius:3px">DP</span>
+                      <span style="background:rgba(255,255,255,0.09);color:rgba(255,255,255,0.55);font-size:8px;font-weight:600;padding:2px 5px;border-radius:3px">$1,200/day</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- SUBJECT -->
+                <div style="display:flex;gap:6px;align-items:baseline">
+                  <div style="font-size:8px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.35);min-width:60px;padding-top:1px">Subject</div>
+                  <div style="font-size:10px;color:rgba(255,255,255,0.7)">Availability Check — Patagonia Spring Campaign</div>
+                </div>
+                <!-- EMAIL PREVIEW -->
+                <div style="border:1px solid rgba(255,255,255,0.1);border-radius:6px;overflow:hidden;margin-top:2px">
+                  <!-- email header bar -->
+                  <div style="background:#0d1a2e;padding:7px 10px;text-align:center">
+                    <span style="font-size:11px;font-weight:800;color:#fff;letter-spacing:.02em">smack.</span>
+                  </div>
+                  <!-- email body -->
+                  <div style="background:#f8f9fa;padding:8px 10px">
+                    <div style="font-size:9px;color:#374151;margin-bottom:4px;line-height:1.4">Hi Marcus,</div>
+                    <div style="font-size:9px;color:#374151;margin-bottom:7px;line-height:1.4">We have a job coming up and wanted to check if you're free:</div>
+                    <!-- info table -->
+                    <table style="width:100%;border-collapse:collapse;margin-bottom:8px;font-size:9px">
+                      <tr style="border-top:1px solid #e5e7eb">
+                        <td style="padding:3px 6px 3px 0;color:#6b7280;font-weight:600;white-space:nowrap">Project</td>
+                        <td style="padding:3px 0;color:#111827;font-weight:600">Patagonia — Spring Campaign</td>
+                      </tr>
+                      <tr style="border-top:1px solid #e5e7eb">
+                        <td style="padding:3px 6px 3px 0;color:#6b7280;font-weight:600;white-space:nowrap">Role</td>
+                        <td style="padding:3px 0;color:#111827;font-weight:600">Director of Photography</td>
+                      </tr>
+                      <tr style="border-top:1px solid #e5e7eb">
+                        <td style="padding:3px 6px 3px 0;color:#6b7280;font-weight:600;white-space:nowrap">Rate</td>
+                        <td style="padding:3px 0;color:#111827;font-weight:600">$1,200/day</td>
+                      </tr>
+                      <tr style="border-top:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb">
+                        <td style="padding:3px 6px 3px 0;color:#6b7280;font-weight:600;white-space:nowrap">Dates</td>
+                        <td style="padding:3px 0;color:#111827;font-weight:600">Apr 14 – Apr 22, 2026</td>
+                      </tr>
+                    </table>
+                    <!-- respond button -->
+                    <div style="text-align:center;margin-bottom:6px">
+                      <span style="display:inline-block;background:#e07868;color:#fff;font-size:9px;font-weight:700;padding:5px 14px;border-radius:4px;letter-spacing:.04em">Respond</span>
+                    </div>
+                    <div style="text-align:center;font-size:8px;color:#9ca3af">smack.studio</div>
+                  </div>
+                </div>
+              </div>
+              <!-- modal footer -->
+              <div style="background:#0f1a2b;padding:7px 14px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,0.07)">
+                <span style="font-size:10px;color:rgba(255,255,255,0.4);cursor:pointer">Cancel</span>
+                <button class="btn btn-primary btn-xs" style="display:flex;align-items:center;gap:4px">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                  Send to 1 recipient
+                </button>
               </div>
             </div>
             <div class="flow-connector">
