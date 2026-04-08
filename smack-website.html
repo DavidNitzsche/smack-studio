@@ -6,7 +6,7 @@
   <title>smack. — Built for production studios</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
   <style>
     @font-face {
       font-family: 'Funtastic';
@@ -20,8 +20,8 @@
     :root {
       --salmon: #e07868;
       --salmon-dark: #c85d4a;
-      --salmon-light: #f5d6d1;
-      --salmon-dim: rgba(224,120,104,0.12);
+      --salmon-light: rgba(224,120,104,0.15);
+      --salmon-border: rgba(224,120,104,0.4);
       --navy: #0f1d30;
       --navy-mid: #1e3a5f;
       --navy-light: #2a527f;
@@ -33,6 +33,13 @@
       --border: #e5e7eb;
       --subtle: #f3f4f6;
       --green: #059669;
+      --green-bg: rgba(5,150,105,0.1);
+      --amber: #d97706;
+      --amber-bg: rgba(217,119,6,0.1);
+      --blue: #2563eb;
+      --blue-bg: rgba(37,99,235,0.1);
+      --red: #dc2626;
+      --red-bg: rgba(220,38,38,0.08);
       --font: 'Inter', -apple-system, sans-serif;
     }
 
@@ -42,1878 +49,3103 @@
       font-family: var(--font);
       background: var(--canvas);
       color: var(--text);
-      line-height: 1.5;
+      line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* ────────────────────────────────────────────────
-       NAV
-    ──────────────────────────────────────────────── */
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.revealed {
+      opacity: 1;
+      transform: none;
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ── NAV ── */
     .nav {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
       padding: 0 48px;
       height: 64px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      transition: background 0.2s, box-shadow 0.2s, border-color 0.2s;
+      transition: background 0.25s, box-shadow 0.25s, border-color 0.25s, backdrop-filter 0.25s;
       border-bottom: 1px solid transparent;
     }
-
     .nav.scrolled {
-      background: rgba(15,29,48,0.97);
-      backdrop-filter: blur(16px);
-      border-color: rgba(255,255,255,0.08);
-      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+      background: rgba(9, 18, 32, 0.94);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-color: rgba(255,255,255,0.07);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
     }
-
     .nav-brand {
       display: flex;
       align-items: center;
       gap: 10px;
       text-decoration: none;
-    }
-
-    .nav-jelly {
-      width: 26px;
-      height: auto;
       flex-shrink: 0;
     }
-
+    .nav-jelly { width: 22px; height: auto; flex-shrink: 0; }
     .nav-wordmark {
       font-family: 'Funtastic', var(--font);
       font-size: 22px;
       color: white;
-      letter-spacing: -0.01em;
       line-height: 1;
+      letter-spacing: -0.01em;
     }
-
-    .nav-wordmark span { color: var(--salmon); }
-
+    .nav-wordmark .dot { color: var(--salmon); }
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 32px;
+      gap: 28px;
       list-style: none;
     }
-
     .nav-links a {
-      font-size: 13px;
-      font-weight: 500;
-      color: rgba(255,255,255,0.65);
+      color: rgba(255,255,255,0.6);
       text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 450;
+      letter-spacing: 0.01em;
       transition: color 0.15s;
     }
-
-    .nav-links a:hover { color: white; }
-
+    .nav-links a:hover { color: rgba(255,255,255,0.95); }
     .nav-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 9px 20px;
       background: var(--salmon);
       color: white;
-      font-size: 13px;
-      font-weight: 700;
-      border-radius: 8px;
       text-decoration: none;
-      transition: background 0.15s;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      transition: background 0.15s, transform 0.1s;
+      white-space: nowrap;
     }
+    .nav-cta:hover { background: var(--salmon-dark); transform: translateY(-1px); }
 
-    .nav-cta:hover { background: var(--salmon-dark); }
-
-    /* ────────────────────────────────────────────────
-       HERO
-    ──────────────────────────────────────────────── */
+    /* ── HERO ── */
     .hero {
-      background: linear-gradient(150deg, #070f1a 0%, #0f1d30 45%, #1e3a5f 100%);
       min-height: 100vh;
-      padding: 120px 80px 96px;
-      display: grid;
-      grid-template-columns: 1fr 460px;
-      align-items: center;
-      gap: 80px;
+      background: linear-gradient(150deg, #040a12 0%, #0f1d30 50%, #1a3558 100%);
       position: relative;
+      display: flex;
+      align-items: center;
       overflow: hidden;
+      padding-top: 64px;
     }
-
-    /* Radial glow behind mockup */
-    .hero::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      right: -80px;
-      transform: translateY(-50%);
-      width: 700px;
-      height: 700px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(224,120,104,0.07) 0%, transparent 65%);
-      pointer-events: none;
-    }
-
-    /* Grid lines texture */
-    .hero::before {
-      content: '';
+    .hero-grid-overlay {
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
-      background-size: 72px 72px;
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 64px 64px;
       pointer-events: none;
     }
-
-    .hero-left { position: relative; z-index: 2; }
-
+    .hero-glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(224,120,104,0.12) 0%, transparent 70%);
+      top: 10%;
+      right: 5%;
+      pointer-events: none;
+    }
+    .hero-glow-2 {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(42,82,127,0.3) 0%, transparent 70%);
+      bottom: 10%;
+      left: 10%;
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 80px 48px 100px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
     .hero-eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
+      border: 1px solid var(--salmon-border);
+      background: rgba(224,120,104,0.08);
+      padding: 6px 14px 6px 10px;
+      border-radius: 100px;
       margin-bottom: 28px;
     }
-
-    .hero-jelly-badge {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 14px 6px 8px;
-      background: rgba(224,120,104,0.12);
-      border: 1px solid rgba(224,120,104,0.25);
-      border-radius: 100px;
-    }
-
-    .hero-jelly-badge svg {
-      width: 18px;
-      height: auto;
-      flex-shrink: 0;
-    }
-
-    .hero-jelly-badge span {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+    .hero-eyebrow svg { flex-shrink: 0; }
+    .hero-eyebrow span {
+      font-size: 12px;
+      font-weight: 600;
       color: var(--salmon);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
     }
-
-    .hero h1 {
+    .hero-h1 {
       font-size: 58px;
       font-weight: 900;
       color: white;
-      line-height: 1.03;
-      letter-spacing: -0.035em;
-      margin-bottom: 24px;
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      margin-bottom: 28px;
     }
-
-    .hero h1 em {
-      color: var(--salmon);
+    .hero-h1 em {
       font-style: normal;
+      color: var(--salmon);
     }
-
     .hero-sub {
       font-size: 18px;
       color: rgba(255,255,255,0.55);
       line-height: 1.65;
-      margin-bottom: 44px;
-      max-width: 440px;
+      margin-bottom: 40px;
     }
-
+    .hero-sub strong {
+      color: rgba(255,255,255,0.85);
+      font-weight: 500;
+    }
+    #typewriter-word {
+      color: rgba(255,255,255,0.9);
+      font-weight: 600;
+      transition: opacity 0.35s ease;
+    }
+    #typewriter-word.fading { opacity: 0; }
     .hero-ctas {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
+      margin-bottom: 40px;
       flex-wrap: wrap;
     }
-
     .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 15px 32px;
       background: var(--salmon);
       color: white;
+      text-decoration: none;
+      padding: 13px 24px;
+      border-radius: 10px;
       font-size: 15px;
       font-weight: 700;
-      border-radius: 10px;
-      text-decoration: none;
-      letter-spacing: -0.01em;
-      transition: background 0.15s, transform 0.15s;
+      letter-spacing: 0.01em;
+      transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+      box-shadow: 0 4px 20px rgba(224,120,104,0.35);
     }
-
     .btn-primary:hover {
       background: var(--salmon-dark);
-      transform: translateY(-1px);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(224,120,104,0.45);
     }
-
     .btn-ghost {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 15px 28px;
-      border: 1.5px solid rgba(255,255,255,0.2);
       color: rgba(255,255,255,0.75);
-      font-size: 15px;
-      font-weight: 600;
-      border-radius: 10px;
       text-decoration: none;
-      transition: border-color 0.15s, color 0.15s;
+      padding: 13px 20px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 500;
+      border: 1px solid rgba(255,255,255,0.15);
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
     }
-
     .btn-ghost:hover {
-      border-color: rgba(255,255,255,0.4);
       color: white;
+      border-color: rgba(255,255,255,0.35);
+      background: rgba(255,255,255,0.05);
     }
-
     .hero-trust {
-      margin-top: 48px;
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 12px;
     }
-
-    .hero-trust-avatars {
+    .trust-avatars {
       display: flex;
+      align-items: center;
     }
-
-    .hero-trust-avatar {
-      width: 28px;
-      height: 28px;
+    .trust-avatar {
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       border: 2px solid rgba(15,29,48,0.8);
-      font-size: 10px;
-      font-weight: 700;
-      color: white;
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: white;
       margin-left: -8px;
+      flex-shrink: 0;
     }
-
-    .hero-trust-avatar:first-child { margin-left: 0; }
-
-    .hero-trust-text {
+    .trust-avatars .trust-avatar:first-child { margin-left: 0; }
+    .trust-text {
       font-size: 12px;
       color: rgba(255,255,255,0.4);
+      line-height: 1.4;
     }
 
-    .hero-trust-text strong {
-      color: rgba(255,255,255,0.65);
-      font-weight: 600;
+    /* Hero mockup */
+    .hero-mockup-wrap {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
     }
-
-    /* ── Hero UI Mockup ── */
-    .hero-right { position: relative; z-index: 2; }
-
-    .ui-window {
+    .browser-window {
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: 14px;
-      padding: 20px;
+      overflow: hidden;
+      width: 100%;
+      max-width: 520px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
       backdrop-filter: blur(20px);
     }
-
-    .ui-titlebar {
+    .browser-titlebar {
+      background: rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 12px 16px;
       display: flex;
       align-items: center;
-      gap: 6px;
-      margin-bottom: 18px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-    }
-
-    .ui-dot { width: 8px; height: 8px; border-radius: 50%; }
-    .ui-dot.r { background: #ff5f57; }
-    .ui-dot.y { background: #febc2e; }
-    .ui-dot.g { background: #28c840; }
-
-    .ui-titlebar-label {
-      font-size: 11px;
-      color: rgba(255,255,255,0.3);
-      margin-left: auto;
-      font-weight: 500;
-    }
-
-    /* project cards */
-    .ui-project {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 10px;
-      padding: 14px 16px;
-      margin-bottom: 10px;
-    }
-
-    .ui-project-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 8px;
-    }
-
-    .ui-project-name {
-      font-size: 12px;
-      font-weight: 700;
-      color: white;
-    }
-
-    .ui-badge {
-      font-size: 10px;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 20px;
-    }
-
-    .ui-badge.active {
-      background: rgba(5,150,105,0.2);
-      color: #34d399;
-    }
-
-    .ui-badge.review {
-      background: rgba(224,120,104,0.2);
-      color: var(--salmon);
-    }
-
-    .ui-project-meta {
-      font-size: 10px;
-      color: rgba(255,255,255,0.35);
-      display: flex;
       gap: 12px;
+    }
+    .browser-dots {
+      display: flex;
+      gap: 6px;
+    }
+    .browser-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .dot-red { background: #ff5f57; }
+    .dot-amber { background: #febc2e; }
+    .dot-green { background: #28c840; }
+    .browser-url {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 11px;
+      color: rgba(255,255,255,0.45);
+      flex: 1;
+      letter-spacing: 0.02em;
+    }
+    .browser-body {
+      padding: 20px;
+    }
+    .dash-metrics {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .dash-metric {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+    .dash-metric-label {
+      font-size: 10px;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 4px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .dash-metric-value {
+      font-size: 18px;
+      font-weight: 800;
+      color: white;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .dash-metric-value.salmon { color: var(--salmon); }
+    .dash-section-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.35);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
       margin-bottom: 10px;
     }
-
-    .ui-progress {
-      height: 3px;
-      background: rgba(255,255,255,0.08);
-      border-radius: 2px;
+    .dash-project-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      margin-bottom: 4px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.05);
     }
-
-    .ui-progress-fill {
+    .dash-project-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .dash-badge {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 100px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .badge-green { background: rgba(5,150,105,0.2); color: #34d399; }
+    .badge-amber { background: rgba(217,119,6,0.2); color: #fbbf24; }
+    .badge-blue { background: rgba(37,99,235,0.2); color: #60a5fa; }
+    .badge-gray { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); }
+    .badge-salmon { background: rgba(224,120,104,0.2); color: #f4a99a; }
+    .badge-orange { background: rgba(234,88,12,0.2); color: #fb923c; }
+    .badge-red { background: rgba(220,38,38,0.15); color: #f87171; }
+    .dash-progress-wrap {
+      width: 60px;
+      height: 4px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 2px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .dash-progress-fill {
       height: 100%;
       background: var(--salmon);
       border-radius: 2px;
     }
-
-    /* floating invoice chip */
-    .ui-invoice {
+    .dash-floating-badges {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+    .floating-badge {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      background: rgba(255,255,255,0.06);
+      gap: 6px;
+      background: rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 10px;
-      padding: 10px 14px;
-      margin-top: 12px;
-    }
-
-    .ui-invoice-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .ui-invoice-icon {
-      width: 28px;
-      height: 28px;
       border-radius: 8px;
-      background: rgba(224,120,104,0.2);
-      color: var(--salmon);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .ui-invoice-label {
-      font-size: 10px;
-      color: rgba(255,255,255,0.4);
-      margin-bottom: 2px;
-    }
-
-    .ui-invoice-name {
-      font-size: 12px;
-      font-weight: 600;
-      color: white;
-    }
-
-    .ui-invoice-amount {
-      font-size: 14px;
-      font-weight: 800;
-      color: #34d399;
-    }
-
-    /* booking badge */
-    .ui-booking {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(15,29,48,0.8);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 10px;
-      padding: 10px 14px;
-      margin-top: 10px;
-    }
-
-    .ui-avatars {
-      display: flex;
-    }
-
-    .ui-avatar {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      border: 1.5px solid rgba(15,29,48,0.8);
-      font-size: 8px;
-      font-weight: 700;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-left: -6px;
-    }
-
-    .ui-avatar:first-child { margin-left: 0; }
-
-    .ui-booking-text {
+      padding: 7px 12px;
       font-size: 11px;
-      color: rgba(255,255,255,0.6);
+      color: rgba(255,255,255,0.75);
+      font-weight: 500;
     }
-
-    .ui-booking-text strong { color: white; }
-
-    /* ────────────────────────────────────────────────
-       SOCIAL PROOF STRIP
-    ──────────────────────────────────────────────── */
-    .strip {
-      background: var(--off-white);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 20px 80px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 48px;
-    }
-
-    .strip-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .strip-icon {
-      width: 32px;
-      height: 32px;
-      background: var(--salmon-dim);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--salmon);
+    .floating-badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
       flex-shrink: 0;
     }
 
-    .strip-label {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--text);
+    /* ── SMACK BAND ── */
+    .smack-band {
+      background: var(--salmon);
+      padding: 80px 48px;
+      position: relative;
+      overflow: hidden;
     }
-
-    .strip-sub {
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    .strip-divider {
-      width: 1px;
-      height: 32px;
-      background: var(--border);
-    }
-
-    /* ────────────────────────────────────────────────
-       FEATURES
-    ──────────────────────────────────────────────── */
-    .features {
-      background: white;
-      padding: 96px 0;
-    }
-
-    .features-header {
+    .smack-band-inner {
+      max-width: 860px;
+      margin: 0 auto;
       text-align: center;
-      padding: 0 80px;
-      margin-bottom: 80px;
+      position: relative;
+      z-index: 2;
     }
-
-    .section-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+    .smack-band-deco-left {
+      position: absolute;
+      left: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.2;
+      pointer-events: none;
+    }
+    .smack-band-deco-right {
+      position: absolute;
+      right: -20px;
+      top: 50%;
+      transform: translateY(-50%) scaleX(-1);
+      opacity: 0.2;
+      pointer-events: none;
+    }
+    .smack-phonetic {
+      font-family: var(--font);
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--salmon);
-      margin-bottom: 16px;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 12px;
     }
-
-    .section-eyebrow svg {
-      width: 16px;
-      height: auto;
-    }
-
-    .section-title {
-      font-size: 42px;
+    .smack-definition {
+      font-size: 36px;
       font-weight: 900;
-      color: var(--navy);
-      letter-spacing: -0.035em;
-      line-height: 1.08;
+      color: white;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
       margin-bottom: 16px;
     }
-
-    .section-sub {
-      font-size: 17px;
-      color: var(--muted);
-      line-height: 1.65;
-      max-width: 560px;
+    .smack-also {
+      font-size: 16px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.82);
+      line-height: 1.6;
+      max-width: 640px;
       margin: 0 auto;
     }
 
-    .alt-row {
+    /* ── STATS STRIP ── */
+    .stats-strip {
+      background: white;
+      padding: 80px 48px;
+    }
+    .stats-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .stats-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-      padding: 64px 80px;
+      grid-template-columns: repeat(4,1fr);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+    .stat-item {
+      padding: 40px 36px;
+      border-right: 1px solid var(--border);
+      text-align: center;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-number {
+      font-size: 52px;
+      font-weight: 900;
+      color: var(--navy);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .stat-number .stat-prefix, .stat-number .stat-suffix {
+      font-size: 32px;
+      font-weight: 800;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      line-height: 1.5;
+    }
+
+    /* ── FEATURES SECTION ── */
+    .features-section {
+      background: white;
+      padding: 100px 0 0;
       border-top: 1px solid var(--border);
     }
-
-    .alt-row.flip { direction: rtl; }
-    .alt-row.flip > * { direction: ltr; }
-
-    .alt-row-number {
+    .section-eyebrow {
       font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.12em;
+      font-weight: 700;
       text-transform: uppercase;
+      letter-spacing: 0.1em;
       color: var(--salmon);
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
-
-    .alt-row-title {
-      font-size: 36px;
+    .section-h2 {
+      font-size: 42px;
       font-weight: 900;
       color: var(--navy);
       letter-spacing: -0.03em;
       line-height: 1.1;
-      margin-bottom: 16px;
     }
-
-    .alt-row-desc {
-      font-size: 16px;
-      color: var(--muted);
-      line-height: 1.7;
-      margin-bottom: 28px;
+    .features-header {
+      text-align: center;
+      padding: 0 48px;
+      margin-bottom: 64px;
     }
-
-    .alt-row-bullets {
-      list-style: none;
-      margin-bottom: 32px;
+    .features-body {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      border-top: 1px solid var(--border);
+      min-height: 640px;
     }
-
-    .alt-row-bullets li {
+    .features-tabs {
+      border-right: 1px solid var(--border);
+      padding: 16px 0;
+      background: var(--canvas);
+    }
+    .feature-tab {
       display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      font-size: 14px;
-      color: #374151;
-      padding: 5px 0;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 24px;
+      cursor: pointer;
+      border-left: 3px solid transparent;
+      transition: background 0.15s, border-color 0.15s;
+      user-select: none;
     }
-
-    .alt-row-bullets li::before {
-      content: '';
-      display: block;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: var(--salmon-dim);
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M3 8l3 3 7-7' stroke='%23e07868' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    .feature-tab:hover {
+      background: var(--off-white);
+    }
+    .feature-tab.active {
+      border-left-color: var(--salmon);
+      background: rgba(224,120,104,0.06);
+    }
+    .feature-tab svg {
       flex-shrink: 0;
-      margin-top: 1px;
+      color: var(--muted);
+      transition: color 0.15s;
+    }
+    .feature-tab.active svg { color: var(--salmon); }
+    .feature-tab-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+      transition: color 0.15s;
+    }
+    .feature-tab.active .feature-tab-label { color: var(--salmon); }
+    .features-panel-wrap {
+      background: var(--off-white);
+      overflow: auto;
+    }
+    .feature-panel {
+      display: none;
+      padding: 32px 36px;
+      animation: panelFadeIn 0.2s ease;
+    }
+    .feature-panel.active { display: block; }
+    @keyframes panelFadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: none; }
     }
 
-    .alt-row-link {
+    /* Panel internals */
+    .panel-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .panel-search {
+      flex: 1;
+      min-width: 160px;
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 13px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .filter-chips {
+      display: flex;
+      gap: 6px;
+    }
+    .filter-chip {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--muted);
+      cursor: pointer;
+    }
+    .filter-chip.active {
+      background: var(--navy);
+      color: white;
+      border-color: var(--navy);
+    }
+    .panel-btn {
+      background: var(--salmon);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .panel-table {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .panel-table-header {
+      display: grid;
+      grid-template-columns: 2fr 1fr 80px 100px 100px 36px;
+      gap: 12px;
+      padding: 10px 16px;
+      background: var(--canvas);
+      border-bottom: 1px solid var(--border);
+    }
+    .panel-th {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+    .panel-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 80px 100px 100px 36px;
+      gap: 12px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      align-items: center;
+      transition: background 0.1s;
+    }
+    .panel-row:last-child { border-bottom: none; }
+    .panel-row:hover { background: var(--canvas); }
+    .panel-cell { font-size: 13px; color: var(--text); }
+    .panel-cell.muted { color: var(--muted); font-size: 12px; }
+    .panel-cell-name { font-weight: 600; font-size: 13px; color: var(--navy); }
+    .panel-cell-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
+    .status-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
+      padding: 3px 9px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .status-badge svg { width: 7px; height: 7px; }
+    .sb-green { background: var(--green-bg); color: var(--green); }
+    .sb-amber { background: var(--amber-bg); color: var(--amber); }
+    .sb-blue { background: var(--blue-bg); color: var(--blue); }
+    .sb-gray { background: var(--subtle); color: var(--muted); }
+    .sb-salmon { background: var(--salmon-light); color: var(--salmon-dark); }
+    .sb-orange { background: rgba(234,88,12,0.1); color: #ea580c; }
+    .sb-red { background: var(--red-bg); color: var(--red); }
+    .table-progress {
+      height: 5px;
+      background: var(--subtle);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .table-progress-fill {
+      height: 100%;
+      background: var(--salmon);
+      border-radius: 3px;
+    }
+    .table-progress-fill.full { background: var(--green); }
+    .dots-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .dots-btn:hover { background: var(--subtle); }
+
+    /* Schedule Panel */
+    .cal-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .cal-nav-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--muted);
+    }
+    .cal-period {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--navy);
+      flex: 1;
+    }
+    .cal-today-btn {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: white;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--navy);
+      cursor: pointer;
+    }
+    .cal-toggle {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--salmon-border);
+      background: var(--salmon-light);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--salmon-dark);
+    }
+    .cal-grid {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .cal-day-headers {
+      display: grid;
+      grid-template-columns: 52px repeat(7, 1fr);
+      border-bottom: 1px solid var(--border);
+    }
+    .cal-day-header {
+      padding: 10px 8px;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .cal-day-header.today-col { color: var(--salmon); }
+    .cal-day-header-num {
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--navy);
+      display: block;
+      margin-top: 2px;
+    }
+    .cal-day-header.today-col .cal-day-header-num {
+      background: var(--salmon);
+      color: white;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 2px auto 0;
       font-size: 14px;
+    }
+    .cal-allday-row {
+      display: grid;
+      grid-template-columns: 52px repeat(7, 1fr);
+      border-bottom: 2px solid var(--border);
+      background: rgba(248,248,247,0.8);
+      min-height: 38px;
+      align-items: center;
+    }
+    .cal-allday-label {
+      font-size: 9px;
+      color: var(--muted);
+      text-align: center;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .cal-allday-cells {
+      grid-column: 2 / -1;
+      position: relative;
+      padding: 5px 0;
+    }
+    .allday-bar {
+      height: 22px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      font-size: 11px;
+      font-weight: 700;
+      color: white;
+      position: relative;
+    }
+    .allday-bar-salmon { background: var(--salmon); }
+    .allday-bar-blue { background: var(--blue); }
+    .allday-crew-chip {
+      margin-left: auto;
+      background: rgba(255,255,255,0.25);
+      padding: 1px 6px;
+      border-radius: 100px;
+      font-size: 9px;
+      font-weight: 700;
+    }
+    .cal-time-grid {
+      display: grid;
+      grid-template-columns: 52px repeat(7,1fr);
+    }
+    .cal-time-row {
+      display: contents;
+    }
+    .cal-time-label {
+      padding: 0 8px;
+      font-size: 10px;
+      color: var(--muted);
+      text-align: right;
+      display: flex;
+      align-items: flex-start;
+      padding-top: 2px;
+      height: 36px;
+      justify-content: flex-end;
+      font-weight: 500;
+      border-top: 1px solid var(--border);
+    }
+    .cal-time-cell {
+      height: 36px;
+      border-top: 1px solid var(--border);
+      border-left: 1px solid rgba(0,0,0,0.04);
+      position: relative;
+    }
+    .cal-time-cell.today-col {
+      background: rgba(224,120,104,0.03);
+    }
+    .cal-event {
+      position: absolute;
+      left: 3px; right: 3px;
+      border-radius: 5px;
+      padding: 3px 6px;
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1.2;
+      overflow: hidden;
+      z-index: 5;
+    }
+    .cal-event-blue { background: var(--blue-bg); color: var(--blue); border-left: 2px solid var(--blue); }
+    .cal-event-amber { background: var(--amber-bg); color: var(--amber); border-left: 2px solid var(--amber); }
+
+    /* Crew Panel */
+    .crew-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 14px;
+    }
+    .crew-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      transition: box-shadow 0.15s, transform 0.15s;
+    }
+    .crew-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); transform: translateY(-1px); }
+    .crew-card-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .crew-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 800;
+      color: white;
+      flex-shrink: 0;
+    }
+    .crew-name { font-size: 14px; font-weight: 700; color: var(--navy); line-height: 1.2; }
+    .crew-role { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .crew-rate { font-size: 11px; color: var(--muted); margin-top: 4px; font-weight: 500; }
+    .crew-status { margin-bottom: 14px; }
+    .crew-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+    }
+    .crew-book-link {
+      font-size: 12px;
       font-weight: 700;
       color: var(--salmon);
       text-decoration: none;
     }
+    .crew-book-link:hover { color: var(--salmon-dark); }
 
-    .alt-row-link:hover { gap: 10px; transition: gap 0.15s; }
-
-    /* ── Feature Mockups ── */
-    .feat-mock {
-      border-radius: 14px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      box-shadow: 0 8px 40px rgba(0,0,0,0.08);
-    }
-
-    .feat-mock-bar {
-      background: var(--navy);
-      padding: 10px 16px;
+    /* Invoices Panel */
+    .invoice-tabs {
       display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .feat-mock-bar-label {
-      font-size: 11px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.4);
-      margin-left: auto;
-    }
-
-    /* Finance mock */
-    .finance-body {
-      background: white;
-      padding: 24px;
-    }
-
-    .finance-title-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
+      gap: 0;
+      border-bottom: 2px solid var(--border);
       margin-bottom: 20px;
     }
-
-    .finance-title {
-      font-size: 14px;
-      font-weight: 800;
-      color: var(--navy);
-    }
-
-    .finance-period {
-      font-size: 11px;
+    .invoice-tab-btn {
+      padding: 10px 20px;
+      font-size: 13px;
+      font-weight: 600;
       color: var(--muted);
-      background: var(--subtle);
-      padding: 4px 10px;
-      border-radius: 6px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: color 0.15s, border-color 0.15s;
     }
-
-    .finance-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+    .invoice-tab-btn.active { color: var(--navy); border-bottom-color: var(--navy); }
+    .invoice-stats {
+      display: flex;
       gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .invoice-stat-chip {
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid var(--border);
+      background: white;
+    }
+    .inv-stat-sent { color: var(--navy); }
+    .inv-stat-paid { color: var(--green); background: var(--green-bg); border-color: rgba(5,150,105,0.2); }
+    .inv-stat-out { color: var(--amber); background: var(--amber-bg); border-color: rgba(217,119,6,0.2); }
+    .inv-stat-over { color: var(--red); background: var(--red-bg); border-color: rgba(220,38,38,0.2); }
+    .invoice-table {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .invoice-table-header {
+      display: grid;
+      grid-template-columns: 80px 1fr 100px 1fr 90px;
+      gap: 10px;
+      padding: 10px 16px;
+      background: var(--canvas);
+      border-bottom: 1px solid var(--border);
+    }
+    .invoice-row {
+      display: grid;
+      grid-template-columns: 80px 1fr 100px 1fr 90px;
+      gap: 10px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      align-items: center;
+      transition: background 0.1s;
+    }
+    .invoice-row:last-child { border-bottom: none; }
+    .invoice-row:hover { background: var(--canvas); }
+    .invoice-row.overdue-row { background: rgba(220,38,38,0.03); }
+    .invoice-num { font-size: 12px; font-weight: 700; color: var(--muted); font-family: monospace; }
+    .invoice-client { font-size: 13px; font-weight: 600; color: var(--navy); }
+    .invoice-amount { font-size: 13px; font-weight: 700; color: var(--navy); }
+    .invoice-date { font-size: 12px; color: var(--muted); }
+
+    /* Cash Flow Panel */
+    .cashflow-header-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .period-selector {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--navy);
+      cursor: pointer;
+    }
+    .cashflow-summary {
+      display: flex;
+      gap: 12px;
       margin-bottom: 24px;
+      flex-wrap: wrap;
     }
-
-    .fin-stat {
-      background: var(--subtle);
+    .cf-chip {
+      padding: 10px 18px;
       border-radius: 10px;
-      padding: 12px;
+      border: 1px solid var(--border);
+      background: white;
+      flex: 1;
+      min-width: 100px;
+      text-align: center;
     }
-
-    .fin-stat-label {
-      font-size: 9px;
+    .cf-chip-label {
+      font-size: 10px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--muted);
       margin-bottom: 4px;
     }
-
-    .fin-stat-val {
+    .cf-chip-value {
       font-size: 20px;
       font-weight: 900;
-      letter-spacing: -0.03em;
+      letter-spacing: -0.02em;
+      line-height: 1;
     }
-
-    .fin-stat-val.green { color: var(--green); }
-    .fin-stat-val.red { color: #dc2626; }
-    .fin-stat-val.navy { color: var(--navy); }
-
-    .bar-chart {
+    .cf-green { color: var(--green); }
+    .cf-red { color: var(--red); }
+    .cf-navy { color: var(--navy); }
+    .cf-muted { color: var(--muted); }
+    .chart-area {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 20px;
+    }
+    .chart-bars-row {
       display: flex;
       align-items: flex-end;
-      gap: 8px;
-      height: 72px;
+      gap: 16px;
+      height: 140px;
+      margin-bottom: 8px;
     }
-
-    .bar-col {
+    .chart-bar-group {
       flex: 1;
       display: flex;
-      flex-direction: column;
-      align-items: center;
+      align-items: flex-end;
       gap: 4px;
       height: 100%;
-      justify-content: flex-end;
     }
-
-    .bar-fill {
-      width: 100%;
-      border-radius: 4px 4px 0 0;
+    .chart-bar {
+      flex: 1;
+      border-radius: 5px 5px 0 0;
+      min-height: 4px;
     }
-
-    .bar-fill.income { background: var(--salmon); }
-    .bar-fill.expense { background: var(--border); }
-    .bar-lbl { font-size: 9px; color: #9ca3af; font-weight: 600; }
-
-    .invoice-list { margin-top: 20px; }
-
-    .invoice-row {
+    .chart-bar-income { background: var(--salmon); }
+    .chart-bar-expense { background: #e5e7eb; }
+    .chart-month-labels {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 8px 0;
-      border-bottom: 1px solid var(--subtle);
-      font-size: 12px;
+      gap: 16px;
     }
-
-    .invoice-row:last-child { border-bottom: none; }
-
-    .invoice-row-left { color: var(--text); font-weight: 500; }
-    .invoice-row-right { display: flex; align-items: center; gap: 8px; }
-    .invoice-status {
-      font-size: 10px;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 20px;
-    }
-
-    .invoice-status.paid {
-      background: rgba(5,150,105,0.1);
-      color: var(--green);
-    }
-
-    .invoice-status.sent {
-      background: rgba(224,120,104,0.1);
-      color: var(--salmon);
-    }
-
-    .invoice-status.draft {
-      background: var(--subtle);
-      color: var(--muted);
-    }
-
-    /* Crew mock */
-    .crew-body {
-      background: white;
-      padding: 24px;
-    }
-
-    .crew-title-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .crew-title {
-      font-size: 14px;
-      font-weight: 800;
-      color: var(--navy);
-    }
-
-    .crew-date {
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    .crew-member {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--subtle);
-    }
-
-    .crew-member:last-child { border-bottom: none; }
-
-    .crew-avatar {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      font-size: 11px;
-      font-weight: 700;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .crew-info { flex: 1; }
-
-    .crew-name {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .crew-role {
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    .crew-status {
-      font-size: 11px;
-      font-weight: 700;
-      padding: 3px 10px;
-      border-radius: 20px;
-    }
-
-    .crew-status.confirmed {
-      background: rgba(5,150,105,0.1);
-      color: var(--green);
-    }
-
-    .crew-status.hold {
-      background: rgba(217,119,6,0.1);
-      color: #d97706;
-    }
-
-    .crew-status.pending {
-      background: var(--subtle);
-      color: var(--muted);
-    }
-
-    .crew-cal {
-      margin-top: 20px;
-      background: var(--subtle);
-      border-radius: 10px;
-      padding: 12px;
-    }
-
-    .crew-cal-header {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 10px;
-    }
-
-    .crew-cal-days {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 4px;
-    }
-
-    .crew-cal-day {
+    .chart-month-label {
+      flex: 1;
       text-align: center;
-      font-size: 10px;
-      padding: 4px 2px;
-      border-radius: 6px;
+      font-size: 11px;
+      color: var(--muted);
       font-weight: 600;
     }
-
-    .crew-cal-day.header { color: var(--muted); font-weight: 500; }
-    .crew-cal-day.empty { color: #d1d5db; }
-    .crew-cal-day.shoot { background: var(--salmon); color: white; }
-    .crew-cal-day.normal { color: var(--text); }
-    .crew-cal-day.today { background: var(--navy); color: white; }
-
-    /* Portal mock */
-    .portal-body {
+    .pnl-table {
       background: white;
-      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
     }
+    .pnl-header {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr 70px;
+      gap: 10px;
+      padding: 10px 16px;
+      background: var(--canvas);
+      border-bottom: 1px solid var(--border);
+    }
+    .pnl-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr 70px;
+      gap: 10px;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      align-items: center;
+      font-size: 12px;
+    }
+    .pnl-row:last-child { border-bottom: none; }
+    .pnl-project { font-weight: 600; color: var(--navy); }
+    .pnl-num { color: var(--muted); }
+    .pnl-margin { font-weight: 700; color: var(--green); }
 
-    .portal-header {
+    /* Client Portal Panel */
+    .portal-outer {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .portal-topbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 20px;
-      padding-bottom: 16px;
+      padding: 14px 20px;
       border-bottom: 1px solid var(--border);
+      background: white;
     }
-
-    .portal-brand {
+    .portal-wordmark {
       font-family: 'Funtastic', var(--font);
       font-size: 18px;
       color: var(--navy);
     }
-
-    .portal-brand span { color: var(--salmon); }
-
-    .portal-client {
-      font-size: 12px;
+    .portal-wordmark .dot { color: var(--salmon); }
+    .portal-client-name {
+      font-size: 13px;
+      font-weight: 600;
       color: var(--muted);
-      font-weight: 500;
     }
-
+    .portal-body {
+      padding: 28px 28px 24px;
+    }
     .portal-project-name {
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--navy);
+      letter-spacing: -0.025em;
+      margin-bottom: 8px;
+    }
+    .portal-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+    .portal-status-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+    }
+    .portal-phases {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 32px;
+    }
+    .phase-dot {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+      position: relative;
+      z-index: 2;
+    }
+    .phase-dot.done { background: var(--salmon); color: white; }
+    .phase-dot.active {
+      background: var(--salmon);
+      color: white;
+      box-shadow: 0 0 0 4px rgba(224,120,104,0.25);
+    }
+    .phase-connector {
+      height: 3px;
+      flex: 1;
+      background: var(--border);
+    }
+    .phase-connector.done { background: var(--salmon); }
+    .phase-dot.empty { background: var(--off-white); border: 2px solid var(--border); color: var(--muted); }
+    .portal-section-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .deliverable-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 13px 16px;
+      background: var(--canvas);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 8px;
+    }
+    .deliverable-name { font-size: 13px; font-weight: 600; color: var(--navy); flex: 1; }
+    .portal-approve-btn {
+      background: var(--salmon);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      border: none;
+    }
+    .portal-contact {
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .portal-contact a { color: var(--salmon); text-decoration: none; font-weight: 600; }
+
+    /* ── CALENDAR DEEP DIVE ── */
+    .calendar-section {
+      background: var(--off-white);
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+    }
+    .calendar-section-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 48px;
+      display: grid;
+      grid-template-columns: 2fr 3fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .cal-text-callouts {
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .callout-chip {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+    .callout-chip svg { flex-shrink: 0; margin-top: 1px; color: var(--salmon); }
+    .callout-chip-text { font-size: 13px; color: var(--text); font-weight: 500; line-height: 1.5; }
+    .cal-section-desc {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-top: 20px;
+    }
+    .large-browser-window {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 16px 64px rgba(0,0,0,0.1), 0 4px 16px rgba(0,0,0,0.06);
+    }
+    .large-browser-titlebar {
+      background: var(--off-white);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .large-browser-url {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 5px 12px;
+      font-size: 11px;
+      color: var(--muted);
+      flex: 1;
+    }
+    .large-cal-body { padding: 0; }
+    .large-cal-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      background: white;
+    }
+    .large-cal-period {
       font-size: 18px;
       font-weight: 800;
       color: var(--navy);
-      letter-spacing: -0.02em;
-      margin-bottom: 4px;
-    }
-
-    .portal-project-status {
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 20px;
-    }
-
-    .portal-phases {
-      display: flex;
-      gap: 6px;
-      margin-bottom: 24px;
-    }
-
-    .portal-phase {
       flex: 1;
-      height: 5px;
+    }
+    /* Reuse cal-grid styles for the large calendar */
+    .large-cal-grid {
+      background: white;
+    }
+
+    /* ── CREW AVAILABILITY ── */
+    .crew-avail-section {
+      background: white;
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+    }
+    .crew-avail-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+    .crew-avail-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .crew-avail-sub {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto;
+      margin-top: 14px;
+      line-height: 1.7;
+    }
+    .avail-matrix {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+    }
+    .avail-matrix-header {
+      display: grid;
+      grid-template-columns: 200px repeat(7,1fr);
+      border-bottom: 2px solid var(--border);
+      background: var(--canvas);
+    }
+    .avail-matrix-corner {
+      padding: 12px 16px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--muted);
+      border-right: 1px solid var(--border);
+    }
+    .avail-day-header {
+      padding: 10px 8px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .avail-day-header:last-child { border-right: none; }
+    .avail-day-name {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--muted);
+    }
+    .avail-day-num {
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--navy);
+      line-height: 1.2;
+    }
+    .avail-day-header.today-h .avail-day-name { color: var(--salmon); }
+    .avail-day-header.today-h .avail-day-num { color: var(--salmon); }
+    .avail-crew-row {
+      display: grid;
+      grid-template-columns: 200px repeat(7,1fr);
+      border-bottom: 1px solid var(--border);
+    }
+    .avail-crew-row:last-of-type { border-bottom: 2px solid var(--border); }
+    .avail-crew-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-right: 1px solid var(--border);
+    }
+    .avail-crew-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+      color: white;
+      flex-shrink: 0;
+    }
+    .avail-crew-name { font-size: 12px; font-weight: 700; color: var(--navy); }
+    .avail-crew-role { font-size: 10px; color: var(--muted); }
+    .avail-cell {
+      border-right: 1px solid var(--border);
+      padding: 8px 6px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .avail-cell:last-child { border-right: none; }
+    .avail-cell-inner {
+      width: 100%;
+      border-radius: 6px;
+      padding: 6px 4px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      line-height: 1.2;
+      text-align: center;
+    }
+    .cell-salmon { background: rgba(224,120,104,0.15); color: var(--salmon-dark); }
+    .cell-blue { background: rgba(37,99,235,0.1); color: var(--blue); }
+    .cell-amber { background: rgba(217,119,6,0.1); color: var(--amber); }
+    .cell-empty { color: var(--muted); font-size: 9px; }
+    .cell-conflict { background: var(--red-bg); color: var(--red); }
+    .avail-totals-row {
+      display: grid;
+      grid-template-columns: 200px repeat(7,1fr);
+      background: var(--canvas);
+    }
+    .avail-total-label {
+      padding: 10px 16px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      border-right: 1px solid var(--border);
+    }
+    .avail-total-cell {
+      padding: 10px 8px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--navy);
+      border-right: 1px solid var(--border);
+    }
+    .avail-total-cell:last-child { border-right: none; }
+    .avail-legend {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 14px 20px;
+      background: var(--canvas);
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
       border-radius: 3px;
     }
+    .legend-dot-salmon { background: rgba(224,120,104,0.5); }
+    .legend-dot-blue { background: rgba(37,99,235,0.3); }
+    .legend-dot-amber { background: rgba(217,119,6,0.25); }
+    .legend-dot-empty { background: var(--border); }
 
-    .portal-phase.done { background: var(--salmon); }
-    .portal-phase.active { background: rgba(224,120,104,0.4); }
-    .portal-phase.todo { background: var(--subtle); }
-
-    .portal-section-label {
-      font-size: 10px;
+    /* ── COMPARISON ── */
+    .comparison-section {
+      background: var(--off-white);
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+    }
+    .comparison-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+    .comparison-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .comparison-header h2 {
+      font-size: 42px;
+      font-weight: 900;
+      color: var(--navy);
+      letter-spacing: -0.03em;
+    }
+    .comparison-header p {
+      font-size: 18px;
+      color: var(--muted);
+      margin-top: 12px;
+    }
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 60px 1fr;
+      gap: 0;
+      align-items: stretch;
+    }
+    .comparison-col {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px 36px;
+    }
+    .comparison-col.smack-col {
+      background: var(--navy);
+      border-color: var(--navy);
+    }
+    .comparison-col-label {
+      font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .comparison-col.smack-col .comparison-col-label { color: rgba(255,255,255,0.45); }
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .tool-chip {
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      text-align: center;
+    }
+    .tool-chip.plus {
+      background: transparent;
+      border-color: transparent;
+      color: var(--muted);
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .comparison-pain-text {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+    }
+    .comparison-pain-text strong { color: var(--text); font-weight: 700; }
+    .vs-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .vs-circle {
+      width: 44px;
+      height: 44px;
+      background: var(--salmon);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 900;
+      color: white;
+      letter-spacing: -0.02em;
+      flex-shrink: 0;
+      box-shadow: 0 4px 16px rgba(224,120,104,0.4);
+    }
+    .smack-col-jelly {
+      margin-bottom: 20px;
+    }
+    .smack-col-h3 {
+      font-size: 22px;
+      font-weight: 900;
+      color: white;
+      letter-spacing: -0.02em;
       margin-bottom: 12px;
     }
+    .smack-col-text {
+      font-size: 15px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+    }
+    .smack-col-text strong { color: rgba(255,255,255,0.95); font-weight: 600; }
+    .smack-features-list {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 20px;
+    }
+    .smack-feature-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.8);
+    }
+    .smack-feature-item svg { flex-shrink: 0; color: var(--salmon); }
 
-    .portal-deliverable {
+    /* ── PRICING ── */
+    .pricing-section {
+      background: var(--navy);
+      padding: 100px 0;
+    }
+    .pricing-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+    .pricing-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .pricing-header .section-eyebrow { color: rgba(255,255,255,0.45); }
+    .pricing-header h2 {
+      font-size: 42px;
+      font-weight: 900;
+      color: white;
+      letter-spacing: -0.03em;
+      margin-top: 12px;
+    }
+    .pricing-header p {
+      font-size: 17px;
+      color: rgba(255,255,255,0.55);
+      margin-top: 14px;
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+    .pricing-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 36px 32px;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .pricing-card:hover { transform: translateY(-3px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+    .pricing-card.featured {
+      background: rgba(224,120,104,0.12);
+      border-color: rgba(224,120,104,0.5);
+      position: relative;
+    }
+    .featured-tag {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--salmon);
+      color: white;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 4px 14px;
+      border-radius: 100px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
+    .pricing-tier { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+    .pricing-price {
+      margin-bottom: 8px;
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+    }
+    .pricing-dollar { font-size: 22px; font-weight: 700; color: white; align-self: flex-start; margin-top: 8px; }
+    .pricing-num { font-size: 56px; font-weight: 900; color: white; letter-spacing: -0.04em; line-height: 1; }
+    .pricing-per { font-size: 14px; color: rgba(255,255,255,0.4); font-weight: 500; padding-bottom: 4px; }
+    .pricing-desc { font-size: 14px; color: rgba(255,255,255,0.55); margin-bottom: 28px; line-height: 1.5; }
+    .pricing-features { list-style: none; margin-bottom: 32px; display: flex; flex-direction: column; gap: 10px; }
+    .pricing-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13.5px;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.4;
+    }
+    .pricing-feature svg { flex-shrink: 0; margin-top: 1px; color: var(--salmon); }
+    .pricing-feature.dimmed { color: rgba(255,255,255,0.35); }
+    .pricing-feature.dimmed svg { color: rgba(255,255,255,0.2); }
+    .pricing-cta {
+      display: block;
+      text-align: center;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.15s, transform 0.1s;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.85);
+    }
+    .pricing-cta:hover { background: rgba(255,255,255,0.08); }
+    .pricing-cta.featured-cta {
+      background: var(--salmon);
+      border-color: var(--salmon);
+      color: white;
+      box-shadow: 0 4px 20px rgba(224,120,104,0.4);
+    }
+    .pricing-cta.featured-cta:hover { background: var(--salmon-dark); transform: translateY(-1px); }
+    .pricing-note {
+      text-align: center;
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
+      line-height: 1.6;
+    }
+
+    /* ── FAQ ── */
+    .faq-section {
+      background: var(--off-white);
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+    }
+    .faq-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+    .faq-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .faq-header h2 { font-size: 42px; font-weight: 900; color: var(--navy); letter-spacing: -0.03em; }
+    .faq-header p { font-size: 17px; color: var(--muted); margin-top: 12px; }
+    .faq-list { display: flex; flex-direction: column; }
+    details.faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+    details.faq-item:first-of-type { border-top: 1px solid var(--border); }
+    details.faq-item summary {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--subtle);
-      font-size: 13px;
-    }
-
-    .portal-deliverable:last-child { border-bottom: none; }
-
-    .portal-del-name { color: var(--text); font-weight: 500; }
-
-    .portal-del-status {
-      font-size: 10px;
+      padding: 22px 4px;
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+      font-size: 16px;
       font-weight: 700;
-      padding: 3px 10px;
-      border-radius: 20px;
+      color: var(--navy);
+      gap: 16px;
     }
-
-    .portal-del-status.approved {
-      background: rgba(5,150,105,0.1);
-      color: var(--green);
+    details.faq-item summary::-webkit-details-marker { display: none; }
+    details.faq-item summary svg {
+      flex-shrink: 0;
+      color: var(--muted);
+      transition: transform 0.25s ease, color 0.15s;
     }
-
-    .portal-del-status.review {
-      background: rgba(224,120,104,0.1);
+    details.faq-item[open] summary svg {
+      transform: rotate(180deg);
       color: var(--salmon);
     }
-
-    .portal-del-status.pending {
-      background: var(--subtle);
+    details.faq-item[open] summary { color: var(--salmon); }
+    .faq-answer {
+      padding: 0 4px 24px;
+      font-size: 15px;
       color: var(--muted);
+      line-height: 1.75;
     }
 
-    /* ────────────────────────────────────────────────
-       CTA BAND
-    ──────────────────────────────────────────────── */
-    .cta-band {
-      background: linear-gradient(135deg, #070f1a 0%, #0f1d30 50%, #1a3355 100%);
-      padding: 96px 80px;
+    /* ── FINAL CTA ── */
+    .final-cta-section {
+      background: var(--navy);
+      padding: 120px 48px;
       text-align: center;
       position: relative;
       overflow: hidden;
     }
-
-    .cta-band::before {
-      content: '';
+    .final-cta-glow {
       position: absolute;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(224,120,104,0.15) 0%, transparent 70%);
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
-      width: 600px;
-      height: 600px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(224,120,104,0.1) 0%, transparent 65%);
+      transform: translate(-50%,-50%);
       pointer-events: none;
     }
-
-    .cta-band-jelly {
-      width: 64px;
-      height: auto;
-      margin: 0 auto 28px;
-      display: block;
-      opacity: 0.7;
+    .final-cta-inner {
+      max-width: 560px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
     }
-
-    .cta-band h2 {
-      font-size: 44px;
+    .final-cta-jelly {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+    .final-cta-h2 {
+      font-size: 48px;
       font-weight: 900;
       color: white;
       letter-spacing: -0.035em;
       line-height: 1.1;
-      margin-bottom: 16px;
-      position: relative;
+      margin-bottom: 18px;
     }
-
-    .cta-band h2 em {
-      color: var(--salmon);
-      font-style: normal;
-    }
-
-    .cta-band p {
+    .final-cta-sub {
       font-size: 17px;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.55);
+      line-height: 1.7;
       margin-bottom: 40px;
-      position: relative;
     }
-
-    .cta-band-actions {
+    .email-form {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      position: relative;
+      gap: 10px;
+      max-width: 440px;
+      margin: 0 auto 16px;
     }
-
-    /* ────────────────────────────────────────────────
-       PRICING
-    ──────────────────────────────────────────────── */
-    .pricing {
-      background: var(--navy);
-      padding: 96px 80px;
-    }
-
-    .pricing-header {
-      text-align: center;
-      margin-bottom: 56px;
-    }
-
-    .pricing-header .section-eyebrow { color: rgba(224,120,104,0.8); }
-    .pricing-header .section-title { color: white; }
-    .pricing-header .section-sub { color: rgba(255,255,255,0.4); }
-
-    .pricing-table {
-      width: 100%;
-      border-collapse: separate;
-      border-spacing: 0;
-    }
-
-    .pricing-table thead th {
-      padding: 0 28px 28px;
-      text-align: left;
-      vertical-align: bottom;
-    }
-
-    .pricing-table thead th:first-child {
-      width: 36%;
-      padding-left: 0;
-    }
-
-    .table-tier-name {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
-      margin-bottom: 10px;
-    }
-
-    .table-tier-price {
-      font-size: 44px;
-      font-weight: 900;
+    .email-input {
+      flex: 1;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.07);
       color: white;
-      letter-spacing: -0.04em;
-      line-height: 1;
-      margin-bottom: 4px;
+      padding: 13px 16px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: var(--font);
+      outline: none;
+      transition: border-color 0.15s, background 0.15s;
     }
-
-    .table-tier-price span {
-      font-size: 22px;
+    .email-input::placeholder { color: rgba(255,255,255,0.35); }
+    .email-input:focus { border-color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.1); }
+    .email-submit {
+      background: var(--salmon);
+      color: white;
+      border: none;
+      padding: 13px 22px;
+      border-radius: 10px;
+      font-size: 14px;
       font-weight: 700;
-      vertical-align: top;
-      margin-top: 6px;
-      display: inline-block;
+      cursor: pointer;
+      font-family: var(--font);
+      white-space: nowrap;
+      transition: background 0.15s, transform 0.1s;
     }
-
-    .table-tier-period {
+    .email-submit:hover { background: var(--salmon-dark); transform: translateY(-1px); }
+    .final-cta-fine {
       font-size: 12px;
       color: rgba(255,255,255,0.3);
-      margin-bottom: 16px;
     }
 
-    .table-tier-cta {
-      display: inline-block;
-      padding: 9px 20px;
-      border: 1.5px solid rgba(255,255,255,0.2);
-      color: rgba(255,255,255,0.7);
-      font-size: 12px;
-      font-weight: 700;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: all 0.15s;
-    }
-
-    .table-tier-cta:hover {
-      border-color: rgba(255,255,255,0.4);
-      color: white;
-    }
-
-    .table-tier-cta.featured {
-      background: var(--salmon);
-      border-color: var(--salmon);
-      color: white;
-    }
-
-    .table-tier-cta.featured:hover { background: var(--salmon-dark); }
-
-    .featured-col {
-      background: rgba(224,120,104,0.07);
-      border-radius: 12px 12px 0 0;
-      border: 1px solid rgba(224,120,104,0.2);
-      border-bottom: none;
-      padding-top: 28px !important;
-    }
-
-    .pricing-table tbody tr { transition: background 0.1s; }
-
-    .pricing-table tbody td {
-      padding: 14px 28px;
-      font-size: 13px;
-      color: rgba(255,255,255,0.5);
-      border-top: 1px solid rgba(255,255,255,0.06);
-      vertical-align: middle;
-    }
-
-    .pricing-table tbody td:first-child {
-      color: rgba(255,255,255,0.75);
-      font-weight: 500;
-      padding-left: 0;
-    }
-
-    .pricing-table tbody td.highlight {
-      background: rgba(224,120,104,0.07);
-      border-left: 1px solid rgba(224,120,104,0.2);
-      border-right: 1px solid rgba(224,120,104,0.2);
-      color: rgba(255,255,255,0.85);
-    }
-
-    .pricing-table tbody td.yes { color: #4ade80; }
-    .pricing-table tbody td.yes.highlight { color: #4ade80; }
-
-    .pricing-table tbody tr:last-child td.highlight {
-      border-radius: 0 0 12px 12px;
-      border-bottom: 1px solid rgba(224,120,104,0.2);
-    }
-
-    .pricing-table tbody td.cross { color: rgba(255,255,255,0.2); }
-
-    /* ────────────────────────────────────────────────
-       FOOTER
-    ──────────────────────────────────────────────── */
+    /* ── FOOTER ── */
     .footer {
       background: #070f1a;
-      padding: 56px 80px 40px;
-      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 72px 48px 0;
     }
-
-    .footer-top {
+    .footer-grid {
+      max-width: 1100px;
+      margin: 0 auto;
       display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
-      margin-bottom: 48px;
+      grid-template-columns: 2fr 1fr 1fr 2fr;
+      gap: 48px;
+      padding-bottom: 60px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
-
+    .footer-col-1 {}
     .footer-brand {
       display: flex;
       align-items: center;
       gap: 10px;
+      margin-bottom: 12px;
     }
-
-    .footer-jelly {
-      width: 36px;
-      height: auto;
-    }
-
-    .footer-wordmark {
-      font-family: 'Funtastic', var(--font);
-      font-size: 28px;
-      color: white;
-    }
-
-    .footer-wordmark span { color: var(--salmon); }
-
     .footer-tagline {
-      font-size: 12px;
-      color: rgba(255,255,255,0.3);
-      margin-top: 6px;
-    }
-
-    .footer-mark-center {
-      opacity: 0.08;
-    }
-
-    .footer-mark-center svg {
-      width: 80px;
-      height: auto;
-    }
-
-    .footer-nav {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 10px;
-    }
-
-    .footer-nav a {
       font-size: 13px;
-      font-weight: 500;
-      color: rgba(255,255,255,0.4);
-      text-decoration: none;
-      transition: color 0.15s;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 20px;
+      line-height: 1.5;
     }
-
-    .footer-nav a:hover { color: rgba(255,255,255,0.8); }
-
-    .footer-bottom {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-top: 24px;
-      border-top: 1px solid rgba(255,255,255,0.06);
-    }
-
     .footer-copy {
       font-size: 12px;
       color: rgba(255,255,255,0.2);
     }
-
-    .footer-copy a {
-      color: rgba(255,255,255,0.3);
-      text-decoration: none;
-    }
-
-    .footer-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+    .footer-col-label {
       font-size: 11px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.3);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 16px;
+    }
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-links a {
+      font-size: 14px;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .footer-links a:hover { color: rgba(255,255,255,0.9); }
+    .footer-access-text {
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+    .footer-email-form {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .footer-email-input {
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05);
+      color: white;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: var(--font);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .footer-email-input::placeholder { color: rgba(255,255,255,0.3); }
+    .footer-email-input:focus { border-color: rgba(255,255,255,0.25); }
+    .footer-email-submit {
+      background: rgba(224,120,104,0.2);
+      color: var(--salmon);
+      border: 1px solid rgba(224,120,104,0.3);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: var(--font);
+      transition: background 0.15s, color 0.15s;
+    }
+    .footer-email-submit:hover { background: var(--salmon); color: white; }
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-bottom-text {
+      font-size: 12px;
+      color: rgba(255,255,255,0.15);
     }
 
-    .footer-status-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--green);
+    /* ── UTILITIES ── */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+    .section-header-centered {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .section-desc {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 560px;
+      margin: 14px auto 0;
+      line-height: 1.7;
     }
 
+    /* Allday bar layout helper */
+    .allday-bar-row { margin-bottom: 4px; }
+    .allday-bar-row:last-child { margin-bottom: 0; }
+    .allday-patagonia {
+      /* Spans Mon-Wed = 3 of 7 cols */
+      width: calc((3/7) * 100% - 8px);
+      margin-left: 0;
+    }
+    .allday-oura {
+      /* Spans Thu-Fri = 2 of 7 cols */
+      width: calc((2/7) * 100% - 8px);
+      margin-left: calc((3/7) * 100% + 4px);
+    }
+    .allday-cells-wrap {
+      grid-column: 2 / -1;
+      padding: 5px 8px;
+    }
+    .allday-bar-container {
+      position: relative;
+      height: 26px;
+      margin-bottom: 4px;
+    }
+    .allday-absolute {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      font-size: 11px;
+      font-weight: 700;
+      color: white;
+      white-space: nowrap;
+    }
+    .allday-pat { left: 0; width: calc(3/7 * 100% - 4px); background: var(--salmon); }
+    .allday-oura-bar { left: calc(3/7 * 100% + 4px); width: calc(2/7 * 100% - 4px); background: var(--blue); }
+
+    /* The pulse animation for portal phase dot */
+    @keyframes pulse-ring {
+      0% { box-shadow: 0 0 0 0 rgba(224,120,104,0.5); }
+      70% { box-shadow: 0 0 0 8px rgba(224,120,104,0); }
+      100% { box-shadow: 0 0 0 0 rgba(224,120,104,0); }
+    }
+    .phase-dot.active { animation: pulse-ring 2s infinite; }
   </style>
 </head>
 <body>
 
-  <!-- ═══════════════════════════════════════════════
-       NAV
-  ═══════════════════════════════════════════════ -->
-  <nav class="nav" id="nav">
-    <a class="nav-brand" href="#">
-      <!-- Jelly mark — white on dark bg -->
-      <svg class="nav-jelly" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" aria-label="Smack mark">
-        <path fill="white" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
-        <path fill="none" stroke="white" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-        <path fill="none" stroke="white" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-        <path fill="none" stroke="white" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-        <path fill="none" stroke="white" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-        <path fill="none" stroke="white" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-      </svg>
-      <span class="nav-wordmark">smack<span>.</span></span>
-    </a>
+<!-- ══════════════════════════════════════
+     NAV
+══════════════════════════════════════ -->
+<nav class="nav" id="main-nav">
+  <a class="nav-brand" href="#">
+    <svg class="nav-jelly" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6">
+      <path fill="white" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+      <path fill="none" stroke="white" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+      <path fill="none" stroke="white" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+      <path fill="none" stroke="white" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+      <path fill="none" stroke="white" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+      <path fill="none" stroke="white" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+    </svg>
+    <span class="nav-wordmark">smack<span class="dot">.</span></span>
+  </a>
 
-    <ul class="nav-links">
-      <li><a href="#features">Features</a></li>
-      <li><a href="#pricing">Pricing</a></li>
-      <li><a href="#">About</a></li>
-    </ul>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#calendar">Calendar</a></li>
+    <li><a href="#crew">Crew</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#faq">About</a></li>
+  </ul>
 
-    <a href="#" class="nav-cta">Request access →</a>
-  </nav>
+  <a class="nav-cta" href="#final-cta">Request access →</a>
+</nav>
 
-  <!-- ═══════════════════════════════════════════════
-       HERO
-  ═══════════════════════════════════════════════ -->
-  <section class="hero">
+<!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-grid-overlay"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow-2"></div>
+
+  <div class="hero-inner">
+    <!-- Left -->
     <div class="hero-left">
+      <div class="hero-eyebrow reveal">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" width="16" height="18">
+          <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="10" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="10" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="10" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="10" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="10" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+        </svg>
+        <span>For production studios</span>
+      </div>
 
-      <!-- Eyebrow badge with jelly mark -->
-      <div class="hero-eyebrow">
-        <div class="hero-jelly-badge">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" aria-hidden="true">
-            <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
-            <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-            <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-            <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-            <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-            <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-          </svg>
-          <span>For Production Studios</span>
+      <h1 class="hero-h1 reveal reveal-delay-1">
+        You shouldn't need<br><em>three apps</em> to run<br>one project.
+      </h1>
+
+      <p class="hero-sub reveal reveal-delay-2">
+        One place for your <span id="typewriter-word">crew bookings</span>.<br>
+        <strong>Projects. Schedule. Invoices. Cash flow. Client portals.</strong>
+      </p>
+
+      <div class="hero-ctas reveal reveal-delay-3">
+        <a class="btn-primary" href="#final-cta">Request access</a>
+        <a class="btn-ghost" href="#features">See how it works →</a>
+      </div>
+
+      <div class="hero-trust reveal reveal-delay-4">
+        <div class="trust-avatars">
+          <div class="trust-avatar" style="background:#6366f1;">MK</div>
+          <div class="trust-avatar" style="background:#0891b2;">JR</div>
+          <div class="trust-avatar" style="background:#059669;">AL</div>
+          <div class="trust-avatar" style="background:#d97706;">SB</div>
         </div>
+        <div class="trust-text">Invite-only launch · Built alongside<br>working studios</div>
       </div>
-
-      <h1>You shouldn't need <em>three apps</em> to run one project.</h1>
-
-      <p class="hero-sub">Smack brings your crew, invoices, and clients into one place. Built for the way studios actually work — not how a Silicon Valley PM thinks they do.</p>
-
-      <div class="hero-ctas">
-        <a href="#" class="btn-primary">Request access</a>
-        <a href="#features" class="btn-ghost">See how it works →</a>
-      </div>
-
-      <div class="hero-trust">
-        <div class="hero-trust-avatars">
-          <div class="hero-trust-avatar" style="background:#e07868">MK</div>
-          <div class="hero-trust-avatar" style="background:#2a527f">JR</div>
-          <div class="hero-trust-avatar" style="background:#6366f1">AL</div>
-          <div class="hero-trust-avatar" style="background:#059669">TC</div>
-        </div>
-        <div class="hero-trust-text"><strong>Invite-only launch.</strong> Built alongside working studios.</div>
-      </div>
-
     </div>
 
-    <!-- UI Mockup -->
-    <div class="hero-right">
-      <div class="ui-window">
-        <div class="ui-titlebar">
-          <span class="ui-dot r"></span>
-          <span class="ui-dot y"></span>
-          <span class="ui-dot g"></span>
-          <span class="ui-titlebar-label">smack.studio</span>
+    <!-- Right: Browser mockup -->
+    <div class="hero-mockup-wrap reveal reveal-delay-2">
+      <div class="browser-window">
+        <div class="browser-titlebar">
+          <div class="browser-dots">
+            <div class="browser-dot dot-red"></div>
+            <div class="browser-dot dot-amber"></div>
+            <div class="browser-dot dot-green"></div>
+          </div>
+          <div class="browser-url">smack.studio/dashboard</div>
         </div>
-
-        <div class="ui-project">
-          <div class="ui-project-top">
-            <div class="ui-project-name">Patagonia — Spring Campaign</div>
-            <span class="ui-badge active">In Production</span>
-          </div>
-          <div class="ui-project-meta">
-            <span>📅 Apr 14–22</span>
-            <span>👥 6 crew</span>
-            <span>💰 $38,500</span>
-          </div>
-          <div class="ui-progress">
-            <div class="ui-progress-fill" style="width:62%"></div>
-          </div>
-        </div>
-
-        <div class="ui-project">
-          <div class="ui-project-top">
-            <div class="ui-project-name">Oura Ring — Product Launch</div>
-            <span class="ui-badge review">In Review</span>
-          </div>
-          <div class="ui-project-meta">
-            <span>📅 Apr 30</span>
-            <span>👥 3 crew</span>
-            <span>💰 $12,000</span>
-          </div>
-          <div class="ui-progress">
-            <div class="ui-progress-fill" style="width:88%"></div>
-          </div>
-        </div>
-
-        <div class="ui-invoice">
-          <div class="ui-invoice-left">
-            <div class="ui-invoice-icon">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                <polyline points="14 2 14 8 20 8"/>
-                <line x1="8" y1="13" x2="16" y2="13"/>
-                <line x1="8" y1="17" x2="16" y2="17"/>
-              </svg>
+        <div class="browser-body">
+          <div class="dash-metrics">
+            <div class="dash-metric">
+              <div class="dash-metric-label">Active Projects</div>
+              <div class="dash-metric-value">6</div>
             </div>
-            <div>
-              <div class="ui-invoice-label">Invoice #0041 · Sent</div>
-              <div class="ui-invoice-name">Patagonia Inc.</div>
+            <div class="dash-metric">
+              <div class="dash-metric-label">Outstanding</div>
+              <div class="dash-metric-value salmon">$54k</div>
+            </div>
+            <div class="dash-metric">
+              <div class="dash-metric-label">Next Shoot</div>
+              <div class="dash-metric-value" style="font-size:15px;padding-top:2px;">Apr 14</div>
             </div>
           </div>
-          <div class="ui-invoice-amount">$19,250</div>
-        </div>
 
-        <div class="ui-booking">
-          <div class="ui-avatars">
-            <div class="ui-avatar" style="background:#e07868">MK</div>
-            <div class="ui-avatar" style="background:#3b6fa0">JR</div>
-            <div class="ui-avatar" style="background:#6366f1">AL</div>
+          <div class="dash-section-label">Active Projects</div>
+
+          <div class="dash-project-row">
+            <div class="dash-project-name">Patagonia — Spring Campaign</div>
+            <div class="dash-badge badge-green">In Production</div>
+            <div class="dash-progress-wrap"><div class="dash-progress-fill" style="width:62%"></div></div>
           </div>
-          <div class="ui-booking-text"><strong>3 crew confirmed</strong> for Apr 14 shoot</div>
+          <div class="dash-project-row">
+            <div class="dash-project-name">Oura Ring — Product Launch</div>
+            <div class="dash-badge badge-amber">In Review</div>
+            <div class="dash-progress-wrap"><div class="dash-progress-fill" style="width:88%"></div></div>
+          </div>
+          <div class="dash-project-row">
+            <div class="dash-project-name">Nike — Retail Campaign</div>
+            <div class="dash-badge badge-blue">Planning</div>
+            <div class="dash-progress-wrap"><div class="dash-progress-fill" style="width:10%"></div></div>
+          </div>
+
+          <div class="dash-floating-badges">
+            <div class="floating-badge">
+              <div class="floating-badge-dot" style="background:#34d399;"></div>
+              Invoice #0041 paid · $38,500
+            </div>
+            <div class="floating-badge">
+              <div class="floating-badge-dot" style="background:var(--salmon);"></div>
+              6 crew confirmed · Patagonia
+            </div>
+          </div>
         </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════
-       SOCIAL PROOF STRIP
-  ═══════════════════════════════════════════════ -->
-  <div class="strip">
-    <div class="strip-item">
-      <div class="strip-icon">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M9 12l2 2 4-4"/>
-          <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/>
-        </svg>
-      </div>
-      <div>
-        <div class="strip-label">Invite-only launch</div>
-        <div class="strip-sub">Built alongside working studios</div>
-      </div>
-    </div>
-    <div class="strip-divider"></div>
-    <div class="strip-item">
-      <div class="strip-icon">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <rect x="2" y="3" width="20" height="14" rx="2"/>
-          <path d="M8 21h8M12 17v4"/>
-        </svg>
-      </div>
-      <div>
-        <div class="strip-label">PWA — mobile + desktop</div>
-        <div class="strip-sub">One app, every device</div>
-      </div>
-    </div>
-    <div class="strip-divider"></div>
-    <div class="strip-item">
-      <div class="strip-icon">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-          <circle cx="9" cy="7" r="4"/>
-          <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
-        </svg>
-      </div>
-      <div>
-        <div class="strip-label">Client + contractor portals</div>
-        <div class="strip-sub">Everyone sees what they need</div>
-      </div>
-    </div>
-    <div class="strip-divider"></div>
-    <div class="strip-item">
-      <div class="strip-icon">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <line x1="12" y1="1" x2="12" y2="23"/>
-          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-        </svg>
-      </div>
-      <div>
-        <div class="strip-label">Finance, invoicing, and P&L</div>
-        <div class="strip-sub">Know your number before month-end</div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- ═══════════════════════════════════════════════
-       FEATURES
-  ═══════════════════════════════════════════════ -->
-  <section class="features" id="features">
-    <div class="features-header">
-      <div class="section-eyebrow">
-        <!-- Tiny jelly mark in eyebrow -->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" aria-hidden="true">
-          <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
-          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-        </svg>
-        What smack. does
-      </div>
-      <h2 class="section-title">One platform.<br>Everything your studio runs on.</h2>
-      <p class="section-sub">Purpose-built for production studios — not retrofitted from generic project management software.</p>
-    </div>
-
-    <!-- ROW 1: Finance -->
-    <div class="alt-row">
-      <div class="alt-row-text">
-        <div class="alt-row-number">01 — Finance</div>
-        <div class="alt-row-title">Know where every dollar goes.</div>
-        <div class="alt-row-desc">See incoming and outgoing money across every project in real time. No more month-end panic. No more chasing invoices in a Google Sheet.</div>
-        <ul class="alt-row-bullets">
-          <li>Invoice creation, sending, and tracking</li>
-          <li>Cash flow and P&L across projects</li>
-          <li>Contractor payment records and history</li>
-          <li>Auto-reminders on overdue invoices</li>
-        </ul>
-        <a href="#" class="alt-row-link">Explore invoicing →</a>
-      </div>
-
-      <div class="feat-mock">
-        <div class="feat-mock-bar">
-          <span class="ui-dot r"></span>
-          <span class="ui-dot y"></span>
-          <span class="ui-dot g"></span>
-          <span class="feat-mock-bar-label">Cash Flow · Q2 2026</span>
-        </div>
-        <div class="finance-body">
-          <div class="finance-title-row">
-            <div class="finance-title">Revenue Overview</div>
-            <div class="finance-period">Apr 2026</div>
-          </div>
-          <div class="finance-stats">
-            <div class="fin-stat">
-              <div class="fin-stat-label">Revenue</div>
-              <div class="fin-stat-val green">$68k</div>
-            </div>
-            <div class="fin-stat">
-              <div class="fin-stat-label">Expenses</div>
-              <div class="fin-stat-val red">$24k</div>
-            </div>
-            <div class="fin-stat">
-              <div class="fin-stat-label">Net</div>
-              <div class="fin-stat-val navy">$44k</div>
-            </div>
-          </div>
-          <div class="bar-chart">
-            <div class="bar-col">
-              <div class="bar-fill income" style="height:52%"></div>
-              <div class="bar-fill expense" style="height:28%"></div>
-              <div class="bar-lbl">Jan</div>
-            </div>
-            <div class="bar-col">
-              <div class="bar-fill income" style="height:68%"></div>
-              <div class="bar-fill expense" style="height:32%"></div>
-              <div class="bar-lbl">Feb</div>
-            </div>
-            <div class="bar-col">
-              <div class="bar-fill income" style="height:44%"></div>
-              <div class="bar-fill expense" style="height:22%"></div>
-              <div class="bar-lbl">Mar</div>
-            </div>
-            <div class="bar-col">
-              <div class="bar-fill income" style="height:90%"></div>
-              <div class="bar-fill expense" style="height:38%"></div>
-              <div class="bar-lbl">Apr</div>
-            </div>
-            <div class="bar-col">
-              <div class="bar-fill income" style="height:60%"></div>
-              <div class="bar-fill expense" style="height:25%"></div>
-              <div class="bar-lbl">May</div>
-            </div>
-          </div>
-          <div class="invoice-list">
-            <div class="invoice-row">
-              <div class="invoice-row-left">Patagonia — Spring Campaign</div>
-              <div class="invoice-row-right">
-                <span class="invoice-status paid">Paid</span>
-                <span style="font-size:12px;font-weight:700;color:#111827">$38,500</span>
-              </div>
-            </div>
-            <div class="invoice-row">
-              <div class="invoice-row-left">Oura Ring — Product Launch</div>
-              <div class="invoice-row-right">
-                <span class="invoice-status sent">Sent</span>
-                <span style="font-size:12px;font-weight:700;color:#111827">$12,000</span>
-              </div>
-            </div>
-            <div class="invoice-row">
-              <div class="invoice-row-left">Nike — Retail Campaign</div>
-              <div class="invoice-row-right">
-                <span class="invoice-status draft">Draft</span>
-                <span style="font-size:12px;font-weight:700;color:#9ca3af">$18,000</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ROW 2: Crew (flipped) -->
-    <div class="alt-row flip">
-      <div class="alt-row-text">
-        <div class="alt-row-number">02 — Crew</div>
-        <div class="alt-row-title">Book crew in minutes.</div>
-        <div class="alt-row-desc">Your entire roster in one place. See who's available, who's on hold, and who's confirmed — across every shoot on your calendar. No more back-and-forth texts.</div>
-        <ul class="alt-row-bullets">
-          <li>Roster with roles, rates, and contacts</li>
-          <li>Availability calendar across all projects</li>
-          <li>Hold / confirm / release — no double-bookings</li>
-          <li>Contractor portal access with one link</li>
-        </ul>
-        <a href="#" class="alt-row-link">Explore crew booking →</a>
-      </div>
-
-      <div class="feat-mock">
-        <div class="feat-mock-bar">
-          <span class="ui-dot r"></span>
-          <span class="ui-dot y"></span>
-          <span class="ui-dot g"></span>
-          <span class="feat-mock-bar-label">Crew — Apr 14 Shoot</span>
-        </div>
-        <div class="crew-body">
-          <div class="crew-title-row">
-            <div class="crew-title">Patagonia — Spring Campaign</div>
-            <div class="crew-date">Apr 14–22</div>
-          </div>
-
-          <div class="crew-member">
-            <div class="crew-avatar" style="background:#e07868">MK</div>
-            <div class="crew-info">
-              <div class="crew-name">Marcus Kim</div>
-              <div class="crew-role">Director of Photography</div>
-            </div>
-            <span class="crew-status confirmed">Confirmed</span>
-          </div>
-
-          <div class="crew-member">
-            <div class="crew-avatar" style="background:#2a527f">JR</div>
-            <div class="crew-info">
-              <div class="crew-name">Jamie Rodriguez</div>
-              <div class="crew-role">1st AC</div>
-            </div>
-            <span class="crew-status confirmed">Confirmed</span>
-          </div>
-
-          <div class="crew-member">
-            <div class="crew-avatar" style="background:#6366f1">AL</div>
-            <div class="crew-info">
-              <div class="crew-name">Alex Liu</div>
-              <div class="crew-role">Gaffer</div>
-            </div>
-            <span class="crew-status hold">On Hold</span>
-          </div>
-
-          <div class="crew-member">
-            <div class="crew-avatar" style="background:#d97706">TC</div>
-            <div class="crew-info">
-              <div class="crew-name">Taylor Chen</div>
-              <div class="crew-role">Production Designer</div>
-            </div>
-            <span class="crew-status pending">Pending</span>
-          </div>
-
-          <div class="crew-cal">
-            <div class="crew-cal-header">April 2026</div>
-            <div class="crew-cal-days">
-              <div class="crew-cal-day header">S</div>
-              <div class="crew-cal-day header">M</div>
-              <div class="crew-cal-day header">T</div>
-              <div class="crew-cal-day header">W</div>
-              <div class="crew-cal-day header">T</div>
-              <div class="crew-cal-day header">F</div>
-              <div class="crew-cal-day header">S</div>
-              <div class="crew-cal-day empty">·</div>
-              <div class="crew-cal-day empty">·</div>
-              <div class="crew-cal-day normal">1</div>
-              <div class="crew-cal-day normal">2</div>
-              <div class="crew-cal-day normal">3</div>
-              <div class="crew-cal-day normal">4</div>
-              <div class="crew-cal-day normal">5</div>
-              <div class="crew-cal-day normal">6</div>
-              <div class="crew-cal-day today">7</div>
-              <div class="crew-cal-day normal">8</div>
-              <div class="crew-cal-day normal">9</div>
-              <div class="crew-cal-day normal">10</div>
-              <div class="crew-cal-day normal">11</div>
-              <div class="crew-cal-day normal">12</div>
-              <div class="crew-cal-day normal">13</div>
-              <div class="crew-cal-day shoot">14</div>
-              <div class="crew-cal-day shoot">15</div>
-              <div class="crew-cal-day shoot">16</div>
-              <div class="crew-cal-day normal">17</div>
-              <div class="crew-cal-day normal">18</div>
-              <div class="crew-cal-day normal">19</div>
-              <div class="crew-cal-day normal">20</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ROW 3: Clients -->
-    <div class="alt-row">
-      <div class="alt-row-text">
-        <div class="alt-row-number">03 — Clients</div>
-        <div class="alt-row-title">Give clients a portal.</div>
-        <div class="alt-row-desc">Stop sending update emails. Give every client a clean, branded window into their project. They see what they need to see, approve what needs approving, and leave you alone while you do the work.</div>
-        <ul class="alt-row-bullets">
-          <li>Per-project client portal, shareable by link</li>
-          <li>Deliverable approval with one click</li>
-          <li>Project status and timeline view</li>
-          <li>No client login or account required</li>
-        </ul>
-        <a href="#" class="alt-row-link">Explore client portals →</a>
-      </div>
-
-      <div class="feat-mock">
-        <div class="feat-mock-bar">
-          <span class="ui-dot r"></span>
-          <span class="ui-dot y"></span>
-          <span class="ui-dot g"></span>
-          <span class="feat-mock-bar-label">Client View — Patagonia</span>
-        </div>
-        <div class="portal-body">
-          <div class="portal-header">
-            <div class="portal-brand">smack<span>.</span></div>
-            <div class="portal-client">Patagonia Inc. — Spring Campaign</div>
-          </div>
-
-          <div class="portal-project-name">Spring Campaign 2026</div>
-          <div class="portal-project-status">Production complete · Delivery by April 30</div>
-
-          <div class="portal-phases">
-            <div class="portal-phase done"></div>
-            <div class="portal-phase done"></div>
-            <div class="portal-phase active"></div>
-            <div class="portal-phase todo"></div>
-            <div class="portal-phase todo"></div>
-          </div>
-
-          <div class="portal-section-label">Deliverables</div>
-
-          <div class="portal-deliverable">
-            <span class="portal-del-name">:60 hero film</span>
-            <span class="portal-del-status approved">Approved</span>
-          </div>
-          <div class="portal-deliverable">
-            <span class="portal-del-name">:15 cutdown — Instagram</span>
-            <span class="portal-del-status review">Awaiting review</span>
-          </div>
-          <div class="portal-deliverable">
-            <span class="portal-del-name">:06 bumper — YouTube</span>
-            <span class="portal-del-status pending">In progress</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════
-       CTA BAND
-  ═══════════════════════════════════════════════ -->
-  <section class="cta-band">
-    <!-- Large jelly mark watermark -->
-    <svg class="cta-band-jelly" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" aria-hidden="true">
-      <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
-      <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-      <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-      <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-      <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-      <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+<!-- ══════════════════════════════════════
+     WHAT'S A SMACK BAND
+══════════════════════════════════════ -->
+<section class="smack-band">
+  <div class="smack-band-deco-left">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" width="90" height="104">
+      <path fill="white" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+      <path fill="none" stroke="white" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+      <path fill="none" stroke="white" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+      <path fill="none" stroke="white" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+      <path fill="none" stroke="white" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+      <path fill="none" stroke="white" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
     </svg>
+  </div>
+  <div class="smack-band-deco-right">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" width="90" height="104">
+      <path fill="white" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+      <path fill="none" stroke="white" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+      <path fill="none" stroke="white" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+      <path fill="none" stroke="white" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+      <path fill="none" stroke="white" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+      <path fill="none" stroke="white" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+    </svg>
+  </div>
+  <div class="smack-band-inner">
+    <div class="smack-phonetic">smack /smak/ n.</div>
+    <div class="smack-definition">"A group of jellyfish."</div>
+    <div class="smack-also">Also: a production management app built for studios<br>that are done duct-taping three tools together.</div>
+  </div>
+</section>
 
-    <h2>Built for the <em>real work</em> of production.</h2>
-    <p>Not adapted from generic tools. Not another SaaS with a "studio" feature. Built from scratch, with studios.</p>
-    <div class="cta-band-actions">
-      <a href="#" class="btn-primary">Request early access</a>
-      <a href="#pricing" class="btn-ghost">See pricing →</a>
+<!-- ══════════════════════════════════════
+     STATS STRIP
+══════════════════════════════════════ -->
+<section class="stats-strip" id="stats">
+  <div class="stats-inner">
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <div class="stat-number"><span class="stat-prefix">$</span><span class="stat-countup" data-target="2.4" data-suffix="M" data-decimals="1">0</span></div>
+        <div class="stat-label">invoiced through smack.</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-1">
+        <div class="stat-number"><span class="stat-countup" data-target="847" data-suffix="">0</span></div>
+        <div class="stat-label">shoot days scheduled</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-2">
+        <div class="stat-number"><span class="stat-countup" data-target="6" data-suffix=""> min</span></div>
+        <div class="stat-label">avg time to create &amp; send an invoice</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-3">
+        <div class="stat-number"><span class="stat-countup" data-target="0" data-suffix="">0</span></div>
+        <div class="stat-label">double-bookings reported</div>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ═══════════════════════════════════════════════
-       PRICING
-  ═══════════════════════════════════════════════ -->
-  <section class="pricing" id="pricing">
-    <div class="pricing-header">
-      <div class="section-eyebrow" style="color:rgba(224,120,104,0.7)">Pricing</div>
-      <h2 class="section-title" style="color:white">Pick your plan.</h2>
-      <p class="section-sub" style="color:rgba(255,255,255,0.4)">Invite-only during launch. Apply for early access — we'll reach out to studios that are the right fit.</p>
+<!-- ══════════════════════════════════════
+     FEATURE SHOWCASE
+══════════════════════════════════════ -->
+<section class="features-section" id="features">
+  <div class="features-header reveal">
+    <div class="section-eyebrow">Everything in one place</div>
+    <h2 class="section-h2">Built for how studios actually work.</h2>
+  </div>
+
+  <div class="features-body">
+    <!-- Tab Nav -->
+    <div class="features-tabs">
+      <div class="feature-tab active" data-tab="projects">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/>
+        </svg>
+        <span class="feature-tab-label">Projects</span>
+      </div>
+      <div class="feature-tab" data-tab="schedule">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+        </svg>
+        <span class="feature-tab-label">Schedule</span>
+      </div>
+      <div class="feature-tab" data-tab="crew">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+        </svg>
+        <span class="feature-tab-label">Crew</span>
+      </div>
+      <div class="feature-tab" data-tab="invoices">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+        </svg>
+        <span class="feature-tab-label">Invoices</span>
+      </div>
+      <div class="feature-tab" data-tab="cashflow">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+        </svg>
+        <span class="feature-tab-label">Cash Flow</span>
+      </div>
+      <div class="feature-tab" data-tab="portal">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <span class="feature-tab-label">Client Portal</span>
+      </div>
     </div>
 
-    <table class="pricing-table">
-      <thead>
-        <tr>
-          <th></th>
-          <th>
-            <div class="table-tier-name">Starter</div>
-            <div class="table-tier-price"><span>$</span>79</div>
-            <div class="table-tier-period">per month</div>
-            <a href="#" class="table-tier-cta">Request access</a>
-          </th>
-          <th class="featured-col">
-            <div class="table-tier-name" style="color:rgba(224,120,104,0.8)">Studio</div>
-            <div class="table-tier-price" style="color:#e07868"><span style="color:#e07868">$</span>149</div>
-            <div class="table-tier-period">per month</div>
-            <a href="#" class="table-tier-cta featured">Request access</a>
-          </th>
-          <th>
-            <div class="table-tier-name">Pro</div>
-            <div class="table-tier-price"><span>$</span>299</div>
-            <div class="table-tier-period">per month</div>
-            <a href="#" class="table-tier-cta">Request access</a>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Team members</td>
-          <td>2</td>
-          <td class="highlight">5</td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td>Contractor seats</td>
-          <td>Unlimited</td>
-          <td class="highlight">Unlimited</td>
-          <td>Unlimited</td>
-        </tr>
-        <tr>
-          <td>Active projects</td>
-          <td>Up to 10</td>
-          <td class="highlight">Unlimited</td>
-          <td>Unlimited</td>
-        </tr>
-        <tr>
-          <td>Invoicing</td>
-          <td class="yes">✓ Included</td>
-          <td class="yes highlight">✓ + Auto-reminders</td>
-          <td class="yes">✓ Custom branding</td>
-        </tr>
-        <tr>
-          <td>Client portals</td>
-          <td>2 per project</td>
-          <td class="yes highlight">✓ Unlimited</td>
-          <td class="yes">✓ Unlimited</td>
-        </tr>
-        <tr>
-          <td>Cash flow reporting</td>
-          <td>Basic</td>
-          <td class="yes highlight">Full P&L</td>
-          <td class="yes">Full P&L</td>
-        </tr>
-        <tr>
-          <td>Multi-studio workspace</td>
-          <td class="cross">—</td>
-          <td class="cross highlight">—</td>
-          <td class="yes">✓ Included</td>
-        </tr>
-        <tr>
-          <td>API access</td>
-          <td class="cross">—</td>
-          <td class="cross highlight">—</td>
-          <td class="yes">✓ Included</td>
-        </tr>
-        <tr>
-          <td>Priority support</td>
-          <td class="cross">—</td>
-          <td class="cross highlight">—</td>
-          <td class="yes">✓ Included</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
+    <!-- Panel area -->
+    <div class="features-panel-wrap">
 
-  <!-- ═══════════════════════════════════════════════
-       FOOTER
-  ═══════════════════════════════════════════════ -->
-  <footer class="footer">
-    <div class="footer-top">
-      <div>
-        <div class="footer-brand">
-          <svg class="footer-jelly" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" aria-hidden="true">
+      <!-- TAB 1: PROJECTS -->
+      <div class="feature-panel active" id="panel-projects">
+        <div class="panel-toolbar">
+          <div class="panel-search">
+            <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" style="color:var(--muted);flex-shrink:0;">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            </svg>
+            Search projects...
+          </div>
+          <div class="filter-chips">
+            <div class="filter-chip active">All</div>
+            <div class="filter-chip">Active</div>
+            <div class="filter-chip">On Hold</div>
+            <div class="filter-chip">Complete</div>
+          </div>
+          <button class="panel-btn">+ New Project</button>
+        </div>
+
+        <div class="panel-table">
+          <div class="panel-table-header">
+            <div class="panel-th">Project</div>
+            <div class="panel-th">Status</div>
+            <div class="panel-th">Crew</div>
+            <div class="panel-th">Value</div>
+            <div class="panel-th">Progress</div>
+            <div class="panel-th"></div>
+          </div>
+          <div class="panel-row">
+            <div><div class="panel-cell-name">Patagonia</div><div class="panel-cell-sub">Spring Campaign</div></div>
+            <div><span class="status-badge sb-green"><svg viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>In Production</span></div>
+            <div class="panel-cell muted">6 crew</div>
+            <div class="panel-cell" style="font-weight:700;">$38,500</div>
+            <div><div class="table-progress"><div class="table-progress-fill" style="width:62%"></div></div><div style="font-size:10px;color:var(--muted);margin-top:3px;">62%</div></div>
+            <div><div class="dots-btn">···</div></div>
+          </div>
+          <div class="panel-row">
+            <div><div class="panel-cell-name">Oura Ring</div><div class="panel-cell-sub">Product Launch</div></div>
+            <div><span class="status-badge sb-amber"><svg viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>In Review</span></div>
+            <div class="panel-cell muted">3 crew</div>
+            <div class="panel-cell" style="font-weight:700;">$12,000</div>
+            <div><div class="table-progress"><div class="table-progress-fill" style="width:88%"></div></div><div style="font-size:10px;color:var(--muted);margin-top:3px;">88%</div></div>
+            <div><div class="dots-btn">···</div></div>
+          </div>
+          <div class="panel-row">
+            <div><div class="panel-cell-name">Nike</div><div class="panel-cell-sub">Retail Campaign</div></div>
+            <div><span class="status-badge sb-blue"><svg viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>Planning</span></div>
+            <div class="panel-cell muted">0 crew</div>
+            <div class="panel-cell" style="font-weight:700;">$45,000</div>
+            <div><div class="table-progress"><div class="table-progress-fill" style="width:10%"></div></div><div style="font-size:10px;color:var(--muted);margin-top:3px;">10%</div></div>
+            <div><div class="dots-btn">···</div></div>
+          </div>
+          <div class="panel-row">
+            <div><div class="panel-cell-name">Adobe</div><div class="panel-cell-sub">Summit Recap</div></div>
+            <div><span class="status-badge sb-gray"><svg viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>Complete</span></div>
+            <div class="panel-cell muted">5 crew</div>
+            <div class="panel-cell" style="font-weight:700;">$22,000</div>
+            <div><div class="table-progress"><div class="table-progress-fill full" style="width:100%"></div></div><div style="font-size:10px;color:var(--muted);margin-top:3px;">100%</div></div>
+            <div><div class="dots-btn">···</div></div>
+          </div>
+          <div class="panel-row">
+            <div><div class="panel-cell-name">Sonos</div><div class="panel-cell-sub">Brand Refresh</div></div>
+            <div><span class="status-badge sb-orange"><svg viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>On Hold</span></div>
+            <div class="panel-cell muted">2 crew</div>
+            <div class="panel-cell" style="font-weight:700;">$18,500</div>
+            <div><div class="table-progress"><div class="table-progress-fill" style="width:35%;background:var(--amber)"></div></div><div style="font-size:10px;color:var(--muted);margin-top:3px;">35%</div></div>
+            <div><div class="dots-btn">···</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: SCHEDULE -->
+      <div class="feature-panel" id="panel-schedule">
+        <div class="cal-header">
+          <button class="cal-nav-btn">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button class="cal-nav-btn">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+          <div class="cal-period">Apr 7 – 13, 2026</div>
+          <button class="cal-today-btn">Today</button>
+          <div class="cal-toggle">Crew View</div>
+        </div>
+
+        <div class="cal-grid">
+          <!-- Day headers -->
+          <div class="cal-day-headers">
+            <div class="cal-day-header" style="border-right:1px solid var(--border);"></div>
+            <div class="cal-day-header">Mon<span class="cal-day-header-num">7</span></div>
+            <div class="cal-day-header today-col">Tue<span class="cal-day-header-num">8</span></div>
+            <div class="cal-day-header">Wed<span class="cal-day-header-num">9</span></div>
+            <div class="cal-day-header">Thu<span class="cal-day-header-num">10</span></div>
+            <div class="cal-day-header">Fri<span class="cal-day-header-num">11</span></div>
+            <div class="cal-day-header">Sat<span class="cal-day-header-num">12</span></div>
+            <div class="cal-day-header">Sun<span class="cal-day-header-num">13</span></div>
+          </div>
+
+          <!-- All-day row -->
+          <div class="cal-allday-row">
+            <div class="cal-allday-label">All<br>day</div>
+            <div class="allday-cells-wrap">
+              <div style="position:relative;height:26px;">
+                <div class="allday-absolute allday-pat">Patagonia — Spring Campaign <span class="allday-crew-chip">6 crew</span></div>
+                <div class="allday-absolute allday-oura-bar">Oura Ring <span class="allday-crew-chip">3 crew</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Time rows -->
+          <div class="cal-time-row">
+            <div class="cal-time-label">9am</div>
+            <div class="cal-time-cell"></div>
+            <div class="cal-time-cell today-col"></div>
+            <div class="cal-time-cell"></div>
+            <div class="cal-time-cell"></div>
+            <div class="cal-time-cell"></div>
+            <div class="cal-time-cell" style="background:var(--off-white);"></div>
+            <div class="cal-time-cell" style="background:var(--off-white);"></div>
+          </div>
+          <div class="cal-time-row">
+            <div class="cal-time-label">10am</div>
+            <div class="cal-time-cell"></div>
+            <div class="cal-time-cell today-col"></div>
+            <div class="cal-time-cell"></div>
+            <div class="cal-time-cell"></div>
+            <div class="cal-time-cell" style="position:relative;">
+              <div class="cal-event cal-event-amber" style="top:0;height:72px;">Invoice review<span style="display:block;font-weight:400;opacity:0.8;">1 hour</span></div>
+            </div>
+            <div class="cal-time-cell" style="background:var(--off-white);"></div>
+            <div class="cal-time-cell" style="background:var(--off-white);"></div>
+          </div>
+          <div class="cal-time-row">
+            <div class="cal-time-label">11am</div>
+            <div class="cal-time-cell"></div>
+            <div class="cal-time-cell today-col"></div>
+            <div class="cal-time-cell"></div>
+            <div class="cal-time-cell"></div>
+            <div class="cal-time-cell"></div>
+            <div class="cal-time-cell" style="background:var(--off-white);"></div>
+            <div class="cal-time-cell" style="background:var(--off-white);"></div>
+          </div>
+          <div class="cal-time-row">
+            <div class="cal-time-label">12pm</div>
+            <div class="cal-time-cell"></div>
+            <div class="cal-time-cell today-col"></div>
+            <div class="cal-time-cell"></div>
+            <div class="cal-time-cell"></div>
+            <div class="cal-time-cell"></div>
+            <div class="cal-time-cell" style="background:var(--off-white);"></div>
+            <div class="cal-time-cell" style="background:var(--off-white);"></div>
+          </div>
+          <div class="cal-time-row">
+            <div class="cal-time-label">1pm</div>
+            <div class="cal-time-cell"></div>
+            <div class="cal-time-cell today-col"></div>
+            <div class="cal-time-cell"></div>
+            <div class="cal-time-cell"></div>
+            <div class="cal-time-cell"></div>
+            <div class="cal-time-cell" style="background:var(--off-white);"></div>
+            <div class="cal-time-cell" style="background:var(--off-white);"></div>
+          </div>
+          <div class="cal-time-row">
+            <div class="cal-time-label">2pm</div>
+            <div class="cal-time-cell"></div>
+            <div class="cal-time-cell today-col"></div>
+            <div class="cal-time-cell" style="position:relative;">
+              <div class="cal-event cal-event-blue" style="top:0;height:72px;">Client call · Oura<span style="display:block;font-weight:400;opacity:0.8;">2 hours</span></div>
+            </div>
+            <div class="cal-time-cell"></div>
+            <div class="cal-time-cell"></div>
+            <div class="cal-time-cell" style="background:var(--off-white);"></div>
+            <div class="cal-time-cell" style="background:var(--off-white);"></div>
+          </div>
+          <div class="cal-time-row">
+            <div class="cal-time-label">5pm</div>
+            <div class="cal-time-cell"></div>
+            <div class="cal-time-cell today-col"></div>
+            <div class="cal-time-cell"></div>
+            <div class="cal-time-cell"></div>
+            <div class="cal-time-cell"></div>
+            <div class="cal-time-cell" style="background:var(--off-white);"></div>
+            <div class="cal-time-cell" style="background:var(--off-white);"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: CREW -->
+      <div class="feature-panel" id="panel-crew">
+        <div class="crew-grid">
+          <div class="crew-card">
+            <div class="crew-card-top">
+              <div class="crew-avatar" style="background:#6366f1;">MK</div>
+              <div>
+                <div class="crew-name">Maya Kim</div>
+                <div class="crew-role">Director of Photography</div>
+                <div class="crew-rate">$1,200 / day</div>
+              </div>
+            </div>
+            <div class="crew-status"><span class="status-badge sb-salmon"><svg viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>On shoot thru Apr 22</span></div>
+            <div class="crew-actions">
+              <a class="crew-book-link" href="#">Book for project</a>
+              <div class="dots-btn">···</div>
+            </div>
+          </div>
+          <div class="crew-card">
+            <div class="crew-card-top">
+              <div class="crew-avatar" style="background:#0891b2;">JR</div>
+              <div>
+                <div class="crew-name">James Ruiz</div>
+                <div class="crew-role">Gaffer</div>
+                <div class="crew-rate">$850 / day</div>
+              </div>
+            </div>
+            <div class="crew-status"><span class="status-badge sb-green"><svg viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>Available</span></div>
+            <div class="crew-actions">
+              <a class="crew-book-link" href="#">Book for project</a>
+              <div class="dots-btn">···</div>
+            </div>
+          </div>
+          <div class="crew-card">
+            <div class="crew-card-top">
+              <div class="crew-avatar" style="background:#059669;">AL</div>
+              <div>
+                <div class="crew-name">Aisha López</div>
+                <div class="crew-role">Production Designer</div>
+                <div class="crew-rate">$1,050 / day</div>
+              </div>
+            </div>
+            <div class="crew-status"><span class="status-badge sb-amber"><svg viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>On hold · 1 project</span></div>
+            <div class="crew-actions">
+              <a class="crew-book-link" href="#">Book for project</a>
+              <div class="dots-btn">···</div>
+            </div>
+          </div>
+          <div class="crew-card">
+            <div class="crew-card-top">
+              <div class="crew-avatar" style="background:#d97706;">SB</div>
+              <div>
+                <div class="crew-name">Sam Brennan</div>
+                <div class="crew-role">Sound Mixer</div>
+                <div class="crew-rate">$750 / day</div>
+              </div>
+            </div>
+            <div class="crew-status"><span class="status-badge sb-green"><svg viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>Available</span></div>
+            <div class="crew-actions">
+              <a class="crew-book-link" href="#">Book for project</a>
+              <div class="dots-btn">···</div>
+            </div>
+          </div>
+          <div class="crew-card">
+            <div class="crew-card-top">
+              <div class="crew-avatar" style="background:#7c3aed;">TC</div>
+              <div>
+                <div class="crew-name">Tara Chen</div>
+                <div class="crew-role">1st AC</div>
+                <div class="crew-rate">$650 / day</div>
+              </div>
+            </div>
+            <div class="crew-status"><span class="status-badge sb-salmon"><svg viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>On shoot thru Apr 22</span></div>
+            <div class="crew-actions">
+              <a class="crew-book-link" href="#">Book for project</a>
+              <div class="dots-btn">···</div>
+            </div>
+          </div>
+          <div class="crew-card">
+            <div class="crew-card-top">
+              <div class="crew-avatar" style="background:#be185d;">DM</div>
+              <div>
+                <div class="crew-name">Diego Marsh</div>
+                <div class="crew-role">Drone Operator</div>
+                <div class="crew-rate">$900 / day</div>
+              </div>
+            </div>
+            <div class="crew-status"><span class="status-badge sb-green"><svg viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>Available</span></div>
+            <div class="crew-actions">
+              <a class="crew-book-link" href="#">Book for project</a>
+              <div class="dots-btn">···</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: INVOICES -->
+      <div class="feature-panel" id="panel-invoices">
+        <div class="invoice-tabs">
+          <div class="invoice-tab-btn active">Invoices Out</div>
+          <div class="invoice-tab-btn">Invoices In</div>
+        </div>
+        <div class="invoice-stats">
+          <div class="invoice-stat-chip inv-stat-sent">Sent · <strong>$128k</strong></div>
+          <div class="invoice-stat-chip inv-stat-paid">Paid · <strong>$89k</strong></div>
+          <div class="invoice-stat-chip inv-stat-out">Outstanding · <strong>$39k</strong></div>
+          <div class="invoice-stat-chip inv-stat-over">Overdue · <strong>$12k</strong></div>
+        </div>
+        <div class="invoice-table">
+          <div class="invoice-table-header">
+            <div class="panel-th">#</div>
+            <div class="panel-th">Client</div>
+            <div class="panel-th">Amount</div>
+            <div class="panel-th">Status</div>
+            <div class="panel-th">Date</div>
+          </div>
+          <div class="invoice-row">
+            <div class="invoice-num">#0041</div>
+            <div class="invoice-client">Patagonia</div>
+            <div class="invoice-amount">$38,500</div>
+            <div><span class="status-badge sb-green">
+              <svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Paid</span></div>
+            <div class="invoice-date">Apr 1</div>
+          </div>
+          <div class="invoice-row">
+            <div class="invoice-num">#0042</div>
+            <div class="invoice-client">Oura Ring</div>
+            <div class="invoice-amount">$12,000</div>
+            <div><span class="status-badge sb-blue">
+              <svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Viewed</span></div>
+            <div class="invoice-date">Apr 5</div>
+          </div>
+          <div class="invoice-row">
+            <div class="invoice-num">#0043</div>
+            <div class="invoice-client">Nike</div>
+            <div class="invoice-amount">$45,000</div>
+            <div><span class="status-badge sb-salmon">
+              <svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Sent</span></div>
+            <div class="invoice-date">Apr 7</div>
+          </div>
+          <div class="invoice-row">
+            <div class="invoice-num">#0040</div>
+            <div class="invoice-client">Adobe</div>
+            <div class="invoice-amount">$22,000</div>
+            <div><span class="status-badge sb-green">
+              <svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Paid</span></div>
+            <div class="invoice-date">Mar 28</div>
+          </div>
+          <div class="invoice-row overdue-row">
+            <div class="invoice-num">#0039</div>
+            <div class="invoice-client">Sonos</div>
+            <div class="invoice-amount">$8,000</div>
+            <div><span class="status-badge sb-red">
+              <svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>Overdue</span></div>
+            <div class="invoice-date" style="color:var(--red);">Mar 15</div>
+          </div>
+          <div class="invoice-row">
+            <div class="invoice-num">#0038</div>
+            <div class="invoice-client">Anker</div>
+            <div class="invoice-amount">$5,500</div>
+            <div><span class="status-badge sb-gray">Draft</span></div>
+            <div class="invoice-date">—</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 5: CASH FLOW -->
+      <div class="feature-panel" id="panel-cashflow">
+        <div class="cashflow-header-row">
+          <div class="period-selector">Q2 2026 ▾</div>
+        </div>
+        <div class="cashflow-summary">
+          <div class="cf-chip">
+            <div class="cf-chip-label">Revenue</div>
+            <div class="cf-chip-value cf-green">$68k</div>
+          </div>
+          <div class="cf-chip">
+            <div class="cf-chip-label">Expenses</div>
+            <div class="cf-chip-value cf-red">$24k</div>
+          </div>
+          <div class="cf-chip">
+            <div class="cf-chip-label">Net</div>
+            <div class="cf-chip-value cf-navy">$44k</div>
+          </div>
+          <div class="cf-chip">
+            <div class="cf-chip-label">Margin</div>
+            <div class="cf-chip-value cf-muted">64%</div>
+          </div>
+        </div>
+
+        <div class="chart-area">
+          <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;">Revenue vs Expenses · Jan–Jun 2026</div>
+          <div style="display:flex;gap:12px;margin-bottom:6px;font-size:10px;color:var(--muted);">
+            <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;background:var(--salmon);border-radius:2px;display:inline-block;"></span>Income</span>
+            <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;background:#e5e7eb;border-radius:2px;display:inline-block;"></span>Expenses</span>
+          </div>
+          <div class="chart-bars-row">
+            <div class="chart-bar-group"><div class="chart-bar chart-bar-income" style="height:65%;"></div><div class="chart-bar chart-bar-expense" style="height:32%;"></div></div>
+            <div class="chart-bar-group"><div class="chart-bar chart-bar-income" style="height:50%;"></div><div class="chart-bar chart-bar-expense" style="height:25%;"></div></div>
+            <div class="chart-bar-group"><div class="chart-bar chart-bar-income" style="height:80%;"></div><div class="chart-bar chart-bar-expense" style="height:40%;"></div></div>
+            <div class="chart-bar-group"><div class="chart-bar chart-bar-income" style="height:100%;"></div><div class="chart-bar chart-bar-expense" style="height:48%;"></div></div>
+            <div class="chart-bar-group"><div class="chart-bar chart-bar-income" style="height:72%;"></div><div class="chart-bar chart-bar-expense" style="height:36%;"></div></div>
+            <div class="chart-bar-group"><div class="chart-bar chart-bar-income" style="height:40%;opacity:0.4;"></div><div class="chart-bar chart-bar-expense" style="height:18%;opacity:0.4;"></div></div>
+          </div>
+          <div class="chart-month-labels">
+            <div class="chart-month-label">Jan</div>
+            <div class="chart-month-label">Feb</div>
+            <div class="chart-month-label">Mar</div>
+            <div class="chart-month-label">Apr</div>
+            <div class="chart-month-label">May</div>
+            <div class="chart-month-label">Jun</div>
+          </div>
+        </div>
+
+        <div class="pnl-table">
+          <div class="pnl-header">
+            <div class="panel-th">Project</div>
+            <div class="panel-th">Invoiced</div>
+            <div class="panel-th">Paid</div>
+            <div class="panel-th">Expenses</div>
+            <div class="panel-th">Net</div>
+            <div class="panel-th">Margin</div>
+          </div>
+          <div class="pnl-row">
+            <div class="pnl-project">Patagonia</div>
+            <div class="pnl-num">$38,500</div>
+            <div class="pnl-num">$38,500</div>
+            <div class="pnl-num">$9,200</div>
+            <div class="pnl-num" style="color:var(--green);font-weight:700;">$29,300</div>
+            <div class="pnl-margin">76%</div>
+          </div>
+          <div class="pnl-row">
+            <div class="pnl-project">Oura Ring</div>
+            <div class="pnl-num">$12,000</div>
+            <div class="pnl-num">$0</div>
+            <div class="pnl-num">$4,800</div>
+            <div class="pnl-num" style="color:var(--amber);font-weight:700;">−$4,800</div>
+            <div class="pnl-margin" style="color:var(--amber);">Pending</div>
+          </div>
+          <div class="pnl-row">
+            <div class="pnl-project">Adobe</div>
+            <div class="pnl-num">$22,000</div>
+            <div class="pnl-num">$22,000</div>
+            <div class="pnl-num">$7,100</div>
+            <div class="pnl-num" style="color:var(--green);font-weight:700;">$14,900</div>
+            <div class="pnl-margin">68%</div>
+          </div>
+          <div class="pnl-row">
+            <div class="pnl-project">Nike</div>
+            <div class="pnl-num">$45,000</div>
+            <div class="pnl-num">$0</div>
+            <div class="pnl-num">$2,400</div>
+            <div class="pnl-num" style="color:var(--muted);font-weight:700;">—</div>
+            <div class="pnl-margin" style="color:var(--muted);">In progress</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 6: CLIENT PORTAL -->
+      <div class="feature-panel" id="panel-portal">
+        <div class="portal-outer">
+          <div class="portal-topbar">
+            <div class="portal-wordmark">smack<span class="dot">.</span></div>
+            <div class="portal-client-name">Patagonia Inc.</div>
+          </div>
+          <div class="portal-body">
+            <div class="portal-project-name">Spring Campaign 2026</div>
+            <div class="portal-status">
+              <div class="portal-status-dot"></div>
+              Production complete · Delivery by Apr 30
+            </div>
+
+            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.09em;color:var(--muted);margin-bottom:12px;">Project Phases</div>
+            <div class="portal-phases" style="margin-bottom:28px;">
+              <div class="phase-dot done">
+                <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="phase-connector done"></div>
+              <div class="phase-dot done">
+                <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="phase-connector done"></div>
+              <div class="phase-dot done">
+                <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="phase-connector done"></div>
+              <div class="phase-dot active">4</div>
+              <div class="phase-connector"></div>
+              <div class="phase-dot empty">5</div>
+            </div>
+
+            <div class="portal-section-label">Deliverables</div>
+            <div class="deliverable-row">
+              <div class="deliverable-name">:60 hero film</div>
+              <span class="status-badge sb-green">
+                <svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Approved</span>
+            </div>
+            <div class="deliverable-row">
+              <div class="deliverable-name">:15 cutdown · Instagram</div>
+              <span class="status-badge sb-amber">
+                <svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Awaiting review</span>
+              <button class="portal-approve-btn">Approve</button>
+            </div>
+            <div class="deliverable-row">
+              <div class="deliverable-name">:06 bumper · YouTube</div>
+              <span class="status-badge sb-gray">In progress</span>
+            </div>
+
+            <div class="portal-contact">
+              Need to discuss something? <a href="#">Contact your producer →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /features-panel-wrap -->
+  </div><!-- /features-body -->
+</section>
+
+<!-- ══════════════════════════════════════
+     CALENDAR DEEP DIVE
+══════════════════════════════════════ -->
+<section class="calendar-section" id="calendar">
+  <div class="calendar-section-inner">
+    <div class="cal-text reveal">
+      <div class="section-eyebrow">Schedule</div>
+      <h2 class="section-h2" style="font-size:40px;">Your entire production calendar. Finally under control.</h2>
+      <p class="cal-section-desc">See every project, every shoot day, and every crew member's availability in one view. No more cross-referencing spreadsheets. No more double-bookings. Smack's calendar was built specifically for how production studios actually schedule.</p>
+      <div class="cal-text-callouts">
+        <div class="callout-chip">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="color:var(--salmon);">
+            <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+          </svg>
+          <div class="callout-chip-text">Shoot days, milestones, and client deadlines in one view</div>
+        </div>
+        <div class="callout-chip">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="color:var(--salmon);">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+          </svg>
+          <div class="callout-chip-text">Instant crew availability across all projects</div>
+        </div>
+        <div class="callout-chip">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="color:var(--salmon);">
+            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <div class="callout-chip-text">Conflict warnings before they become problems</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal reveal-delay-2">
+      <div class="large-browser-window">
+        <div class="large-browser-titlebar">
+          <div class="browser-dots">
+            <div class="browser-dot dot-red"></div>
+            <div class="browser-dot dot-amber"></div>
+            <div class="browser-dot dot-green"></div>
+          </div>
+          <div class="large-browser-url">smack.studio/calendar</div>
+        </div>
+        <div class="large-cal-body">
+          <div class="large-cal-header">
+            <button class="cal-nav-btn">
+              <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="cal-nav-btn">
+              <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+            <div class="large-cal-period">April 7 – 13, 2026</div>
+            <button class="cal-today-btn">Today</button>
+            <div class="cal-toggle">Crew View</div>
+          </div>
+
+          <div class="large-cal-grid">
+            <div class="cal-day-headers">
+              <div class="cal-day-header" style="border-right:1px solid var(--border);font-size:9px;"></div>
+              <div class="cal-day-header">Mon<span class="cal-day-header-num">7</span></div>
+              <div class="cal-day-header today-col">Tue<span class="cal-day-header-num">8</span></div>
+              <div class="cal-day-header">Wed<span class="cal-day-header-num">9</span></div>
+              <div class="cal-day-header">Thu<span class="cal-day-header-num">10</span></div>
+              <div class="cal-day-header">Fri<span class="cal-day-header-num">11</span></div>
+              <div class="cal-day-header" style="color:var(--muted);">Sat<span class="cal-day-header-num" style="color:var(--muted);">12</span></div>
+              <div class="cal-day-header" style="color:var(--muted);">Sun<span class="cal-day-header-num" style="color:var(--muted);">13</span></div>
+            </div>
+
+            <div class="cal-allday-row" style="min-height:52px;">
+              <div class="cal-allday-label">All<br>day</div>
+              <div class="allday-cells-wrap" style="padding:6px 8px;">
+                <div style="position:relative;height:20px;margin-bottom:4px;">
+                  <div class="allday-absolute allday-pat" style="height:20px;font-size:11px;">Patagonia — Spring Campaign<span class="allday-crew-chip">6 crew</span></div>
+                  <div class="allday-absolute allday-oura-bar" style="height:20px;font-size:11px;">Oura Ring<span class="allday-crew-chip">3 crew</span></div>
+                </div>
+                <div style="position:relative;height:18px;">
+                  <div style="position:absolute;left:calc(4/7*100% + 4px);width:calc(1/7*100% - 6px);height:100%;background:rgba(217,119,6,0.2);border-radius:4px;display:flex;align-items:center;padding:0 7px;font-size:9px;font-weight:700;color:var(--amber);">Nike · Hold</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="cal-time-row">
+              <div class="cal-time-label">9am</div>
+              <div class="cal-time-cell"></div>
+              <div class="cal-time-cell today-col"></div>
+              <div class="cal-time-cell"></div>
+              <div class="cal-time-cell"></div>
+              <div class="cal-time-cell"></div>
+              <div class="cal-time-cell" style="background:rgba(248,248,247,0.6);"></div>
+              <div class="cal-time-cell" style="background:rgba(248,248,247,0.6);"></div>
+            </div>
+            <div class="cal-time-row">
+              <div class="cal-time-label">10am</div>
+              <div class="cal-time-cell"></div>
+              <div class="cal-time-cell today-col"></div>
+              <div class="cal-time-cell"></div>
+              <div class="cal-time-cell"></div>
+              <div class="cal-time-cell" style="position:relative;"><div class="cal-event cal-event-amber" style="top:0;height:72px;">Invoice review<span style="display:block;font-weight:400;opacity:0.8;font-size:9px;">1 hr · Dan + Marcos</span></div></div>
+              <div class="cal-time-cell" style="background:rgba(248,248,247,0.6);"></div>
+              <div class="cal-time-cell" style="background:rgba(248,248,247,0.6);"></div>
+            </div>
+            <div class="cal-time-row">
+              <div class="cal-time-label">11am</div>
+              <div class="cal-time-cell"></div>
+              <div class="cal-time-cell today-col"></div>
+              <div class="cal-time-cell"></div>
+              <div class="cal-time-cell"></div>
+              <div class="cal-time-cell"></div>
+              <div class="cal-time-cell" style="background:rgba(248,248,247,0.6);"></div>
+              <div class="cal-time-cell" style="background:rgba(248,248,247,0.6);"></div>
+            </div>
+            <div class="cal-time-row">
+              <div class="cal-time-label">12pm</div>
+              <div class="cal-time-cell"></div>
+              <div class="cal-time-cell today-col"></div>
+              <div class="cal-time-cell"></div>
+              <div class="cal-time-cell"></div>
+              <div class="cal-time-cell"></div>
+              <div class="cal-time-cell" style="background:rgba(248,248,247,0.6);"></div>
+              <div class="cal-time-cell" style="background:rgba(248,248,247,0.6);"></div>
+            </div>
+            <div class="cal-time-row">
+              <div class="cal-time-label">2pm</div>
+              <div class="cal-time-cell"></div>
+              <div class="cal-time-cell today-col"></div>
+              <div class="cal-time-cell" style="position:relative;"><div class="cal-event cal-event-blue" style="top:0;height:72px;">Client call · Oura<span style="display:block;font-weight:400;opacity:0.8;font-size:9px;">2 hrs · Video call</span></div></div>
+              <div class="cal-time-cell"></div>
+              <div class="cal-time-cell"></div>
+              <div class="cal-time-cell" style="background:rgba(248,248,247,0.6);"></div>
+              <div class="cal-time-cell" style="background:rgba(248,248,247,0.6);"></div>
+            </div>
+            <div class="cal-time-row">
+              <div class="cal-time-label">4pm</div>
+              <div class="cal-time-cell" style="position:relative;"><div class="cal-event" style="top:0;height:36px;background:rgba(99,102,241,0.1);border-left:2px solid #6366f1;color:#6366f1;font-size:10px;font-weight:700;border-radius:5px;padding:3px 6px;">Wrap · Patagonia</div></div>
+              <div class="cal-time-cell today-col"></div>
+              <div class="cal-time-cell"></div>
+              <div class="cal-time-cell"></div>
+              <div class="cal-time-cell"></div>
+              <div class="cal-time-cell" style="background:rgba(248,248,247,0.6);"></div>
+              <div class="cal-time-cell" style="background:rgba(248,248,247,0.6);"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CREW AVAILABILITY SECTION
+══════════════════════════════════════ -->
+<section class="crew-avail-section" id="crew">
+  <div class="crew-avail-inner">
+    <div class="crew-avail-header reveal">
+      <div class="section-eyebrow">Crew</div>
+      <h2 class="section-h2">Book the right people, every time.</h2>
+      <p class="crew-avail-sub">See your entire roster's availability at a glance. Hold dates, confirm crew, and prevent double-bookings — without a single phone call.</p>
+    </div>
+
+    <div class="avail-matrix reveal">
+      <!-- Header -->
+      <div class="avail-matrix-header">
+        <div class="avail-matrix-corner">Crew</div>
+        <div class="avail-day-header"><div class="avail-day-name">Mon</div><div class="avail-day-num">7</div></div>
+        <div class="avail-day-header today-h"><div class="avail-day-name">Tue</div><div class="avail-day-num">8</div></div>
+        <div class="avail-day-header"><div class="avail-day-name">Wed</div><div class="avail-day-num">9</div></div>
+        <div class="avail-day-header"><div class="avail-day-name">Thu</div><div class="avail-day-num">10</div></div>
+        <div class="avail-day-header"><div class="avail-day-name">Fri</div><div class="avail-day-num">11</div></div>
+        <div class="avail-day-header"><div class="avail-day-name">Sat</div><div class="avail-day-num">12</div></div>
+        <div class="avail-day-header" style="border-right:none;"><div class="avail-day-name">Sun</div><div class="avail-day-num">13</div></div>
+      </div>
+
+      <!-- Rows -->
+      <div class="avail-crew-row">
+        <div class="avail-crew-info"><div class="avail-crew-avatar" style="background:#6366f1;">MK</div><div><div class="avail-crew-name">Maya Kim</div><div class="avail-crew-role">Director of Photography</div></div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-salmon">Patagonia</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-salmon">Patagonia</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-salmon">Patagonia</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-empty">Free</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-empty">Free</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-empty" style="color:#ddd;">—</div></div>
+        <div class="avail-cell" style="border-right:none;"><div class="avail-cell-inner cell-empty" style="color:#ddd;">—</div></div>
+      </div>
+      <div class="avail-crew-row">
+        <div class="avail-crew-info"><div class="avail-crew-avatar" style="background:#0891b2;">JR</div><div><div class="avail-crew-name">James Ruiz</div><div class="avail-crew-role">Gaffer</div></div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-salmon">Patagonia</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-salmon">Patagonia</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-salmon">Patagonia</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-blue">Oura</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-blue">Oura</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-empty" style="color:#ddd;">—</div></div>
+        <div class="avail-cell" style="border-right:none;"><div class="avail-cell-inner cell-empty" style="color:#ddd;">—</div></div>
+      </div>
+      <div class="avail-crew-row">
+        <div class="avail-crew-info"><div class="avail-crew-avatar" style="background:#059669;">AL</div><div><div class="avail-crew-name">Aisha López</div><div class="avail-crew-role">Production Designer</div></div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-empty">Free</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-amber">Nike Hold</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-amber">Nike Hold</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-empty">Free</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-empty">Free</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-empty" style="color:#ddd;">—</div></div>
+        <div class="avail-cell" style="border-right:none;"><div class="avail-cell-inner cell-empty" style="color:#ddd;">—</div></div>
+      </div>
+      <div class="avail-crew-row">
+        <div class="avail-crew-info"><div class="avail-crew-avatar" style="background:#d97706;">SB</div><div><div class="avail-crew-name">Sam Brennan</div><div class="avail-crew-role">Sound Mixer</div></div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-salmon">Patagonia</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-salmon">Patagonia</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-salmon">Patagonia</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-blue">Oura</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-blue">Oura</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-empty" style="color:#ddd;">—</div></div>
+        <div class="avail-cell" style="border-right:none;"><div class="avail-cell-inner cell-empty" style="color:#ddd;">—</div></div>
+      </div>
+      <div class="avail-crew-row">
+        <div class="avail-crew-info"><div class="avail-crew-avatar" style="background:#7c3aed;">TC</div><div><div class="avail-crew-name">Tara Chen</div><div class="avail-crew-role">1st AC</div></div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-salmon">Patagonia</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-salmon">Patagonia</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-conflict">Conflict</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-blue">Oura</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-empty">Free</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-empty" style="color:#ddd;">—</div></div>
+        <div class="avail-cell" style="border-right:none;"><div class="avail-cell-inner cell-empty" style="color:#ddd;">—</div></div>
+      </div>
+      <div class="avail-crew-row">
+        <div class="avail-crew-info"><div class="avail-crew-avatar" style="background:#be185d;">DM</div><div><div class="avail-crew-name">Diego Marsh</div><div class="avail-crew-role">Drone Operator</div></div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-empty">Free</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-empty">Free</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-empty">Free</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-blue">Oura</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-blue">Oura</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-empty" style="color:#ddd;">—</div></div>
+        <div class="avail-cell" style="border-right:none;"><div class="avail-cell-inner cell-empty" style="color:#ddd;">—</div></div>
+      </div>
+      <div class="avail-crew-row">
+        <div class="avail-crew-info"><div class="avail-crew-avatar" style="background:#0f766e;">RW</div><div><div class="avail-crew-name">Rachel Wu</div><div class="avail-crew-role">Stylist</div></div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-salmon">Patagonia</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-salmon">Patagonia</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-empty">Free</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-empty">Free</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-empty">Free</div></div>
+        <div class="avail-cell"><div class="avail-cell-inner cell-empty" style="color:#ddd;">—</div></div>
+        <div class="avail-cell" style="border-right:none;"><div class="avail-cell-inner cell-empty" style="color:#ddd;">—</div></div>
+      </div>
+
+      <!-- Totals -->
+      <div class="avail-totals-row">
+        <div class="avail-total-label">Crew booked</div>
+        <div class="avail-total-cell">5 / 7</div>
+        <div class="avail-total-cell">5 / 7</div>
+        <div class="avail-total-cell">4 / 7</div>
+        <div class="avail-total-cell">4 / 7</div>
+        <div class="avail-total-cell">3 / 7</div>
+        <div class="avail-total-cell" style="color:var(--muted);">—</div>
+        <div class="avail-total-cell" style="color:var(--muted);border-right:none;">—</div>
+      </div>
+
+      <!-- Legend -->
+      <div class="avail-legend">
+        <div class="legend-item"><div class="legend-dot legend-dot-salmon"></div>Patagonia</div>
+        <div class="legend-item"><div class="legend-dot legend-dot-blue"></div>Oura Ring</div>
+        <div class="legend-item"><div class="legend-dot legend-dot-amber"></div>On Hold</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--red-bg);border:1px solid rgba(220,38,38,0.3);"></div>Conflict</div>
+        <div class="legend-item"><div class="legend-dot legend-dot-empty"></div>Available</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     COMPARISON
+══════════════════════════════════════ -->
+<section class="comparison-section">
+  <div class="comparison-inner">
+    <div class="comparison-header reveal">
+      <h2>Why not just use what you have?</h2>
+      <p>Because "what you have" is six apps with zero context between them.</p>
+    </div>
+
+    <div class="comparison-grid reveal">
+      <div class="comparison-col">
+        <div class="comparison-col-label">The way it works today</div>
+        <div class="tools-grid">
+          <div class="tool-chip">Google Cal</div>
+          <div class="tool-chip">Slack</div>
+          <div class="tool-chip">Trello</div>
+          <div class="tool-chip">QuickBooks</div>
+          <div class="tool-chip">Excel</div>
+          <div class="tool-chip">Google Drive</div>
+          <div class="tool-chip" style="grid-column:span 2;background:rgba(220,38,38,0.06);border-color:rgba(220,38,38,0.2);color:var(--red);">+ Gmail for everything else</div>
+          <div></div>
+        </div>
+        <div class="comparison-pain-text">
+          <strong>6 apps, 0 context.</strong> Every project is a different spreadsheet. Crew booking lives in text threads. Invoices are somewhere in Drive. And you're still checking three different calendars before you can answer "is Maya available April 14th?"
+        </div>
+      </div>
+
+      <div class="vs-divider">
+        <div class="vs-circle">vs</div>
+      </div>
+
+      <div class="comparison-col smack-col">
+        <div class="comparison-col-label">With smack.</div>
+        <div class="smack-col-jelly">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" width="52" height="60">
             <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
             <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
             <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
@@ -1921,16 +3153,267 @@
             <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
             <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
           </svg>
-          <div>
-            <div class="footer-wordmark">smack<span>.</span></div>
-            <div class="footer-tagline">For production studios.</div>
+        </div>
+        <div class="smack-col-h3">One app. Full picture.</div>
+        <div class="smack-col-text"><strong>Projects, crew, invoices, cash flow, and client portals</strong> — in a single place, built for how production actually works.</div>
+        <div class="smack-features-list">
+          <div class="smack-feature-item">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            Every project's status, crew, and invoices in one view
+          </div>
+          <div class="smack-feature-item">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            Crew availability matrix — no more text threads
+          </div>
+          <div class="smack-feature-item">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            Invoice creation in under 6 minutes
+          </div>
+          <div class="smack-feature-item">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            White-labeled client portals included
+          </div>
+          <div class="smack-feature-item">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            Real-time cash flow and P&amp;L per project
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
 
-      <!-- Ghost jelly mark center watermark -->
-      <div class="footer-mark-center">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" aria-hidden="true">
+<!-- ══════════════════════════════════════
+     PRICING
+══════════════════════════════════════ -->
+<section class="pricing-section" id="pricing">
+  <div class="pricing-inner">
+    <div class="pricing-header reveal">
+      <div class="section-eyebrow">Pricing</div>
+      <h2>Simple pricing. No surprises.</h2>
+      <p>Plans designed for studios at every stage of growth.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card reveal">
+        <div class="pricing-tier">Starter</div>
+        <div class="pricing-price">
+          <span class="pricing-dollar">$</span>
+          <span class="pricing-num">79</span>
+          <span class="pricing-per">/ month</span>
+        </div>
+        <div class="pricing-desc">For small studios running 1–3 projects at a time.</div>
+        <ul class="pricing-features">
+          <li class="pricing-feature">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Up to 5 active projects
+          </li>
+          <li class="pricing-feature">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Crew roster (up to 15)
+          </li>
+          <li class="pricing-feature">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Invoicing + basic cash flow
+          </li>
+          <li class="pricing-feature">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Client portals (3 active)
+          </li>
+          <li class="pricing-feature dimmed">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Advanced P&amp;L reporting
+          </li>
+          <li class="pricing-feature dimmed">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Custom branding on portals
+          </li>
+        </ul>
+        <a class="pricing-cta" href="#final-cta">Request access</a>
+      </div>
+
+      <div class="pricing-card featured reveal reveal-delay-1">
+        <div class="featured-tag">Most popular</div>
+        <div class="pricing-tier">Studio</div>
+        <div class="pricing-price">
+          <span class="pricing-dollar">$</span>
+          <span class="pricing-num">149</span>
+          <span class="pricing-per">/ month</span>
+        </div>
+        <div class="pricing-desc">For growing studios running multiple concurrent projects.</div>
+        <ul class="pricing-features">
+          <li class="pricing-feature">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Unlimited active projects
+          </li>
+          <li class="pricing-feature">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Crew roster (up to 50)
+          </li>
+          <li class="pricing-feature">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Full invoicing + cash flow
+          </li>
+          <li class="pricing-feature">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Unlimited client portals
+          </li>
+          <li class="pricing-feature">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Advanced P&amp;L reporting
+          </li>
+          <li class="pricing-feature dimmed">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Custom branding on portals
+          </li>
+        </ul>
+        <a class="pricing-cta featured-cta" href="#final-cta">Request access</a>
+      </div>
+
+      <div class="pricing-card reveal reveal-delay-2">
+        <div class="pricing-tier">Pro</div>
+        <div class="pricing-price">
+          <span class="pricing-dollar">$</span>
+          <span class="pricing-num">299</span>
+          <span class="pricing-per">/ month</span>
+        </div>
+        <div class="pricing-desc">For established studios with complex workflows and large teams.</div>
+        <ul class="pricing-features">
+          <li class="pricing-feature">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Everything in Studio
+          </li>
+          <li class="pricing-feature">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Unlimited crew roster
+          </li>
+          <li class="pricing-feature">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Custom branding on portals
+          </li>
+          <li class="pricing-feature">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Priority support + onboarding
+          </li>
+          <li class="pricing-feature">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            API access + integrations
+          </li>
+          <li class="pricing-feature">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Dedicated account manager
+          </li>
+        </ul>
+        <a class="pricing-cta" href="#final-cta">Request access</a>
+      </div>
+    </div>
+
+    <div class="pricing-note">
+      All plans include unlimited contractor seats and client portals.<br>
+      Invite-only during launch · No credit card required to apply.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     FAQ
+══════════════════════════════════════ -->
+<section class="faq-section" id="faq">
+  <div class="faq-inner">
+    <div class="faq-header reveal">
+      <div class="section-eyebrow">FAQ</div>
+      <h2>Good questions.</h2>
+      <p>Answers to things studios actually ask.</p>
+    </div>
+
+    <div class="faq-list reveal">
+      <details class="faq-item">
+        <summary>
+          What kinds of studios is smack. built for?
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <div class="faq-answer">smack. is built for commercial and branded content production studios — the kind running 3–20 concurrent projects, managing a roster of freelance crew, sending invoices to agencies and brands, and needing clients to approve deliverables without emailing a Vimeo link and waiting three days. If you're scheduling shoots in Google Calendar and tracking budgets in a spreadsheet, smack. is for you.</div>
+      </details>
+      <details class="faq-item">
+        <summary>
+          What's the difference between a team member and a contractor?
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <div class="faq-answer">Team members are your full-time or core studio staff who have full smack. access — they can create projects, manage crew, and send invoices. Contractors are the freelancers you hire project-to-project. They show up in your crew roster, can be booked onto projects, and receive call sheets — but they don't need a paid seat. All plans include unlimited contractor seats.</div>
+      </details>
+      <details class="faq-item">
+        <summary>
+          How does the client portal work?
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <div class="faq-answer">Each project gets its own client-facing portal — a clean, minimal view showing project status, phases, and deliverables. Your client can approve or comment on deliverables without needing a smack. account. Portals are shareable via a private link. On the Pro plan, portals carry your studio's branding instead of smack.'s.</div>
+      </details>
+      <details class="faq-item">
+        <summary>
+          Do contractors need to create an account?
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <div class="faq-answer">No. Contractors receive booking confirmations and call sheets via email — no login required. If you want to give a contractor ongoing access to their schedule or documents, you can invite them to a limited contractor view. Either way, they never need to be a paid seat.</div>
+      </details>
+      <details class="faq-item">
+        <summary>
+          Is there a free trial?
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <div class="faq-answer">During our invite-only launch, we're onboarding studios selectively rather than running a traditional free trial. If you apply and we think it's a fit, we'll bring you in and work with you directly for your first 30 days. No credit card required to apply.</div>
+      </details>
+      <details class="faq-item">
+        <summary>
+          When is smack. launching?
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <div class="faq-answer">We're in an invite-only phase right now, onboarding studios one at a time to make sure the product is tight before we open more broadly. Apply via the form on this page — we'll be in touch within a few business days if it looks like a good fit. Public launch is later this year.</div>
+      </details>
+      <details class="faq-item">
+        <summary>
+          What does "smack" mean?
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <div class="faq-answer">A smack is the collective noun for a group of jellyfish. We thought it fit.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     FINAL CTA
+══════════════════════════════════════ -->
+<section class="final-cta-section" id="final-cta">
+  <div class="final-cta-glow"></div>
+  <div class="final-cta-inner">
+    <div class="final-cta-jelly reveal">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" width="56" height="64">
+        <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+        <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+        <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+        <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+        <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+        <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+      </svg>
+    </div>
+    <h2 class="final-cta-h2 reveal">Ready to run a tighter studio?</h2>
+    <p class="final-cta-sub reveal reveal-delay-1">Apply for early access. We're onboarding studios selectively during our invite-only launch.</p>
+    <div class="email-form reveal reveal-delay-2">
+      <input type="email" class="email-input" placeholder="your@studio.com">
+      <button class="email-submit">Apply now →</button>
+    </div>
+    <div class="final-cta-fine reveal reveal-delay-3">No commitment. We'll reach out if it's a fit.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-col-1">
+      <div class="footer-brand">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" width="24" height="28">
           <path fill="white" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
           <path fill="none" stroke="white" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
           <path fill="none" stroke="white" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
@@ -1938,37 +3421,129 @@
           <path fill="none" stroke="white" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
           <path fill="none" stroke="white" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
         </svg>
+        <span style="font-family:'Funtastic',var(--font);font-size:20px;color:white;">smack<span style="color:var(--salmon);">.</span></span>
       </div>
-
-      <nav class="footer-nav">
-        <a href="#features">Features</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#">About</a>
-        <a href="#">Privacy</a>
-        <a href="#">Contact</a>
-      </nav>
+      <div class="footer-tagline">For production studios.<br>Built for how you actually work.</div>
+      <div class="footer-copy">© 2026 smack. All rights reserved.</div>
     </div>
 
-    <div class="footer-bottom">
-      <div class="footer-copy">© 2026 smack. · <a href="https://smack.studio">smack.studio</a></div>
-      <div class="footer-status">
-        <span class="footer-status-dot"></span>
-        Invite-only launch · Apply for early access
+    <div>
+      <div class="footer-col-label">Product</div>
+      <ul class="footer-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#calendar">Calendar</a></li>
+        <li><a href="#crew">Crew</a></li>
+        <li><a href="#features">Invoicing</a></li>
+        <li><a href="#features">Cash Flow</a></li>
+        <li><a href="#features">Client Portal</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="footer-col-label">Company</div>
+      <ul class="footer-links">
+        <li><a href="#">About</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Privacy</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="footer-col-label">Early Access</div>
+      <div class="footer-access-text">We're launching invite-only. Apply to be considered for our first cohort of studios.</div>
+      <div class="footer-email-form">
+        <input type="email" class="footer-email-input" placeholder="your@studio.com">
+        <button class="footer-email-submit">Apply for access →</button>
       </div>
     </div>
-  </footer>
+  </div>
 
-  <!-- ─── Nav scroll behavior ─── -->
-  <script>
-    const nav = document.getElementById('nav');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 32) {
-        nav.classList.add('scrolled');
-      } else {
-        nav.classList.remove('scrolled');
+  <div class="footer-bottom">
+    <div class="footer-bottom-text">smack. · smack.studio · Built for the big boys.</div>
+    <div class="footer-bottom-text">Made with intention.</div>
+  </div>
+</footer>
+
+<script>
+  // ── 1. NAV SCROLL ──
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  // ── 2. TYPEWRITER / WORD ROTATOR ──
+  const words = ['crew bookings', 'invoices', 'client portals', 'cash flow', 'project timelines'];
+  let wordIndex = 0;
+  const wordEl = document.getElementById('typewriter-word');
+
+  setInterval(() => {
+    wordEl.classList.add('fading');
+    setTimeout(() => {
+      wordIndex = (wordIndex + 1) % words.length;
+      wordEl.textContent = words[wordIndex];
+      wordEl.classList.remove('fading');
+    }, 350);
+  }, 2500);
+
+  // ── 3. COUNT-UP ANIMATION ──
+  function animateCountUp(el) {
+    const target = parseFloat(el.dataset.target);
+    const suffix = el.dataset.suffix || '';
+    const decimals = parseInt(el.dataset.decimals || '0');
+    const duration = 1500;
+    const start = performance.now();
+
+    function update(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      // ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const value = eased * target;
+      el.textContent = (decimals > 0 ? value.toFixed(decimals) : Math.floor(value)) + suffix;
+      if (progress < 1) requestAnimationFrame(update);
+    }
+
+    requestAnimationFrame(update);
+  }
+
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCountUp(entry.target);
+        statsObserver.unobserve(entry.target);
       }
     });
-  </script>
+  }, { threshold: 0.5 });
 
+  document.querySelectorAll('.stat-countup').forEach(el => statsObserver.observe(el));
+
+  // ── 4. FEATURE TABS ──
+  const tabs = document.querySelectorAll('.feature-tab');
+  const panels = document.querySelectorAll('.feature-panel');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.tab;
+      tabs.forEach(t => t.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      const panel = document.getElementById('panel-' + target);
+      if (panel) panel.classList.add('active');
+    });
+  });
+
+  // ── 5. SCROLL REVEAL ──
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+</script>
 </body>
 </html>
