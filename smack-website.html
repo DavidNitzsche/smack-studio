@@ -316,81 +316,92 @@
     }
     .hero-window-body {
       padding: 20px;
-      min-height: 380px;
+      min-height: 360px;
       position: relative;
-    }
-
-    /* Window states */
-    .hw-state {
-      position: absolute;
-      inset: 20px;
-      transition: opacity 0.5s ease;
-    }
-    .hw-state.hidden { opacity: 0; pointer-events: none; }
-    .hw-state.visible { opacity: 1; }
-
-    /* Dashboard state */
-    .hw-metrics {
       display: flex;
-      gap: 10px;
-      margin-bottom: 18px;
+      flex-direction: column;
     }
-    .hw-metric {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 8px;
-      padding: 10px 14px;
+
+    /* ── WELCOME DASHBOARD ───────────────────────────── */
+    .hw-welcome {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
       flex: 1;
     }
-    .hw-metric-label {
-      font-size: 10px;
-      color: rgba(255,255,255,0.35);
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      margin-bottom: 4px;
+    .hw-welcome-top {
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
-    .hw-metric-value {
-      font-size: 16px;
+    .hw-welcome-name {
+      font-size: 15px;
       font-weight: 700;
       color: white;
       letter-spacing: -0.02em;
+      margin-bottom: 3px;
     }
-    .hw-metric-value.salmon { color: var(--salmon); }
-    .hw-rows { display: flex; flex-direction: column; gap: 8px; }
-    .hw-row {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 8px;
-      padding: 10px 14px;
+    .hw-welcome-studio {
+      font-size: 11px;
+      color: rgba(255,255,255,0.32);
+    }
+    .hw-attention-hdr {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      transition: border-color 0.4s ease, box-shadow 0.4s ease;
+      margin-bottom: 8px;
     }
-    .hw-row.highlighted {
-      border-color: rgba(224,120,104,0.5);
-      box-shadow: 0 0 0 2px rgba(224,120,104,0.15);
+    .hw-attention-hdr-label {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.22);
     }
-    .hw-row-name {
-      font-size: 12px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.85);
-    }
-    .hw-row-client {
-      font-size: 11px;
-      color: rgba(255,255,255,0.35);
-      margin-top: 1px;
-    }
-    .hw-badge {
-      font-size: 10px;
-      font-weight: 600;
-      padding: 3px 8px;
+    .hw-attention-count {
+      font-size: 9px;
+      font-weight: 700;
+      background: rgba(224,120,104,0.18);
+      color: var(--salmon);
+      padding: 2px 7px;
       border-radius: 100px;
-      letter-spacing: 0.02em;
     }
-    .hw-badge.active { background: rgba(5,150,105,0.2); color: #34d399; }
-    .hw-badge.edit { background: rgba(37,99,235,0.2); color: #93c5fd; }
-    .hw-badge.review { background: rgba(217,119,6,0.2); color: #fcd34d; }
+    .hw-att-list { display: flex; flex-direction: column; gap: 5px; }
+    .hw-att-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px;
+      transition: border-color 0.3s;
+    }
+    .hw-att-row.highlighted { border-color: rgba(52,211,153,0.35); }
+    .hw-att-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .hw-att-content { flex: 1; min-width: 0; }
+    .hw-att-title-text {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.82);
+      margin-bottom: 1px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .hw-att-sub-text { font-size: 10px; color: rgba(255,255,255,0.28); }
+    .hw-att-action { font-size: 10px; font-weight: 700; white-space: nowrap; cursor: default; }
+    .hw-quick-stats {
+      display: flex;
+      gap: 0;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin-top: auto;
+    }
+    .hw-qs-item { flex: 1; text-align: center; }
+    .hw-qs-item:not(:last-child) { border-right: 1px solid rgba(255,255,255,0.06); }
+    .hw-qs-val { font-size: 17px; font-weight: 700; color: white; letter-spacing: -0.02em; }
+    .hw-qs-val.salmon { color: var(--salmon); }
+    .hw-qs-label { font-size: 9px; color: rgba(255,255,255,0.25); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
 
     /* Toast */
     .hw-toast {
@@ -3105,55 +3116,72 @@
         </div>
         <div class="hero-window-body">
 
-          <!-- State 1: Dashboard -->
-          <div class="hw-state visible" id="hw-s1">
-            <div class="hw-metrics">
-              <div class="hw-metric">
-                <div class="hw-metric-label">Active Projects</div>
-                <div class="hw-metric-value">6</div>
+          <!-- Welcome dashboard -->
+          <div class="hw-welcome" id="hw-s1">
+
+            <div class="hw-welcome-top">
+              <div class="hw-welcome-name">Good morning, David.</div>
+              <div class="hw-welcome-studio">Workprint Studios · Tuesday, April 8, 2026</div>
+            </div>
+
+            <div>
+              <div class="hw-attention-hdr">
+                <span class="hw-attention-hdr-label">Needs your attention</span>
+                <span class="hw-attention-count">3</span>
               </div>
-              <div class="hw-metric">
-                <div class="hw-metric-label">Outstanding</div>
-                <div class="hw-metric-value salmon">$54k</div>
-              </div>
-              <div class="hw-metric">
-                <div class="hw-metric-label">Next Delivery</div>
-                <div class="hw-metric-value" style="font-size:13px;margin-top:2px;">Apr 30</div>
+              <div class="hw-att-list">
+                <div class="hw-att-row" id="hw-row-1">
+                  <div class="hw-att-dot" style="background:#34d399"></div>
+                  <div class="hw-att-content">
+                    <div class="hw-att-title-text">Marcus Kim · 1st Hold confirmed</div>
+                    <div class="hw-att-sub-text">Patagonia Campaign · Apr 21–May 3</div>
+                  </div>
+                  <div class="hw-att-action" style="color:#34d399">Book →</div>
+                </div>
+                <div class="hw-att-row">
+                  <div class="hw-att-dot" style="background:#fbbf24"></div>
+                  <div class="hw-att-content">
+                    <div class="hw-att-title-text">Invoice #0041 · $22,000 due Apr 10</div>
+                    <div class="hw-att-sub-text">Oura Ring · 2 days remaining</div>
+                  </div>
+                  <div class="hw-att-action" style="color:#fbbf24">Remind →</div>
+                </div>
+                <div class="hw-att-row">
+                  <div class="hw-att-dot" style="background:#60a5fa"></div>
+                  <div class="hw-att-content">
+                    <div class="hw-att-title-text">3 responses in — Nike Campaign</div>
+                    <div class="hw-att-sub-text">Availability check · See who's free</div>
+                  </div>
+                  <div class="hw-att-action" style="color:#60a5fa">View →</div>
+                </div>
               </div>
             </div>
-            <div class="hw-rows">
-              <div class="hw-row" id="hw-row-1">
-                <div>
-                  <div class="hw-row-name">Patagonia Campaign</div>
-                  <div class="hw-row-client">Patagonia Inc. · Apr 21–May 3</div>
-                </div>
-                <span class="hw-badge active">Active</span>
+
+            <div class="hw-quick-stats">
+              <div class="hw-qs-item">
+                <div class="hw-qs-val">6</div>
+                <div class="hw-qs-label">Active</div>
               </div>
-              <div class="hw-row">
-                <div>
-                  <div class="hw-row-name">Brand Refresh — Reel</div>
-                  <div class="hw-row-client">Volta Studio · Mar 15–Apr 12</div>
-                </div>
-                <span class="hw-badge edit">Color</span>
+              <div class="hw-qs-item">
+                <div class="hw-qs-val salmon">$54k</div>
+                <div class="hw-qs-label">Outstanding</div>
               </div>
-              <div class="hw-row">
-                <div>
-                  <div class="hw-row-name">Annual Report Film</div>
-                  <div class="hw-row-client">Meridian Corp · Apr 3–May 20</div>
-                </div>
-                <span class="hw-badge review">Review</span>
+              <div class="hw-qs-item">
+                <div class="hw-qs-val">12</div>
+                <div class="hw-qs-label">Crew booked</div>
               </div>
             </div>
+
           </div>
 
-          <!-- Toast (overlay) -->
+          <!-- Toast (slides in after a moment) -->
           <div class="hw-toast" id="hw-toast">
             <div class="hw-toast-title">Marcus Kim · Editor</div>
-            <div class="hw-toast-sub">Availability request sent · Apr 21–May 3</div>
+            <div class="hw-toast-sub">Availability request · Apr 21–May 3</div>
             <div class="hw-toast-badge">1st Hold</div>
           </div>
 
-          <!-- Invoice chip (overlay) -->
+          <!-- Invoice chip -->
           <div class="hw-invoice-chip" id="hw-chip">
             <div class="hw-invoice-chip-label">Invoice #0041 · Sent ✓</div>
             <div class="hw-invoice-chip-amount">$22,000</div>
