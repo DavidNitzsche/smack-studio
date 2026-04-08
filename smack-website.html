@@ -149,7 +149,7 @@
       gap: 16px;
       margin-bottom: 36px;
     }
-    .hero-brand-moment-jelly { height: 72px; width: auto; filter: drop-shadow(0 0 24px rgba(224,120,104,0.35)); animation: jellyFloat 4s ease-in-out infinite; }
+    .hero-brand-moment-jelly { height: 72px; width: auto; animation: jellyFloat 4s ease-in-out infinite; }
     @keyframes jellyFloat {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-8px); }
@@ -1037,32 +1037,6 @@
     }
 
     /* ── CASH FLOW ─────────────────────────────────── */
-    /* ── GHOST JELLY WATERMARKS ────────────────────── */
-    .ghost-jelly {
-      position: absolute;
-      pointer-events: none;
-      user-select: none;
-      opacity: 0.045;
-    }
-    .ghost-jelly-hero-1 {
-      width: 500px;
-      right: -80px;
-      bottom: -100px;
-      transform: rotate(20deg);
-    }
-    .ghost-jelly-hero-2 {
-      width: 280px;
-      left: -60px;
-      top: 80px;
-      transform: rotate(-30deg);
-    }
-    .ghost-jelly-cashflow {
-      width: 420px;
-      right: -60px;
-      top: 50%;
-      transform: translateY(-50%) rotate(15deg);
-    }
-
     .cashflow {
       background: var(--navy);
       padding: 100px 80px;
@@ -1375,7 +1349,6 @@
       height: 96px;
       width: auto;
       display: block;
-      filter: drop-shadow(0 0 32px rgba(224,120,104,0.5));
       animation: jellyFloat 4s ease-in-out infinite;
     }
     .final-cta-wordmark {
@@ -1591,23 +1564,6 @@
 
 <!-- ═══ HERO ═══════════════════════════════════════════ -->
 <section class="hero" id="features">
-  <!-- Ghost jelly watermarks -->
-  <svg class="ghost-jelly ghost-jelly-hero-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" aria-hidden="true">
-    <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
-    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-  </svg>
-  <svg class="ghost-jelly ghost-jelly-hero-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" aria-hidden="true">
-    <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
-    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-  </svg>
   <div class="hero-inner">
 
     <div class="hero-left">
@@ -2095,14 +2051,6 @@
 
 <!-- ═══ CASH FLOW ══════════════════════════════════════ -->
 <section class="cashflow">
-  <svg class="ghost-jelly ghost-jelly-cashflow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" aria-hidden="true">
-    <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
-    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-  </svg>
   <div class="cashflow-inner">
     <p class="section-eyebrow" data-reveal>Cash flow</p>
     <h2 class="section-h2" data-reveal>Know your number before month-end.</h2>
@@ -2186,7 +2134,7 @@
       <div class="comparison-card after" data-reveal>
         <div class="comparison-card-label">After</div>
         <div class="comparison-after-mark">
-          <svg style="height:64px;width:auto;filter:drop-shadow(0 0 16px rgba(224,120,104,0.4));" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" aria-hidden="true">
+          <svg style="height:64px;width:auto;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" aria-hidden="true">
             <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
             <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
             <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
@@ -2458,8 +2406,9 @@
       bookBtn.classList.add('show');
       setTimeout(function() { bookBtn.classList.add('pulse-scale'); }, 200);
     }, 3800);
-    // Confirm
+    // Confirm — slide up confirm, hide book button
     setTimeout(function() {
+      bookBtn.classList.remove('show', 'pulse-scale');
       confirm.classList.add('show');
     }, 5200);
     // Reset
