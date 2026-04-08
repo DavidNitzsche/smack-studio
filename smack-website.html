@@ -548,7 +548,7 @@
       border: 1px solid rgba(255,255,255,0.08);
       box-shadow: 0 24px 64px rgba(0,0,0,0.25);
       padding: 28px;
-      min-height: 280px;
+      min-height: 320px;
       position: relative;
       overflow: hidden;
     }
@@ -560,65 +560,73 @@
       text-transform: uppercase;
       margin-bottom: 20px;
     }
-    .bw-contractor {
+    /* contractor rows */
+    .bw-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .bw-row {
       display: flex;
       align-items: center;
-      gap: 14px;
-      margin-bottom: 20px;
+      gap: 12px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      padding: 12px 14px;
     }
     .bw-avatar {
-      width: 40px; height: 40px;
+      width: 36px; height: 36px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--navy-mid), #2a527f);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       color: white;
       flex-shrink: 0;
     }
+    .bw-avatar.salmon { background: #c06050; }
+    .bw-avatar.green  { background: #059669; }
+    .bw-row-info {
+      flex: 1;
+      min-width: 0;
+    }
     .bw-contractor-name {
-      font-size: 15px;
+      font-size: 13px;
       font-weight: 700;
       color: white;
+      white-space: nowrap;
     }
-    .bw-contractor-rate {
-      font-size: 12px;
-      color: rgba(255,255,255,0.45);
-      margin-top: 2px;
-    }
-    .bw-status-area {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 10px;
-      padding: 14px 16px;
-      margin-bottom: 16px;
-      position: relative;
-      min-height: 52px;
-    }
-    .bw-status-label {
+    .bw-contractor-role {
       font-size: 11px;
-      color: rgba(255,255,255,0.35);
-      margin-bottom: 4px;
+      color: rgba(255,255,255,0.38);
+      margin-top: 1px;
     }
-    .bw-status-badge {
+    .bw-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      font-weight: 600;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 700;
       padding: 4px 10px;
       border-radius: 100px;
-      transition: all 0.4s ease;
+      white-space: nowrap;
+      transition: background 0.35s ease, color 0.35s ease;
+      flex-shrink: 0;
     }
-    .bw-status-badge.waiting {
+    .bw-badge.waiting {
       background: rgba(107,114,128,0.2);
-      color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.45);
     }
-    .bw-status-badge.hold-1 {
-      background: rgba(5,150,105,0.2);
+    .bw-badge.hold1 {
+      background: rgba(5,150,105,0.22);
       color: #34d399;
+    }
+    .bw-badge.hold2 {
+      background: rgba(217,119,6,0.22);
+      color: #fbbf24;
     }
     .bw-dot {
       width: 6px; height: 6px;
@@ -630,32 +638,70 @@
       0%, 100% { opacity: 1; transform: scale(1); }
       50% { opacity: 0.4; transform: scale(0.7); }
     }
-    .bw-timestamp {
-      font-size: 10px;
-      color: rgba(255,255,255,0.3);
-      position: absolute;
-      top: 14px; right: 14px;
-      transition: opacity 0.4s;
+    /* challenge bar */
+    .bw-challenge-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(217,119,6,0.12);
+      border: 1px solid rgba(217,119,6,0.25);
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      pointer-events: none;
     }
-    .bw-timestamp.hidden { opacity: 0; }
+    .bw-challenge-bar.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .bw-challenge-text {
+      flex: 1;
+      font-size: 11px;
+      color: #fbbf24;
+      line-height: 1.4;
+    }
+    .bw-challenge-btn {
+      font-size: 11px;
+      font-weight: 700;
+      color: #fbbf24;
+      background: rgba(217,119,6,0.22);
+      border-radius: 6px;
+      padding: 5px 11px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    /* book buttons row */
+    .bw-book-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .bw-book-row.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
     .bw-book-btn {
-      display: inline-block;
+      flex: 1;
       background: var(--salmon);
       color: white;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
-      padding: 10px 20px;
-      border-radius: 100px;
-      transition: transform 0.3s ease, opacity 0.4s ease;
+      padding: 9px 14px;
+      border-radius: 8px;
+      text-align: center;
       cursor: default;
-      opacity: 0;
     }
-    .bw-book-btn.show { opacity: 1; }
-    .bw-book-btn.pulse-scale { animation: btnPulse 0.8s ease; }
-    @keyframes btnPulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.04); }
+    .bw-book-btn.secondary {
+      background: rgba(255,255,255,0.07);
+      color: rgba(255,255,255,0.6);
     }
+    /* confirmed banner */
     .bw-confirm {
       position: absolute;
       bottom: 28px; left: 28px; right: 28px;
@@ -663,26 +709,188 @@
       border: 1px solid rgba(5,150,105,0.35);
       border-radius: 10px;
       padding: 12px 16px;
-      transition: transform 0.4s ease, opacity 0.4s ease;
-      transform: translateY(80px);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: transform 0.45s ease, opacity 0.45s ease;
+      transform: translateY(90px);
       opacity: 0;
     }
     .bw-confirm.show { transform: translateY(0); opacity: 1; }
+    .bw-confirm-avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: #c06050;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+    }
+    .bw-confirm-info { flex: 1; min-width: 0; }
     .bw-confirm-name {
       font-size: 13px;
       font-weight: 700;
       color: white;
-      margin-bottom: 2px;
+      margin-bottom: 1px;
     }
     .bw-confirm-detail {
       font-size: 11px;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.45);
     }
     .bw-confirm-total {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 700;
       color: #34d399;
-      float: right;
+      flex-shrink: 0;
+    }
+
+    /* ── CREW AVAILABILITY MATRIX ───────────────────── */
+    .matrix-section {
+      background: var(--canvas);
+    }
+    .matrix-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 100px 48px;
+      display: grid;
+      grid-template-columns: 2fr 3fr;
+      gap: 72px;
+      align-items: center;
+    }
+    .matrix-copy {}
+    .matrix-widget-wrap {}
+    .matrix-card {
+      background: white;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+      overflow: hidden;
+    }
+    .matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    .matrix-table th {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--border);
+      background: #fafaf9;
+      text-align: left;
+      white-space: nowrap;
+    }
+    .matrix-table th.col-today {
+      color: var(--salmon);
+    }
+    .matrix-table th.col-perday {
+      text-align: center;
+      color: var(--muted);
+    }
+    .matrix-table td {
+      padding: 9px 10px;
+      border-bottom: 1px solid rgba(229,231,235,0.6);
+      vertical-align: middle;
+    }
+    .matrix-table td.col-today {
+      background: rgba(224,120,104,0.03);
+    }
+    .matrix-table td.col-crew {
+      min-width: 160px;
+    }
+    .matrix-table td.col-perday {
+      text-align: center;
+      font-weight: 700;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .matrix-table tr:last-child td {
+      border-bottom: none;
+    }
+    .mx-crew {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+    .mx-av {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+    }
+    .mx-av.salmon  { background: #c06050; }
+    .mx-av.purple  { background: #7c6ff7; }
+    .mx-av.green   { background: #059669; }
+    .mx-av.amber   { background: #f59e0b; }
+    .mx-av.indigo  { background: #6366f1; }
+    .mx-av.sky     { background: #0ea5e9; }
+    .mx-av.emerald { background: #10b981; }
+    .mx-crew-info {}
+    .mx-crew-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+    }
+    .mx-crew-role {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 1px;
+      white-space: nowrap;
+    }
+    /* chip styles */
+    .mx-chip {
+      display: inline-block;
+      border-radius: 5px;
+      padding: 3px 8px;
+      font-size: 10px;
+      font-weight: 700;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .mx-chip.revealed { opacity: 1; transform: translateY(0); }
+    .mx-chip.pat   { background: rgba(224,120,104,0.12); color: #e07868; }
+    .mx-chip.oura  { background: rgba(37,99,235,0.10);  color: #2563eb; }
+    .mx-chip.nike  { background: rgba(5,150,105,0.10);  color: #059669; }
+    .mx-chip.hold  { background: rgba(217,119,6,0.12);  color: #b45309; }
+    .mx-chip.conflict { background: rgba(239,68,68,0.10); color: #dc2626; }
+    .mx-chip.free  { color: #059669; font-weight: 600; font-size: 11px; background: none; }
+    .mx-chip.empty { color: var(--border); background: none; font-weight: 400; }
+    /* totals row */
+    .matrix-totals td {
+      background: #fafaf9;
+      border-top: 1px solid var(--border);
+      border-bottom: none;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      padding: 10px 10px;
+    }
+    .matrix-totals td.col-today {
+      background: rgba(224,120,104,0.04);
+      color: var(--salmon);
+    }
+    .matrix-totals td.total-num {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .matrix-totals td.col-today.total-num {
+      color: var(--salmon);
     }
 
     /* ── FEATURE 2 — PROJECT WIDGET ────────────────── */
@@ -1610,6 +1818,427 @@
       width: 18px; height: 18px;
       flex-shrink: 0;
     }
+
+    /* ── FEATURE CAROUSEL ──────────────────────────── */
+    .carousel-section {
+      background: var(--navy);
+      padding: 100px 0 0;
+    }
+    .carousel-header {
+      padding: 0 80px 64px;
+      text-align: center;
+    }
+    .carousel-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 16px;
+    }
+    .carousel-h2 {
+      font-size: 52px;
+      font-weight: 900;
+      color: white;
+      letter-spacing: -0.04em;
+      line-height: 1.04;
+      margin-bottom: 14px;
+    }
+    .carousel-subtitle {
+      color: rgba(255,255,255,0.4);
+      font-size: 16px;
+    }
+    .carousel-tabs-wrap {
+      padding: 0 80px;
+      margin-bottom: 0;
+    }
+    .carousel-tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 20px;
+    }
+    .carousel-tabs::-webkit-scrollbar { display: none; }
+    .carousel-tab {
+      padding: 9px 20px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.45);
+      background: transparent;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .carousel-tab:hover {
+      color: rgba(255,255,255,0.7);
+      border-color: rgba(255,255,255,0.2);
+    }
+    .carousel-tab.active {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.3);
+      color: white;
+    }
+    .carousel-progress-track {
+      height: 2px;
+      background: rgba(255,255,255,0.07);
+      margin: 0 80px;
+      margin-bottom: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .carousel-progress-fill {
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      width: 0%;
+      background: var(--salmon);
+      transition: width 5.3s linear;
+    }
+    .carousel-slides {
+      overflow: hidden;
+      position: relative;
+    }
+    .carousel-slide {
+      display: none;
+    }
+    .carousel-slide.active {
+      display: grid;
+      grid-template-columns: 45fr 55fr;
+      gap: 0;
+      align-items: center;
+      padding: 56px 80px 100px;
+      animation: slideFadeIn 0.4s ease;
+    }
+    @keyframes slideFadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    /* Carousel copy styles */
+    .cs-copy {}
+    .cs-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--salmon);
+      margin-bottom: 16px;
+    }
+    .cs-h2 {
+      font-size: 38px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: white;
+      margin-bottom: 20px;
+    }
+    .cs-body {
+      font-size: 15px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.75;
+      margin-bottom: 28px;
+      max-width: 400px;
+    }
+    .cs-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .cs-bullets li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.65);
+      font-weight: 500;
+      line-height: 1.5;
+    }
+    .cs-bullets li svg { flex-shrink: 0; margin-top: 1px; }
+    .cs-widget {
+      padding-left: 48px;
+    }
+
+    /* Slide 1 widget — dark booking card */
+    .bw-dark {
+      background: #0d1620;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: 28px;
+      min-height: 300px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Slide 2 widget — mini matrix */
+    .mini-matrix-card {
+      background: #141e2e;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+    .mini-matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+    }
+    .mini-matrix-table th {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      padding: 10px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.03);
+      text-align: left;
+      white-space: nowrap;
+    }
+    .mini-matrix-table th.col-today-d { color: var(--salmon); }
+    .mini-matrix-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      vertical-align: middle;
+    }
+    .mini-matrix-table td.col-today-d { background: rgba(224,120,104,0.04); }
+    .mini-matrix-table tr:last-child td { border-bottom: none; }
+    .mmx-crew {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      min-width: 120px;
+    }
+    .mmx-av {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+    }
+    .mmx-av.salmon  { background: #c06050; }
+    .mmx-av.purple  { background: #7c6ff7; }
+    .mmx-av.green   { background: #059669; }
+    .mmx-av.amber   { background: #f59e0b; }
+    .mmx-av.indigo  { background: #6366f1; }
+    .mmx-name {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.8);
+      white-space: nowrap;
+    }
+    .mmx-chip {
+      display: inline-block;
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 9px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .mmx-chip.pat   { background: rgba(224,120,104,0.15); color: #e07868; }
+    .mmx-chip.oura  { background: rgba(37,99,235,0.15);  color: #60a5fa; }
+    .mmx-chip.hold  { background: rgba(217,119,6,0.15);  color: #fbbf24; }
+    .mmx-chip.conflict { background: rgba(239,68,68,0.12); color: #f87171; }
+    .mmx-chip.free  { color: #34d399; font-weight: 600; font-size: 10px; background: none; }
+    .mmx-chip.empty { color: rgba(255,255,255,0.15); background: none; }
+    .mmx-totals td {
+      background: rgba(255,255,255,0.03);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      border-bottom: none;
+      font-size: 9px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.3);
+      padding: 8px 10px;
+    }
+    .mmx-totals td.col-today-d { background: rgba(224,120,104,0.05); color: var(--salmon); }
+    .mmx-totals td.total-num { text-align: center; font-size: 11px; color: rgba(255,255,255,0.6); }
+    .mmx-totals td.col-today-d.total-num { color: var(--salmon); }
+
+    /* Slide 3 — challenge cards */
+    .challenge-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .challenge-card {
+      border-radius: 12px;
+      padding: 18px 20px;
+    }
+    .challenge-card.incoming {
+      background: #0d1620;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-left: 3px solid #d97706;
+    }
+    .challenge-card.outgoing {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .challenge-card-badge {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .challenge-card-badge.amber { color: #fbbf24; }
+    .challenge-card-badge.amber-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: #fbbf24;
+      border: 1px solid rgba(217,119,6,0.35);
+      padding: 2px 8px;
+      border-radius: 100px;
+      font-size: 9px;
+    }
+    .challenge-card-body {
+      font-size: 13px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.55;
+      margin-bottom: 14px;
+    }
+    .challenge-card-body strong { color: white; font-weight: 700; }
+    .challenge-card-status {
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+    }
+    .challenge-card-btns {
+      display: flex;
+      gap: 8px;
+    }
+    .challenge-btn-book {
+      background: var(--salmon);
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 7px 14px;
+      border-radius: 8px;
+      cursor: default;
+      white-space: nowrap;
+    }
+    .challenge-btn-release {
+      background: rgba(255,255,255,0.07);
+      color: rgba(255,255,255,0.55);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 7px 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.12);
+      cursor: default;
+      white-space: nowrap;
+    }
+
+    /* Slide 4 — invoice widget (light, existing) */
+    .invoice-widget {
+      background: white;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Slide 5 — portal widget (light, existing) */
+    .portal-widget {
+      background: white;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Slide 6 — cash chart dark card */
+    .cash-dark-card {
+      background: #0d1620;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: 28px;
+    }
+
+    /* Slide 7 — contractor pay teaser */
+    .pay-teaser-card {
+      background: #0d1620;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: 28px;
+      opacity: 0.75;
+      position: relative;
+    }
+    .pay-teaser-badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(217,119,6,0.15);
+      border: 1px solid rgba(217,119,6,0.3);
+      color: #fbbf24;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 100px;
+    }
+    .pay-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 12px;
+    }
+    .pay-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .pay-card-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: white;
+    }
+    .pay-card-amount {
+      font-size: 14px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.5);
+    }
+    .pay-card-sub {
+      font-size: 11px;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 14px;
+    }
+    .pay-card-btn {
+      width: 100%;
+      text-align: center;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.3);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: not-allowed;
+    }
+    .pay-confirm-line {
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+      line-height: 1.55;
+    }
+    .pay-confirm-line .pay-check { color: #34d399; }
+
+    /* Clock icon for coming soon bullets */
+    .clock-icon {
+      width: 18px; height: 18px;
+      flex-shrink: 0;
+    }
   </style>
 </head>
 <body>
@@ -1828,371 +2457,669 @@
   </div>
 </section>
 
-<!-- ═══ FEATURE 1 — CONTRACTOR BOOKING ════════════════ -->
-<section class="section bg-white" id="contractors">
-  <div class="section-inner cols-l-copy">
+<!-- ═══ FEATURE CAROUSEL ════════════════════════════════ -->
+<section class="carousel-section" id="features-carousel">
 
-    <div class="section-copy" data-reveal>
-      <p class="section-eyebrow">Contractor booking</p>
-      <h2 class="section-h2">Know who's available before you commit.</h2>
-      <p class="section-body">Pick a contractor, pick dates — smack shows you exactly what they'll receive before you send. They respond with 1st hold, 2nd hold, or unavailable. If your first choice falls through, challenge your second. You see every response as it comes in. No iMessage threads. No spreadsheet tracking. No double-bookings.</p>
-      <ul class="section-bullets">
-        <li>
-          <svg class="check-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="9" cy="9" r="9" fill="rgba(224,120,104,0.12)"/>
-            <polyline points="5,9 8,12 13,6" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          1st hold / 2nd hold / challenge flow built in
-        </li>
-        <li>
-          <svg class="check-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="9" cy="9" r="9" fill="rgba(224,120,104,0.12)"/>
-            <polyline points="5,9 8,12 13,6" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Preview exactly what your contractor receives before you send
-        </li>
-        <li>
-          <svg class="check-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="9" cy="9" r="9" fill="rgba(224,120,104,0.12)"/>
-            <polyline points="5,9 8,12 13,6" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Contractors respond from their own portal — responses tracked automatically
-        </li>
-        <li>
-          <svg class="check-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="9" cy="9" r="9" fill="rgba(224,120,104,0.12)"/>
-            <polyline points="5,9 8,12 13,6" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Send to one person or your whole roster at once
-        </li>
-      </ul>
+  <div class="carousel-header" data-reveal>
+    <p class="carousel-eyebrow">Everything your studio needs</p>
+    <h2 class="carousel-h2">One tool. Every workflow.</h2>
+    <p class="carousel-subtitle">From the first availability check to the final payment.</p>
+  </div>
+
+  <div class="carousel-tabs-wrap">
+    <div class="carousel-tabs" id="carousel-tabs">
+      <button class="carousel-tab active" data-slide="0">Crew Booking</button>
+      <button class="carousel-tab" data-slide="1">Availability Matrix</button>
+      <button class="carousel-tab" data-slide="2">Challenge Flow</button>
+      <button class="carousel-tab" data-slide="3">Invoicing</button>
+      <button class="carousel-tab" data-slide="4">Client Portal</button>
+      <button class="carousel-tab" data-slide="5">Cash Flow</button>
+      <button class="carousel-tab" data-slide="6">Contractor Pay</button>
+    </div>
+  </div>
+
+  <div class="carousel-progress-track">
+    <div class="carousel-progress-fill" id="carousel-progress"></div>
+  </div>
+
+  <div class="carousel-slides" id="carousel-slides">
+
+    <!-- SLIDE 1: Crew Booking -->
+    <div class="carousel-slide active" data-slide="0">
+      <div class="cs-copy">
+        <p class="cs-eyebrow">Contractor booking</p>
+        <h2 class="cs-h2">Check availability for one person or your whole roster.</h2>
+        <p class="cs-body">Pick a contractor, pick dates — smack shows you exactly what they'll receive before you send. Responses come back as 1st hold, 2nd hold, or unavailable. See everyone's answer as it arrives.</p>
+        <ul class="cs-bullets">
+          <li>
+            <svg class="check-icon" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="rgba(224,120,104,0.15)"/><polyline points="5,9 8,12 13,6" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Live email preview before you send
+          </li>
+          <li>
+            <svg class="check-icon" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="rgba(224,120,104,0.15)"/><polyline points="5,9 8,12 13,6" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            1st hold / 2nd hold tracked automatically
+          </li>
+          <li>
+            <svg class="check-icon" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="rgba(224,120,104,0.15)"/><polyline points="5,9 8,12 13,6" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Send to one or many at once
+          </li>
+        </ul>
+      </div>
+      <div class="cs-widget">
+        <div class="bw-dark" id="booking-widget">
+          <div class="bw-header">AVAILABILITY CHECK &nbsp;·&nbsp; PATAGONIA CAMPAIGN &nbsp;·&nbsp; APR 14–22</div>
+          <div class="bw-rows">
+            <div class="bw-row">
+              <div class="bw-avatar salmon">MK</div>
+              <div class="bw-row-info">
+                <div class="bw-contractor-name">Marcus Kim</div>
+                <div class="bw-contractor-role">DP</div>
+              </div>
+              <div class="bw-badge waiting" id="bw-badge-mk"><span class="bw-dot pulse"></span><span>Awaiting...</span></div>
+            </div>
+            <div class="bw-row">
+              <div class="bw-avatar green">AL</div>
+              <div class="bw-row-info">
+                <div class="bw-contractor-name">Alex Liu</div>
+                <div class="bw-contractor-role">Gaffer</div>
+              </div>
+              <div class="bw-badge waiting" id="bw-badge-al"><span class="bw-dot pulse"></span><span>Awaiting...</span></div>
+            </div>
+          </div>
+          <div class="bw-challenge-bar" id="bw-challenge">
+            <div class="bw-challenge-text">Alex Liu is on 2nd hold &nbsp;·&nbsp; 18h to respond</div>
+            <div class="bw-challenge-btn">Challenge →</div>
+          </div>
+          <div class="bw-book-row" id="bw-book-row">
+            <div class="bw-book-btn">Book Marcus</div>
+            <div class="bw-book-btn secondary">Book Alex</div>
+          </div>
+          <div class="bw-confirm" id="bw-confirm">
+            <div class="bw-confirm-avatar">MK</div>
+            <div class="bw-confirm-info">
+              <div class="bw-confirm-name">Marcus Kim &nbsp;·&nbsp; Confirmed</div>
+              <div class="bw-confirm-detail">Apr 14–22 &nbsp;·&nbsp; DP</div>
+            </div>
+            <div class="bw-confirm-total">$10,800</div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="booking-widget" id="booking-widget" data-reveal>
-      <div class="bw-header">Availability Check &nbsp;·&nbsp; Patagonia Campaign &nbsp;·&nbsp; Apr 21–May 3</div>
-      <div class="bw-contractor">
-        <div class="bw-avatar">MK</div>
-        <div>
-          <div class="bw-contractor-name">Marcus Kim · Editor</div>
-          <div class="bw-contractor-rate">$850/day</div>
+    <!-- SLIDE 2: Availability Matrix -->
+    <div class="carousel-slide" data-slide="1">
+      <div class="cs-copy">
+        <p class="cs-eyebrow">Crew matrix</p>
+        <h2 class="cs-h2">Your whole roster, every day, one view.</h2>
+        <p class="cs-body">See who's booked on what project, who's free, who has a conflict — before you make a single call. The crew matrix updates automatically as bookings are confirmed.</p>
+        <ul class="cs-bullets">
+          <li>
+            <svg class="check-icon" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="rgba(224,120,104,0.15)"/><polyline points="5,9 8,12 13,6" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Project bookings color-coded by client
+          </li>
+          <li>
+            <svg class="check-icon" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="rgba(224,120,104,0.15)"/><polyline points="5,9 8,12 13,6" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Conflicts flagged automatically
+          </li>
+          <li>
+            <svg class="check-icon" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="rgba(224,120,104,0.15)"/><polyline points="5,9 8,12 13,6" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Daily crew count at a glance
+          </li>
+        </ul>
+      </div>
+      <div class="cs-widget">
+        <div class="mini-matrix-card">
+          <table class="mini-matrix-table">
+            <thead>
+              <tr>
+                <th>Crew</th>
+                <th>Mon 7</th>
+                <th class="col-today-d">Tue 8</th>
+                <th>Wed 9</th>
+                <th>Thu 10</th>
+                <th>Fri 11</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><div class="mmx-crew"><div class="mmx-av salmon">MK</div><span class="mmx-name">Marcus Kim</span></div></td>
+                <td><span class="mmx-chip pat">Patagonia</span></td>
+                <td class="col-today-d"><span class="mmx-chip pat">Patagonia</span></td>
+                <td><span class="mmx-chip pat">Patagonia</span></td>
+                <td><span class="mmx-chip pat">Patagonia</span></td>
+                <td><span class="mmx-chip pat">Patagonia</span></td>
+              </tr>
+              <tr>
+                <td><div class="mmx-crew"><div class="mmx-av purple">JR</div><span class="mmx-name">Jamie Rodriguez</span></div></td>
+                <td><span class="mmx-chip pat">Patagonia</span></td>
+                <td class="col-today-d"><span class="mmx-chip pat">Patagonia</span></td>
+                <td><span class="mmx-chip pat">Patagonia</span></td>
+                <td><span class="mmx-chip pat">Patagonia</span></td>
+                <td><span class="mmx-chip pat">Patagonia</span></td>
+              </tr>
+              <tr>
+                <td><div class="mmx-crew"><div class="mmx-av green">AL</div><span class="mmx-name">Alex Liu</span></div></td>
+                <td><span class="mmx-chip hold">Hold</span></td>
+                <td class="col-today-d"><span class="mmx-chip pat">Patagonia</span></td>
+                <td><span class="mmx-chip pat">Patagonia</span></td>
+                <td><span class="mmx-chip empty">—</span></td>
+                <td><span class="mmx-chip oura">Oura Ring</span></td>
+              </tr>
+              <tr>
+                <td><div class="mmx-crew"><div class="mmx-av amber">TC</div><span class="mmx-name">Taylor Chen</span></div></td>
+                <td><span class="mmx-chip free">Free</span></td>
+                <td class="col-today-d"><span class="mmx-chip free">Free</span></td>
+                <td><span class="mmx-chip free">Free</span></td>
+                <td><span class="mmx-chip free">Free</span></td>
+                <td><span class="mmx-chip free">Free</span></td>
+              </tr>
+              <tr>
+                <td><div class="mmx-crew"><div class="mmx-av indigo">PB</div><span class="mmx-name">Pat Burns</span></div></td>
+                <td><span class="mmx-chip oura">Oura Ring</span></td>
+                <td class="col-today-d"><span class="mmx-chip oura">Oura Ring</span></td>
+                <td><span class="mmx-chip conflict">✕ Conflict</span></td>
+                <td><span class="mmx-chip empty">—</span></td>
+                <td><span class="mmx-chip empty">—</span></td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr class="mmx-totals">
+                <td style="font-size:8px;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.25);">Crew/Day</td>
+                <td class="total-num">4</td>
+                <td class="col-today-d total-num">5</td>
+                <td class="total-num">4</td>
+                <td class="total-num">3</td>
+                <td class="total-num">4</td>
+              </tr>
+            </tfoot>
+          </table>
         </div>
       </div>
-      <div class="bw-status-area">
-        <div class="bw-status-label">Status</div>
-        <div class="bw-status-badge waiting" id="bw-badge">
-          <span class="bw-dot pulse"></span>
-          <span id="bw-badge-text">Awaiting response...</span>
-        </div>
-        <div class="bw-timestamp hidden" id="bw-timestamp">Responded 4 min ago</div>
+    </div>
+
+    <!-- SLIDE 3: Challenge Flow -->
+    <div class="carousel-slide" data-slide="2">
+      <div class="cs-copy">
+        <p class="cs-eyebrow">Hold &amp; challenge system</p>
+        <h2 class="cs-h2">Industry-standard hold logic, built in.</h2>
+        <p class="cs-body">When you're on 1st hold and another company wants to book your contractor, you get notified immediately with a deadline to commit or release. When you're on 2nd hold, you can challenge the 1st hold. The industry standard — finally automated.</p>
+        <ul class="cs-bullets">
+          <li>
+            <svg class="check-icon" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="rgba(224,120,104,0.15)"/><polyline points="5,9 8,12 13,6" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Incoming challenges: Book Now or Release Hold
+          </li>
+          <li>
+            <svg class="check-icon" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="rgba(224,120,104,0.15)"/><polyline points="5,9 8,12 13,6" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Outgoing challenges: upgrade your 2nd hold
+          </li>
+          <li>
+            <svg class="check-icon" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="rgba(224,120,104,0.15)"/><polyline points="5,9 8,12 13,6" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            24-hour deadline enforced automatically
+          </li>
+        </ul>
       </div>
-      <div class="bw-book-btn" id="bw-book">Book Marcus →</div>
-      <div class="bw-confirm" id="bw-confirm">
-        <span class="bw-confirm-total">$11,050</span>
-        <div class="bw-confirm-name">Marcus Kim confirmed</div>
-        <div class="bw-confirm-detail">Apr 21–May 3 · 13 days at $850/day</div>
+      <div class="cs-widget">
+        <div class="challenge-cards">
+          <div class="challenge-card incoming">
+            <div class="challenge-card-badge amber">⚡ INCOMING CHALLENGE</div>
+            <div class="challenge-card-body">Myles Mantzaris has received another offer and is challenging your 1st hold for <strong>NFL Schedule Release</strong> (Color). Apr 21 – May 2.<br><br>You have <strong>24 hours</strong> to book or release.</div>
+            <div class="challenge-card-btns">
+              <div class="challenge-btn-book">Book Now →</div>
+              <div class="challenge-btn-release">Release Hold</div>
+            </div>
+          </div>
+          <div class="challenge-card outgoing">
+            <div class="challenge-card-badge amber-outline"><span>●</span> CHALLENGE SENT</div>
+            <div class="challenge-card-body" style="margin-bottom:8px;">Challenge sent to Patagonia — Spring Campaign for Marcus Kim. Deadline: Apr 9 at 3:24 PM.</div>
+            <div class="challenge-card-status">Waiting for them to confirm or release.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: Invoicing -->
+    <div class="carousel-slide" data-slide="3">
+      <div class="cs-copy">
+        <p class="cs-eyebrow">Invoicing</p>
+        <h2 class="cs-h2">From project to paid. No app switching.</h2>
+        <p class="cs-body">Build invoices directly from your projects. Line items pull from your crew and phase data. Send, track opens, and chase overdue invoices — all from one screen.</p>
+        <ul class="cs-bullets">
+          <li>
+            <svg class="check-icon" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="rgba(224,120,104,0.15)"/><polyline points="5,9 8,12 13,6" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Invoice linked directly to project
+          </li>
+          <li>
+            <svg class="check-icon" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="rgba(224,120,104,0.15)"/><polyline points="5,9 8,12 13,6" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Auto-reminders on overdue invoices
+          </li>
+          <li>
+            <svg class="check-icon" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="rgba(224,120,104,0.15)"/><polyline points="5,9 8,12 13,6" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Track viewed, sent, paid, overdue
+          </li>
+        </ul>
+      </div>
+      <div class="cs-widget">
+        <div class="invoice-widget" id="invoice-widget">
+          <div class="iw-header">
+            <div>
+              <div class="iw-invoice-num">Invoice #0041</div>
+              <div class="iw-client-name">Patagonia Inc.</div>
+            </div>
+            <div class="iw-status draft" id="iw-status">Draft</div>
+          </div>
+          <div class="iw-sent-badge" id="iw-sent-badge">Sent ✓</div>
+          <div class="iw-lines">
+            <div class="iw-line">
+              <span class="iw-line-desc">Post-production · Offline edit (12 days)</span>
+              <span class="iw-line-amount">$18,000</span>
+            </div>
+            <div class="iw-line">
+              <span class="iw-line-desc">Color grade</span>
+              <span class="iw-line-amount">$4,500</span>
+            </div>
+            <div class="iw-typing-line">
+              <span class="iw-typing-text" id="iw-typing"></span>
+              <span class="iw-typing-amount" id="iw-typing-amount">$3,200</span>
+            </div>
+          </div>
+          <div class="iw-total">
+            <span class="iw-total-label">Total</span>
+            <span class="iw-total-amount" id="iw-total">$22,500</span>
+          </div>
+          <button class="iw-send-btn" id="iw-send-btn">Send Invoice →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: Client Portal -->
+    <div class="carousel-slide" data-slide="4">
+      <div class="cs-copy">
+        <p class="cs-eyebrow">Client portal</p>
+        <h2 class="cs-h2">Your client gets a window. Not an email thread.</h2>
+        <p class="cs-body">Every project gets a shareable portal. Your client sees status, deliverables, and approvals — nothing else. One link, no account needed.</p>
+        <ul class="cs-bullets">
+          <li>
+            <svg class="check-icon" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="rgba(224,120,104,0.15)"/><polyline points="5,9 8,12 13,6" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Shareable via private link
+          </li>
+          <li>
+            <svg class="check-icon" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="rgba(224,120,104,0.15)"/><polyline points="5,9 8,12 13,6" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Approve deliverables in one click
+          </li>
+          <li>
+            <svg class="check-icon" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="rgba(224,120,104,0.15)"/><polyline points="5,9 8,12 13,6" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Phase progress always visible
+          </li>
+        </ul>
+      </div>
+      <div class="cs-widget">
+        <div class="portal-widget" id="portal-widget">
+          <div class="portw-logo">
+            <svg class="portw-logo-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" aria-hidden="true">
+              <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+              <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+              <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+              <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+              <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+              <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+            </svg>
+            <span class="portw-logo-text">smack<span>.</span></span>
+          </div>
+          <div class="portw-project">Patagonia — Spring Campaign</div>
+          <div class="portw-client">Client portal · Private link</div>
+          <div class="portw-phases" id="portw-phases">
+            <div class="portw-phase-dot filled" id="portw-dot-0"></div>
+            <div class="portw-phase-line filled" id="portw-line-0"></div>
+            <div class="portw-phase-dot filled" id="portw-dot-1"></div>
+            <div class="portw-phase-line filled" id="portw-line-1"></div>
+            <div class="portw-phase-dot filled" id="portw-dot-2"></div>
+            <div class="portw-phase-line" id="portw-line-3"></div>
+            <div class="portw-phase-dot" id="portw-dot-3"></div>
+            <div class="portw-phase-line"></div>
+            <div class="portw-phase-dot"></div>
+          </div>
+          <div class="portw-deliverables">
+            <div class="portw-item">
+              <span class="portw-item-name">Offline edit v3</span>
+              <div class="portw-item-right">
+                <span class="portw-item-badge approved">Approved</span>
+              </div>
+            </div>
+            <div class="portw-item" id="portw-item-2">
+              <span class="portw-item-name">Color grade rough</span>
+              <div class="portw-item-right">
+                <span class="portw-item-badge awaiting" id="portw-badge-2">Awaiting review</span>
+                <button class="portw-approve-btn" id="portw-approve-btn">Approve</button>
+              </div>
+            </div>
+            <div class="portw-item">
+              <span class="portw-item-name">Sound mix</span>
+              <div class="portw-item-right">
+                <span class="portw-item-badge progress">In progress</span>
+              </div>
+            </div>
+            <div class="portw-item fade-in" id="portw-item-4">
+              <span class="portw-item-name">Final delivery package</span>
+              <div class="portw-item-right">
+                <span class="portw-item-badge progress">In progress</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: Cash Flow -->
+    <div class="carousel-slide" data-slide="5">
+      <div class="cs-copy">
+        <p class="cs-eyebrow">Cash flow</p>
+        <h2 class="cs-h2">Know your number. Always.</h2>
+        <p class="cs-body">Revenue, expenses, and net P&amp;L across every active project — live. No end-of-month scramble. No waiting for your accountant.</p>
+        <ul class="cs-bullets">
+          <li>
+            <svg class="check-icon" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="rgba(224,120,104,0.15)"/><polyline points="5,9 8,12 13,6" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Per-project P&amp;L always current
+          </li>
+          <li>
+            <svg class="check-icon" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="rgba(224,120,104,0.15)"/><polyline points="5,9 8,12 13,6" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Revenue vs. expenses by month
+          </li>
+          <li>
+            <svg class="check-icon" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="rgba(224,120,104,0.15)"/><polyline points="5,9 8,12 13,6" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Invoice status feeds into cash flow automatically
+          </li>
+        </ul>
+      </div>
+      <div class="cs-widget">
+        <div class="cash-dark-card">
+          <div class="chart-wrap" id="cash-chart">
+            <div class="chart-col">
+              <div class="chart-bars">
+                <div class="chart-bar income" style="--bar-height:90px" data-delay="0"></div>
+                <div class="chart-bar expense" style="--bar-height:55px" data-delay="0.05s"></div>
+              </div>
+              <div class="chart-month">Jan</div>
+            </div>
+            <div class="chart-col">
+              <div class="chart-bars">
+                <div class="chart-bar income" style="--bar-height:70px" data-delay="0.1s"></div>
+                <div class="chart-bar expense" style="--bar-height:48px" data-delay="0.15s"></div>
+              </div>
+              <div class="chart-month">Feb</div>
+            </div>
+            <div class="chart-col">
+              <div class="chart-bars">
+                <div class="chart-bar income" style="--bar-height:115px" data-delay="0.2s"></div>
+                <div class="chart-bar expense" style="--bar-height:65px" data-delay="0.25s"></div>
+              </div>
+              <div class="chart-month">Mar</div>
+            </div>
+            <div class="chart-col">
+              <div class="chart-bars">
+                <div class="chart-bar income" style="--bar-height:100px" data-delay="0.3s"></div>
+                <div class="chart-bar expense" style="--bar-height:72px" data-delay="0.35s"></div>
+              </div>
+              <div class="chart-month">Apr</div>
+            </div>
+            <div class="chart-col">
+              <div class="chart-bars">
+                <div class="chart-bar income" style="--bar-height:135px" data-delay="0.4s"></div>
+                <div class="chart-bar expense" style="--bar-height:80px" data-delay="0.45s"></div>
+              </div>
+              <div class="chart-month">May</div>
+            </div>
+            <div class="chart-col">
+              <div class="chart-bars">
+                <div class="chart-bar income" style="--bar-height:110px" data-delay="0.5s"></div>
+                <div class="chart-bar expense" style="--bar-height:60px" data-delay="0.55s"></div>
+              </div>
+              <div class="chart-month">Jun</div>
+            </div>
+          </div>
+          <div class="chart-legend" style="margin-top:20px;">
+            <div class="chart-legend-item">
+              <div class="chart-legend-dot" style="background:#e07868"></div>
+              Revenue
+            </div>
+            <div class="chart-legend-item">
+              <div class="chart-legend-dot" style="background:rgba(255,255,255,0.25)"></div>
+              Expenses
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: Contractor Pay -->
+    <div class="carousel-slide" data-slide="6">
+      <div class="cs-copy">
+        <p class="cs-eyebrow">Coming soon</p>
+        <h2 class="cs-h2">Pay your contractors without leaving smack.</h2>
+        <p class="cs-body">Invoice approved → payment triggered. No manual transfers, no payroll exports, no chasing receipts. Direct to contractor, tracked in your cash flow automatically.</p>
+        <ul class="cs-bullets">
+          <li>
+            <svg class="clock-icon" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="rgba(224,120,104,0.5)" stroke-width="1.5"/><polyline points="9,5 9,9 12,11" fill="none" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Approve invoice → payment sends
+          </li>
+          <li>
+            <svg class="clock-icon" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="rgba(224,120,104,0.5)" stroke-width="1.5"/><polyline points="9,5 9,9 12,11" fill="none" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            All payments tracked in P&amp;L
+          </li>
+          <li>
+            <svg class="clock-icon" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="rgba(224,120,104,0.5)" stroke-width="1.5"/><polyline points="9,5 9,9 12,11" fill="none" stroke="#e07868" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Contractor gets notified instantly
+          </li>
+        </ul>
+      </div>
+      <div class="cs-widget">
+        <div class="pay-teaser-card">
+          <div class="pay-teaser-badge">IN DEVELOPMENT</div>
+          <div class="pay-card">
+            <div class="pay-card-top">
+              <div class="pay-card-name">Marcus Kim</div>
+              <div class="pay-card-amount">$10,800</div>
+            </div>
+            <div class="pay-card-sub">Patagonia Campaign · Dir. of Photography</div>
+            <div class="pay-card-btn">Send Payment →</div>
+          </div>
+          <div class="pay-confirm-line">Invoice #0041 · Approved <span class="pay-check">✓</span> → Payment of $10,800 sent to marcus@example.com</div>
+        </div>
       </div>
     </div>
 
   </div>
 </section>
 
-<!-- ═══ FEATURE 2 — PROJECTS ═══════════════════════════ -->
-<section class="section bg-off-white">
-  <div class="section-inner cols-r-copy">
+<!-- ═══ CREW AVAILABILITY MATRIX ═══════════════════════ -->
+<section class="matrix-section" id="crew-matrix">
+  <div class="matrix-inner">
 
-    <div class="project-widget" id="project-widget" data-reveal>
-      <div class="pw-header">
-        <span class="pw-header-title">Active Projects</span>
-        <span class="pw-header-count">6 projects</span>
-      </div>
-      <div class="pw-rows">
-        <div class="pw-row">
-          <div class="pw-dot salmon"></div>
-          <div class="pw-info">
-            <div class="pw-name">Patagonia Campaign</div>
-            <div class="pw-client">Patagonia Inc. · 3 crew</div>
-          </div>
-          <div class="pw-right">
-            <div class="pw-phase offline" id="pw-phase-1">Offline Edit</div>
-            <div class="pw-progress"><div class="pw-progress-fill" style="width:35%"></div></div>
-          </div>
-        </div>
-        <div class="pw-row">
-          <div class="pw-dot blue"></div>
-          <div class="pw-info">
-            <div class="pw-name">Brand Refresh — Reel</div>
-            <div class="pw-client">Volta Studio · 2 crew</div>
-            <div class="pw-attention"><span class="pw-attention-dot"></span>Needs attention</div>
-          </div>
-          <div class="pw-right">
-            <div class="pw-phase online" id="pw-phase-2">Online</div>
-            <div class="pw-progress"><div class="pw-progress-fill" style="width:62%"></div></div>
-          </div>
-        </div>
-        <div class="pw-row">
-          <div class="pw-dot green"></div>
-          <div class="pw-info">
-            <div class="pw-name">Annual Report Film</div>
-            <div class="pw-client">Meridian Corp · 4 crew</div>
-          </div>
-          <div class="pw-right">
-            <div class="pw-phase color" id="pw-phase-3">Color</div>
-            <div class="pw-progress"><div class="pw-progress-fill" style="width:78%"></div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="section-copy" data-reveal>
-      <p class="section-eyebrow">Projects</p>
-      <h2 class="section-h2">Every project. Every phase. Every person.</h2>
-      <p class="section-body">From kickoff to delivery, see where every project stands. Who's on it, what's due, what's been invoiced. No status meetings required.</p>
+    <div class="matrix-copy" data-reveal>
+      <p class="section-eyebrow">Crew availability</p>
+      <h2 class="section-h2">See your entire roster at a glance.</h2>
+      <p class="section-body">Who's booked, who's on hold, who's free — across every active project, all at once. Before you send a single message.</p>
       <ul class="section-bullets">
         <li>
-          <svg class="check-icon" viewBox="0 0 18 18" fill="none">
+          <svg class="check-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="9" cy="9" r="9" fill="rgba(224,120,104,0.12)"/>
             <polyline points="5,9 8,12 13,6" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-          Custom project phases — offline, online, color, sound, delivery
+          Project bookings visible at a glance
         </li>
         <li>
-          <svg class="check-icon" viewBox="0 0 18 18" fill="none">
+          <svg class="check-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="9" cy="9" r="9" fill="rgba(224,120,104,0.12)"/>
             <polyline points="5,9 8,12 13,6" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-          Per-project budget and P&amp;L tracking
+          Hold and conflict states color-coded
         </li>
         <li>
-          <svg class="check-icon" viewBox="0 0 18 18" fill="none">
+          <svg class="check-icon" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="9" cy="9" r="9" fill="rgba(224,120,104,0.12)"/>
             <polyline points="5,9 8,12 13,6" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-          Crew, invoices, and files linked to every project
+          Daily crew totals updated automatically
         </li>
       </ul>
     </div>
 
-  </div>
-</section>
-
-<!-- ═══ FEATURE 3 — INVOICING ══════════════════════════ -->
-<section class="section bg-white" id="invoicing">
-  <div class="section-inner cols-l-copy">
-
-    <div class="section-copy" data-reveal>
-      <p class="section-eyebrow">Invoicing</p>
-      <h2 class="section-h2">Create and send an invoice in minutes.</h2>
-      <p class="section-body">Built directly into your projects. Add line items, set payment terms, send — all without leaving smack. Track what's paid, what's due, and what's overdue across every client.</p>
-      <ul class="section-bullets">
-        <li>
-          <svg class="check-icon" viewBox="0 0 18 18" fill="none">
-            <circle cx="9" cy="9" r="9" fill="rgba(224,120,104,0.12)"/>
-            <polyline points="5,9 8,12 13,6" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Invoice linked directly to your project
-        </li>
-        <li>
-          <svg class="check-icon" viewBox="0 0 18 18" fill="none">
-            <circle cx="9" cy="9" r="9" fill="rgba(224,120,104,0.12)"/>
-            <polyline points="5,9 8,12 13,6" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Track paid, sent, viewed, and overdue
-        </li>
-        <li>
-          <svg class="check-icon" viewBox="0 0 18 18" fill="none">
-            <circle cx="9" cy="9" r="9" fill="rgba(224,120,104,0.12)"/>
-            <polyline points="5,9 8,12 13,6" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Automatic reminders on overdue invoices
-        </li>
-      </ul>
-    </div>
-
-    <div class="invoice-widget" id="invoice-widget" data-reveal>
-      <div class="iw-header">
-        <div>
-          <div class="iw-invoice-num">Invoice #0041</div>
-          <div class="iw-client-name">Patagonia Inc.</div>
-        </div>
-        <div class="iw-status draft" id="iw-status">Draft</div>
-      </div>
-      <div class="iw-sent-badge" id="iw-sent-badge">Sent ✓</div>
-      <div class="iw-lines">
-        <div class="iw-line">
-          <span class="iw-line-desc">Post-production · Offline edit (12 days)</span>
-          <span class="iw-line-amount">$18,000</span>
-        </div>
-        <div class="iw-line">
-          <span class="iw-line-desc">Color grade</span>
-          <span class="iw-line-amount">$4,500</span>
-        </div>
-        <div class="iw-typing-line">
-          <span class="iw-typing-text" id="iw-typing"></span>
-          <span class="iw-typing-amount" id="iw-typing-amount">$3,200</span>
-        </div>
-      </div>
-      <div class="iw-total">
-        <span class="iw-total-label">Total</span>
-        <span class="iw-total-amount" id="iw-total">$22,500</span>
-      </div>
-      <button class="iw-send-btn" id="iw-send-btn">Send Invoice →</button>
-    </div>
-
-  </div>
-</section>
-
-<!-- ═══ FEATURE 4 — CLIENT PORTAL ════════════════════= -->
-<section class="section bg-off-white">
-  <div class="section-inner cols-r-copy">
-
-    <div class="portal-widget" id="portal-widget" data-reveal>
-      <div class="portw-logo">
-        <svg class="portw-logo-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" aria-hidden="true">
-          <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
-          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-        </svg>
-        <span class="portw-logo-text">smack<span>.</span></span>
-      </div>
-      <div class="portw-project">Patagonia — Spring Campaign</div>
-      <div class="portw-client">Client portal · Private link</div>
-      <div class="portw-phases" id="portw-phases">
-        <div class="portw-phase-dot filled"></div>
-        <div class="portw-phase-line filled"></div>
-        <div class="portw-phase-dot filled"></div>
-        <div class="portw-phase-line filled"></div>
-        <div class="portw-phase-dot filled" id="portw-dot-3"></div>
-        <div class="portw-phase-line" id="portw-line-3"></div>
-        <div class="portw-phase-dot" id="portw-dot-4"></div>
-        <div class="portw-phase-line"></div>
-        <div class="portw-phase-dot"></div>
-      </div>
-      <div class="portw-deliverables">
-        <div class="portw-item">
-          <span class="portw-item-name">Offline edit v3</span>
-          <div class="portw-item-right">
-            <span class="portw-item-badge approved">Approved</span>
-          </div>
-        </div>
-        <div class="portw-item" id="portw-item-2">
-          <span class="portw-item-name">Color grade rough</span>
-          <div class="portw-item-right">
-            <span class="portw-item-badge awaiting" id="portw-badge-2">Awaiting review</span>
-            <button class="portw-approve-btn" id="portw-approve-btn">Approve</button>
-          </div>
-        </div>
-        <div class="portw-item">
-          <span class="portw-item-name">Sound mix</span>
-          <div class="portw-item-right">
-            <span class="portw-item-badge progress">In progress</span>
-          </div>
-        </div>
-        <div class="portw-item fade-in" id="portw-item-4">
-          <span class="portw-item-name">Final delivery package</span>
-          <div class="portw-item-right">
-            <span class="portw-item-badge progress">In progress</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="section-copy" data-reveal>
-      <p class="section-eyebrow">Client portal</p>
-      <h2 class="section-h2">Your client gets a window. Not an email thread.</h2>
-      <p class="section-body">Every project gets a clean, shareable portal. Your client sees what's relevant — project status, deliverables, approvals. Nothing else. No account needed. One link.</p>
-      <ul class="section-bullets">
-        <li>
-          <svg class="check-icon" viewBox="0 0 18 18" fill="none">
-            <circle cx="9" cy="9" r="9" fill="rgba(224,120,104,0.12)"/>
-            <polyline points="5,9 8,12 13,6" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Shareable via private link — no login required
-        </li>
-        <li>
-          <svg class="check-icon" viewBox="0 0 18 18" fill="none">
-            <circle cx="9" cy="9" r="9" fill="rgba(224,120,104,0.12)"/>
-            <polyline points="5,9 8,12 13,6" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Approve deliverables in one click
-        </li>
-        <li>
-          <svg class="check-icon" viewBox="0 0 18 18" fill="none">
-            <circle cx="9" cy="9" r="9" fill="rgba(224,120,104,0.12)"/>
-            <polyline points="5,9 8,12 13,6" fill="none" stroke="#e07868" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Status and phase visibility, nothing more
-        </li>
-      </ul>
-    </div>
-
-  </div>
-</section>
-
-<!-- ═══ CASH FLOW ══════════════════════════════════════ -->
-<section class="cashflow">
-  <div class="cashflow-inner">
-    <p class="section-eyebrow" data-reveal>Cash flow</p>
-    <h2 class="section-h2" data-reveal>Know your number before month-end.</h2>
-    <p class="cashflow-sub" data-reveal>Revenue, expenses, and net across every project — live. No waiting for your accountant.</p>
-
-    <div class="chart-wrap" id="cash-chart" data-reveal>
-      <div class="chart-col">
-        <div class="chart-bars">
-          <div class="chart-bar income" style="--bar-height:90px" data-delay="0"></div>
-          <div class="chart-bar expense" style="--bar-height:55px" data-delay="0.05s"></div>
-        </div>
-        <div class="chart-month">Jan</div>
-      </div>
-      <div class="chart-col">
-        <div class="chart-bars">
-          <div class="chart-bar income" style="--bar-height:70px" data-delay="0.1s"></div>
-          <div class="chart-bar expense" style="--bar-height:48px" data-delay="0.15s"></div>
-        </div>
-        <div class="chart-month">Feb</div>
-      </div>
-      <div class="chart-col">
-        <div class="chart-bars">
-          <div class="chart-bar income" style="--bar-height:115px" data-delay="0.2s"></div>
-          <div class="chart-bar expense" style="--bar-height:65px" data-delay="0.25s"></div>
-        </div>
-        <div class="chart-month">Mar</div>
-      </div>
-      <div class="chart-col">
-        <div class="chart-bars">
-          <div class="chart-bar income" style="--bar-height:100px" data-delay="0.3s"></div>
-          <div class="chart-bar expense" style="--bar-height:72px" data-delay="0.35s"></div>
-        </div>
-        <div class="chart-month">Apr</div>
-      </div>
-      <div class="chart-col">
-        <div class="chart-bars">
-          <div class="chart-bar income" style="--bar-height:135px" data-delay="0.4s"></div>
-          <div class="chart-bar expense" style="--bar-height:80px" data-delay="0.45s"></div>
-        </div>
-        <div class="chart-month">May</div>
-      </div>
-      <div class="chart-col">
-        <div class="chart-bars">
-          <div class="chart-bar income" style="--bar-height:110px" data-delay="0.5s"></div>
-          <div class="chart-bar expense" style="--bar-height:60px" data-delay="0.55s"></div>
-        </div>
-        <div class="chart-month">Jun</div>
+    <div class="matrix-widget-wrap" data-reveal delay-2>
+      <div class="matrix-card" id="crew-matrix-card">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th class="col-crew">Crew Member</th>
+              <th>Mon 7</th>
+              <th class="col-today">Tue 8 Today</th>
+              <th>Wed 9</th>
+              <th>Thu 10</th>
+              <th>Fri 11</th>
+              <th class="col-perday">/Day</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Marcus Kim -->
+            <tr>
+              <td class="col-crew">
+                <div class="mx-crew">
+                  <div class="mx-av salmon">MK</div>
+                  <div class="mx-crew-info">
+                    <div class="mx-crew-name">Marcus Kim</div>
+                    <div class="mx-crew-role">Dir. of Photography</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="mx-chip pat">Patagonia</span></td>
+              <td class="col-today"><span class="mx-chip pat">Patagonia</span></td>
+              <td><span class="mx-chip pat">Patagonia</span></td>
+              <td><span class="mx-chip pat">Patagonia</span></td>
+              <td><span class="mx-chip pat">Patagonia</span></td>
+              <td class="col-perday">5</td>
+            </tr>
+            <!-- Jamie Rodriguez -->
+            <tr>
+              <td class="col-crew">
+                <div class="mx-crew">
+                  <div class="mx-av purple">JR</div>
+                  <div class="mx-crew-info">
+                    <div class="mx-crew-name">Jamie Rodriguez</div>
+                    <div class="mx-crew-role">1st AC</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="mx-chip pat">Patagonia</span></td>
+              <td class="col-today"><span class="mx-chip pat">Patagonia</span></td>
+              <td><span class="mx-chip pat">Patagonia</span></td>
+              <td><span class="mx-chip pat">Patagonia</span></td>
+              <td><span class="mx-chip pat">Patagonia</span></td>
+              <td class="col-perday">5</td>
+            </tr>
+            <!-- Alex Liu -->
+            <tr>
+              <td class="col-crew">
+                <div class="mx-crew">
+                  <div class="mx-av green">AL</div>
+                  <div class="mx-crew-info">
+                    <div class="mx-crew-name">Alex Liu</div>
+                    <div class="mx-crew-role">Gaffer</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="mx-chip hold">Hold</span></td>
+              <td class="col-today"><span class="mx-chip pat">Patagonia</span></td>
+              <td><span class="mx-chip pat">Patagonia</span></td>
+              <td><span class="mx-chip empty">—</span></td>
+              <td><span class="mx-chip oura">Oura Ring</span></td>
+              <td class="col-perday">4</td>
+            </tr>
+            <!-- Taylor Chen -->
+            <tr>
+              <td class="col-crew">
+                <div class="mx-crew">
+                  <div class="mx-av amber">TC</div>
+                  <div class="mx-crew-info">
+                    <div class="mx-crew-name">Taylor Chen</div>
+                    <div class="mx-crew-role">Prod. Designer</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="mx-chip free">Free</span></td>
+              <td class="col-today"><span class="mx-chip free">Free</span></td>
+              <td><span class="mx-chip free">Free</span></td>
+              <td><span class="mx-chip free">Free</span></td>
+              <td><span class="mx-chip free">Free</span></td>
+              <td class="col-perday">0</td>
+            </tr>
+            <!-- Pat Burns -->
+            <tr>
+              <td class="col-crew">
+                <div class="mx-crew">
+                  <div class="mx-av indigo">PB</div>
+                  <div class="mx-crew-info">
+                    <div class="mx-crew-name">Pat Burns</div>
+                    <div class="mx-crew-role">Sound</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="mx-chip oura">Oura Ring</span></td>
+              <td class="col-today"><span class="mx-chip oura">Oura Ring</span></td>
+              <td><span class="mx-chip conflict">✕ Conflict</span></td>
+              <td><span class="mx-chip empty">—</span></td>
+              <td><span class="mx-chip empty">—</span></td>
+              <td class="col-perday">3</td>
+            </tr>
+            <!-- Sam Rivera -->
+            <tr>
+              <td class="col-crew">
+                <div class="mx-crew">
+                  <div class="mx-av sky">SR</div>
+                  <div class="mx-crew-info">
+                    <div class="mx-crew-name">Sam Rivera</div>
+                    <div class="mx-crew-role">Editor</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="mx-chip empty">—</span></td>
+              <td class="col-today"><span class="mx-chip empty">—</span></td>
+              <td><span class="mx-chip empty">—</span></td>
+              <td><span class="mx-chip oura">Oura Ring</span></td>
+              <td><span class="mx-chip oura">Oura Ring</span></td>
+              <td class="col-perday">2</td>
+            </tr>
+            <!-- Dana Moore -->
+            <tr>
+              <td class="col-crew">
+                <div class="mx-crew">
+                  <div class="mx-av emerald">DM</div>
+                  <div class="mx-crew-info">
+                    <div class="mx-crew-name">Dana Moore</div>
+                    <div class="mx-crew-role">Colorist</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="mx-chip empty">—</span></td>
+              <td class="col-today"><span class="mx-chip empty">—</span></td>
+              <td><span class="mx-chip empty">—</span></td>
+              <td><span class="mx-chip empty">—</span></td>
+              <td><span class="mx-chip nike">Nike</span></td>
+              <td class="col-perday">1</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr class="matrix-totals">
+              <td style="font-size:10px;letter-spacing:0.06em;text-transform:uppercase;">Crew / Day</td>
+              <td class="total-num">4</td>
+              <td class="col-today total-num">5</td>
+              <td class="total-num">4</td>
+              <td class="total-num">3</td>
+              <td class="total-num">4</td>
+              <td class="col-perday"></td>
+            </tr>
+          </tfoot>
+        </table>
       </div>
     </div>
 
-    <div class="chart-legend" data-reveal>
-      <div class="chart-legend-item">
-        <div class="chart-legend-dot" style="background:#e07868"></div>
-        Revenue
-      </div>
-      <div class="chart-legend-item">
-        <div class="chart-legend-dot" style="background:rgba(255,255,255,0.25)"></div>
-        Expenses
-      </div>
-    </div>
   </div>
 </section>
 
@@ -2544,103 +3471,134 @@
   setInterval(runHeroCycle, 10000);
 })();
 
-/* ── BOOKING WIDGET ANIMATION ───────────────────── */
+/* ── FEATURE CAROUSEL ───────────────────────────── */
 (function() {
-  const widget = document.getElementById('booking-widget');
-  const badge = document.getElementById('bw-badge');
-  const badgeText = document.getElementById('bw-badge-text');
-  const timestamp = document.getElementById('bw-timestamp');
-  const bookBtn = document.getElementById('bw-book');
-  const confirm = document.getElementById('bw-confirm');
+  var totalSlides = 7;
+  var currentSlide = 0;
+  var autoTimer = null;
+  var progressFill = document.getElementById('carousel-progress');
+  var tabs = document.querySelectorAll('.carousel-tab');
+  var slides = document.querySelectorAll('.carousel-slide');
+
+  function resetProgress() {
+    progressFill.style.transition = 'none';
+    progressFill.style.width = '0%';
+  }
+
+  function startProgress() {
+    // Force reflow so transition fires
+    progressFill.getBoundingClientRect();
+    progressFill.style.transition = 'width 5.3s linear';
+    progressFill.style.width = '100%';
+  }
+
+  function goToSlide(n) {
+    slides[currentSlide].classList.remove('active');
+    tabs[currentSlide].classList.remove('active');
+    currentSlide = (n + totalSlides) % totalSlides;
+    slides[currentSlide].classList.add('active');
+    tabs[currentSlide].classList.add('active');
+    resetProgress();
+    startProgress();
+    // Trigger widget animations for the active slide
+    onSlideActivate(currentSlide);
+  }
+
+  function startAutoAdvance() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(function() {
+      goToSlide(currentSlide + 1);
+    }, 5500);
+  }
+
+  tabs.forEach(function(tab, i) {
+    tab.addEventListener('click', function() {
+      goToSlide(i);
+      clearInterval(autoTimer);
+      startAutoAdvance();
+    });
+  });
+
+  // Init
+  resetProgress();
+  startProgress();
+  startAutoAdvance();
+  onSlideActivate(0);
+
+  /* ── Per-slide widget logic ── */
+  var bookingLoopId = null;
+  var invoiceLoopId = null;
+  var invoiceTypingTimer = null;
+  var portalLoopId = null;
+  var chartDone = false;
+
+  function onSlideActivate(idx) {
+    if (idx === 0) startBookingAnim();
+    if (idx === 3) startInvoiceAnim();
+    if (idx === 4) startPortalAnim();
+    if (idx === 5) startChartAnim();
+  }
+
+  /* SLIDE 1 — Booking */
+  var badgeMK = document.getElementById('bw-badge-mk');
+  var badgeAL = document.getElementById('bw-badge-al');
+  var challengeBar = document.getElementById('bw-challenge');
+  var bookRow = document.getElementById('bw-book-row');
+  var confirmBanner = document.getElementById('bw-confirm');
+
+  function setBadge(el, state) {
+    if (state === 'waiting') {
+      el.className = 'bw-badge waiting';
+      el.innerHTML = '<span class="bw-dot pulse"></span><span>Awaiting...</span>';
+    } else if (state === 'hold1') {
+      el.className = 'bw-badge hold1';
+      el.innerHTML = '<span class="bw-dot"></span><span>1st Hold ✓</span>';
+    } else if (state === 'hold2') {
+      el.className = 'bw-badge hold2';
+      el.innerHTML = '<span class="bw-dot"></span><span>2nd Hold</span>';
+    }
+  }
 
   function resetBooking() {
-    badge.className = 'bw-status-badge waiting';
-    badge.innerHTML = '<span class="bw-dot pulse"></span><span id="bw-badge-text">Awaiting response...</span>';
-    timestamp.classList.add('hidden');
-    bookBtn.classList.remove('show', 'pulse-scale');
-    confirm.classList.remove('show');
+    if (!badgeMK) return;
+    setBadge(badgeMK, 'waiting');
+    setBadge(badgeAL, 'waiting');
+    challengeBar.classList.remove('show');
+    bookRow.classList.remove('show');
+    confirmBanner.classList.remove('show');
   }
 
   function runBookingCycle() {
     resetBooking();
-    // Hold 1 badge
+    setTimeout(function() { setBadge(badgeMK, 'hold1'); }, 2000);
+    setTimeout(function() { setBadge(badgeAL, 'hold2'); }, 3500);
+    setTimeout(function() { challengeBar.classList.add('show'); }, 5500);
     setTimeout(function() {
-      badge.className = 'bw-status-badge hold-1';
-      badge.innerHTML = '<span class="bw-dot"></span><span>1st Hold</span>';
-      timestamp.classList.remove('hidden');
-    }, 2000);
-    // Show book button
-    setTimeout(function() {
-      bookBtn.classList.add('show');
-      setTimeout(function() { bookBtn.classList.add('pulse-scale'); }, 200);
-    }, 3800);
-    // Confirm — slide up confirm, hide book button
-    setTimeout(function() {
-      bookBtn.classList.remove('show', 'pulse-scale');
-      confirm.classList.add('show');
-    }, 5200);
-    // Reset
-    setTimeout(function() {
-      resetBooking();
-    }, 9500);
+      bookRow.classList.remove('show');
+      challengeBar.classList.remove('show');
+      confirmBanner.classList.add('show');
+    }, 9000);
+    setTimeout(function() { resetBooking(); }, 11000);
   }
 
-  let bookingStarted = false;
-  const io = new IntersectionObserver(function(entries) {
-    if (entries[0].isIntersecting && !bookingStarted) {
-      bookingStarted = true;
-      runBookingCycle();
-      setInterval(runBookingCycle, 10000);
-    }
-  }, { threshold: 0.3 });
-  io.observe(widget);
-})();
-
-/* ── PROJECT WIDGET ANIMATION ───────────────────── */
-(function() {
-  const widget = document.getElementById('project-widget');
-  const phases = [
-    { el: document.getElementById('pw-phase-1'), cycle: ['offline', 'online', 'color'], labels: ['Offline Edit', 'Online', 'Color'] },
-    { el: document.getElementById('pw-phase-2'), cycle: ['online', 'color', 'sound'], labels: ['Online', 'Color', 'Sound'] },
-    { el: document.getElementById('pw-phase-3'), cycle: ['color', 'sound', 'offline'], labels: ['Color', 'Sound', 'Delivery'] }
-  ];
-
-  let step = 0;
-  let projInterval = null;
-
-  function updatePhases() {
-    phases.forEach(function(p) {
-      const idx = step % p.cycle.length;
-      p.el.className = 'pw-phase ' + p.cycle[idx];
-      p.el.textContent = p.labels[idx];
-    });
-    step++;
+  function startBookingAnim() {
+    if (!badgeMK) return;
+    clearInterval(bookingLoopId);
+    runBookingCycle();
+    bookingLoopId = setInterval(runBookingCycle, 12000);
   }
 
-  const io = new IntersectionObserver(function(entries) {
-    if (entries[0].isIntersecting && !projInterval) {
-      projInterval = setInterval(updatePhases, 3000);
-    }
-  }, { threshold: 0.3 });
-  io.observe(widget);
-})();
-
-/* ── INVOICE WIDGET ANIMATION ───────────────────── */
-(function() {
-  const widget = document.getElementById('invoice-widget');
-  const typingEl = document.getElementById('iw-typing');
-  const typingAmount = document.getElementById('iw-typing-amount');
-  const totalEl = document.getElementById('iw-total');
-  const sendBtn = document.getElementById('iw-send-btn');
-  const sentBadge = document.getElementById('iw-sent-badge');
-  const statusEl = document.getElementById('iw-status');
-  const fullText = 'Sound design · Mix + M&E';
-
-  let invoiceStarted = false;
-  let invoiceTimer = null;
-  let typingTimer = null;
+  /* SLIDE 4 — Invoice */
+  var typingEl = document.getElementById('iw-typing');
+  var typingAmount = document.getElementById('iw-typing-amount');
+  var totalEl = document.getElementById('iw-total');
+  var sendBtn = document.getElementById('iw-send-btn');
+  var sentBadge = document.getElementById('iw-sent-badge');
+  var statusEl = document.getElementById('iw-status');
+  var fullText = 'Sound design \u00b7 Mix + M&E';
 
   function resetInvoice() {
+    if (!typingEl) return;
     typingEl.textContent = '';
     typingAmount.classList.remove('show');
     totalEl.textContent = '$22,500';
@@ -2648,161 +3606,149 @@
     sentBadge.classList.remove('show');
     statusEl.className = 'iw-status draft';
     statusEl.textContent = 'Draft';
-    // restore cursor
     if (!typingEl.querySelector('.iw-typing-cursor')) {
-      const cursor = document.createElement('span');
-      cursor.className = 'iw-typing-cursor';
-      typingEl.appendChild(cursor);
+      var cur = document.createElement('span');
+      cur.className = 'iw-typing-cursor';
+      typingEl.appendChild(cur);
     }
   }
 
   function typeText(text, el, cb, speed) {
-    speed = speed || 60;
-    let i = 0;
-    let cursor = el.querySelector('.iw-typing-cursor');
-    if (!cursor) {
-      cursor = document.createElement('span');
-      cursor.className = 'iw-typing-cursor';
-    }
-    el.textContent = '';
-    el.appendChild(cursor);
-
+    speed = speed || 55;
+    var i = 0;
+    var cursor = el.querySelector('.iw-typing-cursor');
+    if (!cursor) { cursor = document.createElement('span'); cursor.className = 'iw-typing-cursor'; }
+    el.textContent = ''; el.appendChild(cursor);
     function tick() {
       if (i < text.length) {
         el.insertBefore(document.createTextNode(text[i]), cursor);
         i++;
-        typingTimer = setTimeout(tick, speed);
-      } else {
-        if (cb) cb();
-      }
+        invoiceTypingTimer = setTimeout(tick, speed);
+      } else { if (cb) cb(); }
     }
     tick();
   }
 
   function tickTotal(from, to, el, duration) {
-    const start = Date.now();
-    const diff = to - from;
+    var start = Date.now(); var diff = to - from;
     function step() {
-      const elapsed = Date.now() - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const val = Math.round(from + diff * progress);
-      el.textContent = '$' + val.toLocaleString();
-      if (progress < 1) requestAnimationFrame(step);
+      var p = Math.min((Date.now() - start) / duration, 1);
+      el.textContent = '$' + Math.round(from + diff * p).toLocaleString();
+      if (p < 1) requestAnimationFrame(step);
     }
     requestAnimationFrame(step);
   }
 
   function runInvoiceCycle() {
     resetInvoice();
-    // Type line 3
     setTimeout(function() {
       typeText(fullText, typingEl, function() {
         typingAmount.classList.add('show');
-        // Tick total
-        setTimeout(function() {
-          tickTotal(22500, 25700, totalEl, 600);
-        }, 300);
-        // Show send btn
-        setTimeout(function() {
-          sendBtn.classList.add('show');
-        }, 1200);
-        // Show sent badge
+        setTimeout(function() { tickTotal(22500, 25700, totalEl, 600); }, 300);
+        setTimeout(function() { sendBtn.classList.add('show'); }, 1200);
         setTimeout(function() {
           sentBadge.classList.add('show');
           sendBtn.classList.add('dim');
           statusEl.className = 'iw-status sent';
           statusEl.textContent = 'Sent';
-          // Remove cursor
-          const c = typingEl.querySelector('.iw-typing-cursor');
+          var c = typingEl.querySelector('.iw-typing-cursor');
           if (c) c.style.display = 'none';
         }, 2800);
-      }, 55);
+      });
     }, 800);
   }
 
-  const io = new IntersectionObserver(function(entries) {
-    if (entries[0].isIntersecting && !invoiceStarted) {
-      invoiceStarted = true;
+  function startInvoiceAnim() {
+    if (!typingEl) return;
+    clearInterval(invoiceLoopId);
+    clearTimeout(invoiceTypingTimer);
+    runInvoiceCycle();
+    invoiceLoopId = setInterval(function() {
+      clearTimeout(invoiceTypingTimer);
       runInvoiceCycle();
-      setInterval(function() {
-        clearTimeout(typingTimer);
-        runInvoiceCycle();
-      }, 9000);
-    }
-  }, { threshold: 0.3 });
-  io.observe(widget);
-})();
+    }, 9000);
+  }
 
-/* ── PORTAL WIDGET ANIMATION ────────────────────── */
-(function() {
-  const widget = document.getElementById('portal-widget');
-  const approveBtn = document.getElementById('portw-approve-btn');
-  const badge2 = document.getElementById('portw-badge-2');
-  const item4 = document.getElementById('portw-item-4');
-  const dot3 = document.getElementById('portw-dot-3');
-  const line3 = document.getElementById('portw-line-3');
-  const dot4 = document.getElementById('portw-dot-4');
+  /* SLIDE 5 — Portal */
+  var approveBtn = document.getElementById('portw-approve-btn');
+  var badge2 = document.getElementById('portw-badge-2');
+  var item4 = document.getElementById('portw-item-4');
+  var portLine3 = document.getElementById('portw-line-3');
+  var portDot3 = document.getElementById('portw-dot-3');
 
   function resetPortal() {
+    if (!approveBtn) return;
     approveBtn.classList.remove('pressed');
     approveBtn.style.display = '';
     badge2.className = 'portw-item-badge awaiting';
     badge2.textContent = 'Awaiting review';
     item4.classList.remove('show');
-    dot4.classList.remove('filled');
-    line3.classList.remove('filled');
+    if (portDot3) portDot3.classList.remove('filled');
+    if (portLine3) portLine3.classList.remove('filled');
   }
 
   function runPortalCycle() {
     resetPortal();
-    setTimeout(function() {
-      approveBtn.classList.add('pressed');
-    }, 1800);
+    setTimeout(function() { approveBtn.classList.add('pressed'); }, 1800);
     setTimeout(function() {
       approveBtn.classList.remove('pressed');
       badge2.className = 'portw-item-badge approved';
       badge2.textContent = 'Approved';
       approveBtn.style.display = 'none';
-      line3.classList.add('filled');
+      if (portLine3) portLine3.classList.add('filled');
     }, 2400);
-    setTimeout(function() {
-      dot4.classList.add('filled');
-    }, 2800);
-    setTimeout(function() {
-      item4.classList.add('show');
-    }, 3400);
-    setTimeout(function() {
-      resetPortal();
-    }, 9000);
+    setTimeout(function() { if (portDot3) portDot3.classList.add('filled'); }, 2800);
+    setTimeout(function() { item4.classList.add('show'); }, 3400);
+    setTimeout(function() { resetPortal(); }, 9000);
   }
 
-  let portalStarted = false;
-  const io = new IntersectionObserver(function(entries) {
-    if (entries[0].isIntersecting && !portalStarted) {
-      portalStarted = true;
-      runPortalCycle();
-      setInterval(runPortalCycle, 10000);
-    }
-  }, { threshold: 0.3 });
-  io.observe(widget);
-})();
+  function startPortalAnim() {
+    if (!approveBtn) return;
+    clearInterval(portalLoopId);
+    runPortalCycle();
+    portalLoopId = setInterval(runPortalCycle, 10000);
+  }
 
-/* ── CASH FLOW CHART ─────────────────────────────── */
-(function() {
-  const chart = document.getElementById('cash-chart');
-  let chartDone = false;
-  const io = new IntersectionObserver(function(entries) {
-    if (entries[0].isIntersecting && !chartDone) {
-      chartDone = true;
-      const bars = chart.querySelectorAll('.chart-bar');
-      bars.forEach(function(bar, i) {
-        const delay = parseFloat(bar.getAttribute('data-delay')) || i * 0.07;
-        bar.style.animationDelay = delay + 's';
-        bar.classList.add('grow');
-      });
-    }
-  }, { threshold: 0.3 });
-  io.observe(chart);
+  /* SLIDE 6 — Cash chart */
+  function startChartAnim() {
+    var chart = document.getElementById('cash-chart');
+    if (!chart) return;
+    // Reset bars first
+    var bars = chart.querySelectorAll('.chart-bar');
+    bars.forEach(function(bar) {
+      bar.classList.remove('grow');
+      bar.style.animationDelay = '';
+    });
+    // Trigger reflow
+    chart.getBoundingClientRect();
+    bars.forEach(function(bar, i) {
+      var delay = parseFloat(bar.getAttribute('data-delay')) || i * 0.07;
+      bar.style.animationDelay = delay + 's';
+      bar.classList.add('grow');
+    });
+  }
+
+  /* ── CREW MATRIX ANIMATION (standalone section) ── */
+  var matrixCard = document.getElementById('crew-matrix-card');
+  if (matrixCard) {
+    var matrixDone = false;
+    var mxIo = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting && !matrixDone) {
+        matrixDone = true;
+        var rows = matrixCard.querySelectorAll('tbody tr');
+        var delay = 0;
+        rows.forEach(function(row) {
+          row.querySelectorAll('.mx-chip').forEach(function(chip) {
+            (function(c, d) { setTimeout(function() { c.classList.add('revealed'); }, d); })(chip, delay);
+            delay += 50;
+          });
+          delay += 30;
+        });
+      }
+    }, { threshold: 0.15 });
+    mxIo.observe(matrixCard);
+  }
+
 })();
 </script>
 
