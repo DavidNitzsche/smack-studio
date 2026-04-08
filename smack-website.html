@@ -1332,6 +1332,81 @@
       color: rgba(255,255,255,0.25);
     }
 
+    /* ── PRICING GROUP LABELS ─────────────────────── */
+    .pricing-group-row td, .pricing-group-row th {
+      padding: 18px 20px 6px;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      border-bottom: none;
+      background: rgba(255,255,255,0.015);
+    }
+    .pricing-group-row td.featured {
+      background: rgba(224,120,104,0.03);
+    }
+
+    /* ── COMING SOON ───────────────────────────────── */
+    .coming-soon {
+      background: var(--canvas);
+      padding: 100px 80px;
+    }
+    .coming-soon-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .coming-soon-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+    .coming-soon-h2 {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--navy);
+    }
+    .coming-soon-sub {
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .cs-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .cs-item {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .cs-badge {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(224,120,104,0.1);
+      color: var(--salmon);
+      margin-bottom: 12px;
+    }
+    .cs-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 5px;
+    }
+    .cs-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
     /* ── FINAL CTA ─────────────────────────────────── */
     .final-cta {
       background: var(--off-white);
@@ -2176,17 +2251,15 @@
           </tr>
         </thead>
         <tbody>
+          <!-- Studio -->
+          <tr class="pricing-group-row">
+            <td>Studio</td><td></td><td class="featured"></td><td></td>
+          </tr>
           <tr>
             <td>Team members</td>
             <td>2</td>
             <td class="featured">5</td>
             <td>10</td>
-          </tr>
-          <tr>
-            <td>Contractor seats</td>
-            <td>Unlimited</td>
-            <td class="featured">Unlimited</td>
-            <td>Unlimited</td>
           </tr>
           <tr>
             <td>Active projects</td>
@@ -2195,35 +2268,81 @@
             <td>Unlimited</td>
           </tr>
           <tr>
+            <td>Schedule & crew calendar</td>
+            <td class="pricing-check">✓</td>
+            <td class="featured pricing-check">✓</td>
+            <td class="pricing-check">✓</td>
+          </tr>
+
+          <!-- Crew -->
+          <tr class="pricing-group-row">
+            <td>Crew</td><td></td><td class="featured"></td><td></td>
+          </tr>
+          <tr>
+            <td>Contractor roster</td>
+            <td>Unlimited</td>
+            <td class="featured">Unlimited</td>
+            <td>Unlimited</td>
+          </tr>
+          <tr>
+            <td>Availability checks &amp; holds</td>
+            <td class="pricing-check">✓</td>
+            <td class="featured pricing-check">✓</td>
+            <td class="pricing-check">✓</td>
+          </tr>
+          <tr>
+            <td>Contractor portal</td>
+            <td class="pricing-check">✓</td>
+            <td class="featured pricing-check">✓</td>
+            <td class="pricing-check">✓</td>
+          </tr>
+          <tr>
+            <td>Crew availability matrix</td>
+            <td class="pricing-check">✓</td>
+            <td class="featured pricing-check">✓</td>
+            <td class="pricing-check">✓</td>
+          </tr>
+
+          <!-- Finance -->
+          <tr class="pricing-group-row">
+            <td>Finance</td><td></td><td class="featured"></td><td></td>
+          </tr>
+          <tr>
             <td>Invoicing</td>
-            <td class="pricing-check">Included</td>
-            <td class="featured pricing-check">+ Reminders</td>
+            <td class="pricing-check">✓</td>
+            <td class="featured pricing-check">+ Auto-reminders</td>
             <td class="pricing-check">Custom branding</td>
           </tr>
           <tr>
             <td>Client portals</td>
-            <td>2 per project</td>
+            <td>1 per project</td>
             <td class="featured pricing-check">Unlimited</td>
             <td class="pricing-check">Unlimited</td>
           </tr>
           <tr>
-            <td>Cash flow reporting</td>
-            <td>Basic</td>
+            <td>Cash flow &amp; P&amp;L</td>
+            <td>Summary</td>
             <td class="featured pricing-check">Full P&amp;L</td>
-            <td class="pricing-check">Full P&amp;L</td>
+            <td class="pricing-check">Full P&amp;L + export</td>
+          </tr>
+
+          <!-- Advanced -->
+          <tr class="pricing-group-row">
+            <td>Advanced</td><td></td><td class="featured"></td><td></td>
           </tr>
           <tr>
             <td>API access</td>
             <td class="pricing-none">—</td>
             <td class="featured pricing-none">—</td>
-            <td class="pricing-check">Included</td>
+            <td class="pricing-check">✓</td>
           </tr>
           <tr>
             <td>Priority support</td>
             <td class="pricing-none">—</td>
             <td class="featured pricing-none">—</td>
-            <td class="pricing-check">Included</td>
+            <td class="pricing-check">✓</td>
           </tr>
+
           <tr class="pricing-cta-row">
             <td></td>
             <td><a href="#access" class="pricing-cta-btn">Request access</a></td>
@@ -2232,7 +2351,39 @@
           </tr>
         </tbody>
       </table>
-      <p class="pricing-note">All plans include unlimited contractor seats. Invite-only during launch.</p>
+      <p class="pricing-note">Contractor seats are always unlimited. Invite-only during launch.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COMING SOON ════════════════════════════════════ -->
+<section class="coming-soon">
+  <div class="coming-soon-inner">
+    <div class="coming-soon-header" data-reveal>
+      <h2 class="coming-soon-h2">What's coming.</h2>
+      <p class="coming-soon-sub">In active development. Early access studios help shape the roadmap.</p>
+    </div>
+    <div class="cs-grid" data-reveal>
+      <div class="cs-item">
+        <div class="cs-badge">In development</div>
+        <div class="cs-title">Zoom integration</div>
+        <div class="cs-desc">Schedule client calls and crew meetings with a Zoom link generated automatically.</div>
+      </div>
+      <div class="cs-item">
+        <div class="cs-badge">In development</div>
+        <div class="cs-title">Mobile app</div>
+        <div class="cs-desc">Manage bookings, approve invoices, and check crew availability from your phone.</div>
+      </div>
+      <div class="cs-item">
+        <div class="cs-badge">Planned</div>
+        <div class="cs-title">Contractor payments</div>
+        <div class="cs-desc">Pay crew directly through smack. Track what's been paid, what's pending.</div>
+      </div>
+      <div class="cs-item">
+        <div class="cs-badge">Planned</div>
+        <div class="cs-title">Custom reports</div>
+        <div class="cs-desc">Export P&amp;L by project, quarter, or client. Formatted for your accountant.</div>
+      </div>
     </div>
   </div>
 </section>
