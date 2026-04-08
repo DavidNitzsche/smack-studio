@@ -1386,7 +1386,11 @@
     /* ── REPLACEMENT STORY ───────────────────────────── */
     .replacement {
       background: var(--off-white);
-      padding: 120px 80px;
+      padding: 100px 80px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
     .replacement-inner {
       max-width: 1100px;
@@ -1443,10 +1447,28 @@
       margin-bottom: 28px;
     }
     .replacement-wordmark span { color: rgba(224,120,104,0.4); }
-    .rt-tools { display: flex; flex-direction: column; gap: 20px; flex: 1; }
-    .rt-row { display: flex; flex-direction: column; gap: 3px; }
-    .rt-name { font-size: 13px; font-weight: 600; color: #374151; }
-    .rt-pain { font-size: 12px; color: #9ca3af; line-height: 1.4; }
+    .rt-app-cards { display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .rt-app-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      background: white;
+      border-radius: 10px;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+    .rt-app-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .rt-app-info { flex: 1; min-width: 0; }
+    .rt-app-name { font-size: 12px; font-weight: 700; color: #374151; margin-bottom: 1px; }
+    .rt-app-task { font-size: 11px; color: #9ca3af; line-height: 1.3; }
     .rt-footer-line {
       margin-top: 32px;
       font-size: 10px;
@@ -1493,9 +1515,9 @@
     }
 
     /* ── DARK / LIGHT MODE ───────────────────────────── */
-    .theme-section { background: white; padding: 120px 80px; }
-    .theme-inner { max-width: 1100px; margin: 0 auto; }
-    .theme-header { text-align: center; margin-bottom: 64px; }
+    .theme-section { background: white; padding: 80px 80px; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+    .theme-inner { max-width: 1100px; margin: 0 auto; width: 100%; }
+    .theme-header { text-align: center; margin-bottom: 56px; }
     .theme-h2 {
       font-size: 46px;
       font-weight: 900;
@@ -1505,27 +1527,65 @@
       margin-bottom: 14px;
     }
     .theme-sub { font-size: 16px; color: var(--muted); }
-    .theme-preview-wrap {
+    /* Drag-compare wrapper */
+    .theme-compare-wrap {
+      position: relative;
+      height: 460px;
       border-radius: 20px;
       overflow: hidden;
+      user-select: none;
       border: 1px solid rgba(0,0,0,0.08);
+      cursor: col-resize;
     }
-    .theme-split { display: flex; height: 440px; }
-    .theme-panel { flex: 1; display: flex; overflow: hidden; position: relative; }
-    .tp-dark { background: #0c1628; }
-    .tp-light { background: #f4f4f6; }
-    .theme-panel-badge {
+    .theme-full {
       position: absolute;
-      top: 14px;
+      inset: 0;
+      display: flex;
+      overflow: hidden;
+    }
+    .dark-full { z-index: 1; background: #0c1628; }
+    .light-full { z-index: 2; background: #f4f4f6; clip-path: inset(0 0 0 50%); }
+    .theme-drag-bar {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 3px;
+      background: var(--salmon);
+      z-index: 10;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: col-resize;
+    }
+    .theme-drag-pill {
+      width: 38px;
+      height: 38px;
+      background: var(--salmon);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      cursor: col-resize;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+      flex-shrink: 0;
+    }
+    .theme-mode-label {
+      position: absolute;
       font-size: 10px;
       font-weight: 700;
-      letter-spacing: 0.07em;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      z-index: 5;
+      pointer-events: none;
+      bottom: 16px;
       padding: 4px 10px;
       border-radius: 100px;
-      z-index: 2;
     }
-    .tp-dark .theme-panel-badge { left: 14px; background: rgba(255,255,255,0.09); color: rgba(255,255,255,0.4); }
-    .tp-light .theme-panel-badge { right: 14px; background: #0c1628; color: white; }
+    .theme-mode-label.dark-label { left: 16px; background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); }
+    .theme-mode-label.light-label { right: 16px; background: rgba(0,0,0,0.07); color: #6b7280; }
     .tp-sidebar {
       width: 138px;
       flex-shrink: 0;
@@ -1916,7 +1976,7 @@
 
     /* ── RECAP SECTION ────────────────────────────── */
     /* ── INVOICE SHOWCASE ────────────────────────────── */
-    .invoice-showcase { background: var(--off-white); padding: 120px 80px; }
+    .invoice-showcase { background: var(--off-white); padding: 80px 80px; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
     .invoice-showcase-inner { max-width: 1100px; margin: 0 auto; }
     .invoice-showcase-header { text-align: center; margin-bottom: 64px; }
     .invoice-showcase-h2 {
@@ -2110,7 +2170,7 @@
     .inv-hist-sub { font-size: 11px; color: #9ca3af; margin-top: 1px; }
 
     /* ── CLIENT PORTAL SHOWCASE ──────────────────────── */
-    .portal-showcase { background: white; padding: 120px 80px; }
+    .portal-showcase { background: white; padding: 80px 80px; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
     .portal-showcase-inner { max-width: 1100px; margin: 0 auto; }
     .portal-showcase-header { text-align: center; margin-bottom: 64px; }
     .portal-h2 {
@@ -3004,7 +3064,7 @@
 </nav>
 
 <!-- ═══ HERO ═══════════════════════════════════════════ -->
-<section class="hero grid-texture" id="features">
+<section class="hero" id="features">
   <div class="hero-inner">
 
     <div class="hero-left">
@@ -3911,15 +3971,96 @@
     <div class="replacement-cols" data-reveal>
       <div class="replacement-before">
         <div class="rp-label rp-label-red">Your current stack</div>
-        <div class="rt-tools">
-          <div class="rt-row"><span class="rt-name">Gmail + iMessage</span><span class="rt-pain">Booking lives in threads. Nothing is tracked.</span></div>
-          <div class="rt-row"><span class="rt-name">Google Sheets</span><span class="rt-pain">Availability tracker is always out of date.</span></div>
-          <div class="rt-row"><span class="rt-name">QuickBooks</span><span class="rt-pain">Your accountant has the P&amp;L. You don't.</span></div>
-          <div class="rt-row"><span class="rt-name">Google Calendar</span><span class="rt-pain">Events, not projects. Crew isn't in it.</span></div>
-          <div class="rt-row"><span class="rt-name">Dropbox</span><span class="rt-pain">Files exist. Context doesn't.</span></div>
-          <div class="rt-row"><span class="rt-name">Google Drive</span><span class="rt-pain">The invoice is a template. Reminders are manual.</span></div>
+        <div class="rt-app-cards">
+
+          <div class="rt-app-card">
+            <div class="rt-app-icon" style="background:#EA4335">
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+                <rect x="2" y="4" width="16" height="13" rx="1.5" stroke="white" stroke-width="1.5"/>
+                <path d="M2,6 L10,12 L18,6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="rt-app-info">
+              <div class="rt-app-name">Gmail</div>
+              <div class="rt-app-task">Booking lives in threads. Nothing tracked.</div>
+            </div>
+          </div>
+
+          <div class="rt-app-card">
+            <div class="rt-app-icon" style="background:#34AADC">
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+                <path d="M3,3 h14 a1.5,1.5 0 0 1 1.5,1.5 v7 a1.5,1.5 0 0 1-1.5,1.5 H9 L4,16 V13 H3 a1.5,1.5 0 0 1-1.5-1.5 V4.5 A1.5,1.5 0 0 1 3,3z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="rt-app-info">
+              <div class="rt-app-name">iMessage</div>
+              <div class="rt-app-task">Crew confirmations lost in texts.</div>
+            </div>
+          </div>
+
+          <div class="rt-app-card">
+            <div class="rt-app-icon" style="background:#34A853">
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+                <rect x="2" y="2" width="16" height="16" rx="1.5" stroke="white" stroke-width="1.5"/>
+                <line x1="2" y1="7" x2="18" y2="7" stroke="white" stroke-width="1.2"/>
+                <line x1="2" y1="12" x2="18" y2="12" stroke="white" stroke-width="1.2"/>
+                <line x1="7.5" y1="2" x2="7.5" y2="18" stroke="white" stroke-width="1.2"/>
+                <line x1="13" y1="2" x2="13" y2="18" stroke="white" stroke-width="1.2"/>
+              </svg>
+            </div>
+            <div class="rt-app-info">
+              <div class="rt-app-name">Google Sheets</div>
+              <div class="rt-app-task">Availability tracker always stale.</div>
+            </div>
+          </div>
+
+          <div class="rt-app-card">
+            <div class="rt-app-icon" style="background:#0077C5">
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+                <path d="M4,3 h8 a4,4 0 0 1 4,4 v0 a4,4 0 0 1-4,4 H8 v6 H4 Z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+                <circle cx="12" cy="7" r="1.5" fill="white"/>
+              </svg>
+            </div>
+            <div class="rt-app-info">
+              <div class="rt-app-name">QuickBooks</div>
+              <div class="rt-app-task">P&amp;L lives with your accountant.</div>
+            </div>
+          </div>
+
+          <div class="rt-app-card">
+            <div class="rt-app-icon" style="background:#4285F4">
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+                <rect x="2" y="3" width="16" height="15" rx="1.5" stroke="white" stroke-width="1.5"/>
+                <line x1="2" y1="8" x2="18" y2="8" stroke="white" stroke-width="1.5"/>
+                <line x1="7" y1="3" x2="7" y2="8" stroke="white" stroke-width="1.5"/>
+                <line x1="13" y1="3" x2="13" y2="8" stroke="white" stroke-width="1.5"/>
+                <rect x="5" y="11" width="3" height="2.5" rx="0.5" fill="white" opacity="0.7"/>
+                <rect x="9.5" y="11" width="3" height="2.5" rx="0.5" fill="white" opacity="0.7"/>
+              </svg>
+            </div>
+            <div class="rt-app-info">
+              <div class="rt-app-name">Google Calendar</div>
+              <div class="rt-app-task">Events, not projects. Crew not in it.</div>
+            </div>
+          </div>
+
+          <div class="rt-app-card">
+            <div class="rt-app-icon" style="background:#0061FF">
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+                <path d="M10,3 L14.5,6.5 L10,10 L5.5,6.5 Z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M5.5,6.5 L1.5,10 L5.5,13.5 L10,10" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M14.5,6.5 L18.5,10 L14.5,13.5 L10,10" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M5.5,13.5 L10,17 L14.5,13.5" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="rt-app-info">
+              <div class="rt-app-name">Dropbox + Drive</div>
+              <div class="rt-app-task">Files exist. Invoice is a template.</div>
+            </div>
+          </div>
+
         </div>
-        <div class="rt-footer-line red">6 tools. Zero coordination.</div>
+        <div class="rt-footer-line red">6 apps. Zero coordination.</div>
       </div>
       <div class="replacement-after">
         <span class="replacement-wordmark">smack<span>.</span></span>
@@ -4156,82 +4297,95 @@
     <div class="theme-header" data-reveal>
       <p class="section-eyebrow">Works your way</p>
       <h2 class="theme-h2">Dark mode. Light mode.<br>Your call.</h2>
-      <p class="theme-sub">Flip between them anytime. smack. looks sharp in both.</p>
+      <p class="theme-sub">Drag the handle to compare. smack. looks sharp in both.</p>
     </div>
-    <div class="theme-preview-wrap" data-reveal>
-      <div class="theme-split">
-        <div class="theme-panel tp-dark">
-          <div class="theme-panel-badge">DARK MODE</div>
-          <div class="tp-sidebar tps-dark">
-            <div class="tp-brand">
-              <svg width="16" height="18" viewBox="0 0 190.75 218.6" aria-hidden="true">
-                <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
-                <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="14" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-                <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="14" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-                <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="14" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-              </svg>
-              <span class="tp-wordmark tpw-dark">smack.</span>
-            </div>
-            <div class="tp-nav tp-active-dark">Dashboard</div>
-            <div class="tp-nav tpn-dark">Projects</div>
-            <div class="tp-nav tpn-dark">Schedule</div>
-            <div class="tp-nav tpn-dark">Crew</div>
-            <div class="tp-nav tpn-dark">Invoices</div>
+    <div class="theme-compare-wrap" id="theme-compare" data-reveal>
+
+      <!-- DARK PANEL — full width, underneath -->
+      <div class="theme-full dark-full">
+        <div class="tp-sidebar tps-dark">
+          <div class="tp-brand">
+            <svg width="16" height="18" viewBox="0 0 190.75 218.6" aria-hidden="true">
+              <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+              <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="14" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+              <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="14" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+              <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="14" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+            </svg>
+            <span class="tp-wordmark tpw-dark">smack.</span>
           </div>
-          <div class="tp-main tpm-dark">
-            <div class="tp-topbar">
-              <div><div class="tp-page-title tpt-dark">Dashboard</div><div class="tp-page-sub tps2-dark">Tuesday, April 8, 2026</div></div>
-              <div class="tp-action-btn">New Project</div>
-            </div>
-            <div class="tp-stat-grid">
-              <div class="tp-stat tpst-dark"><div class="tp-stat-label tpsl-dark">ACTIVE PROJECTS</div><div class="tp-stat-val tpsv-dark">6</div></div>
-              <div class="tp-stat tpst-dark"><div class="tp-stat-label tpsl-dark">OUTSTANDING</div><div class="tp-stat-val tpsv-accent">$54k</div></div>
-              <div class="tp-stat tpst-dark"><div class="tp-stat-label tpsl-dark">PAID THIS MONTH</div><div class="tp-stat-val tpsv-accent">$38.5k</div></div>
-              <div class="tp-stat tpst-dark"><div class="tp-stat-label tpsl-dark">NEXT BOOKING</div><div class="tp-stat-val tpsv-dark">Apr 14</div></div>
-            </div>
-            <div class="tp-proj-label tppl-dark">ACTIVE PROJECTS</div>
-            <div class="tp-proj-row tppr-dark"><span class="tp-proj-dot" style="background:#34d399"></span>Patagonia — Spring Campaign<span class="tp-proj-badge tppb-prod-dark">In Production</span></div>
-            <div class="tp-proj-row tppr-dark"><span class="tp-proj-dot" style="background:#fbbf24"></span>Oura Ring — Product Launch<span class="tp-proj-badge tppb-review-dark">In Review</span></div>
-            <div class="tp-proj-row tppr-dark"><span class="tp-proj-dot" style="background:#60a5fa"></span>Nike — Retail Campaign<span class="tp-proj-badge tppb-plan-dark">Planning</span></div>
-          </div>
+          <div class="tp-nav tp-active-dark">Dashboard</div>
+          <div class="tp-nav tpn-dark">Projects</div>
+          <div class="tp-nav tpn-dark">Schedule</div>
+          <div class="tp-nav tpn-dark">Crew</div>
+          <div class="tp-nav tpn-dark">Invoices</div>
         </div>
-        <div class="theme-divider"><div class="theme-toggle-pill">DARK ↔ LIGHT</div></div>
-        <div class="theme-panel tp-light">
-          <div class="theme-panel-badge">LIGHT MODE</div>
-          <div class="tp-sidebar tps-light">
-            <div class="tp-brand">
-              <svg width="16" height="18" viewBox="0 0 190.75 218.6" aria-hidden="true">
-                <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
-                <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="14" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-                <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="14" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-                <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="14" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-              </svg>
-              <span class="tp-wordmark tpw-light">smack.</span>
-            </div>
-            <div class="tp-nav tp-active-light">Dashboard</div>
-            <div class="tp-nav tpn-light">Projects</div>
-            <div class="tp-nav tpn-light">Schedule</div>
-            <div class="tp-nav tpn-light">Crew</div>
-            <div class="tp-nav tpn-light">Invoices</div>
+        <div class="tp-main tpm-dark">
+          <div class="tp-topbar">
+            <div><div class="tp-page-title tpt-dark">Dashboard</div><div class="tp-page-sub tps2-dark">Tuesday, April 8, 2026</div></div>
+            <div class="tp-action-btn">New Project</div>
           </div>
-          <div class="tp-main tpm-light">
-            <div class="tp-topbar">
-              <div><div class="tp-page-title tpt-light">Dashboard</div><div class="tp-page-sub tps2-light">Tuesday, April 8, 2026</div></div>
-              <div class="tp-action-btn">New Project</div>
-            </div>
-            <div class="tp-stat-grid">
-              <div class="tp-stat tpst-light"><div class="tp-stat-label tpsl-light">ACTIVE PROJECTS</div><div class="tp-stat-val tpsv-light">6</div></div>
-              <div class="tp-stat tpst-light"><div class="tp-stat-label tpsl-light">OUTSTANDING</div><div class="tp-stat-val tpsv-accent">$54k</div></div>
-              <div class="tp-stat tpst-light"><div class="tp-stat-label tpsl-light">PAID THIS MONTH</div><div class="tp-stat-val tpsv-accent">$38.5k</div></div>
-              <div class="tp-stat tpst-light"><div class="tp-stat-label tpsl-light">NEXT BOOKING</div><div class="tp-stat-val tpsv-light">Apr 14</div></div>
-            </div>
-            <div class="tp-proj-label tppl-light">ACTIVE PROJECTS</div>
-            <div class="tp-proj-row tppr-light"><span class="tp-proj-dot" style="background:#34d399"></span>Patagonia — Spring Campaign<span class="tp-proj-badge tppb-prod-light">In Production</span></div>
-            <div class="tp-proj-row tppr-light"><span class="tp-proj-dot" style="background:#fbbf24"></span>Oura Ring — Product Launch<span class="tp-proj-badge tppb-review-light">In Review</span></div>
-            <div class="tp-proj-row tppr-light"><span class="tp-proj-dot" style="background:#60a5fa"></span>Nike — Retail Campaign<span class="tp-proj-badge tppb-plan-light">Planning</span></div>
+          <div class="tp-stat-grid">
+            <div class="tp-stat tpst-dark"><div class="tp-stat-label tpsl-dark">ACTIVE PROJECTS</div><div class="tp-stat-val tpsv-dark">6</div></div>
+            <div class="tp-stat tpst-dark"><div class="tp-stat-label tpsl-dark">OUTSTANDING</div><div class="tp-stat-val tpsv-accent">$54k</div></div>
+            <div class="tp-stat tpst-dark"><div class="tp-stat-label tpsl-dark">PAID THIS MONTH</div><div class="tp-stat-val tpsv-accent">$38.5k</div></div>
+            <div class="tp-stat tpst-dark"><div class="tp-stat-label tpsl-dark">NEXT BOOKING</div><div class="tp-stat-val tpsv-dark">Apr 14</div></div>
           </div>
+          <div class="tp-proj-label tppl-dark">ACTIVE PROJECTS</div>
+          <div class="tp-proj-row tppr-dark"><span class="tp-proj-dot" style="background:#34d399"></span>Patagonia — Spring Campaign<span class="tp-proj-badge tppb-prod-dark">In Production</span></div>
+          <div class="tp-proj-row tppr-dark"><span class="tp-proj-dot" style="background:#fbbf24"></span>Oura Ring — Product Launch<span class="tp-proj-badge tppb-review-dark">In Review</span></div>
+          <div class="tp-proj-row tppr-dark"><span class="tp-proj-dot" style="background:#60a5fa"></span>Nike — Retail Campaign<span class="tp-proj-badge tppb-plan-dark">Planning</span></div>
         </div>
       </div>
+
+      <!-- LIGHT PANEL — full width, on top, clipped from the right -->
+      <div class="theme-full light-full" id="theme-light-panel">
+        <div class="tp-sidebar tps-light">
+          <div class="tp-brand">
+            <svg width="16" height="18" viewBox="0 0 190.75 218.6" aria-hidden="true">
+              <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+              <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="14" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+              <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="14" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+              <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="14" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+            </svg>
+            <span class="tp-wordmark tpw-light">smack.</span>
+          </div>
+          <div class="tp-nav tp-active-light">Dashboard</div>
+          <div class="tp-nav tpn-light">Projects</div>
+          <div class="tp-nav tpn-light">Schedule</div>
+          <div class="tp-nav tpn-light">Crew</div>
+          <div class="tp-nav tpn-light">Invoices</div>
+        </div>
+        <div class="tp-main tpm-light">
+          <div class="tp-topbar">
+            <div><div class="tp-page-title tpt-light">Dashboard</div><div class="tp-page-sub tps2-light">Tuesday, April 8, 2026</div></div>
+            <div class="tp-action-btn">New Project</div>
+          </div>
+          <div class="tp-stat-grid">
+            <div class="tp-stat tpst-light"><div class="tp-stat-label tpsl-light">ACTIVE PROJECTS</div><div class="tp-stat-val tpsv-light">6</div></div>
+            <div class="tp-stat tpst-light"><div class="tp-stat-label tpsl-light">OUTSTANDING</div><div class="tp-stat-val tpsv-accent">$54k</div></div>
+            <div class="tp-stat tpst-light"><div class="tp-stat-label tpsl-light">PAID THIS MONTH</div><div class="tp-stat-val tpsv-accent">$38.5k</div></div>
+            <div class="tp-stat tpst-light"><div class="tp-stat-label tpsl-light">NEXT BOOKING</div><div class="tp-stat-val tpsv-light">Apr 14</div></div>
+          </div>
+          <div class="tp-proj-label tppl-light">ACTIVE PROJECTS</div>
+          <div class="tp-proj-row tppr-light"><span class="tp-proj-dot" style="background:#34d399"></span>Patagonia — Spring Campaign<span class="tp-proj-badge tppb-prod-light">In Production</span></div>
+          <div class="tp-proj-row tppr-light"><span class="tp-proj-dot" style="background:#fbbf24"></span>Oura Ring — Product Launch<span class="tp-proj-badge tppb-review-light">In Review</span></div>
+          <div class="tp-proj-row tppr-light"><span class="tp-proj-dot" style="background:#60a5fa"></span>Nike — Retail Campaign<span class="tp-proj-badge tppb-plan-light">Planning</span></div>
+        </div>
+      </div>
+
+      <!-- DRAG HANDLE -->
+      <div class="theme-drag-bar" id="theme-drag-bar">
+        <div class="theme-drag-pill">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+            <path d="M6,9 L2,6 M6,9 L2,12 M12,9 L16,6 M12,9 L16,12" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="6" y1="9" x2="12" y2="9" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- MODE LABELS -->
+      <div class="theme-mode-label dark-label">DARK</div>
+      <div class="theme-mode-label light-label">LIGHT</div>
     </div>
   </div>
 </section>
@@ -4560,6 +4714,48 @@
   }
   if (document.readyState === 'complete') { hideLoader(); }
   else { window.addEventListener('load', hideLoader); }
+})();
+
+/* ── DARK/LIGHT DRAG SLIDER ─────────────────────── */
+(function() {
+  var wrap = document.getElementById('theme-compare');
+  var bar = document.getElementById('theme-drag-bar');
+  var panel = document.getElementById('theme-light-panel');
+  if (!wrap || !bar || !panel) return;
+  var dragging = false;
+  function setPos(clientX) {
+    var r = wrap.getBoundingClientRect();
+    var pct = Math.max(5, Math.min(95, ((clientX - r.left) / r.width) * 100));
+    bar.style.left = pct + '%';
+    panel.style.clipPath = 'inset(0 0 0 ' + pct + '%)';
+  }
+  bar.addEventListener('mousedown', function(e) { dragging = true; e.preventDefault(); });
+  wrap.addEventListener('mousedown', function(e) { dragging = true; setPos(e.clientX); });
+  document.addEventListener('mousemove', function(e) { if (dragging) setPos(e.clientX); });
+  document.addEventListener('mouseup', function() { dragging = false; });
+  bar.addEventListener('touchstart', function(e) { dragging = true; }, { passive: true });
+  wrap.addEventListener('touchstart', function(e) { dragging = true; setPos(e.touches[0].clientX); }, { passive: true });
+  document.addEventListener('touchmove', function(e) { if (dragging) setPos(e.touches[0].clientX); }, { passive: true });
+  document.addEventListener('touchend', function() { dragging = false; });
+  // hint sweep on load: start at 70%, sweep to 50%
+  var hintDone = false;
+  var hintIo = new IntersectionObserver(function(entries) {
+    if (entries[0].isIntersecting && !hintDone) {
+      hintDone = true;
+      var pct = 70;
+      panel.style.clipPath = 'inset(0 0 0 70%)';
+      bar.style.left = '70%';
+      setTimeout(function() {
+        var i = setInterval(function() {
+          pct -= 0.8;
+          bar.style.left = pct + '%';
+          panel.style.clipPath = 'inset(0 0 0 ' + pct + '%)';
+          if (pct <= 50) clearInterval(i);
+        }, 16);
+      }, 400);
+    }
+  }, { threshold: 0.4 });
+  hintIo.observe(wrap);
 })();
 
 /* ── ACCENT COLOR ────────────────────────────────── */
