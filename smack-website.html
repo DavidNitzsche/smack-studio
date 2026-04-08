@@ -154,6 +154,24 @@
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-8px); }
     }
+    /* ── TENTACLE WAVES (independent per-tentacle sway) ── */
+    @keyframes tw-a {
+      0%, 100% { transform: rotate(-2.5deg); }
+      50% { transform: rotate(2deg); }
+    }
+    @keyframes tw-b {
+      0%, 100% { transform: rotate(2deg); }
+      50% { transform: rotate(-2.5deg); }
+    }
+    .tw1, .tw2, .tw3, .tw4, .tw5 {
+      transform-box: fill-box;
+      transform-origin: top center;
+    }
+    .tw1 { animation: tw-a 2.4s ease-in-out infinite 0s; }
+    .tw2 { animation: tw-b 2.1s ease-in-out infinite 0.35s; }
+    .tw3 { animation: tw-a 2.6s ease-in-out infinite 0.65s; }
+    .tw4 { animation: tw-b 2.2s ease-in-out infinite 0.2s; }
+    .tw5 { animation: tw-a 2.3s ease-in-out infinite 0.5s; }
     .hero-brand-moment-wordmark {
       font-family: 'Funtastic', sans-serif;
       font-size: 56px;
@@ -1365,89 +1383,330 @@
     }
 
     /* ── COMPARISON ────────────────────────────────── */
-    .comparison {
-      background: white;
+    /* ── REPLACEMENT STORY ───────────────────────────── */
+    .replacement {
+      background: var(--off-white);
       padding: 120px 80px;
     }
-    .comparison-inner {
-      max-width: 1000px;
+    .replacement-inner {
+      max-width: 1100px;
       margin: 0 auto;
     }
-    .comparison-h2 {
+    .replacement-header {
       text-align: center;
-      font-size: 42px;
-      font-weight: 900;
-      letter-spacing: -0.03em;
-      color: var(--navy);
       margin-bottom: 56px;
     }
-    .comparison-cols {
+    .replacement-h2 {
+      font-size: 46px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: var(--navy);
+      line-height: 1.08;
+    }
+    .replacement-h2 em { font-style: normal; color: var(--salmon); }
+    .replacement-cols {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
+      grid-template-columns: 2fr 3fr;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.07);
     }
-    .comparison-card {
-      border-radius: 16px;
-      padding: 36px;
-    }
-    .comparison-card.before {
+    .replacement-before {
       background: #fdf5f5;
-      border: 1px solid #fecaca;
-    }
-    .comparison-card.after {
-      background: var(--navy);
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-    .comparison-card-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 20px;
-    }
-    .comparison-card.before .comparison-card-label { color: #ef4444; }
-    .comparison-card.after .comparison-card-label { color: var(--salmon); }
-    .comparison-tools-stack {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 20px;
-    }
-    .comparison-tool-badge {
-      font-size: 11px;
-      font-weight: 500;
-      padding: 4px 10px;
-      border-radius: 100px;
-      background: rgba(0,0,0,0.06);
-      color: var(--muted);
-    }
-    .comparison-card.before p {
-      font-size: 14px;
-      color: #6b7280;
-      line-height: 1.7;
-    }
-    .comparison-after-mark {
-      margin-bottom: 20px;
+      border-right: 1px solid #fecaca;
+      padding: 48px;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      gap: 10px;
     }
-    .comparison-after-wordmark {
+    .replacement-after {
+      background: var(--navy);
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+    }
+    .rp-label {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .rp-label-red { color: #ef4444; }
+    .rp-label-salmon { color: var(--salmon); opacity: 0.8; }
+    .replacement-wordmark {
+      display: block;
       font-family: 'Funtastic', sans-serif;
-      font-size: 32px;
+      font-size: 30px;
       color: var(--salmon);
-      line-height: 1;
       letter-spacing: -0.01em;
+      line-height: 1;
+      margin-bottom: 28px;
     }
-    .comparison-card.after p {
-      font-size: 14px;
-      color: rgba(255,255,255,0.55);
-      line-height: 1.7;
+    .replacement-wordmark span { color: rgba(224,120,104,0.4); }
+    .rt-tools { display: flex; flex-direction: column; gap: 20px; flex: 1; }
+    .rt-row { display: flex; flex-direction: column; gap: 3px; }
+    .rt-name { font-size: 13px; font-weight: 600; color: #374151; }
+    .rt-pain { font-size: 12px; color: #9ca3af; line-height: 1.4; }
+    .rt-footer-line {
+      margin-top: 32px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.45;
     }
-    .comparison-card.after p strong {
-      color: white;
+    .rt-footer-line.red { color: #ef4444; }
+    .rt-footer-line.salmon { color: var(--salmon); }
+    .rf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; flex: 1; }
+    .rf-group-label {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--salmon);
+      opacity: 0.7;
+      margin-bottom: 13px;
+    }
+    .rf-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .rf-list li {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.4;
+      padding-left: 14px;
+      position: relative;
+    }
+    .rf-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 7px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--salmon);
+      opacity: 0.55;
+    }
+
+    /* ── DARK / LIGHT MODE ───────────────────────────── */
+    .theme-section { background: white; padding: 120px 80px; }
+    .theme-inner { max-width: 1100px; margin: 0 auto; }
+    .theme-header { text-align: center; margin-bottom: 64px; }
+    .theme-h2 {
+      font-size: 46px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: var(--navy);
+      line-height: 1.08;
+      margin-bottom: 14px;
+    }
+    .theme-sub { font-size: 16px; color: var(--muted); }
+    .theme-preview-wrap {
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+    .theme-split { display: flex; height: 440px; }
+    .theme-panel { flex: 1; display: flex; overflow: hidden; position: relative; }
+    .tp-dark { background: #0c1628; }
+    .tp-light { background: #f4f4f6; }
+    .theme-panel-badge {
+      position: absolute;
+      top: 14px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      padding: 4px 10px;
+      border-radius: 100px;
+      z-index: 2;
+    }
+    .tp-dark .theme-panel-badge { left: 14px; background: rgba(255,255,255,0.09); color: rgba(255,255,255,0.4); }
+    .tp-light .theme-panel-badge { right: 14px; background: #0c1628; color: white; }
+    .tp-sidebar {
+      width: 138px;
+      flex-shrink: 0;
+      padding: 20px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .tps-dark { background: #0d1f3c; border-right: 1px solid rgba(255,255,255,0.05); }
+    .tps-light { background: white; border-right: 1px solid rgba(0,0,0,0.06); }
+    .tp-brand { display: flex; align-items: center; gap: 7px; margin-bottom: 18px; padding: 0 4px; }
+    .tp-wordmark { font-family: 'Funtastic', sans-serif; font-size: 14px; line-height: 1; }
+    .tpw-dark { color: white; }
+    .tpw-light { color: var(--navy); }
+    .tp-nav { font-size: 12px; padding: 6px 10px; border-radius: 6px; cursor: default; }
+    .tpn-dark { color: rgba(255,255,255,0.35); }
+    .tpn-light { color: #6b7280; }
+    .tp-nav.tp-active-dark { background: rgba(224,120,104,0.14); color: #e07868; font-weight: 600; }
+    .tp-nav.tp-active-light { background: rgba(224,120,104,0.1); color: #e07868; font-weight: 600; }
+    .tp-main { flex: 1; padding: 20px 18px; overflow: hidden; }
+    .tpm-dark { background: #0c1628; }
+    .tpm-light { background: #f4f4f6; }
+    .tp-topbar { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+    .tp-page-title { font-size: 15px; font-weight: 700; letter-spacing: -0.02em; }
+    .tpt-dark { color: white; }
+    .tpt-light { color: #111827; }
+    .tp-page-sub { font-size: 10px; margin-top: 2px; }
+    .tps2-dark { color: rgba(255,255,255,0.25); }
+    .tps2-light { color: #9ca3af; }
+    .tp-action-btn {
+      font-size: 10px;
       font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 7px;
+      background: var(--salmon);
+      color: white;
+      cursor: default;
+    }
+    .tp-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-bottom: 14px; }
+    .tp-stat { padding: 10px 12px; border-radius: 9px; }
+    .tpst-dark { background: #0d1f3c; }
+    .tpst-light { background: white; border: 1px solid rgba(0,0,0,0.06); }
+    .tp-stat-label { font-size: 8px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
+    .tpsl-dark { color: rgba(255,255,255,0.2); }
+    .tpsl-light { color: #9ca3af; }
+    .tp-stat-val { font-size: 16px; font-weight: 700; }
+    .tpsv-dark { color: white; }
+    .tpsv-light { color: #111827; }
+    .tpsv-accent { color: var(--salmon); }
+    .tp-proj-label { font-size: 8px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 7px; }
+    .tppl-dark { color: rgba(255,255,255,0.2); }
+    .tppl-light { color: #9ca3af; }
+    .tp-proj-row { display: flex; align-items: center; gap: 7px; font-size: 11px; padding: 7px 10px; border-radius: 7px; margin-bottom: 3px; }
+    .tppr-dark { color: rgba(255,255,255,0.65); }
+    .tppr-light { background: white; color: #374151; border: 1px solid rgba(0,0,0,0.05); }
+    .tp-proj-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .tp-proj-badge { margin-left: auto; font-size: 9px; font-weight: 600; padding: 2px 6px; border-radius: 4px; }
+    .tppb-prod-dark { background: rgba(52,211,153,0.15); color: #34d399; }
+    .tppb-prod-light { background: rgba(16,185,129,0.1); color: #059669; }
+    .tppb-review-dark { background: rgba(251,191,36,0.15); color: #fbbf24; }
+    .tppb-review-light { background: rgba(245,158,11,0.1); color: #d97706; }
+    .tppb-plan-dark { background: rgba(96,165,250,0.15); color: #60a5fa; }
+    .tppb-plan-light { background: rgba(59,130,246,0.1); color: #2563eb; }
+    .theme-divider {
+      width: 2px;
+      background: linear-gradient(to bottom, transparent, var(--salmon) 20%, var(--salmon) 80%, transparent);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      z-index: 3;
+    }
+    .theme-toggle-pill {
+      position: absolute;
+      background: var(--salmon);
+      color: white;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 6px 10px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    /* ── ACCENT COLOR ─────────────────────────────────── */
+    .accent-section { background: var(--navy); padding: 120px 80px; }
+    .accent-inner { max-width: 1000px; margin: 0 auto; }
+    .accent-header { text-align: center; margin-bottom: 56px; }
+    .accent-h2 {
+      font-size: 46px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: white;
+      line-height: 1.08;
+      margin-bottom: 14px;
+    }
+    .accent-sub { font-size: 16px; color: rgba(255,255,255,0.35); }
+    .accent-body { display: flex; flex-direction: column; align-items: center; gap: 32px; }
+    .accent-swatches { display: flex; gap: 12px; align-items: center; }
+    .swatch-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 3px solid transparent;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.15s;
+      outline: none;
+    }
+    .swatch-btn:hover { transform: scale(1.15); }
+    .swatch-btn.active { border-color: white; transform: scale(1.08); }
+    .accent-preview {
+      width: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      height: 320px;
+    }
+    .ap-sidebar {
+      width: 148px;
+      flex-shrink: 0;
+      background: white;
+      border-right: 1px solid rgba(0,0,0,0.06);
+      padding: 20px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .ap-brand { display: flex; align-items: center; gap: 8px; margin-bottom: 18px; padding: 0 4px; }
+    .ap-wordmark { font-family: 'Funtastic', sans-serif; font-size: 14px; color: var(--navy); line-height: 1; }
+    .ap-nav-item { font-size: 12px; color: #6b7280; padding: 6px 10px; border-radius: 6px; cursor: default; }
+    .ap-nav-active {
+      font-weight: 600;
+      color: var(--ap);
+      background: var(--ap-tint, rgba(224,120,104,0.12));
+      transition: background 0.3s, color 0.3s;
+    }
+    .ap-main { flex: 1; padding: 22px 24px; background: #f4f4f6; overflow: hidden; }
+    .ap-topbar { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; }
+    .ap-page-title { font-size: 17px; font-weight: 700; color: #111827; letter-spacing: -0.02em; }
+    .ap-page-sub { font-size: 11px; color: #9ca3af; margin-top: 2px; }
+    .ap-action-btn {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 7px 14px;
+      border-radius: 8px;
+      border: none;
+      background: var(--ap);
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .ap-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
+    .ap-stat {
+      background: white;
+      border-radius: 10px;
+      padding: 12px 14px;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+    .ap-stat-label { font-size: 8px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #9ca3af; margin-bottom: 5px; }
+    .ap-stat-val { font-size: 20px; font-weight: 700; color: #111827; letter-spacing: -0.02em; }
+    .ap-accent-val { color: var(--ap); transition: color 0.3s; }
+    .ap-proj-label { font-size: 8px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #9ca3af; margin-bottom: 8px; }
+    .ap-proj-list { display: flex; flex-direction: column; gap: 4px; }
+    .ap-proj-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #374151;
+      background: white;
+      padding: 9px 12px;
+      border-radius: 7px;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    .ap-proj-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .ap-proj-status { margin-left: auto; font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 4px; }
+    .ap-status-accent {
+      background: var(--ap-tint, rgba(224,120,104,0.12));
+      color: var(--ap);
+      transition: background 0.3s, color 0.3s;
     }
 
     /* ── PRICING ───────────────────────────────────── */
@@ -1656,79 +1915,335 @@
     }
 
     /* ── RECAP SECTION ────────────────────────────── */
-    .recap {
-      background: var(--navy);
-      padding: 120px 80px;
-    }
-    .recap-inner {
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    .recap-intro {
-      margin-bottom: 64px;
-    }
-    .recap-kicker {
-      font-size: 14px;
-      color: rgba(255,255,255,0.3);
-      margin-bottom: 12px;
-      font-style: italic;
-    }
-    .recap-h2 {
-      font-size: 48px;
+    /* ── INVOICE SHOWCASE ────────────────────────────── */
+    .invoice-showcase { background: var(--off-white); padding: 120px 80px; }
+    .invoice-showcase-inner { max-width: 1100px; margin: 0 auto; }
+    .invoice-showcase-header { text-align: center; margin-bottom: 64px; }
+    .invoice-showcase-h2 {
+      font-size: 46px;
       font-weight: 900;
       letter-spacing: -0.04em;
-      color: white;
-      line-height: 1.06;
+      color: var(--navy);
+      line-height: 1.08;
+      margin-bottom: 14px;
     }
-    .recap-h2 span { color: var(--salmon); }
-    .recap-grid {
+    .invoice-showcase-sub { font-size: 16px; color: var(--muted); }
+    .invoice-browser {
+      background: white;
+      border-radius: 16px;
+      border: 1px solid rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+    .browser-bar {
+      background: #f0f0f2;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+    }
+    .browser-dots { display: flex; gap: 6px; }
+    .browser-dot { width: 11px; height: 11px; border-radius: 50%; }
+    .bd-red { background: #ff5f57; }
+    .bd-amber { background: #ffbd2e; }
+    .bd-green { background: #28c840; }
+    .browser-url {
+      flex: 1;
+      max-width: 340px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 6px;
+      padding: 4px 12px;
+      font-size: 12px;
+      color: #6b7280;
+      text-align: center;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+    .invoice-body {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 0;
+      grid-template-columns: 1fr 320px;
     }
-    .recap-col {
-      padding: 0 48px 0 0;
-      border-right: 1px solid rgba(255,255,255,0.07);
+    .invoice-doc {
+      padding: 40px 48px;
+      border-right: 1px solid rgba(0,0,0,0.06);
     }
-    .recap-col:last-child {
-      border-right: none;
-      padding: 0 0 0 48px;
-    }
-    .recap-col:nth-child(2) {
-      padding: 0 48px;
-    }
-    .recap-col-label {
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--salmon);
-      margin-bottom: 20px;
-      opacity: 0.8;
-    }
-    .recap-list {
-      list-style: none;
+    .inv-header-row {
       display: flex;
-      flex-direction: column;
-      gap: 11px;
-    }
-    .recap-list li {
-      display: flex;
+      justify-content: space-between;
       align-items: flex-start;
-      gap: 10px;
-      font-size: 14px;
-      color: rgba(255,255,255,0.65);
-      line-height: 1.45;
+      margin-bottom: 36px;
     }
-    .recap-dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
+    .inv-brand-name {
+      font-family: 'Funtastic', sans-serif;
+      font-size: 22px;
+      color: var(--navy);
+      line-height: 1;
+    }
+    .inv-brand-name span { color: rgba(12,22,40,0.45); }
+    .inv-studio-sub { font-size: 12px; color: #9ca3af; margin-top: 4px; }
+    .inv-title { font-size: 26px; font-weight: 900; color: var(--navy); letter-spacing: -0.02em; text-align: right; }
+    .inv-num { font-size: 13px; color: #9ca3af; text-align: right; margin-top: 2px; }
+    .inv-parties {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+    .inv-party-label { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #9ca3af; margin-bottom: 8px; }
+    .inv-party-name { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .inv-party-info { font-size: 12px; color: #6b7280; line-height: 1.6; }
+    .inv-meta-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      padding: 16px 0;
+      border-top: 1px solid rgba(0,0,0,0.06);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      margin-bottom: 28px;
+    }
+    .inv-meta-label { font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #9ca3af; margin-bottom: 4px; }
+    .inv-meta-val { font-size: 13px; font-weight: 600; color: var(--navy); }
+    .inv-line-header {
+      display: grid;
+      grid-template-columns: 1fr 80px 80px 90px;
+      gap: 8px;
+      padding: 0 0 8px;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      margin-bottom: 12px;
+    }
+    .inv-line-header span { font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #9ca3af; }
+    .inv-line-header span:not(:first-child) { text-align: right; }
+    .inv-line {
+      display: grid;
+      grid-template-columns: 1fr 80px 80px 90px;
+      gap: 8px;
+      padding: 11px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+      font-size: 13px;
+      color: #374151;
+    }
+    .inv-line span:not(:first-child) { text-align: right; color: var(--navy); font-weight: 500; }
+    .inv-line span:last-child { font-weight: 700; }
+    .inv-totals { margin-top: 20px; display: flex; justify-content: flex-end; }
+    .inv-totals-col { width: 220px; }
+    .inv-total-row { display: flex; justify-content: space-between; font-size: 13px; padding: 5px 0; color: #6b7280; }
+    .inv-total-row.grand { font-size: 16px; font-weight: 800; color: var(--navy); border-top: 1px solid rgba(0,0,0,0.08); margin-top: 8px; padding-top: 12px; }
+    .inv-footer-note { margin-top: 32px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.06); font-size: 12px; color: #9ca3af; }
+    .inv-status-bar {
+      margin-top: 16px;
+      background: #f9fafb;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 12px;
+      color: #6b7280;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    .inv-sidebar { padding: 32px 28px; background: #fafafa; border-left: 1px solid rgba(0,0,0,0.05); }
+    .inv-sb-section { margin-bottom: 28px; }
+    .inv-sb-label { font-size: 9px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #9ca3af; margin-bottom: 14px; }
+    .inv-sb-field {
+      margin-bottom: 10px;
+    }
+    .inv-sb-field-label { font-size: 11px; color: #6b7280; margin-bottom: 5px; }
+    .inv-sb-select {
+      width: 100%;
+      padding: 7px 10px;
+      border-radius: 7px;
+      border: 1px solid rgba(0,0,0,0.1);
+      font-size: 12px;
+      color: var(--navy);
+      background: white;
+      appearance: none;
+    }
+    .inv-sb-input {
+      width: 100%;
+      padding: 7px 10px;
+      border-radius: 7px;
+      border: 1px solid rgba(0,0,0,0.1);
+      font-size: 12px;
+      color: var(--navy);
+      background: white;
+      box-sizing: border-box;
+    }
+    .inv-send-btn {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
       background: var(--salmon);
-      flex-shrink: 0;
-      margin-top: 6px;
-      opacity: 0.7;
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      margin-bottom: 8px;
     }
+    .inv-draft-link { text-align: center; font-size: 12px; color: #9ca3af; cursor: default; }
+    .inv-history { margin-top: 28px; }
+    .inv-hist-item { display: flex; gap: 12px; margin-bottom: 18px; position: relative; }
+    .inv-hist-item:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 20px;
+      width: 1px;
+      height: calc(100% + 10px);
+      background: rgba(0,0,0,0.08);
+    }
+    .inv-hist-dot {
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      border: 2px solid rgba(0,0,0,0.1);
+      background: white;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .inv-hist-dot.active { background: #34d399; border-color: #34d399; }
+    .inv-hist-title { font-size: 12px; font-weight: 600; color: var(--navy); }
+    .inv-hist-sub { font-size: 11px; color: #9ca3af; margin-top: 1px; }
+
+    /* ── CLIENT PORTAL SHOWCASE ──────────────────────── */
+    .portal-showcase { background: white; padding: 120px 80px; }
+    .portal-showcase-inner { max-width: 1100px; margin: 0 auto; }
+    .portal-showcase-header { text-align: center; margin-bottom: 64px; }
+    .portal-h2 {
+      font-size: 46px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: var(--navy);
+      line-height: 1.08;
+      margin-bottom: 14px;
+    }
+    .portal-sub { font-size: 16px; color: var(--muted); }
+    .portal-browser {
+      background: white;
+      border-radius: 16px;
+      border: 1px solid rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+    .portal-bar {
+      background: #f0f0f2;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+    }
+    .portal-url { font-size: 12px; color: #6b7280; background: white; border-radius: 6px; padding: 4px 14px; flex: 1; max-width: 380px; margin: 0 auto; text-align: center; border: 1px solid rgba(0,0,0,0.08); }
+    .portal-body { padding: 0; }
+    .portal-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 32px;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .portal-topbar-brand { display: flex; align-items: center; gap: 8px; font-size: 14px; font-family: 'Funtastic', sans-serif; color: var(--navy); }
+    .portal-client-name { font-size: 14px; color: #6b7280; }
+    .portal-help { font-size: 13px; color: var(--salmon); cursor: default; }
+    .portal-content { padding: 40px 32px; }
+    .portal-proj-title { font-size: 28px; font-weight: 900; letter-spacing: -0.03em; color: var(--navy); margin-bottom: 8px; }
+    .portal-proj-status {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 28px;
+    }
+    .portal-status-dot { width: 8px; height: 8px; border-radius: 50%; background: #34d399; }
+    .portal-phases {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+    }
+    .portal-phase {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 13px;
+      padding: 6px 12px;
+      border-radius: 100px;
+      border: 1px solid rgba(0,0,0,0.08);
+      color: #6b7280;
+    }
+    .portal-phase.done { background: #f0fdf4; border-color: #bbf7d0; color: #15803d; }
+    .portal-phase.active { background: rgba(224,120,104,0.08); border-color: rgba(224,120,104,0.25); color: var(--salmon); }
+    .portal-phase-arrow { color: #d1d5db; font-size: 11px; }
+    .portal-main-grid {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 32px;
+    }
+    .portal-deliverables-label {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 16px;
+    }
+    .portal-deliv-row {
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .portal-deliv-name { font-size: 14px; font-weight: 600; color: var(--navy); }
+    .portal-deliv-meta { font-size: 12px; color: #9ca3af; margin-top: 2px; }
+    .portal-deliv-right { display: flex; align-items: center; gap: 10px; }
+    .portal-deliv-status { font-size: 12px; }
+    .pds-approved { color: #15803d; }
+    .pds-awaiting { color: var(--salmon); }
+    .pds-inprog { color: #6b7280; }
+    .portal-approve-btn {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 6px;
+      background: var(--salmon);
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .portal-info-card {
+      background: #f9fafb;
+      border-radius: 12px;
+      padding: 24px;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+    .portal-info-label {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 18px;
+    }
+    .portal-info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 13px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .portal-info-row:last-of-type { border-bottom: none; }
+    .portal-info-key { color: #6b7280; }
+    .portal-info-val { font-weight: 600; color: var(--navy); font-size: 13px; }
+    .portal-message-link { color: var(--salmon); font-size: 13px; font-weight: 600; cursor: default; margin-top: 18px; display: block; }
+    .portal-footer { padding: 20px 32px; border-top: 1px solid rgba(0,0,0,0.06); text-align: center; font-size: 12px; color: #9ca3af; }
+    .portal-footer strong { color: var(--navy); font-family: 'Funtastic', sans-serif; }
 
     /* ── FINAL CTA ─────────────────────────────────── */
     .final-cta {
@@ -2365,7 +2880,6 @@
       border: none;
       cursor: default;
       white-space: nowrap;
-      opacity: 0.5;
     }
     .pay-status-paid {
       display: flex;
@@ -2403,9 +2917,68 @@
       width: 18px; height: 18px;
       flex-shrink: 0;
     }
+
+    /* ── LOADER ──────────────────────────────────────── */
+    #smack-loader {
+      position: fixed;
+      inset: 0;
+      background: #0c1628;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.7s ease;
+    }
+    #smack-loader.fade-out { opacity: 0; pointer-events: none; }
+    .loader-jelly { width: 80px; height: auto; animation: jellyFloat 1.1s ease-in-out infinite; }
+
+    /* ── GRID TEXTURE (hero + final CTA) ─────────────── */
+    .grid-texture {
+      background-image:
+        linear-gradient(rgba(255,255,255,0.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.028) 1px, transparent 1px);
+      background-size: 56px 56px;
+    }
+
+    /* ── AVATAR GROUP (social proof) ─────────────────── */
+    .avatar-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .avatar-stack { display: flex; }
+    .avatar-pill {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: white;
+      margin-left: -10px;
+      border: 2px solid var(--navy);
+      letter-spacing: 0.02em;
+    }
+    .avatar-stack .avatar-pill:first-child { margin-left: 0; }
+    .avatar-label { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.45; }
+    .avatar-label strong { color: rgba(255,255,255,0.7); font-weight: 600; }
   </style>
 </head>
 <body>
+
+<!-- ═══ LOADER ════════════════════════════════════════ -->
+<div id="smack-loader" aria-hidden="true">
+  <svg class="loader-jelly" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6">
+    <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+    <path class="tw1" fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+    <path class="tw2" fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+    <path class="tw3" fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+    <path class="tw4" fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+    <path class="tw5" fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+  </svg>
+</div>
 
 <!-- ═══ NAV ═══════════════════════════════════════════ -->
 <nav class="nav" id="main-nav">
@@ -2431,18 +3004,18 @@
 </nav>
 
 <!-- ═══ HERO ═══════════════════════════════════════════ -->
-<section class="hero" id="features">
+<section class="hero grid-texture" id="features">
   <div class="hero-inner">
 
     <div class="hero-left">
       <div class="hero-brand-moment" data-reveal>
         <svg class="hero-brand-moment-jelly" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" aria-label="smack." role="img">
           <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
-          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+          <path class="tw1" fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+          <path class="tw2" fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+          <path class="tw3" fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+          <path class="tw4" fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+          <path class="tw5" fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
         </svg>
         <span class="hero-brand-moment-wordmark">smack<span>.</span></span>
       </div>
@@ -3328,37 +3901,391 @@
   </div>
 </section>
 
-<!-- ═══ COMPARISON ════════════════════════════════════= -->
-<section class="comparison">
-  <div class="comparison-inner">
-    <h2 class="comparison-h2" data-reveal>Before smack.</h2>
-    <div class="comparison-cols">
-      <div class="comparison-card before" data-reveal>
-        <div class="comparison-card-label">Before</div>
-        <div class="comparison-tools-stack">
-          <span class="comparison-tool-badge">Gmail</span>
-          <span class="comparison-tool-badge">Google Sheets</span>
-          <span class="comparison-tool-badge">iMessage</span>
-          <span class="comparison-tool-badge">QuickBooks</span>
-          <span class="comparison-tool-badge">Dropbox</span>
-          <span class="comparison-tool-badge">Google Calendar</span>
+<!-- ═══ REPLACEMENT STORY ══════════════════════════════ -->
+<section class="replacement">
+  <div class="replacement-inner">
+    <div class="replacement-header" data-reveal>
+      <p class="section-eyebrow">The switch</p>
+      <h2 class="replacement-h2">Everything you're paying for.<br><em>Replaced.</em></h2>
+    </div>
+    <div class="replacement-cols" data-reveal>
+      <div class="replacement-before">
+        <div class="rp-label rp-label-red">Your current stack</div>
+        <div class="rt-tools">
+          <div class="rt-row"><span class="rt-name">Gmail + iMessage</span><span class="rt-pain">Booking lives in threads. Nothing is tracked.</span></div>
+          <div class="rt-row"><span class="rt-name">Google Sheets</span><span class="rt-pain">Availability tracker is always out of date.</span></div>
+          <div class="rt-row"><span class="rt-name">QuickBooks</span><span class="rt-pain">Your accountant has the P&amp;L. You don't.</span></div>
+          <div class="rt-row"><span class="rt-name">Google Calendar</span><span class="rt-pain">Events, not projects. Crew isn't in it.</span></div>
+          <div class="rt-row"><span class="rt-name">Dropbox</span><span class="rt-pain">Files exist. Context doesn't.</span></div>
+          <div class="rt-row"><span class="rt-name">Google Drive</span><span class="rt-pain">The invoice is a template. Reminders are manual.</span></div>
         </div>
-        <p>Booking happens over iMessage. Invoices live in Google Drive. You find out a contractor was double-booked on delivery day. Your accountant asks for project P&amp;L and you spend two hours in spreadsheets.</p>
+        <div class="rt-footer-line red">6 tools. Zero coordination.</div>
       </div>
-      <div class="comparison-card after" data-reveal>
-        <div class="comparison-card-label">After</div>
-        <div class="comparison-after-mark">
-          <svg style="height:64px;width:auto;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" aria-hidden="true">
-            <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
-            <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-            <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-            <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-            <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-            <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-          </svg>
-          <span class="comparison-after-wordmark">smack<span style="color:rgba(224,120,104,0.6)">.</span></span>
+      <div class="replacement-after">
+        <span class="replacement-wordmark">smack<span>.</span></span>
+        <div class="rf-grid">
+          <div>
+            <div class="rf-group-label">Crew</div>
+            <ul class="rf-list">
+              <li>Availability checks — one or your whole roster</li>
+              <li>Live email preview before every send</li>
+              <li>1st hold / 2nd hold / unavailable, tracked automatically</li>
+              <li>Challenge flow — incoming &amp; outgoing, 24h deadline</li>
+              <li>Crew matrix — every person, every day, every project</li>
+              <li>Conflicts flagged before they happen</li>
+              <li>Contractor portal — respond, confirm, submit time</li>
+              <li>Unlimited contractors, no seat limits</li>
+            </ul>
+          </div>
+          <div>
+            <div class="rf-group-label">Finance</div>
+            <ul class="rf-list">
+              <li>Invoices built and sent in 3 minutes</li>
+              <li>Track opened, viewed, paid, overdue</li>
+              <li>Auto-reminders on overdue invoices</li>
+              <li>Cash flow and P&amp;L — always current</li>
+              <li>Per-project revenue, expenses, and net</li>
+              <li>Client portal — approve in one click, no login</li>
+            </ul>
+            <div class="rf-group-label" style="margin-top:22px">Studio</div>
+            <ul class="rf-list">
+              <li>Project dashboard with phase tracking</li>
+              <li>Crew, invoices, and files in every project</li>
+              <li>Schedule — week view, projects and events</li>
+              <li>Built for post: editors, colorists, sound, VFX</li>
+            </ul>
+          </div>
         </div>
-        <p><strong>One place.</strong> Booking confirmed before you commit. Invoice sent in 3 minutes. Client approves from their portal. <strong>P&amp;L is always current.</strong></p>
+        <div class="rt-footer-line salmon" style="margin-top:32px">One tool. Everything connected.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ INVOICE SHOWCASE ════════════════════════════════ -->
+<section class="invoice-showcase">
+  <div class="invoice-showcase-inner">
+    <div class="invoice-showcase-header" data-reveal>
+      <p class="section-eyebrow">Invoicing</p>
+      <h2 class="invoice-showcase-h2">Professional invoices<br>in 3 minutes.</h2>
+      <p class="invoice-showcase-sub">Build, send, and track from the same screen. No more Google Drive templates.</p>
+    </div>
+    <div class="invoice-browser" data-reveal>
+      <div class="browser-bar">
+        <div class="browser-dots">
+          <div class="browser-dot bd-red"></div>
+          <div class="browser-dot bd-amber"></div>
+          <div class="browser-dot bd-green"></div>
+        </div>
+        <div class="browser-url">smack.studio/invoices/new</div>
+      </div>
+      <div class="invoice-body">
+        <div class="invoice-doc">
+          <div class="inv-header-row">
+            <div>
+              <div class="inv-brand-name">smack<span>.</span></div>
+              <div class="inv-studio-sub">Workprint Studios</div>
+            </div>
+            <div>
+              <div class="inv-title">INVOICE</div>
+              <div class="inv-num">#0044</div>
+            </div>
+          </div>
+          <div class="inv-parties">
+            <div>
+              <div class="inv-party-label">From</div>
+              <div class="inv-party-name">Workprint Studios</div>
+              <div class="inv-party-info">123 Studio Ave, Suite 4<br>Los Angeles, CA 90001<br>hello@smack.studio</div>
+            </div>
+            <div>
+              <div class="inv-party-label">To</div>
+              <div class="inv-party-name">Patagonia Inc.</div>
+              <div class="inv-party-info">Brand Studio<br>259 W Santa Clara St<br>Ventura, CA 93001</div>
+            </div>
+          </div>
+          <div class="inv-meta-row">
+            <div><div class="inv-meta-label">Invoice Date</div><div class="inv-meta-val">April 8, 2026</div></div>
+            <div><div class="inv-meta-label">Due Date</div><div class="inv-meta-val">April 23, 2026</div></div>
+            <div><div class="inv-meta-label">Project</div><div class="inv-meta-val">Spring Campaign</div></div>
+            <div><div class="inv-meta-label">Terms</div><div class="inv-meta-val">Net 15</div></div>
+          </div>
+          <div class="inv-line-header">
+            <span>Description</span><span>Qty</span><span>Rate</span><span>Amount</span>
+          </div>
+          <div class="inv-line">
+            <span>Campaign production — Shoot days (9)</span><span>9</span><span>$4,500</span><span>$40,500</span>
+          </div>
+          <div class="inv-line">
+            <span>Post-production supervision</span><span>1</span><span>$3,500</span><span>$3,500</span>
+          </div>
+          <div class="inv-totals">
+            <div class="inv-totals-col">
+              <div class="inv-total-row"><span>Subtotal</span><span>$44,000</span></div>
+              <div class="inv-total-row"><span>Tax (0%)</span><span>$0</span></div>
+              <div class="inv-total-row grand"><span>Total</span><span>$44,000</span></div>
+            </div>
+          </div>
+          <div class="inv-footer-note">Net 15 · Wire transfer preferred · Questions? hello@smack.studio</div>
+          <div class="inv-status-bar">ℹ Not yet paid · Sent Apr 8 · Due Apr 23</div>
+        </div>
+        <div class="inv-sidebar">
+          <div class="inv-sb-section">
+            <div class="inv-sb-label">Invoice Details</div>
+            <div class="inv-sb-field"><div class="inv-sb-field-label">Client</div><select class="inv-sb-select"><option>Patagonia Inc.</option></select></div>
+            <div class="inv-sb-field"><div class="inv-sb-field-label">Project</div><select class="inv-sb-select"><option>Spring Campaign</option></select></div>
+            <div class="inv-sb-field"><div class="inv-sb-field-label">Invoice date</div><input class="inv-sb-input" type="text" value="Apr 8, 2026" readonly></div>
+            <div class="inv-sb-field"><div class="inv-sb-field-label">Due date</div><input class="inv-sb-input" type="text" value="Apr 23, 2026" readonly></div>
+            <div class="inv-sb-field"><div class="inv-sb-field-label">Payment terms</div><select class="inv-sb-select"><option>Net 15</option></select></div>
+          </div>
+          <div class="inv-sb-section">
+            <div class="inv-sb-label">Send</div>
+            <div class="inv-sb-field"><div class="inv-sb-field-label">Email to</div><input class="inv-sb-input" type="text" value="brand@patagonia.com" readonly></div>
+            <button class="inv-send-btn">✈ Send Invoice</button>
+            <div class="inv-draft-link">Save as draft</div>
+          </div>
+          <div class="inv-history">
+            <div class="inv-sb-label">History</div>
+            <div class="inv-hist-item">
+              <div class="inv-hist-dot active"></div>
+              <div><div class="inv-hist-title">Invoice created</div><div class="inv-hist-sub">Apr 8 · 9:14am</div></div>
+            </div>
+            <div class="inv-hist-item">
+              <div class="inv-hist-dot"></div>
+              <div><div class="inv-hist-title">Sent to client</div><div class="inv-hist-sub">Pending</div></div>
+            </div>
+            <div class="inv-hist-item">
+              <div class="inv-hist-dot"></div>
+              <div><div class="inv-hist-title">Viewed</div><div class="inv-hist-sub">—</div></div>
+            </div>
+            <div class="inv-hist-item">
+              <div class="inv-hist-dot"></div>
+              <div><div class="inv-hist-title">Payment received</div><div class="inv-hist-sub">—</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CLIENT PORTAL SHOWCASE ═════════════════════════ -->
+<section class="portal-showcase">
+  <div class="portal-showcase-inner">
+    <div class="portal-showcase-header" data-reveal>
+      <p class="section-eyebrow">Client portal</p>
+      <h2 class="portal-h2">Your client gets a link.<br>That's it.</h2>
+      <p class="portal-sub">No login required. They see their project, approve deliverables, and track status — all from one URL.</p>
+    </div>
+    <div class="portal-browser" data-reveal>
+      <div class="portal-bar">
+        <div class="browser-dots">
+          <div class="browser-dot bd-red"></div>
+          <div class="browser-dot bd-amber"></div>
+          <div class="browser-dot bd-green"></div>
+        </div>
+        <div class="portal-url">portal.smack.studio/patagonia/spring-campaign</div>
+      </div>
+      <div class="portal-body">
+        <div class="portal-topbar">
+          <div class="portal-topbar-brand">
+            <svg width="18" height="20" viewBox="0 0 190.75 218.6" aria-hidden="true">
+              <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+              <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="10" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+              <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="10" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+              <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="10" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+            </svg>
+            smack.
+          </div>
+          <div class="portal-client-name">Patagonia Inc. — Spring Campaign</div>
+          <div class="portal-help">Need help? →</div>
+        </div>
+        <div class="portal-content">
+          <div class="portal-proj-title">Spring Campaign 2026</div>
+          <div class="portal-proj-status"><div class="portal-status-dot"></div>Production complete · Delivery by April 30</div>
+          <div class="portal-phases">
+            <div class="portal-phase done">✓ Pre-Production</div>
+            <div class="portal-phase-arrow">›</div>
+            <div class="portal-phase done">✓ Shoot</div>
+            <div class="portal-phase-arrow">›</div>
+            <div class="portal-phase active">● Post</div>
+            <div class="portal-phase-arrow">›</div>
+            <div class="portal-phase">Review</div>
+            <div class="portal-phase-arrow">›</div>
+            <div class="portal-phase">Delivery</div>
+          </div>
+          <div class="portal-main-grid">
+            <div>
+              <div class="portal-deliverables-label">Deliverables</div>
+              <div class="portal-deliv-row">
+                <div><div class="portal-deliv-name">:60 hero film</div><div class="portal-deliv-meta">Master · 4K ProRes</div></div>
+                <div class="portal-deliv-right"><span class="portal-deliv-status pds-approved">✓ Approved</span></div>
+              </div>
+              <div class="portal-deliv-row">
+                <div><div class="portal-deliv-name">:15 cutdown — Instagram</div><div class="portal-deliv-meta">9:16 · H.264</div></div>
+                <div class="portal-deliv-right">
+                  <span class="portal-deliv-status pds-awaiting">● Awaiting review</span>
+                  <button class="portal-approve-btn">Approve</button>
+                </div>
+              </div>
+              <div class="portal-deliv-row">
+                <div><div class="portal-deliv-name">:06 bumper — YouTube</div><div class="portal-deliv-meta">16:9 · H.264</div></div>
+                <div class="portal-deliv-right"><span class="portal-deliv-status pds-inprog">● In progress</span></div>
+              </div>
+            </div>
+            <div>
+              <div class="portal-info-card">
+                <div class="portal-info-label">Project Info</div>
+                <div class="portal-info-row"><span class="portal-info-key">Producer</span><span class="portal-info-val">David Nitzsche</span></div>
+                <div class="portal-info-row"><span class="portal-info-key">Shoot dates</span><span class="portal-info-val">Apr 14–22, 2026</span></div>
+                <div class="portal-info-row"><span class="portal-info-key">Delivery</span><span class="portal-info-val">April 30, 2026</span></div>
+                <div class="portal-info-row"><span class="portal-info-key">Studio</span><span class="portal-info-val">Workprint Studios</span></div>
+                <a class="portal-message-link">Message your producer →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="portal-footer">Powered by <strong>smack.</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DARK / LIGHT MODE ══════════════════════════════ -->
+<section class="theme-section">
+  <div class="theme-inner">
+    <div class="theme-header" data-reveal>
+      <p class="section-eyebrow">Works your way</p>
+      <h2 class="theme-h2">Dark mode. Light mode.<br>Your call.</h2>
+      <p class="theme-sub">Flip between them anytime. smack. looks sharp in both.</p>
+    </div>
+    <div class="theme-preview-wrap" data-reveal>
+      <div class="theme-split">
+        <div class="theme-panel tp-dark">
+          <div class="theme-panel-badge">DARK MODE</div>
+          <div class="tp-sidebar tps-dark">
+            <div class="tp-brand">
+              <svg width="16" height="18" viewBox="0 0 190.75 218.6" aria-hidden="true">
+                <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+                <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="14" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+                <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="14" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+                <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="14" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+              </svg>
+              <span class="tp-wordmark tpw-dark">smack.</span>
+            </div>
+            <div class="tp-nav tp-active-dark">Dashboard</div>
+            <div class="tp-nav tpn-dark">Projects</div>
+            <div class="tp-nav tpn-dark">Schedule</div>
+            <div class="tp-nav tpn-dark">Crew</div>
+            <div class="tp-nav tpn-dark">Invoices</div>
+          </div>
+          <div class="tp-main tpm-dark">
+            <div class="tp-topbar">
+              <div><div class="tp-page-title tpt-dark">Dashboard</div><div class="tp-page-sub tps2-dark">Tuesday, April 8, 2026</div></div>
+              <div class="tp-action-btn">New Project</div>
+            </div>
+            <div class="tp-stat-grid">
+              <div class="tp-stat tpst-dark"><div class="tp-stat-label tpsl-dark">ACTIVE PROJECTS</div><div class="tp-stat-val tpsv-dark">6</div></div>
+              <div class="tp-stat tpst-dark"><div class="tp-stat-label tpsl-dark">OUTSTANDING</div><div class="tp-stat-val tpsv-accent">$54k</div></div>
+              <div class="tp-stat tpst-dark"><div class="tp-stat-label tpsl-dark">PAID THIS MONTH</div><div class="tp-stat-val tpsv-accent">$38.5k</div></div>
+              <div class="tp-stat tpst-dark"><div class="tp-stat-label tpsl-dark">NEXT BOOKING</div><div class="tp-stat-val tpsv-dark">Apr 14</div></div>
+            </div>
+            <div class="tp-proj-label tppl-dark">ACTIVE PROJECTS</div>
+            <div class="tp-proj-row tppr-dark"><span class="tp-proj-dot" style="background:#34d399"></span>Patagonia — Spring Campaign<span class="tp-proj-badge tppb-prod-dark">In Production</span></div>
+            <div class="tp-proj-row tppr-dark"><span class="tp-proj-dot" style="background:#fbbf24"></span>Oura Ring — Product Launch<span class="tp-proj-badge tppb-review-dark">In Review</span></div>
+            <div class="tp-proj-row tppr-dark"><span class="tp-proj-dot" style="background:#60a5fa"></span>Nike — Retail Campaign<span class="tp-proj-badge tppb-plan-dark">Planning</span></div>
+          </div>
+        </div>
+        <div class="theme-divider"><div class="theme-toggle-pill">DARK ↔ LIGHT</div></div>
+        <div class="theme-panel tp-light">
+          <div class="theme-panel-badge">LIGHT MODE</div>
+          <div class="tp-sidebar tps-light">
+            <div class="tp-brand">
+              <svg width="16" height="18" viewBox="0 0 190.75 218.6" aria-hidden="true">
+                <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+                <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="14" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+                <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="14" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+                <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="14" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+              </svg>
+              <span class="tp-wordmark tpw-light">smack.</span>
+            </div>
+            <div class="tp-nav tp-active-light">Dashboard</div>
+            <div class="tp-nav tpn-light">Projects</div>
+            <div class="tp-nav tpn-light">Schedule</div>
+            <div class="tp-nav tpn-light">Crew</div>
+            <div class="tp-nav tpn-light">Invoices</div>
+          </div>
+          <div class="tp-main tpm-light">
+            <div class="tp-topbar">
+              <div><div class="tp-page-title tpt-light">Dashboard</div><div class="tp-page-sub tps2-light">Tuesday, April 8, 2026</div></div>
+              <div class="tp-action-btn">New Project</div>
+            </div>
+            <div class="tp-stat-grid">
+              <div class="tp-stat tpst-light"><div class="tp-stat-label tpsl-light">ACTIVE PROJECTS</div><div class="tp-stat-val tpsv-light">6</div></div>
+              <div class="tp-stat tpst-light"><div class="tp-stat-label tpsl-light">OUTSTANDING</div><div class="tp-stat-val tpsv-accent">$54k</div></div>
+              <div class="tp-stat tpst-light"><div class="tp-stat-label tpsl-light">PAID THIS MONTH</div><div class="tp-stat-val tpsv-accent">$38.5k</div></div>
+              <div class="tp-stat tpst-light"><div class="tp-stat-label tpsl-light">NEXT BOOKING</div><div class="tp-stat-val tpsv-light">Apr 14</div></div>
+            </div>
+            <div class="tp-proj-label tppl-light">ACTIVE PROJECTS</div>
+            <div class="tp-proj-row tppr-light"><span class="tp-proj-dot" style="background:#34d399"></span>Patagonia — Spring Campaign<span class="tp-proj-badge tppb-prod-light">In Production</span></div>
+            <div class="tp-proj-row tppr-light"><span class="tp-proj-dot" style="background:#fbbf24"></span>Oura Ring — Product Launch<span class="tp-proj-badge tppb-review-light">In Review</span></div>
+            <div class="tp-proj-row tppr-light"><span class="tp-proj-dot" style="background:#60a5fa"></span>Nike — Retail Campaign<span class="tp-proj-badge tppb-plan-light">Planning</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ACCENT COLOR ════════════════════════════════════ -->
+<section class="accent-section">
+  <div class="accent-inner">
+    <div class="accent-header" data-reveal>
+      <p class="section-eyebrow" style="color:rgba(255,255,255,0.35)">Make it yours</p>
+      <h2 class="accent-h2">Your studio,<br>your color.</h2>
+      <p class="accent-sub">Pick an accent color. smack. adapts instantly.</p>
+    </div>
+    <div class="accent-body" data-reveal>
+      <div class="accent-swatches">
+        <button class="swatch-btn active" style="background:#e07868" onclick="setAccentColor('#e07868','rgba(224,120,104,0.12)',this)" title="Salmon"></button>
+        <button class="swatch-btn" style="background:#7c6af7" onclick="setAccentColor('#7c6af7','rgba(124,106,247,0.12)',this)" title="Iris"></button>
+        <button class="swatch-btn" style="background:#2d9c85" onclick="setAccentColor('#2d9c85','rgba(45,156,133,0.12)',this)" title="Teal"></button>
+        <button class="swatch-btn" style="background:#e8a23a" onclick="setAccentColor('#e8a23a','rgba(232,162,58,0.12)',this)" title="Amber"></button>
+        <button class="swatch-btn" style="background:#3b82f6" onclick="setAccentColor('#3b82f6','rgba(59,130,246,0.12)',this)" title="Blue"></button>
+        <button class="swatch-btn" style="background:#e54f6d" onclick="setAccentColor('#e54f6d','rgba(229,79,109,0.12)',this)" title="Rose"></button>
+      </div>
+      <div class="accent-preview" id="accent-preview" style="--ap:#e07868;--ap-tint:rgba(224,120,104,0.12)">
+        <div class="ap-sidebar">
+          <div class="ap-brand">
+            <svg width="18" height="20" viewBox="0 0 190.75 218.6" aria-hidden="true">
+              <path fill="var(--ap)" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+              <path fill="none" stroke="var(--ap)" stroke-linecap="round" stroke-miterlimit="16" stroke-width="12" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+              <path fill="none" stroke="var(--ap)" stroke-linecap="round" stroke-miterlimit="16" stroke-width="12" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+              <path fill="none" stroke="var(--ap)" stroke-linecap="round" stroke-miterlimit="16" stroke-width="12" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+            </svg>
+            <span class="ap-wordmark">smack.</span>
+          </div>
+          <div class="ap-nav-item ap-nav-active">Dashboard</div>
+          <div class="ap-nav-item">Projects</div>
+          <div class="ap-nav-item">Crew</div>
+          <div class="ap-nav-item">Invoices</div>
+        </div>
+        <div class="ap-main">
+          <div class="ap-topbar">
+            <div><div class="ap-page-title">Dashboard</div><div class="ap-page-sub">Tuesday, April 8, 2026</div></div>
+            <button class="ap-action-btn">New Project</button>
+          </div>
+          <div class="ap-stats">
+            <div class="ap-stat"><div class="ap-stat-label">ACTIVE PROJECTS</div><div class="ap-stat-val">6</div></div>
+            <div class="ap-stat"><div class="ap-stat-label">OUTSTANDING</div><div class="ap-stat-val ap-accent-val">$54k</div></div>
+            <div class="ap-stat"><div class="ap-stat-label">PAID THIS MONTH</div><div class="ap-stat-val ap-accent-val">$38.5k</div></div>
+          </div>
+          <div class="ap-proj-label">ACTIVE PROJECTS</div>
+          <div class="ap-proj-list">
+            <div class="ap-proj-row"><span class="ap-proj-dot" style="background:#34d399"></span>Patagonia — Spring Campaign<span class="ap-proj-status ap-status-accent">In Production</span></div>
+            <div class="ap-proj-row"><span class="ap-proj-dot" style="background:#fbbf24"></span>Oura Ring — Product Launch<span class="ap-proj-status" style="color:#9ca3af">In Review</span></div>
+            <div class="ap-proj-row"><span class="ap-proj-dot" style="background:#60a5fa"></span>Nike — Retail Campaign<span class="ap-proj-status" style="color:#9ca3af">Planning</span></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -3537,68 +4464,16 @@
   </div>
 </section>
 
-<!-- ═══ RECAP ══════════════════════════════════════════ -->
-<section class="recap">
-  <div class="recap-inner">
-    <div class="recap-intro" data-reveal>
-      <p class="recap-kicker">We know that's a lot.</p>
-      <h2 class="recap-h2">Here's everything<br><span>smack.</span> does.</h2>
-    </div>
-    <div class="recap-grid" data-reveal>
-
-      <div class="recap-col">
-        <div class="recap-col-label">Crew</div>
-        <ul class="recap-list">
-          <li><span class="recap-dot"></span>Send availability checks to one contractor or your whole roster</li>
-          <li><span class="recap-dot"></span>Live email preview — see exactly what they receive before you send</li>
-          <li><span class="recap-dot"></span>1st hold, 2nd hold, and unavailable responses tracked automatically</li>
-          <li><span class="recap-dot"></span>Challenge flow: incoming and outgoing, 24h deadline enforced</li>
-          <li><span class="recap-dot"></span>Crew availability matrix — every person, every day, every project</li>
-          <li><span class="recap-dot"></span>Conflicts flagged before they happen</li>
-          <li><span class="recap-dot"></span>Contractor portal — they respond, confirm, and track from their own link</li>
-          <li><span class="recap-dot"></span>Unlimited contractor roster, no seat limits</li>
-        </ul>
-      </div>
-
-      <div class="recap-col">
-        <div class="recap-col-label">Projects & Finance</div>
-        <ul class="recap-list">
-          <li><span class="recap-dot"></span>Project dashboard with phase tracking — offline, online, color, sound, delivery</li>
-          <li><span class="recap-dot"></span>Crew, invoices, and files linked to every project</li>
-          <li><span class="recap-dot"></span>Build and send invoices directly from the project</li>
-          <li><span class="recap-dot"></span>Track opened, viewed, paid, and overdue</li>
-          <li><span class="recap-dot"></span>Auto-reminders on overdue invoices</li>
-          <li><span class="recap-dot"></span>Cash flow and P&L always current — no waiting for month-end</li>
-          <li><span class="recap-dot"></span>Per-project revenue, expenses, and net</li>
-          <li><span class="recap-dot"></span>Client portal — shareable link, no login required, approve in one click</li>
-        </ul>
-      </div>
-
-      <div class="recap-col">
-        <div class="recap-col-label">Studio</div>
-        <ul class="recap-list">
-          <li><span class="recap-dot"></span>Schedule — week view with all-day project bars and timed events</li>
-          <li><span class="recap-dot"></span>Everything in one place — no Gmail, Sheets, QuickBooks, or iMessage</li>
-          <li><span class="recap-dot"></span>Built for post-production: editors, colorists, sound designers, VFX</li>
-          <li><span class="recap-dot"></span>Invite-only launch — we onboard studios selectively</li>
-          <li><span class="recap-dot"></span><em style="opacity:0.45">Coming: Zoom integration, mobile app, contractor payments, CSV import, client review app</em></li>
-        </ul>
-      </div>
-
-    </div>
-  </div>
-</section>
-
 <!-- ═══ FINAL CTA ══════════════════════════════════════ -->
-<section class="final-cta" id="access">
+<section class="final-cta grid-texture" id="access">
   <div class="final-cta-brand" data-reveal>
     <svg class="final-cta-jelly" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" aria-hidden="true">
       <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
-      <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-      <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-      <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-      <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-      <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+      <path class="tw1" fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+      <path class="tw2" fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+      <path class="tw3" fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+      <path class="tw4" fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+      <path class="tw5" fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
     </svg>
     <span class="final-cta-wordmark">smack<span>.</span></span>
   </div>
@@ -3608,7 +4483,16 @@
     <input class="final-cta-input" type="email" placeholder="your@studio.com">
     <button class="final-cta-submit">Apply now →</button>
   </div>
-  <p class="final-cta-fine" data-reveal>No commitment. We'll reach out if it's a fit.</p>
+  <div class="avatar-group" data-reveal style="justify-content:center;margin-top:32px">
+    <div class="avatar-stack">
+      <div class="avatar-pill" style="background:#7c6af7">MK</div>
+      <div class="avatar-pill" style="background:#2d9c85">JR</div>
+      <div class="avatar-pill" style="background:#e8a23a">AL</div>
+      <div class="avatar-pill" style="background:#3b82f6">SB</div>
+    </div>
+    <div class="avatar-label"><strong>Invite-only launch</strong> · Built alongside<br>working studios</div>
+  </div>
+  <p class="final-cta-fine" data-reveal style="margin-top:20px">No commitment. We'll reach out if it's a fit.</p>
 </section>
 
 <!-- ═══ FOOTER ═════════════════════════════════════════ -->
@@ -3664,6 +4548,30 @@
 </footer>
 
 <script>
+/* ── LOADER ──────────────────────────────────────── */
+(function() {
+  var loader = document.getElementById('smack-loader');
+  if (!loader) return;
+  function hideLoader() {
+    setTimeout(function() {
+      loader.classList.add('fade-out');
+      setTimeout(function() { if (loader.parentNode) loader.parentNode.removeChild(loader); }, 800);
+    }, 1900);
+  }
+  if (document.readyState === 'complete') { hideLoader(); }
+  else { window.addEventListener('load', hideLoader); }
+})();
+
+/* ── ACCENT COLOR ────────────────────────────────── */
+function setAccentColor(color, tint, btn) {
+  var preview = document.getElementById('accent-preview');
+  if (!preview) return;
+  preview.style.setProperty('--ap', color);
+  preview.style.setProperty('--ap-tint', tint);
+  document.querySelectorAll('.swatch-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+}
+
 /* ── NAV SCROLL ─────────────────────────────────── */
 (function() {
   const nav = document.getElementById('main-nav');
