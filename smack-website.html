@@ -162,6 +162,46 @@
       letter-spacing: -0.01em;
     }
     .hero-brand-moment-wordmark span { color: var(--salmon); }
+    .hero-definition {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    .hero-def-word {
+      font-family: 'Funtastic', sans-serif;
+      font-size: 15px;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: -0.01em;
+    }
+    .hero-def-phonetic {
+      font-size: 13px;
+      color: rgba(255,255,255,0.28);
+      font-style: italic;
+      font-family: Georgia, serif;
+    }
+    .hero-def-pos {
+      font-size: 12px;
+      color: rgba(255,255,255,0.28);
+      font-style: italic;
+      font-family: Georgia, serif;
+    }
+    .hero-def-sep {
+      width: 1px;
+      height: 11px;
+      background: rgba(255,255,255,0.15);
+      align-self: center;
+    }
+    .hero-def-text {
+      font-size: 13px;
+      color: rgba(255,255,255,0.38);
+      line-height: 1.5;
+    }
+    .hero-def-text em {
+      color: rgba(224,120,104,0.8);
+      font-style: normal;
+    }
     .hero-eyebrow {
       font-size: 11px;
       font-weight: 700;
@@ -1970,7 +2010,7 @@
       top: 0; left: 0; bottom: 0;
       width: 0%;
       background: var(--salmon);
-      transition: width 5.3s linear;
+      transition: width 9.8s linear;
     }
     .carousel-slides {
       overflow: hidden;
@@ -2240,18 +2280,28 @@
     }
 
     /* Slide 7 — contractor pay teaser */
-    .pay-teaser-card {
+    .pay-queue {
       background: #0d1620;
       border-radius: 16px;
       border: 1px solid rgba(255,255,255,0.07);
-      padding: 28px;
-      opacity: 0.75;
+      overflow: hidden;
       position: relative;
     }
-    .pay-teaser-badge {
-      position: absolute;
-      top: 16px;
-      right: 16px;
+    .pay-queue-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .pay-queue-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+    .pay-queue-badge {
       background: rgba(217,119,6,0.15);
       border: 1px solid rgba(217,119,6,0.3);
       color: #fbbf24;
@@ -2259,55 +2309,94 @@
       font-weight: 800;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      padding: 4px 10px;
+      padding: 3px 9px;
       border-radius: 100px;
     }
-    .pay-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 12px;
-      padding: 18px 20px;
-      margin-bottom: 12px;
-    }
-    .pay-card-top {
+    .pay-row {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      margin-bottom: 14px;
+      gap: 12px;
+      padding: 14px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
     }
-    .pay-card-name {
+    .pay-row:last-child { border-bottom: none; }
+    .pay-av {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+      color: white;
+      flex-shrink: 0;
+    }
+    .pay-info { flex: 1; }
+    .pay-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 2px;
+    }
+    .pay-meta {
+      font-size: 11px;
+      color: rgba(255,255,255,0.35);
+    }
+    .pay-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .pay-amount {
       font-size: 14px;
       font-weight: 700;
       color: white;
+      min-width: 72px;
+      text-align: right;
     }
-    .pay-card-amount {
+    .pay-action-btn {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--salmon);
+      color: white;
+      border: none;
+      cursor: default;
+      white-space: nowrap;
+      opacity: 0.5;
+    }
+    .pay-status-paid {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #34d399;
+    }
+    .pay-status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #34d399;
+    }
+    .pay-queue-footer {
+      padding: 14px 20px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .pay-footer-label {
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+    }
+    .pay-footer-total {
       font-size: 14px;
       font-weight: 700;
       color: rgba(255,255,255,0.5);
     }
-    .pay-card-sub {
-      font-size: 11px;
-      color: rgba(255,255,255,0.35);
-      margin-bottom: 14px;
-    }
-    .pay-card-btn {
-      width: 100%;
-      text-align: center;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: rgba(255,255,255,0.3);
-      font-size: 13px;
-      font-weight: 700;
-      padding: 10px 16px;
-      border-radius: 8px;
-      cursor: not-allowed;
-    }
-    .pay-confirm-line {
-      font-size: 12px;
-      color: rgba(255,255,255,0.3);
-      line-height: 1.55;
-    }
-    .pay-confirm-line .pay-check { color: #34d399; }
 
     /* Clock icon for coming soon bullets */
     .clock-icon {
@@ -2356,6 +2445,13 @@
           <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
         </svg>
         <span class="hero-brand-moment-wordmark">smack<span>.</span></span>
+      </div>
+      <div class="hero-definition" data-reveal>
+        <span class="hero-def-word">smack</span>
+        <span class="hero-def-phonetic">/smak/</span>
+        <span class="hero-def-pos">n.</span>
+        <span class="hero-def-sep"></span>
+        <span class="hero-def-text">A group of jellyfish. <em>Also: the only studio OS that actually knows how production works.</em></span>
       </div>
       <h1 class="hero-h1" data-reveal>One place to run<br>your studio.</h1>
       <p class="hero-sub" data-reveal>Contractor booking. Client invoices. Project P&amp;L. Client portals. Built for studios that produce — not plan.</p>
@@ -2987,17 +3083,51 @@
         </ul>
       </div>
       <div class="cs-widget">
-        <div class="pay-teaser-card">
-          <div class="pay-teaser-badge">IN DEVELOPMENT</div>
-          <div class="pay-card">
-            <div class="pay-card-top">
-              <div class="pay-card-name">Marcus Kim</div>
-              <div class="pay-card-amount">$10,800</div>
-            </div>
-            <div class="pay-card-sub">Patagonia Campaign · Dir. of Photography</div>
-            <div class="pay-card-btn">Send Payment →</div>
+        <div class="pay-queue">
+          <div class="pay-queue-header">
+            <span class="pay-queue-title">Payments due</span>
+            <span class="pay-queue-badge">In development</span>
           </div>
-          <div class="pay-confirm-line">Invoice #0041 · Approved <span class="pay-check">✓</span> → Payment of $10,800 sent to marcus@example.com</div>
+          <!-- Paid row -->
+          <div class="pay-row">
+            <div class="pay-av" style="background:#10b981;">JR</div>
+            <div class="pay-info">
+              <div class="pay-name">Jamie Rodriguez</div>
+              <div class="pay-meta">Patagonia Campaign · 1st AC · Invoice #0039</div>
+            </div>
+            <div class="pay-right">
+              <div class="pay-amount" style="color:#34d399;">$7,650</div>
+              <div class="pay-status-paid"><span class="pay-status-dot"></span>Paid</div>
+            </div>
+          </div>
+          <!-- Ready to pay -->
+          <div class="pay-row">
+            <div class="pay-av" style="background:#e07868;">MK</div>
+            <div class="pay-info">
+              <div class="pay-name">Marcus Kim</div>
+              <div class="pay-meta">Patagonia Campaign · DP · Invoice #0041 · Approved ✓</div>
+            </div>
+            <div class="pay-right">
+              <div class="pay-amount">$10,800</div>
+              <button class="pay-action-btn">Pay →</button>
+            </div>
+          </div>
+          <!-- Pending invoice -->
+          <div class="pay-row">
+            <div class="pay-av" style="background:#6366f1;">PB</div>
+            <div class="pay-info">
+              <div class="pay-name">Pat Burns</div>
+              <div class="pay-meta">Oura Ring · Sound · Invoice #0043 · Awaiting approval</div>
+            </div>
+            <div class="pay-right">
+              <div class="pay-amount" style="color:rgba(255,255,255,0.35);">$4,200</div>
+              <button class="pay-action-btn" style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.3);">Pending</button>
+            </div>
+          </div>
+          <div class="pay-queue-footer">
+            <span class="pay-footer-label">Ready to pay</span>
+            <span class="pay-footer-total">$10,800</span>
+          </div>
         </div>
       </div>
     </div>
@@ -3615,7 +3745,7 @@
   function startProgress() {
     // Force reflow so transition fires
     progressFill.getBoundingClientRect();
-    progressFill.style.transition = 'width 5.3s linear';
+    progressFill.style.transition = 'width 9.8s linear';
     progressFill.style.width = '100%';
   }
 
@@ -3635,7 +3765,7 @@
     clearInterval(autoTimer);
     autoTimer = setInterval(function() {
       goToSlide(currentSlide + 1);
-    }, 5500);
+    }, 10500);
   }
 
   tabs.forEach(function(tab, i) {
