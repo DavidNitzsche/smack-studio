@@ -222,7 +222,7 @@ body.mode-light .mode-toggle-thumb{transform:translateX(18px)}
   border-right:1px solid var(--sb-border);
   display:flex;flex-direction:column;
 }
-.sb-top{padding:18px 14px 14px}
+.sb-top{padding:18px 14px 14px;flex:1;display:flex;flex-direction:column}
 .sb-brand{display:flex;align-items:center;gap:9px;margin-bottom:24px}
 .sb-mark{width:24px;height:27px}
 .sb-name{font-size:15px;font-weight:800;color:#fff;letter-spacing:-.02em}
@@ -242,7 +242,7 @@ body.mode-light .mode-toggle-thumb{transform:translateX(18px)}
 .sb-item-active .sb-label{color:#e07868;font-weight:600}
 .sb-item:not(.sb-item-active) .sb-label{color:rgba(255,255,255,0.5)}
 .sb-div{height:1px;background:rgba(255,255,255,0.07);margin:8px 6px}
-.sb-bottom{padding:10px 6px 14px;border-top:1px solid rgba(255,255,255,0.06)}
+.sb-bottom{padding:10px 6px 14px;border-top:1px solid rgba(255,255,255,0.06);margin-top:auto}
 .sb-user{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:8px}
 .sb-avatar{
   width:28px;height:28px;border-radius:50%;
@@ -1932,9 +1932,12 @@ svg.icon{fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;v
             <div class="cal-time-cell"></div>
             <div class="cal-time-cell today" style="position:relative">
               <div class="cal-timed-event cal-timed-blue" style="top:3px;height:70px">
-                <div style="font-size:10px;font-weight:700;color:var(--blue)">Client review call · Oura</div>
+                <div style="font-size:10px;font-weight:700;color:var(--blue)">Client review · Oura</div>
                 <div style="font-size:9px;color:var(--muted)">2:00–3:30pm</div>
-                <div style="font-size:9px;color:var(--muted);margin-top:2px">Zoom link attached</div>
+                <div style="display:flex;align-items:center;gap:4px;margin-top:3px">
+                  <span style="display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:3px;background:#2d8cff;color:#fff;font-size:8px;font-weight:800;flex-shrink:0">Z</span>
+                  <span style="font-size:9px;color:var(--muted)">Zoom link attached</span>
+                </div>
               </div>
             </div>
             <div class="cal-time-cell"></div>
@@ -2436,7 +2439,13 @@ svg.icon{fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;v
           <div class="topbar-heading">Crew</div>
           <div class="topbar-right">
             <div class="input-wrap" style="width:180px"><svg class="input-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="input input-padded" placeholder="Search crew…" style="height:30px;font-size:11px"/></div>
-            <select class="input" style="width:140px;height:30px;font-size:11px;padding:4px 8px"><option>All Roles</option><option>DP</option><option>Gaffer</option><option>Sound</option><option>Editor</option></select>
+            <div style="display:flex;gap:5px;align-items:center">
+              <span style="background:rgba(255,255,255,0.10);border:1px solid rgba(255,255,255,0.18);border-radius:6px;padding:5px 12px;font-size:12px;font-weight:600;color:var(--text);cursor:pointer">All Roles</span>
+              <span style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:5px 12px;font-size:12px;font-weight:500;color:rgba(255,255,255,0.6);cursor:pointer">DP</span>
+              <span style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:5px 12px;font-size:12px;font-weight:500;color:rgba(255,255,255,0.6);cursor:pointer">Editor</span>
+              <span style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:5px 12px;font-size:12px;font-weight:500;color:rgba(255,255,255,0.6);cursor:pointer">Sound</span>
+              <span style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:5px 12px;font-size:12px;font-weight:500;color:rgba(255,255,255,0.6);cursor:pointer">Color</span>
+            </div>
             <button class="btn btn-primary btn-sm">+ Add crew member</button>
           </div>
         </div>
