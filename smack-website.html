@@ -143,27 +143,40 @@
       gap: 64px;
       align-items: center;
     }
-    .hero-eyebrow {
-      display: inline-flex;
+    .hero-brand-moment {
+      display: flex;
       align-items: center;
-      gap: 8px;
-      border: 1px solid rgba(224,120,104,0.45);
-      padding: 6px 12px;
-      border-radius: 100px;
-      margin-bottom: 28px;
+      gap: 16px;
+      margin-bottom: 36px;
     }
-    .hero-eyebrow-jelly { height: 14px; width: auto; }
-    .hero-eyebrow-text {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--salmon);
-      letter-spacing: 0.03em;
+    .hero-brand-moment-jelly { height: 72px; width: auto; filter: drop-shadow(0 0 24px rgba(224,120,104,0.35)); animation: jellyFloat 4s ease-in-out infinite; }
+    @keyframes jellyFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
     }
+    .hero-brand-moment-wordmark {
+      font-family: 'Funtastic', sans-serif;
+      font-size: 56px;
+      color: white;
+      line-height: 1;
+      letter-spacing: -0.01em;
+    }
+    .hero-brand-moment-wordmark span { color: var(--salmon); }
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 16px;
+    }
+    .hero-eyebrow-jelly { display: none; }
+    .hero-eyebrow-text { color: rgba(255,255,255,0.4); }
     .hero-h1 {
-      font-size: 62px;
+      font-size: 52px;
       font-weight: 900;
       letter-spacing: -0.04em;
-      line-height: 1.02;
+      line-height: 1.04;
       color: var(--white);
       margin-bottom: 24px;
     }
@@ -1024,10 +1037,38 @@
     }
 
     /* ── CASH FLOW ─────────────────────────────────── */
+    /* ── GHOST JELLY WATERMARKS ────────────────────── */
+    .ghost-jelly {
+      position: absolute;
+      pointer-events: none;
+      user-select: none;
+      opacity: 0.045;
+    }
+    .ghost-jelly-hero-1 {
+      width: 500px;
+      right: -80px;
+      bottom: -100px;
+      transform: rotate(20deg);
+    }
+    .ghost-jelly-hero-2 {
+      width: 280px;
+      left: -60px;
+      top: 80px;
+      transform: rotate(-30deg);
+    }
+    .ghost-jelly-cashflow {
+      width: 420px;
+      right: -60px;
+      top: 50%;
+      transform: translateY(-50%) rotate(15deg);
+    }
+
     .cashflow {
       background: var(--navy);
       padding: 100px 80px;
       text-align: center;
+      position: relative;
+      overflow: hidden;
     }
     .cashflow-inner {
       max-width: 800px;
@@ -1165,6 +1206,17 @@
     }
     .comparison-after-mark {
       margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .comparison-after-wordmark {
+      font-family: 'Funtastic', sans-serif;
+      font-size: 32px;
+      color: var(--salmon);
+      line-height: 1;
+      letter-spacing: -0.01em;
     }
     .comparison-card.after p {
       font-size: 14px;
@@ -1312,12 +1364,28 @@
       padding: 140px 80px;
       text-align: center;
     }
-    .final-cta-jelly {
-      height: 48px;
-      width: auto;
-      margin: 0 auto 28px;
-      display: block;
+    .final-cta-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      margin: 0 auto 36px;
     }
+    .final-cta-jelly {
+      height: 96px;
+      width: auto;
+      display: block;
+      filter: drop-shadow(0 0 32px rgba(224,120,104,0.5));
+      animation: jellyFloat 4s ease-in-out infinite;
+    }
+    .final-cta-wordmark {
+      font-family: 'Funtastic', sans-serif;
+      font-size: 52px;
+      color: var(--navy);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .final-cta-wordmark span { color: var(--salmon); }
     .final-cta-h2 {
       font-size: 52px;
       font-weight: 900;
@@ -1523,21 +1591,36 @@
 
 <!-- ═══ HERO ═══════════════════════════════════════════ -->
 <section class="hero" id="features">
+  <!-- Ghost jelly watermarks -->
+  <svg class="ghost-jelly ghost-jelly-hero-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" aria-hidden="true">
+    <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+  </svg>
+  <svg class="ghost-jelly ghost-jelly-hero-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" aria-hidden="true">
+    <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+  </svg>
   <div class="hero-inner">
 
     <div class="hero-left">
-      <div data-reveal>
-        <div class="hero-eyebrow">
-          <svg class="hero-eyebrow-jelly" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" aria-hidden="true">
-            <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
-            <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-            <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-            <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-            <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-            <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-          </svg>
-          <span class="hero-eyebrow-text">For production studios</span>
-        </div>
+      <div class="hero-brand-moment" data-reveal>
+        <svg class="hero-brand-moment-jelly" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" aria-label="smack." role="img">
+          <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+          <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+        </svg>
+        <span class="hero-brand-moment-wordmark">smack<span>.</span></span>
       </div>
       <h1 class="hero-h1" data-reveal>One place to run<br>your studio.</h1>
       <p class="hero-sub" data-reveal>Contractor booking. Client invoices. Project P&amp;L. Client portals. Built for studios that produce — not plan.</p>
@@ -2012,6 +2095,14 @@
 
 <!-- ═══ CASH FLOW ══════════════════════════════════════ -->
 <section class="cashflow">
+  <svg class="ghost-jelly ghost-jelly-cashflow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" aria-hidden="true">
+    <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+  </svg>
   <div class="cashflow-inner">
     <p class="section-eyebrow" data-reveal>Cash flow</p>
     <h2 class="section-h2" data-reveal>Know your number before month-end.</h2>
@@ -2095,7 +2186,7 @@
       <div class="comparison-card after" data-reveal>
         <div class="comparison-card-label">After</div>
         <div class="comparison-after-mark">
-          <svg style="height:32px;width:auto;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" aria-hidden="true">
+          <svg style="height:64px;width:auto;filter:drop-shadow(0 0 16px rgba(224,120,104,0.4));" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" aria-hidden="true">
             <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
             <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
             <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
@@ -2103,6 +2194,7 @@
             <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
             <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
           </svg>
+          <span class="comparison-after-wordmark">smack<span style="color:rgba(224,120,104,0.6)">.</span></span>
         </div>
         <p><strong>One place.</strong> Booking confirmed before you commit. Invoice sent in 3 minutes. Client approves from their portal. <strong>P&amp;L is always current.</strong></p>
       </div>
@@ -2199,14 +2291,17 @@
 
 <!-- ═══ FINAL CTA ══════════════════════════════════════ -->
 <section class="final-cta" id="access">
-  <svg class="final-cta-jelly" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" aria-hidden="true" data-reveal>
-    <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
-    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-    <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-  </svg>
+  <div class="final-cta-brand" data-reveal>
+    <svg class="final-cta-jelly" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" aria-hidden="true">
+      <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+      <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+      <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+      <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+      <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+      <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+    </svg>
+    <span class="final-cta-wordmark">smack<span>.</span></span>
+  </div>
   <h2 class="final-cta-h2" data-reveal>Ready to stop duct-taping your studio together?</h2>
   <p class="final-cta-sub" data-reveal>Apply for early access. We're onboarding post-production and creative studios during our invite-only launch.</p>
   <div class="final-cta-form" data-reveal>
@@ -2223,12 +2318,12 @@
       <div>
         <div class="footer-brand-mark">
           <svg class="footer-jelly" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6" aria-hidden="true">
-            <path fill="rgba(255,255,255,0.7)" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
-            <path fill="none" stroke="rgba(255,255,255,0.7)" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-            <path fill="none" stroke="rgba(255,255,255,0.7)" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-            <path fill="none" stroke="rgba(255,255,255,0.7)" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-            <path fill="none" stroke="rgba(255,255,255,0.7)" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-            <path fill="none" stroke="rgba(255,255,255,0.7)" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+            <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
+            <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+            <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+            <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+            <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
+            <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="8" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
           </svg>
           <span class="footer-wordmark">smack<span>.</span></span>
         </div>
