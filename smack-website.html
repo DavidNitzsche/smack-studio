@@ -499,9 +499,14 @@
     .problem {
       background: var(--off-white);
       padding: 80px 80px;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .problem-inner {
       max-width: 1100px;
+      width: 100%;
       margin: 0 auto;
     }
     .problem-label {
@@ -1421,7 +1426,6 @@
       border-radius: 2px;
     }
 
-    /* ── COMPARISON ────────────────────────────────── */
     /* ── REPLACEMENT STORY ───────────────────────────── */
     .replacement {
       background: var(--off-white);
@@ -1432,15 +1436,16 @@
       justify-content: center;
     }
     .replacement-inner {
-      max-width: 1100px;
+      max-width: 1160px;
       margin: 0 auto;
+      width: 100%;
     }
     .replacement-header {
       text-align: center;
-      margin-bottom: 56px;
+      margin-bottom: 64px;
     }
     .replacement-h2 {
-      font-size: 46px;
+      font-size: 48px;
       font-weight: 900;
       letter-spacing: -0.04em;
       color: var(--navy);
@@ -1449,67 +1454,116 @@
     .replacement-h2 em { font-style: normal; color: var(--salmon); }
     .replacement-cols {
       display: grid;
-      grid-template-columns: 2fr 3fr;
+      grid-template-columns: 1fr 1fr;
       border-radius: 20px;
       overflow: hidden;
-      border: 1px solid rgba(0,0,0,0.07);
+      border: 1px solid rgba(0,0,0,0.08);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.08);
     }
+    /* ── LEFT: CHAOS ZONE ── */
     .replacement-before {
-      background: #fdf5f5;
-      border-right: 1px solid #fecaca;
-      padding: 48px;
+      background: #f9f4f0;
+      border-right: 1px solid rgba(0,0,0,0.08);
+      padding: 48px 40px 40px;
       display: flex;
       flex-direction: column;
-    }
-    .replacement-after {
-      background: var(--navy);
-      padding: 48px;
-      display: flex;
-      flex-direction: column;
+      position: relative;
+      overflow: hidden;
     }
     .rp-label {
       font-size: 10px;
       font-weight: 800;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      margin-bottom: 28px;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .rp-label-red { color: #ef4444; }
-    .rp-label-salmon { color: var(--salmon); opacity: 0.8; }
-    .replacement-wordmark {
-      display: block;
-      font-family: 'Funtastic', sans-serif;
-      font-size: 30px;
-      color: var(--salmon);
-      letter-spacing: -0.01em;
-      line-height: 1;
-      margin-bottom: 28px;
+    .rp-label-badge {
+      background: #fee2e2;
+      color: #ef4444;
+      font-size: 9px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 100px;
+      letter-spacing: 0.06em;
     }
-    .replacement-wordmark span { color: rgba(224,120,104,0.4); }
-    .rt-app-cards { display: flex; flex-direction: column; gap: 8px; flex: 1; }
-    .rt-app-card {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 12px;
+    /* Scattered app window cards */
+    .chaos-zone {
+      position: relative;
+      flex: 1;
+      min-height: 360px;
+    }
+    .chaos-win {
+      position: absolute;
+      width: 268px;
       background: white;
-      border-radius: 10px;
-      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 9px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.15), 0 2px 8px rgba(0,0,0,0.08);
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.07);
     }
-    .rt-app-icon {
-      width: 34px;
-      height: 34px;
-      border-radius: 8px;
+    .chaos-win-bar {
       display: flex;
       align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
+      gap: 7px;
+      padding: 7px 10px;
     }
-    .rt-app-info { flex: 1; min-width: 0; }
-    .rt-app-name { font-size: 12px; font-weight: 700; color: #374151; margin-bottom: 1px; }
-    .rt-app-task { font-size: 11px; color: #9ca3af; line-height: 1.3; }
+    .chaos-dots { display: flex; gap: 4px; flex-shrink: 0; }
+    .chaos-dots span { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.35); display: block; }
+    .chaos-win-title { font-size: 10px; color: rgba(255,255,255,0.85); font-weight: 500; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+    .chaos-badge {
+      background: white;
+      font-size: 8px;
+      font-weight: 800;
+      padding: 1px 5px;
+      border-radius: 100px;
+      flex-shrink: 0;
+      line-height: 1.5;
+    }
+    .chaos-gmail { top: 0; left: -8px; transform: rotate(-4deg); z-index: 1; }
+    .chaos-sheets { top: 28px; left: 52px; transform: rotate(3.5deg); z-index: 2; }
+    .chaos-imsg { top: 120px; left: 4px; transform: rotate(-2deg); z-index: 3; }
+    /* Gmail body */
+    .chaos-email-rows { padding: 6px 10px 8px; }
+    .chaos-email-row { display: flex; gap: 6px; align-items: baseline; padding: 5px 0; border-bottom: 1px solid #f3f4f6; }
+    .chaos-email-row:last-child { border-bottom: none; }
+    .chaos-email-dot { width: 5px; height: 5px; border-radius: 50%; background: #3b82f6; flex-shrink: 0; margin-top: 4px; }
+    .chaos-email-dot.invisible { opacity: 0; }
+    .chaos-email-name { font-size: 10px; font-weight: 700; color: #111; white-space: nowrap; min-width: 72px; }
+    .chaos-email-sub { font-size: 10px; color: #6b7280; flex: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; min-width: 0; }
+    .chaos-email-time { font-size: 9px; color: #9ca3af; white-space: nowrap; }
+    .chaos-email-row.read .chaos-email-name { font-weight: 500; color: #6b7280; }
+    /* Sheets body */
+    .chaos-sheet-body { padding: 0; }
+    .chaos-sheet-table { width: 100%; border-collapse: collapse; font-size: 9px; }
+    .chaos-sheet-table th { background: #e8f5e9; color: #2e7d32; font-size: 9px; font-weight: 700; padding: 4px 7px; border: 1px solid #c8e6c9; text-align: center; white-space: nowrap; }
+    .chaos-sheet-table th:first-child { text-align: left; }
+    .chaos-sheet-table td { padding: 4px 7px; border: 1px solid #f3f4f6; color: #374151; text-align: center; white-space: nowrap; font-size: 9px; }
+    .chaos-sheet-table td:first-child { text-align: left; font-weight: 600; color: #111; }
+    .chaos-cell-hold { background: #fffde7; color: #f59e0b; font-weight: 700; border-radius: 3px; padding: 1px 4px; }
+    .chaos-cell-free { color: #9ca3af; }
+    .chaos-cell-book { background: #e8f5e9; color: #059669; font-weight: 700; border-radius: 3px; padding: 1px 4px; }
+    .chaos-sheet-warn { background: #fff3e0; padding: 5px 8px; font-size: 9px; color: #d97706; font-weight: 600; border-top: 1px solid #fed7aa; display: flex; align-items: center; gap: 4px; }
+    /* iMessage body */
+    .chaos-imsg-body { padding: 8px 10px; display: flex; flex-direction: column; gap: 5px; background: white; }
+    .chaos-bubble { max-width: 200px; padding: 6px 9px; border-radius: 10px; font-size: 10px; line-height: 1.4; }
+    .chaos-bubble.them { background: #f0f0f0; color: #111; border-bottom-left-radius: 3px; align-self: flex-start; }
+    .chaos-bubble.me { background: #007aff; color: white; border-bottom-right-radius: 3px; align-self: flex-end; }
+    .chaos-bubble.them.red { background: #fee2e2; color: #dc2626; }
+    /* App icon pills at bottom of chaos zone */
+    .chaos-app-pills { display: flex; gap: 5px; flex-wrap: wrap; margin-top: auto; padding-top: 20px; }
+    .chaos-app-pill {
+      display: flex; align-items: center; gap: 5px;
+      background: white; border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 100px; padding: 3px 8px 3px 5px;
+      font-size: 10px; font-weight: 600; color: #374151;
+    }
+    .chaos-app-pill-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
     .rt-footer-line {
-      margin-top: 32px;
+      margin-top: 24px;
       font-size: 10px;
       font-weight: 800;
       letter-spacing: 0.08em;
@@ -1518,40 +1572,155 @@
     }
     .rt-footer-line.red { color: #ef4444; }
     .rt-footer-line.salmon { color: var(--salmon); }
-    .rf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; flex: 1; }
-    .rf-group-label {
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--salmon);
-      opacity: 0.7;
-      margin-bottom: 13px;
-    }
-    .rf-list {
-      list-style: none;
+
+    /* ── RIGHT: SMACK UNIFIED ── */
+    .replacement-after {
+      background: var(--navy);
+      padding: 48px 40px 40px;
       display: flex;
       flex-direction: column;
+    }
+    .rp-label-salmon { color: var(--salmon); opacity: 0.9; }
+    .replacement-wordmark {
+      display: block;
+      font-family: 'Funtastic', sans-serif;
+      font-size: 26px;
+      color: var(--salmon);
+      letter-spacing: -0.01em;
+      line-height: 1;
+      margin-bottom: 28px;
+    }
+    .replacement-wordmark span { color: rgba(224,120,104,0.4); }
+    /* Smack unified UI preview */
+    .smack-ui-preview {
+      background: #0d1826;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.07);
+      overflow: hidden;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .sup-topbar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.03);
+    }
+    .sup-topbar-dots { display: flex; gap: 4px; }
+    .sup-topbar-dots span { width: 7px; height: 7px; border-radius: 50%; display: block; }
+    .sup-topbar-dots span:nth-child(1) { background: rgba(255,95,87,0.5); }
+    .sup-topbar-dots span:nth-child(2) { background: rgba(254,188,46,0.5); }
+    .sup-topbar-dots span:nth-child(3) { background: rgba(40,200,64,0.5); }
+    .sup-topbar-label { font-size: 11px; color: rgba(255,255,255,0.3); font-weight: 500; flex: 1; text-align: center; }
+    .sup-body { display: grid; grid-template-columns: 130px 1fr; flex: 1; }
+    .sup-sidebar {
+      border-right: 1px solid rgba(255,255,255,0.05);
+      padding: 14px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .sup-nav-item {
+      padding: 7px 14px;
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.35);
+      cursor: default;
+      border-radius: 0;
+      display: flex;
+      align-items: center;
       gap: 8px;
     }
-    .rf-list li {
-      font-size: 13px;
-      color: rgba(255,255,255,0.6);
-      line-height: 1.4;
-      padding-left: 14px;
-      position: relative;
+    .sup-nav-item.active { color: white; background: rgba(255,255,255,0.07); }
+    .sup-nav-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--salmon); flex-shrink: 0; opacity: 0; }
+    .sup-nav-item.active .sup-nav-dot { opacity: 1; }
+    .sup-main { padding: 16px; display: flex; flex-direction: column; gap: 12px; overflow: hidden; }
+    .sup-proj-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2px;
     }
-    .rf-list li::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 7px;
-      width: 4px;
-      height: 4px;
+    .sup-proj-name { font-size: 13px; font-weight: 800; color: white; letter-spacing: -0.02em; }
+    .sup-proj-phase {
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 100px;
+      background: rgba(52,211,153,0.15);
+      color: #34d399;
+    }
+    .sup-section {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .sup-section-label {
+      font-size: 8px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.2);
+      margin-bottom: 2px;
+    }
+    .sup-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 7px;
+      padding: 7px 10px;
+    }
+    .sup-av {
+      width: 22px; height: 22px;
       border-radius: 50%;
-      background: var(--salmon);
-      opacity: 0.55;
+      font-size: 8px;
+      font-weight: 700;
+      color: white;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
     }
+    .sup-row-label { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.75); flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sup-row-sub { font-size: 9px; color: rgba(255,255,255,0.3); }
+    .sup-chip {
+      font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 100px; white-space: nowrap; flex-shrink: 0;
+    }
+    .sup-chip.green { background: rgba(52,211,153,0.15); color: #34d399; }
+    .sup-chip.amber { background: rgba(251,191,36,0.15); color: #fbbf24; }
+    .sup-chip.blue { background: rgba(96,165,250,0.15); color: #60a5fa; }
+    .sup-chip.salmon { background: rgba(224,120,104,0.15); color: #e07868; }
+    .sup-invoice-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 7px;
+      padding: 9px 10px;
+    }
+    .sup-inv-left { display: flex; flex-direction: column; gap: 2px; }
+    .sup-inv-num { font-size: 9px; color: rgba(255,255,255,0.3); font-weight: 600; }
+    .sup-inv-client { font-size: 11px; font-weight: 700; color: white; }
+    .sup-inv-right { display: flex; align-items: center; gap: 10px; }
+    .sup-inv-amount { font-size: 13px; font-weight: 800; color: var(--salmon); letter-spacing: -0.02em; }
+    .sup-user-bar {
+      padding: 10px 14px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: auto;
+    }
+    .sup-user-av {
+      width: 22px; height: 22px; border-radius: 50%; background: #c06050;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 8px; font-weight: 700; color: white; flex-shrink: 0;
+    }
+    .sup-user-name { font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.45); }
 
     /* ── DARK / LIGHT MODE ───────────────────────────── */
     .theme-section { background: white; padding: 80px 80px; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
@@ -2552,6 +2721,9 @@
     .carousel-section {
       background: var(--navy);
       padding: 100px 0 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
     .carousel-header {
       padding: 0 80px 64px;
@@ -2629,6 +2801,7 @@
     .carousel-slides {
       overflow: hidden;
       position: relative;
+      flex: 1;
     }
     .carousel-slide {
       display: none;
@@ -2638,7 +2811,8 @@
       grid-template-columns: 45fr 55fr;
       gap: 0;
       align-items: center;
-      padding: 56px 80px 100px;
+      padding: 56px 80px 80px;
+      min-height: 460px;
       animation: slideFadeIn 0.4s ease;
     }
     @keyframes slideFadeIn {
@@ -3017,54 +3191,7 @@
       flex-shrink: 0;
     }
 
-    /* ── LOADER ──────────────────────────────────────── */
-    #smack-loader {
-      position: fixed;
-      inset: 0;
-      background: linear-gradient(160deg, #060e1a 0%, #0f1d30 60%, #152240 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      transition: opacity 0.6s ease;
-      gap: 10px;
-    }
-    #smack-loader.fade-out { opacity: 0; pointer-events: none; }
-    .loader-brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 32px;
-      opacity: 0;
-      animation: loaderItemIn 0.5s ease 0.1s forwards;
-    }
-    .loader-brand-jelly { width: 28px; height: auto; }
-    .loader-brand-word {
-      font-family: 'Funtastic', sans-serif;
-      font-size: 22px;
-      color: white;
-      line-height: 1;
-    }
-    .loader-brand-word span { color: var(--salmon); }
-    .loader-greeting {
-      font-size: 28px;
-      font-weight: 800;
-      color: white;
-      letter-spacing: -0.03em;
-      opacity: 0;
-      animation: loaderItemIn 0.5s ease 0.35s forwards;
-    }
-    .loader-studio {
-      font-size: 13px;
-      color: rgba(255,255,255,0.35);
-      opacity: 0;
-      animation: loaderItemIn 0.5s ease 0.55s forwards;
-    }
-    @keyframes loaderItemIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    /* ── LOADER (removed — kept as in-app moment for first login) ── */
 
     /* ── GRID TEXTURE (hero + final CTA) ─────────────── */
     .grid-texture {
@@ -3101,23 +3228,6 @@
   </style>
 </head>
 <body>
-
-<!-- ═══ LOADER ════════════════════════════════════════ -->
-<div id="smack-loader" aria-hidden="true">
-  <div class="loader-brand">
-    <svg class="loader-brand-jelly" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190.75 218.6">
-      <path fill="#e07868" d="M9.49,80.48c-5.67,0-10.05-4.14-9.44-8.87C5.32,31.33,45.99,0,95.37,0s90.05,31.33,95.32,71.6c.62,4.73-3.77,8.87-9.44,8.87H9.49Z"/>
-      <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="10" d="M31.45,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-      <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="10" d="M59.41,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-      <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="10" d="M95.37,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-      <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="10" d="M131.33,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-      <path fill="none" stroke="#e07868" stroke-linecap="round" stroke-miterlimit="16" stroke-width="10" d="M159.3,80.48c-7.99,46.94,7.99,80.48,0,134.13"/>
-    </svg>
-    <span class="loader-brand-word">smack<span>.</span></span>
-  </div>
-  <div class="loader-greeting">Good morning, David.</div>
-  <div class="loader-studio">Workprint Studios · Tuesday, April 8</div>
-</div>
 
 <!-- ═══ NAV ═══════════════════════════════════════════ -->
 <nav class="nav" id="main-nav">
@@ -4043,136 +4153,175 @@
       <h2 class="replacement-h2">Everything you're paying for.<br><em>Replaced.</em></h2>
     </div>
     <div class="replacement-cols" data-reveal>
+
+      <!-- LEFT: Current chaotic stack -->
       <div class="replacement-before">
-        <div class="rp-label rp-label-red">Your current stack</div>
-        <div class="rt-app-cards">
-
-          <div class="rt-app-card">
-            <div class="rt-app-icon" style="background:#EA4335">
-              <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-                <rect x="2" y="4" width="16" height="13" rx="1.5" stroke="white" stroke-width="1.5"/>
-                <path d="M2,6 L10,12 L18,6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div class="rt-app-info">
-              <div class="rt-app-name">Gmail</div>
-              <div class="rt-app-task">Booking lives in threads. Nothing tracked.</div>
-            </div>
-          </div>
-
-          <div class="rt-app-card">
-            <div class="rt-app-icon" style="background:#34AADC">
-              <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-                <path d="M3,3 h14 a1.5,1.5 0 0 1 1.5,1.5 v7 a1.5,1.5 0 0 1-1.5,1.5 H9 L4,16 V13 H3 a1.5,1.5 0 0 1-1.5-1.5 V4.5 A1.5,1.5 0 0 1 3,3z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div class="rt-app-info">
-              <div class="rt-app-name">iMessage</div>
-              <div class="rt-app-task">Crew confirmations lost in texts.</div>
-            </div>
-          </div>
-
-          <div class="rt-app-card">
-            <div class="rt-app-icon" style="background:#34A853">
-              <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-                <rect x="2" y="2" width="16" height="16" rx="1.5" stroke="white" stroke-width="1.5"/>
-                <line x1="2" y1="7" x2="18" y2="7" stroke="white" stroke-width="1.2"/>
-                <line x1="2" y1="12" x2="18" y2="12" stroke="white" stroke-width="1.2"/>
-                <line x1="7.5" y1="2" x2="7.5" y2="18" stroke="white" stroke-width="1.2"/>
-                <line x1="13" y1="2" x2="13" y2="18" stroke="white" stroke-width="1.2"/>
-              </svg>
-            </div>
-            <div class="rt-app-info">
-              <div class="rt-app-name">Google Sheets</div>
-              <div class="rt-app-task">Availability tracker always stale.</div>
-            </div>
-          </div>
-
-          <div class="rt-app-card">
-            <div class="rt-app-icon" style="background:#0077C5">
-              <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-                <path d="M4,3 h8 a4,4 0 0 1 4,4 v0 a4,4 0 0 1-4,4 H8 v6 H4 Z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
-                <circle cx="12" cy="7" r="1.5" fill="white"/>
-              </svg>
-            </div>
-            <div class="rt-app-info">
-              <div class="rt-app-name">QuickBooks</div>
-              <div class="rt-app-task">P&amp;L lives with your accountant.</div>
-            </div>
-          </div>
-
-          <div class="rt-app-card">
-            <div class="rt-app-icon" style="background:#4285F4">
-              <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-                <rect x="2" y="3" width="16" height="15" rx="1.5" stroke="white" stroke-width="1.5"/>
-                <line x1="2" y1="8" x2="18" y2="8" stroke="white" stroke-width="1.5"/>
-                <line x1="7" y1="3" x2="7" y2="8" stroke="white" stroke-width="1.5"/>
-                <line x1="13" y1="3" x2="13" y2="8" stroke="white" stroke-width="1.5"/>
-                <rect x="5" y="11" width="3" height="2.5" rx="0.5" fill="white" opacity="0.7"/>
-                <rect x="9.5" y="11" width="3" height="2.5" rx="0.5" fill="white" opacity="0.7"/>
-              </svg>
-            </div>
-            <div class="rt-app-info">
-              <div class="rt-app-name">Google Calendar</div>
-              <div class="rt-app-task">Events, not projects. Crew not in it.</div>
-            </div>
-          </div>
-
-          <div class="rt-app-card">
-            <div class="rt-app-icon" style="background:#0061FF">
-              <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-                <path d="M10,3 L14.5,6.5 L10,10 L5.5,6.5 Z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
-                <path d="M5.5,6.5 L1.5,10 L5.5,13.5 L10,10" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
-                <path d="M14.5,6.5 L18.5,10 L14.5,13.5 L10,10" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
-                <path d="M5.5,13.5 L10,17 L14.5,13.5" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div class="rt-app-info">
-              <div class="rt-app-name">Dropbox + Drive</div>
-              <div class="rt-app-task">Files exist. Invoice is a template.</div>
-            </div>
-          </div>
-
+        <div class="rp-label rp-label-red">
+          Your current stack
+          <span class="rp-label-badge">6 apps</span>
         </div>
-        <div class="rt-footer-line red">6 apps. Zero coordination.</div>
+
+        <div class="chaos-zone">
+          <!-- Gmail window (back, rotated left) -->
+          <div class="chaos-win chaos-gmail">
+            <div class="chaos-win-bar" style="background:#c0392b">
+              <div class="chaos-dots"><span></span><span></span><span></span></div>
+              <span class="chaos-win-title">Gmail — Inbox (43 unread)</span>
+              <span class="chaos-badge" style="color:#c0392b">43</span>
+            </div>
+            <div class="chaos-email-rows">
+              <div class="chaos-email-row">
+                <span class="chaos-email-dot"></span>
+                <span class="chaos-email-name">Marcus Kim</span>
+                <span class="chaos-email-sub">RE: RE: RE: Avail check for Patagonia —</span>
+                <span class="chaos-email-time">3:41 PM</span>
+              </div>
+              <div class="chaos-email-row">
+                <span class="chaos-email-dot"></span>
+                <span class="chaos-email-name">Oura</span>
+                <span class="chaos-email-sub">RE: Final delivery — where is the fi…</span>
+                <span class="chaos-email-time">11:02 AM</span>
+              </div>
+              <div class="chaos-email-row read">
+                <span class="chaos-email-dot invisible"></span>
+                <span class="chaos-email-name">David N.</span>
+                <span class="chaos-email-sub">RE: Invoice #0041 — no PO number yet</span>
+                <span class="chaos-email-time">Mon</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sheets window (middle, rotated right) -->
+          <div class="chaos-win chaos-sheets">
+            <div class="chaos-win-bar" style="background:#1e7e34">
+              <div class="chaos-dots"><span></span><span></span><span></span></div>
+              <span class="chaos-win-title">Avail_Tracker_2026_FINAL(3).xlsx</span>
+            </div>
+            <div class="chaos-sheet-body">
+              <table class="chaos-sheet-table">
+                <thead>
+                  <tr>
+                    <th>Name</th><th>Apr 14</th><th>Apr 15</th><th>Apr 16</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Marcus K.</td>
+                    <td><span class="chaos-cell-hold">Hold?</span></td>
+                    <td><span class="chaos-cell-hold">Hold?</span></td>
+                    <td><span class="chaos-cell-free">—</span></td>
+                  </tr>
+                  <tr>
+                    <td>Jamie R.</td>
+                    <td><span class="chaos-cell-book">✓</span></td>
+                    <td><span class="chaos-cell-book">✓</span></td>
+                    <td><span class="chaos-cell-free">—</span></td>
+                  </tr>
+                  <tr>
+                    <td>Alex L.</td>
+                    <td><span class="chaos-cell-free">?</span></td>
+                    <td><span class="chaos-cell-free">?</span></td>
+                    <td><span class="chaos-cell-free">?</span></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="chaos-sheet-warn">⚠ Last updated 3 days ago</div>
+            </div>
+          </div>
+
+          <!-- iMessage window (front, slight rotate) -->
+          <div class="chaos-win chaos-imsg">
+            <div class="chaos-win-bar" style="background:#1a1a1a">
+              <div class="chaos-dots"><span></span><span></span><span></span></div>
+              <span class="chaos-win-title">Marcus Kim · iMessage</span>
+              <span class="chaos-badge" style="color:#1a1a1a">2</span>
+            </div>
+            <div class="chaos-imsg-body">
+              <div class="chaos-bubble them">Hey did you confirm the booking for the 14th?</div>
+              <div class="chaos-bubble me">Check the sheet — I think Jamie has it</div>
+              <div class="chaos-bubble them red">The sheet hasn't been updated in days 😤</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- App pills row -->
+        <div class="chaos-app-pills">
+          <div class="chaos-app-pill"><span class="chaos-app-pill-dot" style="background:#EA4335"></span>Gmail</div>
+          <div class="chaos-app-pill"><span class="chaos-app-pill-dot" style="background:#34A853"></span>Sheets</div>
+          <div class="chaos-app-pill"><span class="chaos-app-pill-dot" style="background:#34AADC"></span>iMessage</div>
+          <div class="chaos-app-pill"><span class="chaos-app-pill-dot" style="background:#0077C5"></span>QuickBooks</div>
+          <div class="chaos-app-pill"><span class="chaos-app-pill-dot" style="background:#4285F4"></span>Calendar</div>
+          <div class="chaos-app-pill"><span class="chaos-app-pill-dot" style="background:#0061FF"></span>Dropbox</div>
+        </div>
+        <div class="rt-footer-line red" style="margin-top:16px">6 apps. Zero coordination.</div>
       </div>
+
+      <!-- RIGHT: smack unified -->
       <div class="replacement-after">
-        <span class="replacement-wordmark">smack<span>.</span></span>
-        <div class="rf-grid">
-          <div>
-            <div class="rf-group-label">Crew</div>
-            <ul class="rf-list">
-              <li>Availability checks — one or your whole roster</li>
-              <li>Live email preview before every send</li>
-              <li>1st hold / 2nd hold / unavailable, tracked automatically</li>
-              <li>Challenge flow — incoming &amp; outgoing, 24h deadline</li>
-              <li>Crew matrix — every person, every day, every project</li>
-              <li>Conflicts flagged before they happen</li>
-              <li>Contractor portal — respond, confirm, submit time</li>
-              <li>Unlimited contractors, no seat limits</li>
-            </ul>
+        <div class="rp-label rp-label-salmon">smack.</div>
+
+        <div class="smack-ui-preview">
+          <div class="sup-topbar">
+            <div class="sup-topbar-dots"><span></span><span></span><span></span></div>
+            <span class="sup-topbar-label">smack.studio</span>
           </div>
-          <div>
-            <div class="rf-group-label">Finance</div>
-            <ul class="rf-list">
-              <li>Invoices built and sent in 3 minutes</li>
-              <li>Track opened, viewed, paid, overdue</li>
-              <li>Auto-reminders on overdue invoices</li>
-              <li>Cash flow and P&amp;L — always current</li>
-              <li>Per-project revenue, expenses, and net</li>
-              <li>Client portal — approve in one click, no login</li>
-            </ul>
-            <div class="rf-group-label" style="margin-top:22px">Studio</div>
-            <ul class="rf-list">
-              <li>Project dashboard with phase tracking</li>
-              <li>Crew, invoices, and files in every project</li>
-              <li>Schedule — week view, projects and events</li>
-              <li>Built for post: editors, colorists, sound, VFX</li>
-            </ul>
+          <div class="sup-body">
+            <div class="sup-sidebar">
+              <div class="sup-nav-item active"><span class="sup-nav-dot"></span>Projects</div>
+              <div class="sup-nav-item">Crew</div>
+              <div class="sup-nav-item">Invoices</div>
+              <div class="sup-nav-item">Schedule</div>
+              <div class="sup-nav-item">Cash Flow</div>
+            </div>
+            <div class="sup-main">
+              <div class="sup-proj-header">
+                <span class="sup-proj-name">Patagonia Campaign</span>
+                <span class="sup-proj-phase">In Production</span>
+              </div>
+
+              <div class="sup-section">
+                <div class="sup-section-label">Crew Availability</div>
+                <div class="sup-row">
+                  <div class="sup-av" style="background:#c06050">MK</div>
+                  <span class="sup-row-label">Marcus Kim · DP</span>
+                  <span class="sup-chip green">1st Hold</span>
+                </div>
+                <div class="sup-row">
+                  <div class="sup-av" style="background:#7c6ff7">JR</div>
+                  <span class="sup-row-label">Jamie Rodriguez · 1st AC</span>
+                  <span class="sup-chip amber">2nd Hold</span>
+                </div>
+                <div class="sup-row">
+                  <div class="sup-av" style="background:#059669">AL</div>
+                  <span class="sup-row-label">Alex Liu · Gaffer</span>
+                  <span class="sup-chip blue">Confirmed</span>
+                </div>
+              </div>
+
+              <div class="sup-section">
+                <div class="sup-section-label">Invoice</div>
+                <div class="sup-invoice-row">
+                  <div class="sup-inv-left">
+                    <span class="sup-inv-num">Invoice #0041</span>
+                    <span class="sup-inv-client">Patagonia Inc.</span>
+                  </div>
+                  <div class="sup-inv-right">
+                    <span class="sup-inv-amount">$26,700</span>
+                    <span class="sup-chip green">Sent</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sup-user-bar">
+            <div class="sup-user-av">DN</div>
+            <span class="sup-user-name">David N. / Workprint</span>
           </div>
         </div>
-        <div class="rt-footer-line salmon" style="margin-top:32px">One tool. Everything connected.</div>
+
+        <div class="rt-footer-line salmon" style="margin-top:20px; opacity:0.6;">One tool. Everything connected.</div>
       </div>
+
     </div>
   </div>
 </section>
@@ -4776,19 +4925,7 @@
 </footer>
 
 <script>
-/* ── LOADER ──────────────────────────────────────── */
-(function() {
-  var loader = document.getElementById('smack-loader');
-  if (!loader) return;
-  function hideLoader() {
-    setTimeout(function() {
-      loader.classList.add('fade-out');
-      setTimeout(function() { if (loader.parentNode) loader.parentNode.removeChild(loader); }, 800);
-    }, 1900);
-  }
-  if (document.readyState === 'complete') { hideLoader(); }
-  else { window.addEventListener('load', hideLoader); }
-})();
+/* Loader removed from website — reserved as in-app first-login moment */
 
 /* ── DARK/LIGHT DRAG SLIDER ─────────────────────── */
 (function() {
