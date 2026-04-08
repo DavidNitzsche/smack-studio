@@ -1615,6 +1615,81 @@
       line-height: 1.55;
     }
 
+    /* ── RECAP SECTION ────────────────────────────── */
+    .recap {
+      background: var(--navy);
+      padding: 120px 80px;
+    }
+    .recap-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .recap-intro {
+      margin-bottom: 64px;
+    }
+    .recap-kicker {
+      font-size: 14px;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 12px;
+      font-style: italic;
+    }
+    .recap-h2 {
+      font-size: 48px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: white;
+      line-height: 1.06;
+    }
+    .recap-h2 span { color: var(--salmon); }
+    .recap-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+    }
+    .recap-col {
+      padding: 0 48px 0 0;
+      border-right: 1px solid rgba(255,255,255,0.07);
+    }
+    .recap-col:last-child {
+      border-right: none;
+      padding: 0 0 0 48px;
+    }
+    .recap-col:nth-child(2) {
+      padding: 0 48px;
+    }
+    .recap-col-label {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--salmon);
+      margin-bottom: 20px;
+      opacity: 0.8;
+    }
+    .recap-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+    .recap-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.45;
+    }
+    .recap-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--salmon);
+      flex-shrink: 0;
+      margin-top: 6px;
+      opacity: 0.7;
+    }
+
     /* ── FINAL CTA ─────────────────────────────────── */
     .final-cta {
       background: var(--off-white);
@@ -3328,6 +3403,58 @@
         <div class="cs-title">Custom reports</div>
         <div class="cs-desc">Export P&amp;L by project, quarter, or client. Formatted for your accountant, ready to share.</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ RECAP ══════════════════════════════════════════ -->
+<section class="recap">
+  <div class="recap-inner">
+    <div class="recap-intro" data-reveal>
+      <p class="recap-kicker">We know that's a lot.</p>
+      <h2 class="recap-h2">Here's everything<br><span>smack.</span> does.</h2>
+    </div>
+    <div class="recap-grid" data-reveal>
+
+      <div class="recap-col">
+        <div class="recap-col-label">Crew</div>
+        <ul class="recap-list">
+          <li><span class="recap-dot"></span>Send availability checks to one contractor or your whole roster</li>
+          <li><span class="recap-dot"></span>Live email preview — see exactly what they receive before you send</li>
+          <li><span class="recap-dot"></span>1st hold, 2nd hold, and unavailable responses tracked automatically</li>
+          <li><span class="recap-dot"></span>Challenge flow: incoming and outgoing, 24h deadline enforced</li>
+          <li><span class="recap-dot"></span>Crew availability matrix — every person, every day, every project</li>
+          <li><span class="recap-dot"></span>Conflicts flagged before they happen</li>
+          <li><span class="recap-dot"></span>Contractor portal — they respond, confirm, and track from their own link</li>
+          <li><span class="recap-dot"></span>Unlimited contractor roster, no seat limits</li>
+        </ul>
+      </div>
+
+      <div class="recap-col">
+        <div class="recap-col-label">Projects & Finance</div>
+        <ul class="recap-list">
+          <li><span class="recap-dot"></span>Project dashboard with phase tracking — offline, online, color, sound, delivery</li>
+          <li><span class="recap-dot"></span>Crew, invoices, and files linked to every project</li>
+          <li><span class="recap-dot"></span>Build and send invoices directly from the project</li>
+          <li><span class="recap-dot"></span>Track opened, viewed, paid, and overdue</li>
+          <li><span class="recap-dot"></span>Auto-reminders on overdue invoices</li>
+          <li><span class="recap-dot"></span>Cash flow and P&L always current — no waiting for month-end</li>
+          <li><span class="recap-dot"></span>Per-project revenue, expenses, and net</li>
+          <li><span class="recap-dot"></span>Client portal — shareable link, no login required, approve in one click</li>
+        </ul>
+      </div>
+
+      <div class="recap-col">
+        <div class="recap-col-label">Studio</div>
+        <ul class="recap-list">
+          <li><span class="recap-dot"></span>Schedule — week view with all-day project bars and timed events</li>
+          <li><span class="recap-dot"></span>Everything in one place — no Gmail, Sheets, QuickBooks, or iMessage</li>
+          <li><span class="recap-dot"></span>Built for post-production: editors, colorists, sound designers, VFX</li>
+          <li><span class="recap-dot"></span>Invite-only launch — we onboard studios selectively</li>
+          <li><span class="recap-dot"></span><em style="opacity:0.45">Coming: Zoom integration, mobile app, contractor payments, CSV import, client review app</em></li>
+        </ul>
+      </div>
+
     </div>
   </div>
 </section>
